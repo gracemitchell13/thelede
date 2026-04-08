@@ -1,0 +1,41 @@
+name: Daily Lede
+
+on:
+  schedule:
+    - cron: '0 11 * * *'  # 6am ET (UTC-5) / 7am EDT (UTC-4) — runs at 11:00 UTC
+  workflow_dispatch:       # allows manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write          # needed to commit the generated index.html
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run fetch and generate
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+        run: python scripts/fetch_and_generate.py
+
+      - name: Commit and push index.html
+        run: |
+          git config user.name "The Lede Bot"
+          git config user.email "actions@github.com"
+          git add index.html
+          git diff --staged --quiet || git commit -m "Daily update: $(date -u '+%Y-%m-%d')"
+          git push
