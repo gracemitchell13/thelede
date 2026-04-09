@@ -9,7 +9,7 @@
 :root{
   --blk:#0a0a0a;--ink:#1a1a1a;--mid:#555;--lt:#888;
   --rl:#1a1a1a;--rlt:#d0d0d0;--bg:#fff;--bg2:#f6f6f6;
-  --accent:#1a4fa0;
+  --accent:#1a4fa0;--accent2:#e8eef8;
   --serif:'Georgia','Times New Roman',serif;
   --sans:'Franklin Gothic Medium','Arial Narrow',Arial,sans-serif;
 }
@@ -18,118 +18,128 @@ a{color:var(--accent);text-decoration:none}
 
 .mast{border-bottom:4px double var(--rl);padding:0 2rem}
 .mast-top{display:flex;justify-content:space-between;padding:.5rem 0;
-  border-bottom:1px solid var(--rlt);font-size:.65rem;
-  letter-spacing:.12em;text-transform:uppercase;color:var(--lt)}
-.mast-title{text-align:center;font-family:var(--serif);
-  font-size:clamp(2.5rem,6vw,4rem);font-weight:900;
-  letter-spacing:-.03em;line-height:1;padding:.35rem 0;color:var(--blk)}
+  border-bottom:1px solid var(--rlt);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lt)}
+.mast-title{text-align:center;font-family:var(--serif);font-size:clamp(2.5rem,6vw,4rem);
+  font-weight:900;letter-spacing:-.03em;line-height:1;padding:.35rem 0;color:var(--blk)}
 .mast-bot{display:flex;justify-content:space-between;padding:.4rem 0;
-  border-top:1px solid var(--rlt);font-size:.63rem;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--lt)}
+  border-top:1px solid var(--rlt);font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;color:var(--lt)}
 
 .nav{background:var(--blk);display:flex;padding:0 2rem}
 .nav a{color:#fff;font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;
   padding:.55rem 1rem;border-right:1px solid #2a2a2a;display:block}
 .nav a:first-child{border-left:1px solid #2a2a2a}
-.nav a:hover{background:#1e1e1e;text-decoration:none}
-.nav a.active{background:#1e1e1e}
+.nav a:hover,nav a.active{background:#1e1e1e;text-decoration:none}
 
-main{max-width:780px;margin:0 auto;padding:2rem}
+main{max-width:860px;margin:0 auto;padding:2rem}
 
-/* AUTH GATE */
 #auth-gate{text-align:center;padding:4rem 2rem}
 #auth-gate h2{font-family:var(--serif);font-size:1.5rem;margin-bottom:.75rem}
 #auth-gate p{color:var(--mid);margin-bottom:1.5rem;font-size:.9rem}
 
-/* HEADER */
 .page-header{display:flex;justify-content:space-between;align-items:baseline;
   margin-bottom:.5rem;padding-bottom:.75rem;border-bottom:2px solid var(--blk)}
 .page-header h1{font-family:var(--serif);font-size:1.6rem;font-weight:800}
 .page-header span{font-size:.72rem;color:var(--lt);letter-spacing:.08em;text-transform:uppercase}
-
 .page-intro{font-size:.85rem;color:var(--mid);margin-bottom:2rem;line-height:1.6}
 
-/* SECTION HEADINGS */
-.section-head{font-size:.7rem;font-weight:700;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--lt);margin:2rem 0 .75rem;
-  padding-bottom:.4rem;border-bottom:1px solid var(--rlt)}
+/* CATEGORY TABS */
+.cat-tabs{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.5rem}
+.cat-tab{padding:.3rem .75rem;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;border:1px solid var(--rlt);background:var(--bg);color:var(--mid)}
+.cat-tab:hover{background:var(--bg2)}
+.cat-tab.active{background:var(--blk);color:#fff;border-color:var(--blk)}
 
-/* TOPIC CHECKLIST */
-.topic-list{display:flex;flex-direction:column;gap:0;
-  border:1px solid var(--rlt);border-bottom:none}
+/* TOPIC LIST */
+.section-head{font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--lt);margin:1.5rem 0 .6rem;padding-bottom:.4rem;border-bottom:1px solid var(--rlt)}
+
+.topic-list{display:flex;flex-direction:column;gap:0;border:1px solid var(--rlt);border-bottom:none}
 
 .topic-item{border-bottom:1px solid var(--rlt)}
-.topic-row{display:flex;align-items:center;gap:.75rem;padding:.85rem 1rem;
-  cursor:pointer;background:var(--bg);user-select:none}
+.topic-row{display:flex;align-items:flex-start;gap:.75rem;padding:.9rem 1rem;
+  cursor:pointer;background:var(--bg)}
 .topic-row:hover{background:var(--bg2)}
-.topic-row.checked{background:#f0f4fa}
+.topic-row.selected{background:var(--accent2)}
 
-/* custom checkbox */
-.topic-check{width:18px;height:18px;border:2px solid var(--rlt);
-  background:var(--bg);flex-shrink:0;display:flex;align-items:center;
-  justify-content:center;font-size:11px;color:#fff;transition:all .1s}
+.topic-check{width:18px;height:18px;border:2px solid var(--rlt);flex-shrink:0;
+  margin-top:2px;display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:#fff;transition:all .15s}
 .topic-check.on{background:var(--accent);border-color:var(--accent)}
 
-.topic-name{font-size:.95rem;font-weight:700;flex:1;color:var(--blk)}
-.topic-count{font-size:.7rem;color:var(--lt);margin-right:.5rem}
-.topic-arrow{font-size:.7rem;color:var(--lt);transition:transform .2s}
-.topic-arrow.open{transform:rotate(90deg)}
+.topic-info{flex:1}
+.topic-name{font-size:.95rem;font-weight:700;color:var(--blk);line-height:1.3}
+.topic-desc{font-size:.78rem;color:var(--mid);margin-top:.15rem;line-height:1.4}
+.topic-meta{font-size:.68rem;color:var(--lt);margin-top:.2rem}
+
+.topic-expand{font-size:.7rem;color:var(--lt);padding-top:2px;flex-shrink:0;cursor:pointer}
+.topic-expand:hover{color:var(--accent)}
 
 /* SOURCES PANEL */
-.sources-panel{display:none;background:var(--bg2);
-  border-top:1px solid var(--rlt);padding:.75rem 1rem .75rem 3rem}
+.sources-panel{display:none;background:var(--accent2);border-top:1px solid var(--rlt);
+  padding:.75rem 1rem .75rem 3.25rem}
 .sources-panel.open{display:block}
+.sources-title{font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--lt);margin-bottom:.5rem}
 
-.source-item{display:flex;align-items:center;gap:.6rem;
-  padding:.4rem 0;border-bottom:1px solid var(--rlt)}
-.source-item:last-child{border-bottom:none}
-.source-check{width:15px;height:15px;border:1.5px solid var(--rlt);
-  background:var(--bg);flex-shrink:0;display:flex;align-items:center;
-  justify-content:center;font-size:9px;color:#fff;cursor:pointer;
-  transition:all .1s}
+.source-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.3rem}
+.source-item{display:flex;align-items:center;gap:.5rem;padding:.35rem .5rem;
+  background:var(--bg);border:1px solid var(--rlt);cursor:pointer}
+.source-item:hover{background:var(--bg2)}
+.source-check{width:14px;height:14px;border:1.5px solid var(--rlt);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff}
 .source-check.on{background:var(--accent);border-color:var(--accent)}
-.source-label-text{font-size:.82rem;color:var(--ink);flex:1;cursor:pointer}
-.source-domain{font-size:.68rem;color:var(--lt)}
-.source-type{font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;
-  color:var(--bg);background:var(--lt);padding:1px 5px;border-radius:2px;
-  flex-shrink:0}
+.source-name{font-size:.78rem;font-weight:700;color:var(--blk)}
+.source-domain{font-size:.65rem;color:var(--lt)}
 
-/* ADD CUSTOM */
-.add-section{margin-top:1.5rem}
-.add-row{display:flex;gap:.5rem;margin-top:.5rem;flex-wrap:wrap}
-.add-row input{flex:1;min-width:140px;padding:.4rem .65rem;
-  border:1px solid var(--rlt);font-family:var(--sans);font-size:.85rem;
-  background:var(--bg);color:var(--ink)}
-.add-row input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.add-source-row{display:flex;gap:.4rem;margin-top:.6rem;flex-wrap:wrap}
+.add-source-row input{flex:1;min-width:120px;padding:.3rem .5rem;
+  border:1px solid var(--rlt);font-family:var(--sans);font-size:.78rem;background:var(--bg)}
+
+/* CUSTOM TOPIC */
+.custom-section{margin-top:2rem;padding:1.25rem;background:var(--bg2);border:1px solid var(--rlt)}
+.custom-section h3{font-size:.72rem;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--lt);margin-bottom:.75rem}
+.custom-row{display:flex;gap:.5rem;flex-wrap:wrap}
+.custom-row input{flex:1;min-width:140px;padding:.4rem .65rem;
+  border:1px solid var(--rlt);font-family:var(--sans);font-size:.85rem;background:var(--bg)}
+
+/* YOUR PICKS SUMMARY */
+.picks-summary{margin-top:2rem;padding:1rem;border:1px solid var(--rlt)}
+.picks-title{font-size:.68rem;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--lt);margin-bottom:.75rem}
+.picks-list{display:flex;flex-wrap:wrap;gap:.4rem}
+.pick-tag{display:flex;align-items:center;gap:.3rem;padding:.25rem .6rem;
+  background:var(--accent);color:#fff;font-size:.72rem;letter-spacing:.05em}
+.pick-tag button{background:none;border:none;color:#fff;cursor:pointer;
+  font-size:.8rem;line-height:1;padding:0;opacity:.7}
+.pick-tag button:hover{opacity:1}
+.picks-empty{font-size:.82rem;color:var(--lt);font-style:italic}
 
 /* BUTTONS */
-.btn{display:inline-block;padding:.4rem 1rem;font-size:.72rem;
-  letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
-  border:1px solid var(--blk);background:var(--blk);color:#fff;
-  font-family:var(--sans)}
+.btn{display:inline-block;padding:.4rem 1rem;font-size:.72rem;letter-spacing:.08em;
+  text-transform:uppercase;cursor:pointer;border:1px solid var(--blk);
+  background:var(--blk);color:#fff;font-family:var(--sans)}
 .btn:hover{background:var(--mid);border-color:var(--mid)}
 .btn.ghost{background:transparent;color:var(--blk)}
 .btn.ghost:hover{background:var(--bg2)}
 .btn.accent{background:var(--accent);border-color:var(--accent)}
 .btn.small{padding:.28rem .65rem;font-size:.65rem}
 
-/* SAVE BAR */
-#save-bar{position:fixed;bottom:0;left:0;right:0;background:var(--blk);
-  color:#fff;display:none;align-items:center;justify-content:space-between;
+.actions{display:flex;gap:.75rem;margin-top:1.5rem;padding-top:1.5rem;
+  border-top:1px solid var(--rlt);align-items:center}
+
+#save-bar{position:fixed;bottom:0;left:0;right:0;background:var(--blk);color:#fff;
+  display:none;align-items:center;justify-content:space-between;
   padding:.75rem 2rem;font-size:.8rem;z-index:100}
-#save-bar.visible{display:flex}
+#save-bar.show{display:flex}
 
 #toast{position:fixed;bottom:4rem;right:1.5rem;background:var(--accent);
   color:#fff;font-size:.75rem;padding:.55rem 1.1rem;opacity:0;
   transition:opacity .25s;pointer-events:none}
 #toast.show{opacity:1}
 
-.actions{display:flex;gap:.75rem;margin-top:1.5rem;padding-top:1.5rem;
-  border-top:1px solid var(--rlt)}
-
-footer{text-align:center;font-size:.63rem;letter-spacing:.12em;
-  color:var(--lt);padding:2rem 1rem 4rem;border-top:1px solid var(--rlt);
-  margin-top:2rem;text-transform:uppercase}
+footer{text-align:center;font-size:.63rem;letter-spacing:.12em;color:var(--lt);
+  padding:2rem 1rem 5rem;border-top:1px solid var(--rlt);margin-top:2rem;text-transform:uppercase}
 </style>
 </head>
 <body>
@@ -140,7 +150,7 @@ footer{text-align:center;font-size:.63rem;letter-spacing:.12em;
   </div>
   <h1 class="mast-title">The Lede</h1>
   <div class="mast-bot">
-    <span>Civic Tech &bull; Housing &bull; Nonprofits &bull; AI &bull; Penguins</span>
+    <span>Your Daily Curated Briefing</span>
     <span id="user-email"></span>
   </div>
 </header>
@@ -153,7 +163,7 @@ footer{text-align:center;font-size:.63rem;letter-spacing:.12em;
 <main>
   <div id="auth-gate">
     <h2>Sign in to manage your settings</h2>
-    <p>Your topic and source preferences are saved to your account.</p>
+    <p>Choose your topics and sources. Your preferences are saved to your account.</p>
     <button class="btn accent" onclick="signIn()">Sign In with Google</button>
   </div>
 
@@ -162,18 +172,28 @@ footer{text-align:center;font-size:.63rem;letter-spacing:.12em;
       <h1>Your Feed Settings</h1>
       <span id="last-saved"></span>
     </div>
-    <p class="page-intro">Choose which topics appear in your daily Lede, and which sources to include for each. Changes take effect at the next morning run.</p>
+    <p class="page-intro">Choose topics to follow and which sources to include for each. Changes take effect at the next morning run (~6am ET).</p>
 
-    <div class="section-head">Topics & Sources</div>
-    <div class="topic-list" id="topic-list"></div>
+    <!-- CATEGORY TABS -->
+    <div class="cat-tabs" id="cat-tabs"></div>
 
-    <div class="add-section">
-      <div class="section-head">Add a custom topic</div>
-      <div class="add-row">
-        <input type="text" id="new-topic-label" placeholder="Topic name (e.g. Climate Policy)"/>
-        <input type="text" id="new-topic-keywords" placeholder="Keywords (e.g. climate change, carbon policy)"/>
-        <button class="btn small" onclick="addTopic()">Add Topic</button>
+    <!-- TOPIC LIST -->
+    <div id="topic-library"></div>
+
+    <!-- CUSTOM TOPIC -->
+    <div class="custom-section">
+      <h3>Can't find your topic? Add a custom one</h3>
+      <div class="custom-row">
+        <input type="text" id="custom-label" placeholder="Topic name (e.g. Urban Agriculture)"/>
+        <input type="text" id="custom-keywords" placeholder="Search keywords (e.g. urban farming, community gardens)"/>
+        <button class="btn small" onclick="addCustomTopic()">Add</button>
       </div>
+    </div>
+
+    <!-- YOUR PICKS -->
+    <div class="picks-summary">
+      <div class="picks-title">Your active topics</div>
+      <div class="picks-list" id="picks-list"></div>
     </div>
 
     <div class="actions">
@@ -187,272 +207,493 @@ footer{text-align:center;font-size:.63rem;letter-spacing:.12em;
   <span>You have unsaved changes</span>
   <button class="btn small" style="border-color:#fff;color:#fff;background:transparent" onclick="saveAll()">Save Now</button>
 </div>
-
 <div id="toast"></div>
 <footer>The Lede &mdash; Settings &mdash; readthelede.com</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL = 'https://tgdzivpyudduwktcmiqb.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRnZHppdnB5dWRkdXdrdGNtaXFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2ODgyNDQsImV4cCI6MjA5MTI2NDI0NH0.8GLZo0tp665Tm6dAsdEv54Hf_U5eWV9E-NAItdBk0bA';
-const { createClient } = supabase;
-const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const SUPABASE_URL='__SUPABASE_URL__';
+const SUPABASE_ANON_KEY='__SUPABASE_ANON_KEY__';
+const {createClient}=supabase;
+const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+let user=null, dirty=false;
 
-let user = null;
-let topics = [];
-let sources = [];
-let dirty = false;
+// User's current selections: { slug -> { active, sources: { domain -> active } } }
+let userTopics={};
+let userSources={};
+let activeCategory='All';
 
-const DEFAULT_TOPICS = [
-  { slug:'civic-tech', label:'Civic Tech & GovTech',   active:true,  sort_order:0 },
-  { slug:'housing',    label:'Housing Policy',           active:true,  sort_order:1 },
-  { slug:'nonprofit',  label:'Nonprofit & Grants',       active:true,  sort_order:2 },
-  { slug:'ai-tech',    label:'AI & Tech',                active:true,  sort_order:3 },
-  { slug:'penguins',   label:'Pittsburgh Penguins',       active:true,  sort_order:4 },
-  { slug:'general',    label:'General News',             active:true,  sort_order:5 },
+// ── TOPIC LIBRARY (embedded) ──────────────────────────────────────────────
+const LIBRARY=[
+  {slug:'civic-tech',category:'Government & Policy',label:'Civic Tech & GovTech',
+   desc:'Digital services, government software, and public sector technology.',
+   queries:['"civic tech" OR "govtech"','"digital government" OR "public sector technology"'],
+   sources:[
+    {label:'StateScoop',domain:'statescoop.com',feed:'https://statescoop.com/feed/'},
+    {label:'GovTech',domain:'govtech.com',feed:'https://www.govtech.com/rss.xml'},
+    {label:'Nextgov',domain:'nextgov.com',feed:'https://www.nextgov.com/rss/all/'},
+    {label:'Route Fifty',domain:'route-fifty.com',feed:'https://www.route-fifty.com/rss.xml'},
+    {label:'FCW',domain:'fcw.com',feed:'https://fcw.com/rss-feeds/all.aspx'},
+  ]},
+  {slug:'housing-policy',category:'Government & Policy',label:'Housing Policy',
+   desc:'Affordable housing, zoning, homelessness, and rent policy.',
+   queries:['"affordable housing" OR "housing policy" OR "zoning reform"','"housing crisis" OR "homelessness"'],
+   sources:[
+    {label:'Shelterforce',domain:'shelterforce.org',feed:'https://shelterforce.org/feed/'},
+    {label:'HousingWire',domain:'housingwire.com',feed:'https://www.housingwire.com/feed/'},
+    {label:'Strong Towns',domain:'strongtowns.org',feed:'https://www.strongtowns.org/feed/'},
+    {label:'NLIHC',domain:'nlihc.org',feed:'https://nlihc.org/feed'},
+  ]},
+  {slug:'criminal-justice',category:'Government & Policy',label:'Criminal Justice Reform',
+   desc:'Policing, incarceration, court reform, reentry, and justice policy.',
+   queries:['"criminal justice reform" OR "prison reform"','"police reform" OR "reentry"'],
+   sources:[
+    {label:'The Marshall Project',domain:'themarshallproject.org',feed:'https://feeds.themarshallproject.org/marshall-project-all'},
+    {label:'Prison Policy Initiative',domain:'prisonpolicy.org',feed:'https://www.prisonpolicy.org/rss.xml'},
+    {label:'The Appeal',domain:'theappeal.org',feed:'https://theappeal.org/feed/'},
+  ]},
+  {slug:'education-policy',category:'Government & Policy',label:'Education Policy',
+   desc:'K-12 and higher education policy, funding, equity, and reform.',
+   queries:['"education policy" OR "school funding"','"higher education" AND ("policy" OR "student debt")'],
+   sources:[
+    {label:'EdSurge',domain:'edsurge.com',feed:'https://www.edsurge.com/rss'},
+    {label:'Chalkbeat',domain:'chalkbeat.org',feed:'https://www.chalkbeat.org/arc/outboundfeeds/rss/'},
+    {label:'The 74',domain:'the74million.org',feed:'https://www.the74million.org/feed/'},
+  ]},
+  {slug:'health-policy',category:'Government & Policy',label:'Health Policy',
+   desc:'Healthcare access, Medicaid, public health, and mental health policy.',
+   queries:['"health policy" OR "healthcare reform" OR "Medicaid"','"public health" AND ("policy" OR "funding")'],
+   sources:[
+    {label:'Health Affairs',domain:'healthaffairs.org',feed:'https://www.healthaffairs.org/rss/site_5/41.xml'},
+    {label:'KFF Health News',domain:'kffhealthnews.org',feed:'https://kffhealthnews.org/feed/'},
+    {label:'STAT News',domain:'statnews.com',feed:'https://www.statnews.com/feed/'},
+  ]},
+  {slug:'climate-policy',category:'Government & Policy',label:'Climate & Environment',
+   desc:'Climate change policy, clean energy, and environmental regulation.',
+   queries:['"climate policy" OR "clean energy"','"carbon emissions" OR "renewable energy"'],
+   sources:[
+    {label:'Yale Climate Connections',domain:'yaleclimateconnections.org',feed:'https://yaleclimateconnections.org/feed/'},
+    {label:'Inside Climate News',domain:'insideclimatenews.org',feed:'https://insideclimatenews.org/feed/'},
+    {label:'Grist',domain:'grist.org',feed:'https://grist.org/feed/'},
+  ]},
+  {slug:'immigration',category:'Government & Policy',label:'Immigration Policy',
+   desc:'Immigration law, border policy, refugees, and immigrant communities.',
+   queries:['"immigration policy" OR "immigration reform"','"asylum" OR "refugee"'],
+   sources:[
+    {label:'Immigration Impact',domain:'immigrationimpact.com',feed:'https://immigrationimpact.com/feed/'},
+  ]},
+  {slug:'economic-policy',category:'Government & Policy',label:'Economic Policy',
+   desc:'Federal budget, taxes, labor markets, inequality, and fiscal policy.',
+   queries:['"economic policy" OR "federal budget" OR "tax policy"','"labor market" OR "income inequality"'],
+   sources:[
+    {label:'Brookings',domain:'brookings.edu',feed:'https://www.brookings.edu/feed/'},
+    {label:'Tax Foundation',domain:'taxfoundation.org',feed:'https://taxfoundation.org/feed/'},
+    {label:'Center on Budget',domain:'cbpp.org',feed:'https://www.cbpp.org/rss/research'},
+  ]},
+  {slug:'transportation',category:'Government & Policy',label:'Transportation & Infrastructure',
+   desc:'Transit, roads, broadband, and infrastructure policy.',
+   queries:['"public transit" OR "transportation policy"','"broadband access" OR "urban mobility"'],
+   sources:[
+    {label:'Streetsblog',domain:'streetsblog.net',feed:'https://streetsblog.net/feed/'},
+    {label:'Smart Cities Dive',domain:'smartcitiesdive.com',feed:'https://www.smartcitiesdive.com/feeds/news/'},
+  ]},
+  {slug:'nonprofit',category:'Nonprofits & Philanthropy',label:'Nonprofit & Grants',
+   desc:'Nonprofit management, grant funding, and the social sector.',
+   queries:['"nonprofit" AND ("grant" OR "funding")','"foundation" AND ("social impact")'],
+   sources:[
+    {label:'Nonprofit Quarterly',domain:'nonprofitquarterly.org',feed:'https://nonprofitquarterly.org/feed/'},
+    {label:'Candid',domain:'candid.org',feed:'https://blog.candid.org/feed/'},
+    {label:'SSIR',domain:'ssir.org',feed:'https://ssir.org/site/rss'},
+    {label:'Inside Philanthropy',domain:'insidephilanthropy.com',feed:'https://www.insidephilanthropy.com/home?format=rss'},
+    {label:'Chronicle of Philanthropy',domain:'philanthropy.com',feed:'https://www.philanthropy.com/feed'},
+  ]},
+  {slug:'community-development',category:'Nonprofits & Philanthropy',label:'Community Development',
+   desc:'CDFIs, community investment, and neighborhood revitalization.',
+   queries:['"community development" OR "CDFI"','"neighborhood revitalization"'],
+   sources:[
+    {label:'Shelterforce',domain:'shelterforce.org',feed:'https://shelterforce.org/feed/'},
+    {label:'Next City',domain:'nextcity.org',feed:'https://nextcity.org/feed'},
+  ]},
+  {slug:'ai-tech',category:'Technology',label:'AI & Machine Learning',
+   desc:'Artificial intelligence, large language models, AI policy and ethics.',
+   queries:['"artificial intelligence" AND ("policy" OR "regulation")','"large language model" OR "generative AI"'],
+   sources:[
+    {label:'MIT Tech Review',domain:'technologyreview.com',feed:'https://www.technologyreview.com/feed/'},
+    {label:'The Verge (AI)',domain:'theverge.com',feed:'https://www.theverge.com/rss/ai-artificial-intelligence/index.xml'},
+    {label:'VentureBeat',domain:'venturebeat.com',feed:'https://venturebeat.com/category/ai/feed/'},
+    {label:'Wired',domain:'wired.com',feed:'https://www.wired.com/feed/category/artificial-intelligence/latest/rss'},
+  ]},
+  {slug:'cybersecurity',category:'Technology',label:'Cybersecurity',
+   desc:'Cyber threats, data breaches, security policy, and digital defense.',
+   queries:['"cybersecurity" OR "data breach" OR "ransomware"','"cyber attack" OR "CISA"'],
+   sources:[
+    {label:'Krebs on Security',domain:'krebsonsecurity.com',feed:'https://krebsonsecurity.com/feed/'},
+    {label:'The Record',domain:'therecord.media',feed:'https://therecord.media/feed'},
+    {label:'Dark Reading',domain:'darkreading.com',feed:'https://www.darkreading.com/rss.xml'},
+  ]},
+  {slug:'tech-policy',category:'Technology',label:'Tech Policy & Regulation',
+   desc:'Platform regulation, antitrust, privacy law, and tech governance.',
+   queries:['"tech regulation" OR "platform regulation" OR "antitrust"','"data privacy" OR "digital rights"'],
+   sources:[
+    {label:'The Verge',domain:'theverge.com',feed:'https://www.theverge.com/rss/index.xml'},
+    {label:'Ars Technica',domain:'arstechnica.com',feed:'https://feeds.arstechnica.com/arstechnica/index'},
+  ]},
+  {slug:'local-news',category:'Media & Journalism',label:'Local News & Journalism',
+   desc:'Local journalism, news deserts, press freedom, media sustainability.',
+   queries:['"local news" OR "news desert"','"press freedom" OR "nonprofit news"'],
+   sources:[
+    {label:'Nieman Lab',domain:'niemanlab.org',feed:'https://www.niemanlab.org/feed/'},
+    {label:'Poynter',domain:'poynter.org',feed:'https://www.poynter.org/feed/'},
+    {label:'Columbia Journalism Review',domain:'cjr.org',feed:'https://www.cjr.org/feed'},
+  ]},
+  {slug:'penguins',category:'Sports',label:'Pittsburgh Penguins',
+   desc:'News, scores, and analysis for the Pittsburgh Penguins.',
+   queries:['"Pittsburgh Penguins"'],
+   sources:[
+    {label:'PensBurgh',domain:'pensburgh.com',feed:'https://www.pensburgh.com/rss/current'},
+    {label:'NHL.com',domain:'nhl.com',feed:'https://www.nhl.com/rss/news.xml'},
+    {label:'Sportsnet',domain:'sportsnet.ca',feed:'https://www.sportsnet.ca/feed/'},
+  ]},
+  {slug:'nhl',category:'Sports',label:'NHL Hockey',
+   desc:'League-wide NHL news, trades, standings, and analysis.',
+   queries:['"NHL" AND ("trade" OR "playoffs" OR "standings")'],
+   sources:[
+    {label:'NHL.com',domain:'nhl.com',feed:'https://www.nhl.com/rss/news.xml'},
+    {label:'Sportsnet',domain:'sportsnet.ca',feed:'https://www.sportsnet.ca/feed/'},
+    {label:'ESPN NHL',domain:'espn.com',feed:'https://www.espn.com/espn/rss/nhl/news'},
+  ]},
+  {slug:'nba',category:'Sports',label:'NBA Basketball',
+   desc:'NBA news, trades, scores, and analysis.',
+   queries:['"NBA" AND ("trade" OR "playoffs" OR "standings")'],
+   sources:[
+    {label:'ESPN NBA',domain:'espn.com',feed:'https://www.espn.com/espn/rss/nba/news'},
+    {label:'Bleacher Report',domain:'bleacherreport.com',feed:'https://bleacherreport.com/nba.rss'},
+  ]},
+  {slug:'nfl',category:'Sports',label:'NFL Football',
+   desc:'NFL news, scores, trades, and analysis.',
+   queries:['"NFL" AND ("trade" OR "playoffs" OR "draft")'],
+   sources:[
+    {label:'ESPN NFL',domain:'espn.com',feed:'https://www.espn.com/espn/rss/nfl/news'},
+    {label:'Pro Football Talk',domain:'profootballtalk.nbcsports.com',feed:'https://profootballtalk.nbcsports.com/feed/'},
+  ]},
+  {slug:'us-news',category:'General News',label:'US National News',
+   desc:'Top US news from major national outlets.',
+   queries:[],
+   sources:[
+    {label:'AP News',domain:'apnews.com',feed:'https://apnews.com/rss'},
+    {label:'NPR',domain:'npr.org',feed:'https://feeds.npr.org/1001/rss.xml'},
+    {label:'New York Times',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'},
+    {label:'Washington Post',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/national'},
+    {label:'Politico',domain:'politico.com',feed:'https://rss.politico.com/politics-news.xml'},
+  ]},
+  {slug:'world-news',category:'General News',label:'World News',
+   desc:'International news and global affairs.',
+   queries:[],
+   sources:[
+    {label:'BBC News',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/world/rss.xml'},
+    {label:'The Guardian',domain:'theguardian.com',feed:'https://www.theguardian.com/world/rss'},
+    {label:'Reuters',domain:'reuters.com',feed:'https://feeds.reuters.com/reuters/worldNews'},
+    {label:'Al Jazeera',domain:'aljazeera.com',feed:'https://www.aljazeera.com/xml/rss/all.xml'},
+  ]},
+  {slug:'science',category:'General News',label:'Science & Research',
+   desc:'Scientific discoveries, research findings, and science policy.',
+   queries:['"scientific research" OR "new study" OR "researchers found"'],
+   sources:[
+    {label:'Science Daily',domain:'sciencedaily.com',feed:'https://www.sciencedaily.com/rss/all.xml'},
+    {label:'Nature',domain:'nature.com',feed:'https://www.nature.com/nature.rss'},
+    {label:'New Scientist',domain:'newscientist.com',feed:'https://www.newscientist.com/feed/home/'},
+  ]},
+  {slug:'books',category:'Arts & Culture',label:'Books & Publishing',
+   desc:'Book reviews, publishing news, and literary culture.',
+   queries:['"book review" OR "new novel" OR "publishing"'],
+   sources:[
+    {label:'Literary Hub',domain:'lithub.com',feed:'https://lithub.com/feed/'},
+    {label:'The Millions',domain:'themillions.com',feed:'https://themillions.com/feed'},
+    {label:'Publishers Weekly',domain:'publishersweekly.com',feed:'https://www.publishersweekly.com/pw/feeds/latest/index.xml'},
+  ]},
 ];
 
-const DEFAULT_SOURCES = [
-  {topic_slug:'civic-tech', domain:'statescoop.com',         label:'StateScoop',          feed_url:'https://statescoop.com/feed/',                                      active:true},
-  {topic_slug:'civic-tech', domain:'govtech.com',            label:'GovTech',             feed_url:'https://www.govtech.com/rss.xml',                                   active:true},
-  {topic_slug:'civic-tech', domain:'nextgov.com',            label:'Nextgov',             feed_url:'https://www.nextgov.com/rss/all/',                                  active:true},
-  {topic_slug:'civic-tech', domain:'route-fifty.com',        label:'Route Fifty',         feed_url:'https://www.route-fifty.com/rss.xml',                               active:true},
-  {topic_slug:'civic-tech', domain:'fcw.com',                label:'FCW',                 feed_url:'https://fcw.com/rss-feeds/all.aspx',                                active:true},
-  {topic_slug:'housing',    domain:'shelterforce.org',       label:'Shelterforce',        feed_url:'https://shelterforce.org/feed/',                                    active:true},
-  {topic_slug:'housing',    domain:'housingwire.com',        label:'HousingWire',         feed_url:'https://www.housingwire.com/feed/',                                 active:true},
-  {topic_slug:'housing',    domain:'strongtowns.org',        label:'Strong Towns',        feed_url:'https://www.strongtowns.org/feed/',                                 active:true},
-  {topic_slug:'housing',    domain:'nlihc.org',              label:'NLIHC',               feed_url:'https://nlihc.org/feed',                                            active:true},
-  {topic_slug:'nonprofit',  domain:'nonprofitquarterly.org', label:'Nonprofit Quarterly', feed_url:'https://nonprofitquarterly.org/feed/',                              active:true},
-  {topic_slug:'nonprofit',  domain:'candid.org',             label:'Candid',              feed_url:'https://blog.candid.org/feed/',                                     active:true},
-  {topic_slug:'nonprofit',  domain:'ssir.org',               label:'SSIR',                feed_url:'https://ssir.org/site/rss',                                         active:true},
-  {topic_slug:'nonprofit',  domain:'insidephilanthropy.com', label:'Inside Philanthropy', feed_url:'https://www.insidephilanthropy.com/home?format=rss',                active:true},
-  {topic_slug:'ai-tech',    domain:'theverge.com',           label:'The Verge',           feed_url:'https://www.theverge.com/rss/ai-artificial-intelligence/index.xml', active:true},
-  {topic_slug:'ai-tech',    domain:'technologyreview.com',   label:'MIT Tech Review',     feed_url:'https://www.technologyreview.com/feed/',                            active:true},
-  {topic_slug:'ai-tech',    domain:'venturebeat.com',        label:'VentureBeat',         feed_url:'https://venturebeat.com/category/ai/feed/',                         active:true},
-  {topic_slug:'ai-tech',    domain:'wired.com',              label:'Wired',               feed_url:'https://www.wired.com/feed/category/artificial-intelligence/latest/rss', active:true},
-  {topic_slug:'penguins',   domain:'pensburgh.com',          label:'PensBurgh',           feed_url:'https://www.pensburgh.com/rss/current',                             active:true},
-  {topic_slug:'penguins',   domain:'nhl.com',                label:'NHL.com',             feed_url:'https://www.nhl.com/rss/news.xml',                                  active:true},
-  {topic_slug:'penguins',   domain:'sportsnet.ca',           label:'Sportsnet',           feed_url:'https://www.sportsnet.ca/feed/',                                    active:true},
-  {topic_slug:'general',    domain:'bbc.co.uk',              label:'BBC News',            feed_url:'https://feeds.bbci.co.uk/news/rss.xml',                             active:true},
-  {topic_slug:'general',    domain:'nytimes.com',            label:'New York Times',      feed_url:'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',          active:true},
-  {topic_slug:'general',    domain:'npr.org',                label:'NPR',                 feed_url:'https://feeds.npr.org/1001/rss.xml',                                active:true},
-  {topic_slug:'general',    domain:'theguardian.com',        label:'The Guardian',        feed_url:'https://www.theguardian.com/world/rss',                             active:true},
-  {topic_slug:'general',    domain:'apnews.com',             label:'AP News',             feed_url:'https://apnews.com/rss',                                            active:true},
-];
+const CATEGORIES=['All',...[...new Set(LIBRARY.map(t=>t.category))]];
 
 // ── AUTH ──────────────────────────────────────────────────────────────────
-
-async function signIn() {
-  await sb.auth.signInWithOAuth({
-    provider: 'google',
-    options: { redirectTo: 'https://gracemitchell13.github.io/thelede/settings.html' }
-  });
+async function signIn(){
+  await sb.auth.signInWithOAuth({provider:'google',
+    options:{redirectTo:'https://gracemitchell13.github.io/thelede/settings.html'}});
 }
-async function signOut() { await sb.auth.signOut(); user = null; showGate(); }
+async function signOut(){await sb.auth.signOut();user=null;showGate();}
 
-sb.auth.onAuthStateChange(async (event, session) => {
-  user = session?.user ?? null;
-  if (user) {
-    document.getElementById('user-email').textContent = user.email;
+sb.auth.onAuthStateChange(async(ev,session)=>{
+  user=session?.user??null;
+  if(user){
+    document.getElementById('user-email').textContent=user.email;
     await ensureUser();
     await loadSettings();
     showSettings();
-  } else {
-    showGate();
-  }
+  } else showGate();
 });
 
-function showGate() {
-  document.getElementById('auth-gate').style.display = 'block';
-  document.getElementById('settings-ui').style.display = 'none';
+function showGate(){
+  document.getElementById('auth-gate').style.display='block';
+  document.getElementById('settings-ui').style.display='none';
 }
-function showSettings() {
-  document.getElementById('auth-gate').style.display = 'none';
-  document.getElementById('settings-ui').style.display = 'block';
+function showSettings(){
+  document.getElementById('auth-gate').style.display='none';
+  document.getElementById('settings-ui').style.display='block';
 }
-
-async function ensureUser() {
-  await sb.from('users').upsert({
-    id: user.id, email: user.email,
-    display_name: user.user_metadata?.full_name ?? null,
-  }, { onConflict: 'id' });
+async function ensureUser(){
+  await sb.from('users').upsert({id:user.id,email:user.email,
+    display_name:user.user_metadata?.full_name??null},{onConflict:'id'});
 }
 
 // ── LOAD ──────────────────────────────────────────────────────────────────
-
-async function loadSettings() {
-  const [{ data: dbTopics }, { data: dbSources }] = await Promise.all([
-    sb.from('user_topics').select('*').eq('user_id', user.id).order('sort_order'),
-    sb.from('user_sources').select('*').eq('user_id', user.id),
+async function loadSettings(){
+  const [{data:dbTopics},{data:dbSources}]=await Promise.all([
+    sb.from('user_topics').select('*').eq('user_id',user.id),
+    sb.from('user_sources').select('*').eq('user_id',user.id),
   ]);
-  if (!dbTopics || dbTopics.length === 0) {
-    await seedDefaults();
-    return loadSettings();
-  }
-  topics = dbTopics;
-  sources = dbSources || [];
-  render();
-}
 
-async function seedDefaults() {
-  await sb.from('user_topics').upsert(
-    DEFAULT_TOPICS.map(t => ({ ...t, user_id: user.id })),
-    { onConflict: 'user_id,slug' }
-  );
-  await sb.from('user_sources').upsert(
-    DEFAULT_SOURCES.map(s => ({ ...s, user_id: user.id })),
-    { onConflict: 'user_id,topic_slug,domain' }
-  );
+  // Build lookup maps
+  userTopics={};
+  userSources={};
+
+  (dbTopics||[]).forEach(t=>{userTopics[t.slug]={...t};});
+  (dbSources||[]).forEach(s=>{
+    if(!userSources[s.topic_slug])userSources[s.topic_slug]={};
+    userSources[s.topic_slug][s.domain]=s;
+  });
+
+  renderCategoryTabs();
+  renderLibrary();
+  renderPicks();
 }
 
 // ── RENDER ────────────────────────────────────────────────────────────────
-
-function render() {
-  const list = document.getElementById('topic-list');
-  list.innerHTML = '';
-  topics.sort((a,b) => a.sort_order - b.sort_order).forEach((t, i) => {
-    const topicSources = sources.filter(s => s.topic_slug === t.slug);
-    const activeSrcCount = topicSources.filter(s => s.active).length;
-
-    const item = document.createElement('div');
-    item.className = 'topic-item';
-    item.innerHTML = `
-      <div class="topic-row${t.active ? ' checked' : ''}" onclick="toggleTopicRow(${i}, this)">
-        <div class="topic-check${t.active ? ' on' : ''}">✓</div>
-        <span class="topic-name">${t.label}</span>
-        <span class="topic-count">${activeSrcCount}/${topicSources.length} sources</span>
-        <span class="topic-arrow">›</span>
-      </div>
-      <div class="sources-panel" id="panel-${i}">
-        ${topicSources.map((s, si) => {
-          const gi = sources.indexOf(s);
-          return `<div class="source-item">
-            <div class="source-check${s.active ? ' on' : ''}" onclick="toggleSource(${gi}, this)">✓</div>
-            <span class="source-label-text" onclick="toggleSource(${gi}, this.previousElementSibling)">${s.label || s.domain}</span>
-            <span class="source-domain">${s.domain || ''}</span>
-            <span class="source-type">${s.feed_url ? 'rss' : 'domain'}</span>
-          </div>`;
-        }).join('')}
-        <div style="margin-top:.6rem;padding-top:.5rem;border-top:1px solid var(--rlt)">
-          <div style="font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--lt);margin-bottom:.35rem">Add source</div>
-          <div style="display:flex;gap:.4rem;flex-wrap:wrap">
-            <input type="text" placeholder="Source name" id="src-label-${i}" style="flex:1;min-width:100px;padding:.3rem .5rem;border:1px solid var(--rlt);font-family:var(--sans);font-size:.8rem"/>
-            <input type="text" placeholder="RSS URL or domain" id="src-feed-${i}" style="flex:2;min-width:160px;padding:.3rem .5rem;border:1px solid var(--rlt);font-family:var(--sans);font-size:.8rem"/>
-            <button class="btn small" onclick="addSource('${t.slug}', ${i})">Add</button>
-          </div>
-        </div>
-      </div>`;
-    list.appendChild(item);
+function renderCategoryTabs(){
+  const tabs=document.getElementById('cat-tabs');
+  tabs.innerHTML='';
+  CATEGORIES.forEach(cat=>{
+    const btn=document.createElement('button');
+    btn.className='cat-tab'+(cat===activeCategory?' active':'');
+    btn.textContent=cat;
+    btn.onclick=()=>{activeCategory=cat;renderCategoryTabs();renderLibrary();};
+    tabs.appendChild(btn);
   });
 }
 
-function toggleTopicRow(i, row) {
-  // If clicking the arrow area, just toggle panel
-  const arrow = row.querySelector('.topic-arrow');
-  const panel = document.getElementById('panel-' + i);
-  const isOpen = panel.classList.contains('open');
-  panel.classList.toggle('open');
-  arrow.classList.toggle('open');
+function renderLibrary(){
+  const container=document.getElementById('topic-library');
+  container.innerHTML='';
+
+  const filtered=activeCategory==='All'?LIBRARY:LIBRARY.filter(t=>t.category===activeCategory);
+  const categories=[...new Set(filtered.map(t=>t.category))];
+
+  categories.forEach(cat=>{
+    const catTopics=filtered.filter(t=>t.category===cat);
+    const head=document.createElement('div');
+    head.className='section-head';
+    head.textContent=cat;
+    container.appendChild(head);
+
+    const list=document.createElement('div');
+    list.className='topic-list';
+
+    catTopics.forEach(t=>{
+      const isSelected=userTopics[t.slug]?.active===true;
+      const item=document.createElement('div');
+      item.className='topic-item';
+
+      // Get user's source selections for this topic
+      const topicUserSources=userSources[t.slug]||{};
+      const sourceCount=Object.values(topicUserSources).filter(s=>s.active).length;
+
+      item.innerHTML=`
+        <div class="topic-row${isSelected?' selected':''}" onclick="handleTopicRowClick(event,'${t.slug}',this)">
+          <div class="topic-check${isSelected?' on':''}" data-slug="${t.slug}">✓</div>
+          <div class="topic-info">
+            <div class="topic-name">${t.label}</div>
+            <div class="topic-desc">${t.desc}</div>
+            ${isSelected?`<div class="topic-meta">${sourceCount||t.sources.length}/${t.sources.length} sources selected</div>`:''}
+          </div>
+          <div class="topic-expand" title="See sources">›</div>
+        </div>
+        <div class="sources-panel" id="sp-${t.slug}">
+          <div class="sources-title">Sources — toggle to include or exclude</div>
+          <div class="source-grid">
+            ${t.sources.map(s=>{
+              const userSrc=topicUserSources[s.domain];
+              // Default: active if topic is selected and no explicit user pref yet
+              const isOn=userSrc?userSrc.active:isSelected;
+              return `<div class="source-item" onclick="toggleSource('${t.slug}','${s.domain}','${s.label}','${s.feed}',this)">
+                <div class="source-check${isOn?' on':''}">✓</div>
+                <div>
+                  <div class="source-name">${s.label}</div>
+                  <div class="source-domain">${s.domain}</div>
+                </div>
+              </div>`;
+            }).join('')}
+          </div>
+          <div class="add-source-row">
+            <input type="text" placeholder="Source name" id="sl-${t.slug}"/>
+            <input type="text" placeholder="RSS feed URL" id="sf-${t.slug}"/>
+            <button class="btn small" onclick="addCustomSource('${t.slug}')">Add</button>
+          </div>
+        </div>`;
+      list.appendChild(item);
+    });
+
+    container.appendChild(list);
+  });
 }
 
-function toggleTopic(i) {
-  topics[i].active = !topics[i].active;
-  markDirty();
-  render();
-}
-
-function toggleSource(gi, checkEl) {
-  sources[gi].active = !sources[gi].active;
-  checkEl.classList.toggle('on', sources[gi].active);
-  // update count in topic row
-  const slug = sources[gi].topic_slug;
-  const ti = topics.findIndex(t => t.slug === slug);
-  if (ti >= 0) {
-    const topicSources = sources.filter(s => s.topic_slug === slug);
-    const row = document.querySelectorAll('.topic-row')[ti];
-    if (row) row.querySelector('.topic-count').textContent =
-      `${topicSources.filter(s=>s.active).length}/${topicSources.length} sources`;
+function handleTopicRowClick(e, slug, row){
+  // If clicking the expand arrow, just toggle panel
+  if(e.target.classList.contains('topic-expand')||e.target.closest('.topic-expand')){
+    togglePanel(slug, e.target.closest('.topic-expand'));
+    return;
   }
+  // If clicking source check or source item, ignore (handled separately)
+  if(e.target.closest('.source-item')||e.target.closest('.add-source-row')) return;
+  // Otherwise toggle topic
+  toggleTopic(slug, row);
+}
+
+function togglePanel(slug, arrow){
+  const panel=document.getElementById('sp-'+slug);
+  const isOpen=panel.classList.contains('open');
+  panel.classList.toggle('open',!isOpen);
+  arrow.textContent=isOpen?'›':'↓';
+}
+
+function toggleTopic(slug, row){
+  const check=row.querySelector('.topic-check');
+  const wasOn=check.classList.contains('on');
+  const nowOn=!wasOn;
+
+  if(!userTopics[slug]){
+    // First time selecting — seed all sources as active
+    const libTopic=LIBRARY.find(t=>t.slug===slug);
+    userTopics[slug]={slug,label:libTopic.label,active:nowOn,
+      sort_order:Object.keys(userTopics).length,
+      queries:libTopic.queries,user_id:user.id};
+    if(nowOn && libTopic){
+      if(!userSources[slug])userSources[slug]={};
+      libTopic.sources.forEach(s=>{
+        userSources[slug][s.domain]={topic_slug:slug,domain:s.domain,
+          label:s.label,feed_url:s.feed,active:true,user_id:user.id};
+      });
+    }
+  } else {
+    userTopics[slug].active=nowOn;
+  }
+
+  check.classList.toggle('on',nowOn);
+  row.classList.toggle('selected',nowOn);
+
+  // Update source meta line
+  const infoEl=row.querySelector('.topic-info');
+  const existingMeta=infoEl.querySelector('.topic-meta');
+  if(nowOn){
+    const libTopic=LIBRARY.find(t=>t.slug===slug);
+    const srcCount=Object.values(userSources[slug]||{}).filter(s=>s.active).length||libTopic?.sources.length||0;
+    const total=libTopic?.sources.length||0;
+    if(existingMeta)existingMeta.textContent=`${srcCount}/${total} sources selected`;
+    else{const m=document.createElement('div');m.className='topic-meta';m.textContent=`${srcCount}/${total} sources selected`;infoEl.appendChild(m);}
+  } else {
+    if(existingMeta)existingMeta.remove();
+  }
+
+  markDirty();
+  renderPicks();
+}
+
+function toggleSource(slug, domain, label, feed, item){
+  if(!userSources[slug])userSources[slug]={};
+  const existing=userSources[slug][domain];
+  const wasOn=existing?existing.active:true;
+  const nowOn=!wasOn;
+  userSources[slug][domain]={topic_slug:slug,domain,label,feed_url:feed,active:nowOn,user_id:user.id};
+  item.querySelector('.source-check').classList.toggle('on',nowOn);
   markDirty();
 }
 
-// Make topic checkbox toggle separately from row click
-document.addEventListener('click', e => {
-  const check = e.target.closest('.topic-check');
-  if (!check) return;
-  const row = check.closest('.topic-row');
-  const item = row.closest('.topic-item');
-  const list = document.getElementById('topic-list');
-  const i = Array.from(list.children).indexOf(item);
-  topics[i].active = !topics[i].active;
-  check.classList.toggle('on', topics[i].active);
-  row.classList.toggle('checked', topics[i].active);
+function addCustomSource(slug){
+  const label=document.getElementById('sl-'+slug).value.trim();
+  const feed=document.getElementById('sf-'+slug).value.trim();
+  if(!label||!feed){toast('Enter a name and RSS URL');return;}
+  let domain=feed;
+  try{domain=new URL(feed.startsWith('http')?feed:'https://'+feed).hostname.replace('www.','');}catch(e){}
+  if(!userSources[slug])userSources[slug]={};
+  userSources[slug][domain]={topic_slug:slug,domain,label,feed_url:feed,active:true,user_id:user.id};
   markDirty();
-  e.stopPropagation();
-});
-
-function addTopic() {
-  const label = document.getElementById('new-topic-label').value.trim();
-  const keywords = document.getElementById('new-topic-keywords').value.trim();
-  if (!label) { toast('Enter a topic name'); return; }
-  const slug = label.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-  if (topics.find(t => t.slug === slug)) { toast('Topic already exists'); return; }
-  topics.push({ user_id:user.id, slug, label, active:true,
-    sort_order:topics.length, queries: keywords ? [keywords] : [] });
-  document.getElementById('new-topic-label').value = '';
-  document.getElementById('new-topic-keywords').value = '';
-  markDirty();
-  render();
+  toast('Source added');
+  renderLibrary();
 }
 
-function addSource(slug, topicIndex) {
-  const label = document.getElementById(`src-label-${topicIndex}`).value.trim();
-  const feed  = document.getElementById(`src-feed-${topicIndex}`).value.trim();
-  if (!label || !feed) { toast('Enter a name and URL'); return; }
-  let domain = feed;
-  try { domain = new URL(feed.startsWith('http') ? feed : 'https://'+feed).hostname.replace('www.',''); } catch(e) {}
-  sources.push({ user_id:user.id, topic_slug:slug, label, domain,
-    feed_url: feed.startsWith('http') ? feed : null, active:true });
+function addCustomTopic(){
+  const label=document.getElementById('custom-label').value.trim();
+  const keywords=document.getElementById('custom-keywords').value.trim();
+  if(!label){toast('Enter a topic name');return;}
+  const slug=label.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  if(userTopics[slug]){toast('Topic already exists');return;}
+  userTopics[slug]={slug,label,active:true,queries:keywords?[keywords]:[],
+    sort_order:Object.keys(userTopics).length,user_id:user.id};
+  document.getElementById('custom-label').value='';
+  document.getElementById('custom-keywords').value='';
   markDirty();
-  render();
-  // Reopen the panel
-  setTimeout(() => {
-    const panel = document.getElementById('panel-' + topicIndex);
-    const arrow = document.querySelectorAll('.topic-arrow')[topicIndex];
-    if (panel) { panel.classList.add('open'); arrow.classList.add('open'); }
-  }, 50);
+  renderPicks();
+  toast('Custom topic added');
+}
+
+function removeTopic(slug){
+  if(userTopics[slug])userTopics[slug].active=false;
+  markDirty();
+  renderLibrary();
+  renderPicks();
+}
+
+function renderPicks(){
+  const list=document.getElementById('picks-list');
+  const active=Object.values(userTopics).filter(t=>t.active);
+  if(active.length===0){
+    list.innerHTML='<span class="picks-empty">No topics selected yet.</span>';
+    return;
+  }
+  list.innerHTML=active.map(t=>`
+    <span class="pick-tag">
+      ${t.label}
+      <button onclick="removeTopic('${t.slug}')" title="Remove">×</button>
+    </span>`).join('');
 }
 
 // ── SAVE ──────────────────────────────────────────────────────────────────
+function markDirty(){dirty=true;document.getElementById('save-bar').classList.add('show');}
 
-function markDirty() {
-  dirty = true;
-  document.getElementById('save-bar').style.display = 'flex';
-}
+async function saveAll(){
+  const topicRows=Object.values(userTopics).map(t=>({...t,user_id:user.id}));
+  const sourceRows=[];
+  Object.values(userSources).forEach(byDomain=>{
+    Object.values(byDomain).forEach(s=>sourceRows.push({...s,user_id:user.id}));
+  });
 
-async function saveAll() {
-  const topicRows = topics.map(t => ({ ...t, user_id:user.id }));
-  const sourceRows = sources.map(s => ({ ...s, user_id:user.id }));
   await Promise.all([
-    sb.from('user_topics').upsert(topicRows, { onConflict:'user_id,slug' }),
-    sb.from('user_sources').upsert(sourceRows, { onConflict:'user_id,topic_slug,domain' }),
+    topicRows.length?sb.from('user_topics').upsert(topicRows,{onConflict:'user_id,slug'}):Promise.resolve(),
+    sourceRows.length?sb.from('user_sources').upsert(sourceRows,{onConflict:'user_id,topic_slug,domain'}):Promise.resolve(),
   ]);
-  dirty = false;
-  document.getElementById('save-bar').style.display = 'none';
-  const now = new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('last-saved').textContent = `Saved ${now}`;
+
+  dirty=false;
+  document.getElementById('save-bar').classList.remove('show');
+  const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('last-saved').textContent=`Saved ${now}`;
   toast('Saved — changes apply at next morning run');
 }
 
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
 }
 
-window.addEventListener('beforeunload', e => {
-  if (dirty) { e.preventDefault(); e.returnValue = ''; }
-});
+window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
 </script>
 </body>
 </html>
