@@ -24,44 +24,78 @@ TOPICS = {
     "civic-tech": {
         "label": "Civic Tech & GovTech",
         "queries": ['"civic tech" OR "govtech" OR "government technology"',
-                    '"digital government" OR "government software" OR "public sector technology"'],
-        "domains": "statescoop.com,govtech.com,nextgov.com,federalnewsnetwork.com,route-fifty.com",
-        "feeds":   ["https://statescoop.com/feed/", "https://www.govtech.com/rss.xml"],
+                    '"digital government" OR "government software" OR "public sector technology"',
+                    '"smart city" OR "open data" OR "civic innovation"'],
+        "domains": "statescoop.com,govtech.com,nextgov.com,federalnewsnetwork.com,route-fifty.com,fcw.com,gcn.com,publictechnology.net",
+        "feeds":   [
+            "https://statescoop.com/feed/",
+            "https://www.govtech.com/rss.xml",
+            "https://www.route-fifty.com/rss.xml",
+            "https://fcw.com/rss-feeds/all.aspx",
+            "https://www.nextgov.com/rss/all/",
+        ],
     },
     "housing": {
         "label": "Housing Policy",
         "queries": ['"affordable housing" OR "housing policy" OR "zoning reform"',
-                    '"housing crisis" OR "homelessness" OR "rent control"'],
-        "domains": "shelterforce.org,housingwire.com,nlihc.org",
-        "feeds":   ["https://shelterforce.org/feed/", "https://www.housingwire.com/feed/"],
+                    '"housing crisis" OR "homelessness" OR "rent control" OR "eviction"',
+                    '"public housing" OR "housing voucher" OR "HUD" OR "housing first"'],
+        "domains": "shelterforce.org,housingwire.com,nlihc.org,citylab.com,bloomberg.com,strongtowns.org,bisnow.com",
+        "feeds":   [
+            "https://shelterforce.org/feed/",
+            "https://www.housingwire.com/feed/",
+            "https://www.strongtowns.org/feed/",
+            "https://nlihc.org/feed",
+        ],
     },
     "nonprofit": {
         "label": "Nonprofit & Grants",
         "queries": ['"nonprofit" AND ("grant" OR "funding" OR "philanthropy")',
-                    '"foundation" AND ("awards grant" OR "social impact")'],
-        "domains": "philanthropy.com,nonprofitquarterly.org,candid.org",
-        "feeds":   ["https://nonprofitquarterly.org/feed/", "https://blog.candid.org/feed/"],
+                    '"foundation" AND ("awards grant" OR "social impact" OR "announces funding")',
+                    '"civil society" OR "community foundation" OR "501c3" OR "grantmaking"'],
+        "domains": "philanthropy.com,nonprofitquarterly.org,candid.org,ssir.org,insidephilanthropy.com,nonprofitaf.com",
+        "feeds":   [
+            "https://nonprofitquarterly.org/feed/",
+            "https://blog.candid.org/feed/",
+            "https://ssir.org/site/rss",
+            "https://www.insidephilanthropy.com/home?format=rss",
+        ],
     },
     "ai-tech": {
         "label": "AI & Tech",
         "queries": ['"artificial intelligence" AND ("policy" OR "regulation" OR "governance")',
-                    '"large language model" OR "generative AI" OR "AI ethics"'],
-        "domains": "technologyreview.com,wired.com,theverge.com,arstechnica.com",
-        "feeds":   ["https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
-                    "https://www.technologyreview.com/feed/"],
+                    '"large language model" OR "generative AI" OR "AI ethics" OR "AI safety"',
+                    '"machine learning" AND ("government" OR "nonprofit" OR "public sector")'],
+        "domains": "technologyreview.com,wired.com,theverge.com,arstechnica.com,venturebeat.com,axios.com",
+        "feeds":   [
+            "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
+            "https://www.technologyreview.com/feed/",
+            "https://venturebeat.com/category/ai/feed/",
+            "https://www.wired.com/feed/category/artificial-intelligence/latest/rss",
+        ],
     },
     "penguins": {
         "label": "Pittsburgh Penguins",
-        "queries": ['"Pittsburgh Penguins"'],
-        "domains": "nhl.com,pensburgh.com,post-gazette.com",
-        "feeds":   ["https://www.pensburgh.com/rss/current"],
+        "queries": ['"Pittsburgh Penguins"',
+                    '"NHL" AND ("trade" OR "playoffs" OR "standings" OR "recap")'],
+        "domains": "nhl.com,pensburgh.com,post-gazette.com,theathletic.com,sportsnet.ca,espn.com",
+        "feeds":   [
+            "https://www.pensburgh.com/rss/current",
+            "https://www.nhl.com/rss/news.xml",
+            "https://www.sportsnet.ca/feed/",
+        ],
     },
     "general": {
         "label": "General News",
         "queries": [],
         "domains": "",
-        "feeds":   ["https://feeds.bbci.co.uk/news/rss.xml",
-                    "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"],
+        "feeds":   [
+            "https://feeds.bbci.co.uk/news/rss.xml",
+            "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
+            "https://feeds.npr.org/1001/rss.xml",
+            "https://www.theguardian.com/world/rss",
+            "https://apnews.com/rss",
+        ],
     },
 }
 
@@ -100,29 +134,45 @@ def fetch_rss(url):
     except Exception as e:
         print(f"  RSS error {url}: {e}"); return []
 
-MAX_PER_SOURCE = 2  # max stories from any single domain per section
-
 def fetch_all():
     all_stories, seen = {}, set()
     for slug, topic in TOPICS.items():
-        stories = []
-        source_counts = {}
+        # Gather all candidates first
+        candidates = []
+        local_seen = set()
         for q in topic["queries"]:
             for s in fetch_newsapi(q, topic["domains"]):
-                d = s["source_domain"]
-                if s["url"] not in seen and source_counts.get(d, 0) < MAX_PER_SOURCE:
-                    seen.add(s["url"]); s["topic_slug"] = slug
-                    source_counts[d] = source_counts.get(d, 0) + 1
-                    stories.append(s)
+                if s["url"] not in seen and s["url"] not in local_seen:
+                    local_seen.add(s["url"]); s["topic_slug"] = slug; candidates.append(s)
         for feed_url in topic["feeds"]:
             for s in fetch_rss(feed_url):
-                d = s["source_domain"]
-                if s["url"] not in seen and source_counts.get(d, 0) < MAX_PER_SOURCE:
-                    seen.add(s["url"]); s["topic_slug"] = slug
-                    source_counts[d] = source_counts.get(d, 0) + 1
-                    stories.append(s)
+                if s["url"] not in seen and s["url"] not in local_seen:
+                    local_seen.add(s["url"]); s["topic_slug"] = slug; candidates.append(s)
+
+        # First pass: max 2 per source
+        stories, source_counts = [], {}
+        overflow = []
+        for s in candidates:
+            d = s["source_domain"]
+            if source_counts.get(d, 0) < 2:
+                source_counts[d] = source_counts.get(d, 0) + 1
+                stories.append(s)
+            else:
+                overflow.append(s)
+
+        # Backfill from overflow if we have fewer than MAX_STORIES
+        for s in overflow:
+            if len(stories) >= MAX_STORIES:
+                break
+            stories.append(s)
+
+        # Mark all used URLs as globally seen
+        for s in stories[:MAX_STORIES]:
+            seen.add(s["url"])
+
         all_stories[slug] = stories[:MAX_STORIES]
-        print(f"  [{slug}] {len(all_stories[slug])} stories from {len(source_counts)} sources")
+        src_count = len(set(s["source_domain"] for s in all_stories[slug]))
+        print(f"  [{slug}] {len(all_stories[slug])} stories from {src_count} sources")
     return all_stories
 
 def fmt_date():
