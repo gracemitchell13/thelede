@@ -209,7 +209,7 @@ def format_date() -> str:
     return datetime.now(timezone.utc).strftime("%A, %B %-d, %Y").upper()
 
 
-def story_card_html(story: dict, size: str = "sm") -> str:
+def story_card_html(story: dict, size: str = "sm", grid_style: str = "") -> str:
     """size: 'lg' | 'md' | 'sm'"""
     title = html_lib.escape(story.get("title", ""))
     url = html_lib.escape(story.get("url", ""))
@@ -219,7 +219,7 @@ def story_card_html(story: dict, size: str = "sm") -> str:
 
     desc_html = f'<p class="story-desc">{desc}{"…" if len(desc)==300 else ""}</p>' if desc else ""
 
-    return f"""<article class="story-card size-{size}" data-url="{data_url}">
+    return f"""<article class="story-card size-{size}"{style_attr} data-url="{data_url}">
       <h3 class="story-title"><a href="{url}" target="_blank" rel="noopener">{title}</a></h3>
       {desc_html}
       <div class="story-meta">
@@ -237,27 +237,32 @@ def topic_section_html(slug: str, stories: list) -> str:
     if not stories:
         return ""
 
-    # Layout: featured | two stacked | remaining in 3-col row
-    # Slot 0: large feature (left col)
-    # Slots 1-2: medium stacked (right of feature)
-    # Slots 3+: small in 3-col grid below
+    # Flat 4-column grid. Explicit grid positions per slot:
+    #  Row 1-2, Col 1-2 : Story 0 (lg) — big feature
+    #  Row 1,   Col 3   : Story 1 (md)
+    #  Row 1,   Col 4   : Story 2 (md)
+    #  Row 2,   Col 3-4 : Story 3 (md) — spans two cols
+    #  Row 3,   Col 1-2 : Story 4 (sm) — wider small
+    #  Row 3,   Col 3   : Story 5 (sm)
+    #  Row 3,   Col 4   : Story 6 (sm)
+    SLOTS = [
+        ("lg", "grid-column:1/3; grid-row:1/3;"),
+        ("md", "grid-column:3/4; grid-row:1/2;"),
+        ("md", "grid-column:4/5; grid-row:1/2;"),
+        ("md", "grid-column:3/5; grid-row:2/3;"),
+        ("sm", "grid-column:1/3; grid-row:3/4;"),
+        ("sm", "grid-column:3/4; grid-row:3/4;"),
+        ("sm", "grid-column:4/5; grid-row:3/4;"),
+    ]
 
-    featured = story_card_html(stories[0], "lg") if len(stories) > 0 else ""
-    mid1     = story_card_html(stories[1], "md") if len(stories) > 1 else ""
-    mid2     = story_card_html(stories[2], "md") if len(stories) > 2 else ""
-    smalls   = "".join(story_card_html(s, "sm") for s in stories[3:])
-
-    top_row = f"""<div class="top-row">
-      <div class="col-feature">{featured}</div>
-      <div class="col-stack">{mid1}{mid2}</div>
-    </div>""" if featured else ""
-
-    bottom_row = f'<div class="bottom-row">{smalls}</div>' if smalls else ""
+    cards = ""
+    for i, story in enumerate(stories[:7]):
+        size, gs = SLOTS[i] if i < len(SLOTS) else ("sm", "")
+        cards += story_card_html(story, size, gs)
 
     return f"""<section class="topic-section" id="{slug}">
     <div class="section-rule"><span class="section-label">{label}</span></div>
-    {top_row}
-    {bottom_row}
+    <div class="topic-grid">{cards}</div>
   </section>"""
 
 
@@ -364,28 +369,12 @@ def generate_html(stories_by_topic: dict) -> str:
       letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap;
     }}
 
-    /* TOP ROW: feature + stack */
-    .top-row {{
+    /* TOPIC GRID — flat 4-column newspaper grid */
+    .topic-grid {{
       display: grid;
-      grid-template-columns: 5fr 4fr;
+      grid-template-columns: 3fr 2fr 2fr 2fr;
+      grid-template-rows: auto auto auto;
       border-top: 2px solid var(--rule);
-      border-left: 1px solid var(--rule-lt);
-      margin-bottom: 0;
-    }}
-    .col-feature {{ border-right: 1px solid var(--rule-lt); display: flex; flex-direction: column; }}
-    .col-feature .story-card {{ flex: 1; }}
-    .size-lg {{ padding: 1.25rem 1.35rem 1rem; }}
-    .col-stack {{
-      display: grid;
-      grid-template-rows: 1fr 1fr;
-    }}
-    .col-stack .story-card:first-child {{ border-bottom: 1px solid var(--rule-lt); }}
-
-    /* BOTTOM ROW */
-    .bottom-row {{
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      border-top: 1px solid var(--rule-lt);
       border-left: 1px solid var(--rule-lt);
       margin-bottom: 1.75rem;
     }}
@@ -451,7 +440,7 @@ def generate_html(stories_by_topic: dict) -> str:
     #toast.show {{ opacity: 1; }}
 
     @media (max-width: 700px) {{
-      .top-row {{ grid-template-columns: 1fr; }}
+      .topic-grid {{ grid-template-columns: 1fr; }}
       .col-stack {{ grid-template-rows: auto; }}
       .section-nav {{ overflow-x: auto; flex-wrap: nowrap; padding: 0; }}
       .masthead {{ padding: 0 1rem; }}
