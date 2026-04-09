@@ -216,6 +216,7 @@ def story_card_html(story: dict, size: str = "sm", grid_style: str = "") -> str:
     desc = html_lib.escape(story.get("description", ""))[:300]
     source = html_lib.escape(story.get("source_label", story.get("source_domain", "")))
     data_url = html_lib.escape(story.get("url", ""))
+    style_attr = f' style="{grid_style}"' if grid_style else ""
 
     desc_html = f'<p class="story-desc">{desc}{"…" if len(desc)==300 else ""}</p>' if desc else ""
 
