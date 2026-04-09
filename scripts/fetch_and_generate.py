@@ -372,7 +372,9 @@ def generate_html(stories_by_topic: dict) -> str:
       border-left: 1px solid var(--rule-lt);
       margin-bottom: 0;
     }}
-    .col-feature {{ border-right: 1px solid var(--rule-lt); }}
+    .col-feature {{ border-right: 1px solid var(--rule-lt); display: flex; flex-direction: column; }}
+    .col-feature .story-card {{ flex: 1; }}
+    .size-lg {{ padding: 1.25rem 1.35rem 1rem; }}
     .col-stack {{
       display: grid;
       grid-template-rows: 1fr 1fr;
@@ -402,7 +404,6 @@ def generate_html(stories_by_topic: dict) -> str:
     /* sizes */
     .size-lg .story-title {{ font-size: 1.55rem; line-height: 1.2; font-weight: 800; }}
     .size-lg .story-desc  {{ font-size: 0.88rem; line-height: 1.6; }}
-    .size-lg {{ padding: 1.25rem 1.35rem 1rem; min-height: 220px; }}
 
     .size-md .story-title {{ font-size: 1.05rem; line-height: 1.25; font-weight: 700; }}
     .size-md .story-desc  {{ font-size: 0.8rem; }}
