@@ -139,10 +139,13 @@ def section(slug, stories):
         src = html_lib.escape(s.get("source_label", s.get("source_domain","")))
         du  = html_lib.escape(s.get("url",""))
         num = str(i + 2).zfill(2)
+        s_desc = html_lib.escape(s.get("description",""))[:200]
+        s_desc_html = f'<p class="sec-desc">{s_desc}{"…" if len(s_desc)==200 else ""}</p>' if s_desc else ""
         secondary += f'''<article class="sec-item" data-url="{du}">
           <div class="sec-num">{num}</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="{u}" target="_blank" rel="noopener">{t}</a></h3>
+            {s_desc_html}
             <div class="sec-meta">
               <span class="src">{src}</span>
               <span class="votes">
@@ -248,10 +251,18 @@ main{{max-width:1100px;margin:0 auto;padding:0 2rem 3rem}}
   border-right:1px solid var(--rlt);border-bottom:1px solid var(--rlt)}}
 .sec-item:nth-child(3n+1){{border-left:none}}
 .sec-num{{font-family:var(--sans);font-size:1.6rem;font-weight:700;
-  color:var(--rlt);line-height:1;min-width:2rem;padding-top:.1rem}}
+  line-height:1;min-width:2rem;padding-top:.1rem}}
 .sec-body{{display:flex;flex-direction:column;gap:.35rem;flex:1}}
 .sec-hed{{font-family:var(--serif);font-size:.95rem;font-weight:700;
   line-height:1.3;color:var(--blk)}}
+.sec-desc{{font-size:.8rem;color:var(--mid);line-height:1.5;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}}
+#civic-tech .sec-num{{color:#1a6b3c}}
+#housing .sec-num{{color:#7b2d8b}}
+#nonprofit .sec-num{{color:#c45c1a}}
+#ai-tech .sec-num{{color:#1a4fa0}}
+#penguins .sec-num{{color:#c4a01a}}
+#general .sec-num{{color:#8b1a1a}}
 .sec-meta{{display:flex;justify-content:space-between;align-items:center;
   margin-top:auto;padding-top:.35rem;border-top:1px solid var(--rlt)}}
 
