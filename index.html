@@ -70,10 +70,18 @@ main{max-width:1100px;margin:0 auto;padding:0 2rem 3rem}
   border-right:1px solid var(--rlt);border-bottom:1px solid var(--rlt)}
 .sec-item:nth-child(3n+1){border-left:none}
 .sec-num{font-family:var(--sans);font-size:1.6rem;font-weight:700;
-  color:var(--rlt);line-height:1;min-width:2rem;padding-top:.1rem}
+  line-height:1;min-width:2rem;padding-top:.1rem}
 .sec-body{display:flex;flex-direction:column;gap:.35rem;flex:1}
 .sec-hed{font-family:var(--serif);font-size:.95rem;font-weight:700;
   line-height:1.3;color:var(--blk)}
+.sec-desc{font-size:.8rem;color:var(--mid);line-height:1.5;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+#civic-tech .sec-num{color:#1a6b3c}
+#housing .sec-num{color:#7b2d8b}
+#nonprofit .sec-num{color:#c45c1a}
+#ai-tech .sec-num{color:#1a4fa0}
+#penguins .sec-num{color:#c4a01a}
+#general .sec-num{color:#8b1a1a}
 .sec-meta{display:flex;justify-content:space-between;align-items:center;
   margin-top:auto;padding-top:.35rem;border-top:1px solid var(--rlt)}
 
@@ -146,6 +154,7 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
           <div class="sec-num">02</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://statescoop.com/illinois-unveils-journey-to-success-prison-tablet-education-program/" target="_blank" rel="noopener">Illinois unveils ‘Journey to Success’ prison tablet education program</a></h3>
+            <p class="sec-desc">Inmates in Illinois correction facilities will have access to a new, curated collection of digital education and skills content on their tablets.</p>
             <div class="sec-meta">
               <span class="src">StateScoop</span>
               <span class="votes">
@@ -158,6 +167,7 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
           <div class="sec-num">03</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://statescoop.com/nascio-2026-strategic-plan/" target="_blank" rel="noopener">State CIO group reaffirms members are drivers of innovation</a></h3>
+            <p class="sec-desc">The National Association of State Chief Information Officers renewed its strategic plan, adjusting course for the next two years of advocacy and support for states&#x27; top technology officials.</p>
             <div class="sec-meta">
               <span class="src">StateScoop</span>
               <span class="votes">
@@ -170,6 +180,7 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
           <div class="sec-num">04</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://statescoop.com/san-jose-california-ai-coalition-independent-nonprofit/" target="_blank" rel="noopener">San Jose, California, city leaders vote to make AI coalition an independent nonprofit</a></h3>
+            <p class="sec-desc">City officials in San Jose, California, have approved an updated AI policy framework for the city. They also agreed that the GovAI Coalition should become a nonprofit.</p>
             <div class="sec-meta">
               <span class="src">StateScoop</span>
               <span class="votes">
@@ -182,6 +193,7 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
           <div class="sec-num">05</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://statescoop.com/nascio-privacy-report-state-government-2026/" target="_blank" rel="noopener">More states are taking privacy seriously, but their work isn’t done</a></h3>
+            <p class="sec-desc">A report from the National Association of State Chief Information Officers shows that while more states are formalizing privacy practices, implementation can be uneven.</p>
             <div class="sec-meta">
               <span class="src">StateScoop</span>
               <span class="votes">
@@ -194,6 +206,7 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
           <div class="sec-num">06</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://statescoop.com/minnesota-winona-county-cyberattack-emergency-order/" target="_blank" rel="noopener">Minnesota governor orders emergency support for cyberattack disrupting county’s ‘critical systems’</a></h3>
+            <p class="sec-desc">“Swift coordination between state and local experts matters in these moments,&quot; Tim Walz, Minnesota&#x27;s governor, said after a disruptive cyberattack in Winona County.</p>
             <div class="sec-meta">
               <span class="src">StateScoop</span>
               <span class="votes">
@@ -206,6 +219,7 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
           <div class="sec-num">07</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://statescoop.com/utah-aspen-institute-ai-framework/" target="_blank" rel="noopener">Should states treat AI incidents like aviation accidents, and investigate?</a></h3>
+            <p class="sec-desc">A new policy framework from the Aspen Institute would establish clear processes for states to follow when AI produces unwanted or dangerous results.</p>
             <div class="sec-meta">
               <span class="src">StateScoop</span>
               <span class="votes">
@@ -236,6 +250,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">02</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://shelterforce.org/2026/04/07/free-land-retail-rents-and-other-ways-cities-are-cutting-reliance-on-federal-housing-funds/" target="_blank" rel="noopener">Free Land, Retail Rents, and Other Ways Cities Are Cutting Reliance on Federal Housing Funds</a></h3>
+            <p class="sec-desc">Though the federal role will always be necessary, local governments, and developers themselves, are looking for ways to develop affordable housing with less federal subsidy. Here are some of the appro…</p>
             <div class="sec-meta">
               <span class="src">Shelterforce</span>
               <span class="votes">
@@ -248,6 +263,8 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">03</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://shelterforce.org/2026/04/06/acting-locally-states-counties-and-cities-on-the-front-lines/" target="_blank" rel="noopener">Acting Locally: States, Counties, and Cities on the Front Lines</a></h3>
+            <p class="sec-desc">Even in challenging times, there are many actions that state and local governments can take to improve housing access and look out for their residents.
+The post Acting Locally: States, Counties, and C…</p>
             <div class="sec-meta">
               <span class="src">Shelterforce</span>
               <span class="votes">
@@ -260,6 +277,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">04</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://shelterforce.org/2026/04/02/will-tucson-take-back-its-power-literally/" target="_blank" rel="noopener">Will Tucson Take Back Its Power—Literally?</a></h3>
+            <p class="sec-desc">My experience with a utility shutoff led me to look more closely at who provides my city’s power. It turns out there&#x27;s a push for the city to buy out the investor-owned utility and create a publi…</p>
             <div class="sec-meta">
               <span class="src">Shelterforce</span>
               <span class="votes">
@@ -272,6 +290,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">05</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://shelterforce.org/2026/04/01/nycs-new-housing-approval-process-faces-first-tests/" target="_blank" rel="noopener">NYC’s New Housing Approval Process Faces First Tests</a></h3>
+            <p class="sec-desc">Voters said yes to speeding up housing approvals. Now the city is putting that plan into action. While there&#x27;s excitement among affordable housing developers, some housing advocates worry the new…</p>
             <div class="sec-meta">
               <span class="src">Shelterforce</span>
               <span class="votes">
@@ -284,6 +303,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">06</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://shelterforce.org/2026/04/01/federal-housing-legislation-attracts-broad-support-but-faces-obstacles/" target="_blank" rel="noopener">The Federal Housing Bill: ‘A Bunch of Tweaks, But Good Ones’</a></h3>
+            <p class="sec-desc">Two bills passed with rare 80-percent-plus majorities in the Senate and House appear to be headed to a joint conference committee. The outcome could be a broad update to federal housing and community …</p>
             <div class="sec-meta">
               <span class="src">Shelterforce</span>
               <span class="votes">
@@ -296,6 +316,8 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">07</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://shelterforce.org/2026/03/31/were-making-housing-harder-to-preserve-than-it-should-be/" target="_blank" rel="noopener">We’re Making Housing Harder to Preserve Than It Should Be</a></h3>
+            <p class="sec-desc">To maintain older housing stock, aligning programs to address building deterioration before it is severe offers big payoffs, preserving both homes and housing affordability.​​
+The post We&amp;#8217;re…</p>
             <div class="sec-meta">
               <span class="src">Shelterforce</span>
               <span class="votes">
@@ -325,6 +347,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">02</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://nonprofitquarterly.org/pepper-spray-and-the-courage-to-stay/" target="_blank" rel="noopener">Pepper Spray and the Courage to Stay</a></h3>
+            <p class="sec-desc">Movements are often sparked by the fire within, but they endure through ecosystems and community networks that make staying possible. Those networks need to be fully resourced for the long haul.</p>
             <div class="sec-meta">
               <span class="src">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
               <span class="votes">
@@ -337,6 +360,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">03</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://nonprofitquarterly.org/after-the-breaking-a-black-feminist-response-to-retrenchment/" target="_blank" rel="noopener">After the Breaking: A Black Feminist Response to Retrenchment</a></h3>
+            <p class="sec-desc">Leaders of a growing network of global funders and advisors share perspectives on philanthropy’s retrenchment and the work underway to build new pathways to resource Black feminist and social justice …</p>
             <div class="sec-meta">
               <span class="src">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
               <span class="votes">
@@ -349,6 +373,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">04</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://nonprofitquarterly.org/democracy-needs-you-5-steps-nonprofits-can-take-to-support-free-and-fair-elections/" target="_blank" rel="noopener">Democracy Needs You: 5 Steps Nonprofits Can Take to Support Free and Fair Elections</a></h3>
+            <p class="sec-desc">Nonprofits may not see promoting voting as essential to their mission, but right now, there may be no more important civic duty.</p>
             <div class="sec-meta">
               <span class="src">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
               <span class="votes">
@@ -361,6 +386,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">05</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://nonprofitquarterly.org/supreme-court-says-colorado-cant-ban-conversion-therapy-for-lgbtq-youth/" target="_blank" rel="noopener">Supreme Court Says Colorado Can’t Ban Conversion Therapy for LGBTQ+ Youth</a></h3>
+            <p class="sec-desc">The case was brought by a Christian counselor who argued that Colorado’s ban violated her free speech rights.</p>
             <div class="sec-meta">
               <span class="src">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
               <span class="votes">
@@ -373,6 +399,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">06</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://nonprofitquarterly.org/finally-free-leonard-peltier-offers-intergenerational-wisdom-for-resistance/" target="_blank" rel="noopener">Finally Free, Leonard Peltier Offers Intergenerational Wisdom for Resistance</a></h3>
+            <p class="sec-desc">Indigenous leader, activist, and revolutionary Leonard Peltier was illegally convicted and imprisoned for 49 years and two months. On January 20, 2025, shortly before leaving office, President Biden c…</p>
             <div class="sec-meta">
               <span class="src">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
               <span class="votes">
@@ -385,6 +412,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">07</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://nonprofitquarterly.org/philanthropys-drag-coefficient-when-process-costs-more-than-failure/" target="_blank" rel="noopener">Philanthropy’s Drag Coefficient: When Process Costs More Than Failure</a></h3>
+            <p class="sec-desc">To approve and administer funding, the philanthropic sector relies on bureaucratic processes that introduce drag into the system, ultimately hindering organizations from getting important work done.</p>
             <div class="sec-meta">
               <span class="src">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
               <span class="votes">
@@ -414,6 +442,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">02</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs" target="_blank" rel="noopener">Unionized ProPublica staff are on strike over AI, layoffs, and wages</a></h3>
+            <p class="sec-desc">Unionized staff at ProPublica, one of the country&#x27;s leading nonprofit newsrooms, are walking off the job for 24 hours beginning Wednesday and asking the public to honor a digital picket line. The…</p>
             <div class="sec-meta">
               <span class="src">The Verge</span>
               <span class="votes">
@@ -426,6 +455,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">03</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://www.theverge.com/podcast/909042/ai-monetization-cliff-anthropic-openai-profitable-ai-existential-moment" target="_blank" rel="noopener">The AI industry’s race for profits is now existential</a></h3>
+            <p class="sec-desc">Today on Decoder, let’s talk about the looming AI monetization cliff, and whether some of the biggest companies in the space can become real, profitable businesses before they careen right off it. My …</p>
             <div class="sec-meta">
               <span class="src">AI | The Verge</span>
               <span class="votes">
@@ -438,6 +468,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">04</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://www.theverge.com/ai-artificial-intelligence/909104/youtube-shorts-make-ai-avatar" target="_blank" rel="noopener">Google makes it easy to deepfake yourself</a></h3>
+            <p class="sec-desc">YouTube Shorts is rolling out a new AI-powered feature giving creators an easy way to realistically clone themselves on camera. The launch, hinted at earlier this year, reflects the platform&#x27;s fr…</p>
             <div class="sec-meta">
               <span class="src">AI | The Verge</span>
               <span class="votes">
@@ -450,6 +481,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">05</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://www.theverge.com/tech/909031/google-gemini-notebooks-notebooklm" target="_blank" rel="noopener">Gemini gets notebooks to help you organize projects</a></h3>
+            <p class="sec-desc">Google&#x27;s Gemini is getting a feature called &quot;notebooks&quot; to help you organize things about certain topics in a single place while using the AI chatbot, the company announced on Wednesday…</p>
             <div class="sec-meta">
               <span class="src">AI | The Verge</span>
               <span class="votes">
@@ -462,6 +494,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">06</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://www.theverge.com/column/908880/openai-made-economic-proposals-heres-what-dc-thinks-of-them" target="_blank" rel="noopener">OpenAI made economic proposals — here’s what DC thinks of them</a></h3>
+            <p class="sec-desc">Happy ceasefire day and welcome to Regulator, a newsletter for Verge subscribers about Big Tech&#x27;s rocky journey through the world of politics. If you&#x27;re not a subscriber yet, you can do so h…</p>
             <div class="sec-meta">
               <span class="src">AI | The Verge</span>
               <span class="votes">
@@ -474,6 +507,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">07</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://www.theverge.com/tech/908769/meta-muse-spark-ai-model-launch-rollout" target="_blank" rel="noopener">Meta is reentering the AI race with a new model called Muse Spark</a></h3>
+            <p class="sec-desc">Meta Superintelligence Labs is launching its first model since Mark Zuckerberg spent billions overhauling the company&#x27;s AI efforts. Called Muse Spark, the model now powers the Meta AI app and the…</p>
             <div class="sec-meta">
               <span class="src">AI | The Verge</span>
               <span class="votes">
@@ -503,6 +537,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">02</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://www.bbc.com/news/articles/cq593g970z7o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">22,000 students told to pay back &#x27;mis-sold&#x27; maintenance loans</a></h3>
+            <p class="sec-desc">Those affected have been told their courses were never eligible for maintenance or childcare loans</p>
             <div class="sec-meta">
               <span class="src">BBC News</span>
               <span class="votes">
@@ -515,6 +550,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">03</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://www.bbc.com/news/articles/cgmenyllyz7o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Four people die trying to board boat in Channel crossing attempt</a></h3>
+            <p class="sec-desc">Authorities say 37 people are being treated in hospital, but around 30 others continued their journeys to the UK.</p>
             <div class="sec-meta">
               <span class="src">BBC News</span>
               <span class="votes">
@@ -527,6 +563,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">04</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://www.bbc.com/news/articles/cj6098jngryo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Pub thief jailed for stealing handbag with £2m Fabergé egg inside</a></h3>
+            <p class="sec-desc">An &quot;opportunistic&quot; thief is jailed for stealing a handbag from a pub that happened to contain a £2.2m Fabergé egg.</p>
             <div class="sec-meta">
               <span class="src">BBC News</span>
               <span class="votes">
@@ -539,6 +576,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">05</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://www.bbc.com/news/articles/ckgelr2pk0lo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Best-selling The Housemaid author Freida McFadden reveals true identity</a></h3>
+            <p class="sec-desc">One of the biggest mysteries in publishing is solved, as The Housemaid writer reveals her real name.</p>
             <div class="sec-meta">
               <span class="src">BBC News</span>
               <span class="votes">
@@ -551,6 +589,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">06</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://www.bbc.com/news/articles/c625l7qen3jo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Hundreds of dogs found crammed in living room &#x27;doing really well&#x27;, says RSPCA</a></h3>
+            <p class="sec-desc">The charity says many of the animals found at the home in January were in a poor condition with &quot;matted and crusted coats&quot; that required treatment.</p>
             <div class="sec-meta">
               <span class="src">BBC News</span>
               <span class="votes">
@@ -563,6 +602,7 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
           <div class="sec-num">07</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://www.bbc.com/news/articles/c7471n0lm2vo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Jo Malone hopes &#x27;sense will prevail&#x27; in lawsuit over use of her name</a></h3>
+            <p class="sec-desc">The British perfume designer and Zara are being sued by Estée Lauder over a collaboration.</p>
             <div class="sec-meta">
               <span class="src">BBC News</span>
               <span class="votes">
