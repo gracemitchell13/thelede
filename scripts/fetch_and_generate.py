@@ -246,60 +246,61 @@ def topic_section_html(slug: str, stories: list) -> str:
     #  Row 3,   Col 1-2 : Story 4 (sm) — wider small
     #  Row 3,   Col 3   : Story 5 (sm)
     #  Row 3,   Col 4   : Story 6 (sm)
-    # Each topic gets a distinct grid layout
-    LAYOUT_A = [  # big left feature, two stacked right, row of 4 smalls
-        ("lg", "grid-column:1/3; grid-row:1/3;"),
-        ("md", "grid-column:3/4; grid-row:1/2;"),
-        ("md", "grid-column:4/5; grid-row:1/2;"),
-        ("md", "grid-column:3/5; grid-row:2/3;"),
-        ("sm", "grid-column:1/2; grid-row:3/4;"),
-        ("sm", "grid-column:2/3; grid-row:3/4;"),
-        ("sm", "grid-column:3/5; grid-row:3/4;"),
+    # No row-spanning — width only. Each row auto-sizes to its content.
+    # lg = wide column span + big font. No empty space possible.
+    LAYOUT_A = [  # Row1: 3+1 | Row2: 1+2+1 | Row3: 2+2
+        ("lg", "grid-column:1/4;"),
+        ("md", "grid-column:4/5;"),
+        ("sm", "grid-column:1/2;"),
+        ("md", "grid-column:2/4;"),
+        ("sm", "grid-column:4/5;"),
+        ("sm", "grid-column:1/3;"),
+        ("sm", "grid-column:3/5;"),
     ]
-    LAYOUT_B = [  # three equal top, big feature bottom-left, two smalls bottom-right
-        ("md", "grid-column:1/2; grid-row:1/2;"),
-        ("md", "grid-column:2/4; grid-row:1/2;"),
-        ("md", "grid-column:4/5; grid-row:1/2;"),
-        ("lg", "grid-column:1/3; grid-row:2/4;"),
-        ("sm", "grid-column:3/5; grid-row:2/3;"),
-        ("sm", "grid-column:3/4; grid-row:3/4;"),
-        ("sm", "grid-column:4/5; grid-row:3/4;"),
+    LAYOUT_B = [  # Row1: 2+2 | Row2: 1+3 | Row3: 1+1+2
+        ("md", "grid-column:1/3;"),
+        ("md", "grid-column:3/5;"),
+        ("sm", "grid-column:1/2;"),
+        ("lg", "grid-column:2/5;"),
+        ("sm", "grid-column:1/2;"),
+        ("sm", "grid-column:2/4;"),
+        ("sm", "grid-column:4/5;"),
     ]
-    LAYOUT_C = [  # big right feature, two stacked left, row of smalls
-        ("md", "grid-column:1/2; grid-row:1/2;"),
-        ("md", "grid-column:1/2; grid-row:2/3;"),
-        ("lg", "grid-column:2/5; grid-row:1/3;"),
-        ("sm", "grid-column:1/2; grid-row:3/4;"),
-        ("sm", "grid-column:2/3; grid-row:3/4;"),
-        ("sm", "grid-column:3/4; grid-row:3/4;"),
-        ("sm", "grid-column:4/5; grid-row:3/4;"),
+    LAYOUT_C = [  # Row1: 1+1+2 | Row2: 3+1 | Row3: 2+1+1
+        ("sm", "grid-column:1/2;"),
+        ("sm", "grid-column:2/3;"),
+        ("md", "grid-column:3/5;"),
+        ("lg", "grid-column:1/4;"),
+        ("sm", "grid-column:4/5;"),
+        ("sm", "grid-column:1/3;"),
+        ("sm", "grid-column:3/4;"),
     ]
-    LAYOUT_D = [  # wide feature top, three smalls below
-        ("lg", "grid-column:1/4; grid-row:1/2;"),
-        ("md", "grid-column:4/5; grid-row:1/2;"),
-        ("sm", "grid-column:1/2; grid-row:2/3;"),
-        ("sm", "grid-column:2/3; grid-row:2/3;"),
-        ("sm", "grid-column:3/4; grid-row:2/3;"),
-        ("sm", "grid-column:4/5; grid-row:2/3;"),
-        ("sm", "grid-column:1/3; grid-row:3/4;"),
+    LAYOUT_D = [  # Row1: 4 banner | Row2: 2+1+1 | Row3: 1+2+1
+        ("lg", "grid-column:1/5;"),
+        ("md", "grid-column:1/3;"),
+        ("sm", "grid-column:3/4;"),
+        ("sm", "grid-column:4/5;"),
+        ("sm", "grid-column:1/2;"),
+        ("md", "grid-column:2/4;"),
+        ("sm", "grid-column:4/5;"),
     ]
-    LAYOUT_E = [  # banner top feature, two med, two sm
-        ("lg", "grid-column:1/5; grid-row:1/2;"),
-        ("md", "grid-column:1/3; grid-row:2/3;"),
-        ("md", "grid-column:3/5; grid-row:2/3;"),
-        ("sm", "grid-column:1/2; grid-row:3/4;"),
-        ("sm", "grid-column:2/3; grid-row:3/4;"),
-        ("sm", "grid-column:3/4; grid-row:3/4;"),
-        ("sm", "grid-column:4/5; grid-row:3/4;"),
+    LAYOUT_E = [  # Row1: 1+3 | Row2: 2+2 | Row3: 1+1+1+1
+        ("sm", "grid-column:1/2;"),
+        ("lg", "grid-column:2/5;"),
+        ("md", "grid-column:1/3;"),
+        ("md", "grid-column:3/5;"),
+        ("sm", "grid-column:1/2;"),
+        ("sm", "grid-column:2/3;"),
+        ("sm", "grid-column:3/5;"),
     ]
-    LAYOUT_F = [  # two med top-left, big top-right, smalls below
-        ("md", "grid-column:1/2; grid-row:1/2;"),
-        ("md", "grid-column:2/3; grid-row:1/2;"),
-        ("lg", "grid-column:3/5; grid-row:1/3;"),
-        ("sm", "grid-column:1/2; grid-row:2/3;"),
-        ("sm", "grid-column:2/3; grid-row:2/3;"),
-        ("sm", "grid-column:1/3; grid-row:3/4;"),
-        ("sm", "grid-column:3/5; grid-row:3/4;"),
+    LAYOUT_F = [  # Row1: 2+1+1 | Row2: 1+2+1 | Row3: 3+1
+        ("md", "grid-column:1/3;"),
+        ("sm", "grid-column:3/4;"),
+        ("sm", "grid-column:4/5;"),
+        ("sm", "grid-column:1/2;"),
+        ("lg", "grid-column:2/4;"),
+        ("sm", "grid-column:4/5;"),
+        ("md", "grid-column:1/4;"),
     ]
 
     TOPIC_LAYOUTS = {
