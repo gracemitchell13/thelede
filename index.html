@@ -97,7 +97,9 @@
       border-left: 1px solid var(--rule-lt);
       margin-bottom: 0;
     }
-    .col-feature { border-right: 1px solid var(--rule-lt); }
+    .col-feature { border-right: 1px solid var(--rule-lt); display: flex; flex-direction: column; }
+    .col-feature .story-card { flex: 1; }
+    .size-lg { padding: 1.25rem 1.35rem 1rem; }
     .col-stack {
       display: grid;
       grid-template-rows: 1fr 1fr;
@@ -127,7 +129,6 @@
     /* sizes */
     .size-lg .story-title { font-size: 1.55rem; line-height: 1.2; font-weight: 800; }
     .size-lg .story-desc  { font-size: 0.88rem; line-height: 1.6; }
-    .size-lg { padding: 1.25rem 1.35rem 1rem; min-height: 220px; }
 
     .size-md .story-title { font-size: 1.05rem; line-height: 1.25; font-weight: 700; }
     .size-md .story-desc  { font-size: 0.8rem; }
@@ -454,7 +455,18 @@ The post We&amp;#8217;re Making Housing Harder to Preserve Than It Should Be ap
 <section class="topic-section" id="ai-tech">
     <div class="section-rule"><span class="section-label">AI & Tech</span></div>
     <div class="top-row">
-      <div class="col-feature"><article class="story-card size-lg" data-url="https://www.technologyreview.com/2026/04/07/1134966/enabling-agent-first-process-redesign/">
+      <div class="col-feature"><article class="story-card size-lg" data-url="https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs">
+      <h3 class="story-title"><a href="https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs" target="_blank" rel="noopener">Unionized ProPublica staff are on strike over AI, layoffs, and wages</a></h3>
+      <p class="story-desc">Unionized staff at ProPublica, one of the country&#x27;s leading nonprofit newsrooms, are walking off the job for 24 hours beginning Wednesday and asking the public to honor a digital picket line. The roughly 150 members of the ProPublica Guild are in the midst of…</p>
+      <div class="story-meta">
+        <span class="source-label">The Verge</span>
+        <span class="vote-buttons">
+          <button class="vote-btn up" onclick="vote(this,'https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs',1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this,'https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs',-1)" title="Downvote">▼</button>
+        </span>
+      </div>
+    </article></div>
+      <div class="col-stack"><article class="story-card size-md" data-url="https://www.technologyreview.com/2026/04/07/1134966/enabling-agent-first-process-redesign/">
       <h3 class="story-title"><a href="https://www.technologyreview.com/2026/04/07/1134966/enabling-agent-first-process-redesign/" target="_blank" rel="noopener">Enabling agent-first process redesign</a></h3>
       <p class="story-desc">Unlike static, rules-based systems, AI agents can learn, adapt, and optimize processes dynamically. As they interact with data, systems, people, and other agents in real time, AI agents can execute entire workflows autonomously. But unlocking their potential …</p>
       <div class="story-meta">
@@ -464,8 +476,7 @@ The post We&amp;#8217;re Making Housing Harder to Preserve Than It Should Be ap
           <button class="vote-btn down" onclick="vote(this,'https://www.technologyreview.com/2026/04/07/1134966/enabling-agent-first-process-redesign/',-1)" title="Downvote">▼</button>
         </span>
       </div>
-    </article></div>
-      <div class="col-stack"><article class="story-card size-md" data-url="https://www.theverge.com/ai-artificial-intelligence/909104/youtube-shorts-make-ai-avatar">
+    </article><article class="story-card size-md" data-url="https://www.theverge.com/ai-artificial-intelligence/909104/youtube-shorts-make-ai-avatar">
       <h3 class="story-title"><a href="https://www.theverge.com/ai-artificial-intelligence/909104/youtube-shorts-make-ai-avatar" target="_blank" rel="noopener">Google makes it easy to deepfake yourself</a></h3>
       <p class="story-desc">YouTube Shorts is rolling out a new AI-powered feature giving creators an easy way to realistically clone themselves on camera. The launch, hinted at earlier this year, reflects the platform&#x27;s fraught relationship with AI-generated content, adding more generative features while struggling to co…</p>
       <div class="story-meta">
@@ -475,7 +486,9 @@ The post We&amp;#8217;re Making Housing Harder to Preserve Than It Should Be ap
           <button class="vote-btn down" onclick="vote(this,'https://www.theverge.com/ai-artificial-intelligence/909104/youtube-shorts-make-ai-avatar',-1)" title="Downvote">▼</button>
         </span>
       </div>
-    </article><article class="story-card size-md" data-url="https://www.theverge.com/tech/909031/google-gemini-notebooks-notebooklm">
+    </article></div>
+    </div>
+    <div class="bottom-row"><article class="story-card size-sm" data-url="https://www.theverge.com/tech/909031/google-gemini-notebooks-notebooklm">
       <h3 class="story-title"><a href="https://www.theverge.com/tech/909031/google-gemini-notebooks-notebooklm" target="_blank" rel="noopener">Gemini gets notebooks to help you organize projects</a></h3>
       <p class="story-desc">Google&#x27;s Gemini is getting a feature called &quot;notebooks&quot; to help you organize things about certain topics in a single place while using the AI chatbot, the company announced on Wednesday. You can pull in things like files, past conversations, and custom instructions into notebooks that…</p>
       <div class="story-meta">
@@ -485,9 +498,7 @@ The post We&amp;#8217;re Making Housing Harder to Preserve Than It Should Be ap
           <button class="vote-btn down" onclick="vote(this,'https://www.theverge.com/tech/909031/google-gemini-notebooks-notebooklm',-1)" title="Downvote">▼</button>
         </span>
       </div>
-    </article></div>
-    </div>
-    <div class="bottom-row"><article class="story-card size-sm" data-url="https://www.theverge.com/column/908880/openai-made-economic-proposals-heres-what-dc-thinks-of-them">
+    </article><article class="story-card size-sm" data-url="https://www.theverge.com/column/908880/openai-made-economic-proposals-heres-what-dc-thinks-of-them">
       <h3 class="story-title"><a href="https://www.theverge.com/column/908880/openai-made-economic-proposals-heres-what-dc-thinks-of-them" target="_blank" rel="noopener">OpenAI made economic proposals — here’s what DC thinks of them</a></h3>
       <p class="story-desc">Happy ceasefire day and welcome to Regulator, a newsletter for Verge subscribers about Big Tech&#x27;s rocky journey through the world of politics. If you&#x27;re not a subscriber yet, you can do so here, but my only request is that you sign up before Donald Trump decides to revisit his previous thr…</p>
       <div class="story-meta">
@@ -515,16 +526,6 @@ The post We&amp;#8217;re Making Housing Harder to Preserve Than It Should Be ap
         <span class="vote-buttons">
           <button class="vote-btn up" onclick="vote(this,'https://www.theverge.com/ai-artificial-intelligence/908513/the-vibes-are-off-at-openai',1)" title="Upvote">▲</button>
           <button class="vote-btn down" onclick="vote(this,'https://www.theverge.com/ai-artificial-intelligence/908513/the-vibes-are-off-at-openai',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" data-url="https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs">
-      <h3 class="story-title"><a href="https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs" target="_blank" rel="noopener">Unionized ProPublica staff are on strike over AI, layoffs, and wages</a></h3>
-      <p class="story-desc">Unionized staff at ProPublica, one of the country&#x27;s leading nonprofit newsrooms, are walking off the job for 24 hours beginning Wednesday and asking the public to honor a digital picket line. The roughly 150 members of the ProPublica Guild are in the midst of negotiating a collective bargaining…</p>
-      <div class="story-meta">
-        <span class="source-label">AI | The Verge</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs',-1)" title="Downvote">▼</button>
         </span>
       </div>
     </article></div>
