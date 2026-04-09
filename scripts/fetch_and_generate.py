@@ -103,6 +103,52 @@ def get_domain(url):
     try: return urlparse(url).netloc.replace("www.", "")
     except: return ""
 
+# Clean up feed/source titles to short readable labels
+SOURCE_LABELS = {
+    "statescoop.com":       "StateScoop",
+    "govtech.com":          "GovTech",
+    "nextgov.com":          "Nextgov",
+    "fcw.com":              "FCW",
+    "route-fifty.com":      "Route Fifty",
+    "federalnewsnetwork.com": "Federal News Network",
+    "shelterforce.org":     "Shelterforce",
+    "housingwire.com":      "HousingWire",
+    "nlihc.org":            "NLIHC",
+    "strongtowns.org":      "Strong Towns",
+    "citylab.com":          "Bloomberg CityLab",
+    "philanthropy.com":     "Chronicle of Philanthropy",
+    "nonprofitquarterly.org": "Nonprofit Quarterly",
+    "candid.org":           "Candid",
+    "ssir.org":             "SSIR",
+    "insidephilanthropy.com": "Inside Philanthropy",
+    "technologyreview.com": "MIT Tech Review",
+    "theverge.com":         "The Verge",
+    "wired.com":            "Wired",
+    "arstechnica.com":      "Ars Technica",
+    "venturebeat.com":      "VentureBeat",
+    "axios.com":            "Axios",
+    "pensburgh.com":        "PensBurgh",
+    "nhl.com":              "NHL.com",
+    "post-gazette.com":     "Pittsburgh Post-Gazette",
+    "theathletic.com":      "The Athletic",
+    "sportsnet.ca":         "Sportsnet",
+    "espn.com":             "ESPN",
+    "bbc.co.uk":            "BBC News",
+    "nytimes.com":          "New York Times",
+    "npr.org":              "NPR",
+    "theguardian.com":      "The Guardian",
+    "apnews.com":           "AP News",
+}
+
+def clean_label(source_label, source_domain):
+    if source_domain in SOURCE_LABELS:
+        return SOURCE_LABELS[source_domain]
+    # Strip common feed suffixes
+    label = source_label or source_domain
+    for suffix in [" - All Content", " - RSS", " | RSS", " Feed", " News"]:
+        label = label.replace(suffix, "").replace(suffix.lower(), "")
+    return label.strip() or source_domain
+
 def fetch_newsapi(query, domains=""):
     if not query: return []
     from_date = (datetime.now(timezone.utc) - timedelta(hours=LOOKBACK_HOURS)).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -114,7 +160,7 @@ def fetch_newsapi(query, domains=""):
         return [{"title": a.get("title",""), "url": a.get("url",""),
                  "description": a.get("description","") or "",
                  "source_domain": get_domain(a.get("url","")),
-                 "source_label": a.get("source",{}).get("name","")}
+                 "source_label": clean_label(a.get("source",{}).get("name",""), get_domain(a.get("url","")))}
                 for a in data.get("articles",[])
                 if a.get("title") and a.get("url") and "[Removed]" not in a.get("title","")]
     except Exception as e:
@@ -129,7 +175,7 @@ def fetch_rss(url):
             desc = re.sub(r"<[^>]+>", "", e.get("summary","") or "")[:300]
             out.append({"title": e["title"], "url": e["link"], "description": desc,
                         "source_domain": get_domain(e["link"]),
-                        "source_label": feed.feed.get("title", get_domain(url))})
+                        "source_label": clean_label(feed.feed.get("title",""), get_domain(url))})
         return out
     except Exception as e:
         print(f"  RSS error {url}: {e}"); return []
