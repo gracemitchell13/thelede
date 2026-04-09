@@ -137,42 +137,50 @@ def fetch_rss(url):
 def fetch_all():
     all_stories, seen = {}, set()
     for slug, topic in TOPICS.items():
-        # Gather all candidates first
-        candidates = []
+        # Collect stories per source bucket
+        buckets = {}  # domain -> [stories]
         local_seen = set()
+
+        def add_story(s):
+            if s["url"] in seen or s["url"] in local_seen:
+                return
+            if not s.get("title"):
+                return
+            local_seen.add(s["url"])
+            s["topic_slug"] = slug
+            d = s["source_domain"] or "unknown"
+            buckets.setdefault(d, []).append(s)
+
         for q in topic["queries"]:
             for s in fetch_newsapi(q, topic["domains"]):
-                if s["url"] not in seen and s["url"] not in local_seen:
-                    local_seen.add(s["url"]); s["topic_slug"] = slug; candidates.append(s)
+                add_story(s)
         for feed_url in topic["feeds"]:
             for s in fetch_rss(feed_url):
-                if s["url"] not in seen and s["url"] not in local_seen:
-                    local_seen.add(s["url"]); s["topic_slug"] = slug; candidates.append(s)
+                add_story(s)
 
-        # First pass: max 2 per source
-        stories, source_counts = [], {}
-        overflow = []
-        for s in candidates:
-            d = s["source_domain"]
-            if source_counts.get(d, 0) < 2:
-                source_counts[d] = source_counts.get(d, 0) + 1
-                stories.append(s)
-            else:
-                overflow.append(s)
+        # Round-robin across buckets: take 1 from each source in turn
+        # until we have MAX_STORIES
+        stories = []
+        bucket_lists = list(buckets.values())
+        positions = [0] * len(bucket_lists)
+        while len(stories) < MAX_STORIES:
+            added_any = False
+            for i, bucket in enumerate(bucket_lists):
+                if len(stories) >= MAX_STORIES:
+                    break
+                if positions[i] < len(bucket):
+                    stories.append(bucket[positions[i]])
+                    positions[i] += 1
+                    added_any = True
+            if not added_any:
+                break  # all buckets exhausted
 
-        # Backfill from overflow if we have fewer than MAX_STORIES
-        for s in overflow:
-            if len(stories) >= MAX_STORIES:
-                break
-            stories.append(s)
-
-        # Mark all used URLs as globally seen
-        for s in stories[:MAX_STORIES]:
+        for s in stories:
             seen.add(s["url"])
 
-        all_stories[slug] = stories[:MAX_STORIES]
-        src_count = len(set(s["source_domain"] for s in all_stories[slug]))
-        print(f"  [{slug}] {len(all_stories[slug])} stories from {src_count} sources")
+        all_stories[slug] = stories
+        src_count = len(set(s["source_domain"] for s in stories))
+        print(f"  [{slug}] {len(stories)} stories from {src_count} sources")
     return all_stories
 
 def fmt_date():
