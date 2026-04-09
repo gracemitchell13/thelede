@@ -15,7 +15,6 @@
 body{background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:16px;line-height:1.5}
 a{color:inherit;text-decoration:none}
 a:hover{text-decoration:underline}
-
 .mast{border-bottom:4px double var(--rl);padding:0 2rem}
 .mast-top{display:flex;justify-content:space-between;padding:.5rem 0;
   border-bottom:1px solid var(--rlt);font-family:var(--sans);font-size:.65rem;
@@ -26,7 +25,6 @@ a:hover{text-decoration:underline}
 .mast-bot{display:flex;justify-content:space-between;padding:.4rem 0;
   border-top:1px solid var(--rlt);font-family:var(--sans);font-size:.63rem;
   letter-spacing:.1em;text-transform:uppercase;color:var(--lt)}
-
 .auth{display:flex;justify-content:flex-end;align-items:center;gap:.75rem;
   padding:.35rem 2rem;background:var(--bg2);border-bottom:1px solid var(--rlt);
   font-family:var(--sans);font-size:.7rem}
@@ -35,25 +33,20 @@ a:hover{text-decoration:underline}
   padding:.25rem .85rem;font-family:var(--sans);font-size:.67rem;
   letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
 #si-btn:hover,#so-btn:hover{background:var(--mid)}
-
 .nav{background:var(--blk);display:flex;flex-wrap:wrap;padding:0 2rem}
 .nav a{color:#fff;font-family:var(--sans);font-size:.67rem;letter-spacing:.12em;
   text-transform:uppercase;padding:.55rem 1rem;
   border-right:1px solid #2a2a2a;display:block}
 .nav a:first-child{border-left:1px solid #2a2a2a}
 .nav a:hover{background:#1e1e1e;text-decoration:none}
-
+.nav-settings{margin-left:auto;border-left:1px solid #2a2a2a!important;border-right:none!important}
 main{max-width:1100px;margin:0 auto;padding:0 2rem 3rem}
-
 .topic-sec{padding:2rem 0 0;border-bottom:3px double var(--rl)}
 .topic-sec:last-child{border-bottom:none}
-
 .sec-rule{display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem}
 .sec-rule::before,.sec-rule::after{content:'';flex:1;height:1px;background:var(--rl)}
 .sec-label{font-family:var(--sans);font-size:.68rem;font-weight:700;
   letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
-
-/* HERO */
 .hero{border-top:2px solid var(--blk);border-bottom:1px solid var(--rlt);
   padding:1.5rem 0 1.25rem;margin-bottom:0}
 .hero-hed{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.1rem);
@@ -62,30 +55,19 @@ main{max-width:1100px;margin:0 auto;padding:0 2rem 3rem}
   max-width:72ch;margin-bottom:.75rem}
 .hero-meta{display:flex;justify-content:space-between;align-items:center;
   padding-top:.6rem;border-top:1px solid var(--rlt)}
-
-/* SECONDARY GRID */
 .sec-grid{display:grid;grid-template-columns:repeat(3,1fr);
   border-left:1px solid var(--rlt);margin-bottom:2rem}
 .sec-item{display:flex;gap:.75rem;padding:1rem;
   border-right:1px solid var(--rlt);border-bottom:1px solid var(--rlt)}
-.sec-item:nth-child(3n+1){border-left:none}
 .sec-num{font-family:var(--sans);font-size:1.6rem;font-weight:700;
-  line-height:1;min-width:2rem;padding-top:.1rem}
+  color:var(--rlt);line-height:1;min-width:2rem;padding-top:.1rem}
 .sec-body{display:flex;flex-direction:column;gap:.35rem;flex:1}
 .sec-hed{font-family:var(--serif);font-size:.95rem;font-weight:700;
   line-height:1.3;color:var(--blk)}
 .sec-desc{font-size:.8rem;color:var(--mid);line-height:1.5;
   overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-#civic-tech .sec-num{color:#1a6b3c}
-#housing .sec-num{color:#7b2d8b}
-#nonprofit .sec-num{color:#c45c1a}
-#ai-tech .sec-num{color:#1a4fa0}
-#penguins .sec-num{color:#c4a01a}
-#general .sec-num{color:#8b1a1a}
 .sec-meta{display:flex;justify-content:space-between;align-items:center;
   margin-top:auto;padding-top:.35rem;border-top:1px solid var(--rlt)}
-
-/* SHARED */
 .src{font-family:var(--sans);font-size:.6rem;letter-spacing:.1em;
   text-transform:uppercase;color:var(--lt)}
 .votes{display:flex;gap:2px}
@@ -95,17 +77,14 @@ main{max-width:1100px;margin:0 auto;padding:0 2rem 3rem}
 .vb:hover{background:var(--blk);color:#fff}
 .vb.voted-up{background:#1a5c1a;color:#fff}
 .vb.voted-dn{background:var(--blk);color:#fff}
-
 footer{text-align:center;font-family:var(--sans);font-size:.63rem;
   letter-spacing:.12em;color:var(--lt);padding:2rem 1rem;
   border-top:1px solid var(--rlt);text-transform:uppercase}
-
 #toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--blk);
   color:#fff;font-family:var(--sans);font-size:.75rem;
   padding:.55rem 1.1rem;opacity:0;transition:opacity .25s;
   pointer-events:none;letter-spacing:.05em}
 #toast.show{opacity:1}
-
 @media(max-width:700px){
   .sec-grid{grid-template-columns:1fr}
   .nav{overflow-x:auto;flex-wrap:nowrap;padding:0}
@@ -121,8 +100,8 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
   </div>
   <h1 class="mast-title">The Lede</h1>
   <div class="mast-bot">
-    <span>Civic Tech &bull; Housing &bull; Nonprofits &bull; AI &bull; Penguins</span>
     <span>readthelede.com</span>
+    <span id="mast-user"></span>
   </div>
 </header>
 <div class="auth">
@@ -130,11 +109,14 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
   <button id="si-btn" onclick="signIn()">Sign In with Google</button>
   <button id="so-btn" style="display:none" onclick="signOut()">Sign Out</button>
 </div>
-<nav class="nav"><a href="#civic-tech">Civic Tech & GovTech</a>
+<nav class="nav">
+  <a href="#civic-tech">Civic Tech &amp; GovTech</a>
 <a href="#housing">Housing Policy</a>
-<a href="#nonprofit">Nonprofit & Grants</a>
-<a href="#ai-tech">AI & Tech</a>
-<a href="#general">General News</a></nav>
+<a href="#nonprofit">Nonprofit &amp; Grants</a>
+<a href="#ai-tech">AI &amp; Tech</a>
+<a href="#general">General News</a>
+  <a href="settings.html" class="nav-settings">⚙ Settings</a>
+</nav>
 <main><section class="topic-sec" id="civic-tech">
   <div class="sec-rule"><span class="sec-label">Civic Tech &amp; GovTech</span></div>
   <article class="hero" data-url="https://statescoop.com/illinois-unveils-journey-to-success-prison-tablet-education-program/">
@@ -156,7 +138,7 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
             <h3 class="sec-hed"><a href="https://www.nextgov.com/ideas/2026/04/when-storm-hits-what-hurricane-katrina-still-teaches-federal-leaders-about-continuity-operations/412743/" target="_blank" rel="noopener">When the storm hits: What Hurricane Katrina still teaches federal leaders about continuity of operations</a></h3>
             <p class="sec-desc">COMMENTARY | Make continuity planning an operational discipline rather than a compliance exercise.</p>
             <div class="sec-meta">
-              <span class="src">FCW</span>
+              <span class="src">Nextgov</span>
               <span class="votes">
                 <button class="vb up" onclick="vote(this,'https://www.nextgov.com/ideas/2026/04/when-storm-hits-what-hurricane-katrina-still-teaches-federal-leaders-about-continuity-operations/412743/',1)">▲</button>
                 <button class="vb dn" onclick="vote(this,'https://www.nextgov.com/ideas/2026/04/when-storm-hits-what-hurricane-katrina-still-teaches-federal-leaders-about-continuity-operations/412743/',-1)">▼</button>
@@ -182,7 +164,7 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
             <h3 class="sec-hed"><a href="https://www.nextgov.com/artificial-intelligence/2026/04/cia-plans-ai-coworkers-deputy-director-says/412744/" target="_blank" rel="noopener">CIA plans for ‘AI coworkers’, deputy director says</a></h3>
             <p class="sec-desc">The spy agency managed a few hundred AI projects last year, and recently used AI to generate an intelligence report for the first time, deputy director Michael Ellis said.</p>
             <div class="sec-meta">
-              <span class="src">FCW</span>
+              <span class="src">Nextgov</span>
               <span class="votes">
                 <button class="vb up" onclick="vote(this,'https://www.nextgov.com/artificial-intelligence/2026/04/cia-plans-ai-coworkers-deputy-director-says/412744/',1)">▲</button>
                 <button class="vb dn" onclick="vote(this,'https://www.nextgov.com/artificial-intelligence/2026/04/cia-plans-ai-coworkers-deputy-director-says/412744/',-1)">▼</button>
@@ -208,7 +190,7 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
             <h3 class="sec-hed"><a href="https://www.nextgov.com/artificial-intelligence/2026/04/openai-national-security-lead-endorses-appropriate-human-judgment-ai/412738/" target="_blank" rel="noopener">OpenAI national security lead endorses ‘appropriate human judgment’ in AI</a></h3>
             <p class="sec-desc">Sasha Baker, OpenAI’s head of national security policy, said a “workforce transformation” is needed to make sure that humans are making the final calls to keep people and systems safe.</p>
             <div class="sec-meta">
-              <span class="src">FCW</span>
+              <span class="src">Nextgov</span>
               <span class="votes">
                 <button class="vb up" onclick="vote(this,'https://www.nextgov.com/artificial-intelligence/2026/04/openai-national-security-lead-endorses-appropriate-human-judgment-ai/412738/',1)">▲</button>
                 <button class="vb dn" onclick="vote(this,'https://www.nextgov.com/artificial-intelligence/2026/04/openai-national-security-lead-endorses-appropriate-human-judgment-ai/412738/',-1)">▼</button>
@@ -246,16 +228,16 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
       </div>
     </div>
   </article>
-  <div class="sec-grid"><article class="sec-item" data-url="https://www.housingwire.com/articles/loandepot-figure-partnership/">
+  <div class="sec-grid"><article class="sec-item" data-url="https://www.housingwire.com/articles/new-cheval-holdings-acquires-surge-names-jimmy-gillespie-ceo/">
           <div class="sec-num">02</div>
           <div class="sec-body">
-            <h3 class="sec-hed"><a href="https://www.housingwire.com/articles/loandepot-figure-partnership/" target="_blank" rel="noopener">loanDepot, Figure team up on streamlined home loan and equity products</a></h3>
-            <p class="sec-desc">loanDepot is partnering with Figure to power its 5x5 HomeLoan, promising approvals in minutes and funding in days across all 50 states.</p>
+            <h3 class="sec-hed"><a href="https://www.housingwire.com/articles/new-cheval-holdings-acquires-surge-names-jimmy-gillespie-ceo/" target="_blank" rel="noopener">New Cheval Holdings acquires Surge, appoints Jimmy Gillespie as CEO</a></h3>
+            <p class="sec-desc">New Cheval Holdings acquires Surge, a wholesale mortgage partner intelligence platform, and names Jimmy Gillespie as CEO.</p>
             <div class="sec-meta">
               <span class="src">HousingWire</span>
               <span class="votes">
-                <button class="vb up" onclick="vote(this,'https://www.housingwire.com/articles/loandepot-figure-partnership/',1)">▲</button>
-                <button class="vb dn" onclick="vote(this,'https://www.housingwire.com/articles/loandepot-figure-partnership/',-1)">▼</button>
+                <button class="vb up" onclick="vote(this,'https://www.housingwire.com/articles/new-cheval-holdings-acquires-surge-names-jimmy-gillespie-ceo/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.housingwire.com/articles/new-cheval-holdings-acquires-surge-names-jimmy-gillespie-ceo/',-1)">▼</button>
               </span>
             </div>
           </div>
@@ -272,16 +254,16 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
               </span>
             </div>
           </div>
-        </article><article class="sec-item" data-url="https://www.housingwire.com/articles/nahb-rmi-q1-62/">
+        </article><article class="sec-item" data-url="https://www.housingwire.com/articles/loandepot-figure-partnership/">
           <div class="sec-num">04</div>
           <div class="sec-body">
-            <h3 class="sec-hed"><a href="https://www.housingwire.com/articles/nahb-rmi-q1-62/" target="_blank" rel="noopener">Remodeler confidence slips but remains positive, NAHB reports</a></h3>
-            <p class="sec-desc">NAHB&#x27;s RMI slipped to a reading of 62 in Q1 2026, with current conditions at 70 and future indicators at 54, above the expansion threshold.</p>
+            <h3 class="sec-hed"><a href="https://www.housingwire.com/articles/loandepot-figure-partnership/" target="_blank" rel="noopener">loanDepot, Figure team up on streamlined home loan and equity products</a></h3>
+            <p class="sec-desc">loanDepot is partnering with Figure to power its 5x5 HomeLoan, promising approvals in minutes and funding in days across all 50 states.</p>
             <div class="sec-meta">
               <span class="src">HousingWire</span>
               <span class="votes">
-                <button class="vb up" onclick="vote(this,'https://www.housingwire.com/articles/nahb-rmi-q1-62/',1)">▲</button>
-                <button class="vb dn" onclick="vote(this,'https://www.housingwire.com/articles/nahb-rmi-q1-62/',-1)">▼</button>
+                <button class="vb up" onclick="vote(this,'https://www.housingwire.com/articles/loandepot-figure-partnership/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.housingwire.com/articles/loandepot-figure-partnership/',-1)">▼</button>
               </span>
             </div>
           </div>
@@ -299,16 +281,16 @@ The post Acting Locally: States, Counties, and C…</p>
               </span>
             </div>
           </div>
-        </article><article class="sec-item" data-url="https://www.housingwire.com/articles/private-label-reverse-hecm-q1-2026/">
+        </article><article class="sec-item" data-url="https://www.housingwire.com/articles/nahb-rmi-q1-62/">
           <div class="sec-num">06</div>
           <div class="sec-body">
-            <h3 class="sec-hed"><a href="https://www.housingwire.com/articles/private-label-reverse-hecm-q1-2026/" target="_blank" rel="noopener">Proprietary reverse mortgage volume eclipses HECM production for the first time</a></h3>
-            <p class="sec-desc">New View Advisors this week released its Proprietary Reverse Mortgage Production Index for the first quarter of 2026, with the data showing that private-label loan products have grown to new heights.</p>
+            <h3 class="sec-hed"><a href="https://www.housingwire.com/articles/nahb-rmi-q1-62/" target="_blank" rel="noopener">Remodeler confidence slips but remains positive, NAHB reports</a></h3>
+            <p class="sec-desc">NAHB&#x27;s RMI slipped to a reading of 62 in Q1 2026, with current conditions at 70 and future indicators at 54, above the expansion threshold.</p>
             <div class="sec-meta">
               <span class="src">HousingWire</span>
               <span class="votes">
-                <button class="vb up" onclick="vote(this,'https://www.housingwire.com/articles/private-label-reverse-hecm-q1-2026/',1)">▲</button>
-                <button class="vb dn" onclick="vote(this,'https://www.housingwire.com/articles/private-label-reverse-hecm-q1-2026/',-1)">▼</button>
+                <button class="vb up" onclick="vote(this,'https://www.housingwire.com/articles/nahb-rmi-q1-62/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.housingwire.com/articles/nahb-rmi-q1-62/',-1)">▼</button>
               </span>
             </div>
           </div>
@@ -538,7 +520,7 @@ The post Acting Locally: States, Counties, and C…</p>
             <h3 class="sec-hed"><a href="https://www.nytimes.com/2026/04/09/world/middleeast/iran-war-leadership.html" target="_blank" rel="noopener">Iran’s Battered Leaders Emerge From War Confident — and With New Cards</a></h3>
             <p class="sec-desc">For Iran’s theocratic rulers, just surviving the U.S.-Israeli onslaught means victory. But the seeds of their next crisis may already be planted.</p>
             <div class="sec-meta">
-              <span class="src">NYT &gt; Top Stories</span>
+              <span class="src">New York Times</span>
               <span class="votes">
                 <button class="vb up" onclick="vote(this,'https://www.nytimes.com/2026/04/09/world/middleeast/iran-war-leadership.html',1)">▲</button>
                 <button class="vb dn" onclick="vote(this,'https://www.nytimes.com/2026/04/09/world/middleeast/iran-war-leadership.html',-1)">▼</button>
@@ -551,7 +533,7 @@ The post Acting Locally: States, Counties, and C…</p>
             <h3 class="sec-hed"><a href="https://www.npr.org/2026/04/09/nx-s1-5779627/birthrate-united-states-babies-immigration" target="_blank" rel="noopener">710,000 fewer babies were born last year in U.S. compared with two decades ago</a></h3>
             <p class="sec-desc">The U.S. fertility rate continued its slide to historic levels, due to plunging teen pregnancies and far more women delaying motherhood into their 30s and 40s.</p>
             <div class="sec-meta">
-              <span class="src">NPR Topics:</span>
+              <span class="src">NPR</span>
               <span class="votes">
                 <button class="vb up" onclick="vote(this,'https://www.npr.org/2026/04/09/nx-s1-5779627/birthrate-united-states-babies-immigration',1)">▲</button>
                 <button class="vb dn" onclick="vote(this,'https://www.npr.org/2026/04/09/nx-s1-5779627/birthrate-united-states-babies-immigration',-1)">▼</button>
@@ -590,7 +572,7 @@ The post Acting Locally: States, Counties, and C…</p>
             <h3 class="sec-hed"><a href="https://www.nytimes.com/2026/04/09/world/middleeast/european-demands-iran-us-cease-fire-lebanon.html" target="_blank" rel="noopener">European Leaders Demand That U.S. Cease-Fire With Iran Include Lebanon</a></h3>
             <p class="sec-desc">Britain, France and the European Union condemned Israel’s strikes targeting Hezbollah in the country, saying these threatened the truce.</p>
             <div class="sec-meta">
-              <span class="src">NYT &gt; Top Stories</span>
+              <span class="src">New York Times</span>
               <span class="votes">
                 <button class="vb up" onclick="vote(this,'https://www.nytimes.com/2026/04/09/world/middleeast/european-demands-iran-us-cease-fire-lebanon.html',1)">▲</button>
                 <button class="vb dn" onclick="vote(this,'https://www.nytimes.com/2026/04/09/world/middleeast/european-demands-iran-us-cease-fire-lebanon.html',-1)">▼</button>
@@ -603,7 +585,7 @@ The post Acting Locally: States, Counties, and C…</p>
             <h3 class="sec-hed"><a href="https://www.npr.org/2026/04/09/nx-s1-5779202/masters-concessions-prices-augusta-national" target="_blank" rel="noopener">How a cheese sandwich at the Masters is still $1.50 in an era of price hikes</a></h3>
             <p class="sec-desc">The priciest concessions at the Masters, beer and wine, cost just $6 each. The Georgia golf tournament prides itself on a simple and affordable menu, even as ticket prices continue to climb.</p>
             <div class="sec-meta">
-              <span class="src">NPR Topics:</span>
+              <span class="src">NPR</span>
               <span class="votes">
                 <button class="vb up" onclick="vote(this,'https://www.npr.org/2026/04/09/nx-s1-5779202/masters-concessions-prices-augusta-national',1)">▲</button>
                 <button class="vb dn" onclick="vote(this,'https://www.npr.org/2026/04/09/nx-s1-5779202/masters-concessions-prices-augusta-national',-1)">▼</button>
@@ -612,9 +594,8 @@ The post Acting Locally: States, Counties, and C…</p>
           </div>
         </article></div>
 </section></main>
-<footer>The Lede &mdash; THURSDAY, APRIL 9, 2026 &mdash; Powered by NewsAPI &amp; RSS</footer>
+<footer>The Lede &mdash; THURSDAY, APRIL 9, 2026 &mdash; readthelede.com</footer>
 <div id="toast"></div>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL='https://tgdzivpyudduwktcmiqb.supabase.co';
@@ -622,24 +603,24 @@ const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 const {createClient}=supabase;
 const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 let user=null;
-
-async function signIn(){await sb.auth.signInWithOAuth({provider:'google'});}
+async function signIn(){await sb.auth.signInWithOAuth({provider:'google',
+  options:{redirectTo:'https://gracemitchell13.github.io/thelede/settings.html'}});}
 async function signOut(){await sb.auth.signOut();user=null;updateUI(null);}
-
 function updateUI(u){
   const st=document.getElementById('auth-st');
   const si=document.getElementById('si-btn');
   const so=document.getElementById('so-btn');
-  if(u){st.textContent=u.email;si.style.display='none';so.style.display='inline-block';loadVotes(u.id);}
-  else{st.textContent="Not signed in — votes won't be saved";si.style.display='inline-block';so.style.display='none';}
+  const mu=document.getElementById('mast-user');
+  if(u){st.textContent=u.email;mu.textContent=u.email;
+    si.style.display='none';so.style.display='inline-block';loadVotes(u.id);}
+  else{st.textContent="Not signed in — votes won't be saved";mu.textContent='';
+    si.style.display='inline-block';so.style.display='none';}
 }
-
 sb.auth.onAuthStateChange(async(ev,session)=>{
   user=session?.user??null;updateUI(user);
-  if(user) await sb.from('users').upsert({id:user.id,email:user.email,
+  if(user)await sb.from('users').upsert({id:user.id,email:user.email,
     display_name:user.user_metadata?.full_name??null},{onConflict:'id'});
 });
-
 async function loadVotes(uid){
   const {data}=await sb.from('votes').select('story_url,vote').eq('user_id',uid);
   if(!data)return;
@@ -650,7 +631,6 @@ async function loadVotes(uid){
     if(r.vote===-1)c.querySelector('.vb.dn').classList.add('voted-dn');
   });
 }
-
 async function vote(btn,url,val){
   if(!user){toast('Sign in to save votes');return;}
   const c=btn.closest('[data-url]');
@@ -682,7 +662,6 @@ async function vote(btn,url,val){
       {onConflict:'user_id,source_domain'});
   }
 }
-
 function toast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg;t.classList.add('show');
