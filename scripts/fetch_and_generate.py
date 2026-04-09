@@ -24,7 +24,7 @@ NEWSAPI_KEY = os.environ["NEWSAPI_KEY"]
 
 NEWSAPI_BASE = "https://newsapi.org/v2/everything"
 MAX_STORIES_PER_TOPIC = 8
-LOOKBACK_HOURS = 48  # fetch stories from last 48 hours
+LOOKBACK_HOURS = 48
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
 
@@ -36,7 +36,7 @@ TOPICS = {
     "civic-tech": {
         "label": "Civic Tech & GovTech",
         "icon": "🏛️",
-        "newsapi_queries": ["civic tech", "govtech", "government digital services", "smartcities government"],
+        "newsapi_queries": ["civic technology government", "govtech digital government services", "code for america"],
         "rss_feeds": [
             "https://statescoop.com/feed/",
             "https://www.govtech.com/rss.xml",
@@ -46,7 +46,7 @@ TOPICS = {
     "housing": {
         "label": "Housing Policy",
         "icon": "🏘️",
-        "newsapi_queries": ["affordable housing policy", "housing crisis", "zoning reform", "homelessness policy"],
+        "newsapi_queries": ["affordable housing policy", "housing crisis zoning", "homelessness policy government"],
         "rss_feeds": [
             "https://shelterforce.org/feed/",
             "https://nlihc.org/feed",
@@ -56,7 +56,7 @@ TOPICS = {
     "nonprofit": {
         "label": "Nonprofit & Grants",
         "icon": "🤝",
-        "newsapi_queries": ["nonprofit sector", "grant funding", "philanthropy", "foundation grants"],
+        "newsapi_queries": ["nonprofit sector funding", "foundation grant awards", "philanthropy social impact"],
         "rss_feeds": [
             "https://www.philanthropy.com/feed",
             "https://blog.candid.org/feed/",
@@ -65,7 +65,7 @@ TOPICS = {
     "ai-tech": {
         "label": "AI & Tech",
         "icon": "🤖",
-        "newsapi_queries": ["artificial intelligence policy", "machine learning", "AI regulation", "large language models"],
+        "newsapi_queries": ["artificial intelligence policy regulation", "large language models research", "AI ethics governance"],
         "rss_feeds": [
             "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
             "https://www.technologyreview.com/feed/",
@@ -74,7 +74,7 @@ TOPICS = {
     "penguins": {
         "label": "Pittsburgh Penguins",
         "icon": "🐧",
-        "newsapi_queries": ["Pittsburgh Penguins NHL"],
+        "newsapi_queries": ["Pittsburgh Penguins NHL hockey"],
         "rss_feeds": [
             "https://www.pensburgh.com/rss/current",
             "https://www.nhl.com/penguins/rss/news.xml",
@@ -102,7 +102,7 @@ def get_domain(url: str) -> str:
         return ""
 
 
-def fetch_newsapi(query: str) -> list[dict]:
+def fetch_newsapi(query: str) -> list:
     if not query:
         return []
     from_date = (datetime.now(timezone.utc) - timedelta(hours=LOOKBACK_HOURS)).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -135,19 +135,16 @@ def fetch_newsapi(query: str) -> list[dict]:
         return []
 
 
-def fetch_rss(feed_url: str) -> list[dict]:
+def fetch_rss(feed_url: str) -> list:
     try:
+        import re
         feed = feedparser.parse(feed_url)
         stories = []
-        cutoff = datetime.now(timezone.utc) - timedelta(hours=LOOKBACK_HOURS)
         for entry in feed.entries[:15]:
             url = entry.get("link", "")
             title = entry.get("title", "")
             description = entry.get("summary", "") or ""
-            # Strip HTML from description
-            import re
             description = re.sub(r"<[^>]+>", "", description)[:300]
-            published = entry.get("published", "") or entry.get("updated", "")
             if not url or not title:
                 continue
             stories.append({
@@ -155,7 +152,7 @@ def fetch_rss(feed_url: str) -> list[dict]:
                 "url": url,
                 "description": description,
                 "source_domain": get_domain(url),
-                "published_at": published,
+                "published_at": entry.get("published", "") or entry.get("updated", ""),
                 "source_label": feed.feed.get("title", get_domain(feed_url)),
             })
         return stories
@@ -165,85 +162,27 @@ def fetch_rss(feed_url: str) -> list[dict]:
 
 
 # ─────────────────────────────────────
-# SCORING
+# FETCH ALL
 # ─────────────────────────────────────
 
-def build_weight_maps(user_ids: list[str]) -> dict:
-    """
-    Returns { user_id: { 'topics': {slug: weight}, 'sources': {domain: weight} } }
-    """
-    weight_maps = {uid: {"topics": {}, "sources": {}} for uid in user_ids}
-
-    # Topic preferences
-    prefs = supabase.table("preferences").select("*").in_("user_id", user_ids).execute()
-    for row in prefs.data:
-        uid = row["user_id"]
-        weight_maps[uid]["topics"][row["topic_slug"]] = float(row["weight"])
-
-    # Source weights
-    sw = supabase.table("source_weights").select("*").in_("user_id", user_ids).execute()
-    for row in sw.data:
-        uid = row["user_id"]
-        weight_maps[uid]["sources"][row["source_domain"]] = float(row["weight"])
-
-    # Compute source weights from recent votes if not already set
-    votes = supabase.table("votes").select("*").in_("user_id", user_ids).execute()
-    vote_counts = defaultdict(lambda: defaultdict(lambda: [0, 0]))  # uid -> domain -> [ups, downs]
-    for row in votes.data:
-        uid = row["user_id"]
-        domain = row.get("source_domain", "")
-        if domain:
-            if row["vote"] == 1:
-                vote_counts[uid][domain][0] += 1
-            else:
-                vote_counts[uid][domain][1] += 1
-
-    for uid, domains in vote_counts.items():
-        for domain, (ups, downs) in domains.items():
-            total = ups + downs
-            if total > 0:
-                # Simple Wilson-like score: baseline 1.0, range 0.1–2.0
-                ratio = ups / total
-                weight = 0.1 + (ratio * 1.9)
-                weight_maps[uid]["sources"][domain] = round(weight, 3)
-
-    return weight_maps
-
-
-def score_story(story: dict, topic_slug: str, topic_weight: float, source_weight: float) -> float:
-    """Score a story for a user. Higher is better."""
-    base = 1.0
-    score = base * topic_weight * source_weight
-    return round(score, 4)
-
-
-# ─────────────────────────────────────
-# MAIN FETCH + SCORE
-# ─────────────────────────────────────
-
-def fetch_all_stories() -> dict[str, list[dict]]:
-    """Returns { topic_slug: [story, ...] } with deduplication."""
+def fetch_all_stories() -> dict:
     all_stories = {}
     seen_urls = set()
 
     for slug, topic in TOPICS.items():
         stories = []
 
-        # NewsAPI
         for query in topic["newsapi_queries"]:
             print(f"  NewsAPI: {query}")
-            fetched = fetch_newsapi(query)
-            for s in fetched:
+            for s in fetch_newsapi(query):
                 if s["url"] not in seen_urls:
                     seen_urls.add(s["url"])
                     s["topic_slug"] = slug
                     stories.append(s)
 
-        # RSS
         for feed_url in topic["rss_feeds"]:
             print(f"  RSS: {feed_url}")
-            fetched = fetch_rss(feed_url)
-            for s in fetched:
+            for s in fetch_rss(feed_url):
                 if s["url"] not in seen_urls:
                     seen_urls.add(s["url"])
                     s["topic_slug"] = slug
@@ -255,22 +194,6 @@ def fetch_all_stories() -> dict[str, list[dict]]:
     return all_stories
 
 
-def get_all_users() -> list[dict]:
-    result = supabase.table("users").select("id, email, display_name").execute()
-    return result.data
-
-
-def score_and_rank(stories: list[dict], topic_slug: str, weight_map: dict) -> list[dict]:
-    topic_weight = weight_map["topics"].get(topic_slug, 1.0)
-    scored = []
-    for story in stories:
-        source_weight = weight_map["sources"].get(story["source_domain"], 1.0)
-        story["score"] = score_story(story, topic_slug, topic_weight, source_weight)
-        scored.append(story)
-    scored.sort(key=lambda x: x["score"], reverse=True)
-    return scored[:MAX_STORIES_PER_TOPIC]
-
-
 # ─────────────────────────────────────
 # HTML GENERATION
 # ─────────────────────────────────────
@@ -280,17 +203,18 @@ def format_date() -> str:
     return now.strftime("%A, %B %-d, %Y").upper()
 
 
-def story_card(story: dict) -> str:
+def story_card(story: dict, featured: bool = False) -> str:
     title = html_lib.escape(story.get("title", ""))
     url = html_lib.escape(story.get("url", ""))
-    description = html_lib.escape(story.get("description", ""))[:200]
+    description = html_lib.escape(story.get("description", ""))[:280]
     source = html_lib.escape(story.get("source_label", story.get("source_domain", "")))
     story_url_escaped = html_lib.escape(story.get("url", ""))
+    card_class = "story-card featured" if featured else "story-card"
 
     return f"""
-    <article class="story-card" data-url="{story_url_escaped}">
+    <article class="{card_class}" data-url="{story_url_escaped}">
       <h3 class="story-title"><a href="{url}" target="_blank" rel="noopener">{title}</a></h3>
-      {'<p class="story-desc">' + description + ('…' if len(description) == 200 else '') + '</p>' if description else ''}
+      {'<p class="story-desc">' + description + ('…' if len(description) == 280 else '') + '</p>' if description else ''}
       <div class="story-meta">
         <span class="source-label">{source}</span>
         <div class="vote-buttons">
@@ -301,21 +225,24 @@ def story_card(story: dict) -> str:
     </article>"""
 
 
-def topic_section(slug: str, stories: list[dict]) -> str:
+def topic_section(slug: str, stories: list) -> str:
     topic = TOPICS[slug]
     label = topic["label"]
-    icon = topic["icon"]
-    cards = "\n".join(story_card(s) for s in stories)
+    cards_html = ""
+    for i, s in enumerate(stories):
+        cards_html += story_card(s, featured=(i == 0))
     return f"""
   <section class="topic-section" id="{slug}">
-    <h2 class="topic-header">{icon} {label}</h2>
+    <div class="topic-header-row">
+      <h2 class="topic-header">{label}</h2>
+    </div>
     <div class="stories-grid">
-      {cards}
+      {cards_html}
     </div>
   </section>"""
 
 
-def generate_html(stories_by_topic: dict[str, list[dict]]) -> str:
+def generate_html(stories_by_topic: dict) -> str:
     date_str = format_date()
     sections = "\n".join(
         topic_section(slug, stories)
@@ -323,8 +250,7 @@ def generate_html(stories_by_topic: dict[str, list[dict]]) -> str:
         if stories
     )
 
-    # Nav links
-    nav_links = " | ".join(
+    nav_links = "\n".join(
         f'<a href="#{slug}">{TOPICS[slug]["label"]}</a>'
         for slug in stories_by_topic
         if stories_by_topic[slug]
@@ -337,212 +263,282 @@ def generate_html(stories_by_topic: dict[str, list[dict]]) -> str:
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Lede — {date_str}</title>
   <style>
-    /* ── RESET ── */
     *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
 
-    /* ── TOKENS ── */
     :root {{
+      --black:      #0a0a0a;
       --ink:        #1a1a1a;
-      --ink-light:  #444;
+      --ink-mid:    #444;
+      --ink-light:  #777;
       --rule:       #1a1a1a;
-      --rule-light: #ccc;
-      --paper:      #f5f0e8;
-      --paper-dark: #ede8de;
-      --accent:     #8b0000;
+      --rule-light: #d0d0d0;
+      --gray-100:   #f7f7f7;
+      --gray-200:   #eeeeee;
+      --gray-800:   #222222;
+      --white:      #ffffff;
       --font-serif: 'Georgia', 'Times New Roman', serif;
       --font-sans:  'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-      --font-mono:  'Courier New', monospace;
     }}
 
-    /* ── BASE ── */
     body {{
-      background: var(--paper);
+      background: var(--white);
       color: var(--ink);
       font-family: var(--font-serif);
       font-size: 16px;
       line-height: 1.5;
     }}
 
-    a {{ color: var(--ink); text-decoration: none; }}
-    a:hover {{ color: var(--accent); text-decoration: underline; }}
+    a {{ color: inherit; text-decoration: none; }}
+    a:hover {{ text-decoration: underline; }}
 
     /* ── MASTHEAD ── */
     .masthead {{
-      text-align: center;
-      border-bottom: 4px double var(--rule);
-      padding: 1.5rem 1rem 1rem;
-      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 1.5rem;
+      background: var(--white);
     }}
-    .masthead-tagline {{
-      font-family: var(--font-sans);
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink-light);
-      margin-bottom: 0.25rem;
-    }}
-    .masthead-title {{
-      font-family: var(--font-serif);
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      line-height: 1;
-      color: var(--ink);
-    }}
-    .masthead-date {{
-      font-family: var(--font-sans);
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--ink-light);
-      margin-top: 0.4rem;
-      padding-top: 0.4rem;
-      border-top: 1px solid var(--rule-light);
-    }}
-
-    /* ── SECTION NAV ── */
-    .section-nav {{
+    .masthead-top {{
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0 1rem;
-      padding: 0.5rem 1rem;
-      background: var(--ink);
-      color: #f5f0e8;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--rule-light);
       font-family: var(--font-sans);
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
+      color: var(--ink-light);
     }}
-    .section-nav a {{
-      color: #f5f0e8;
-      padding: 0.2rem 0;
+    .masthead-title {{
+      text-align: center;
+      font-family: var(--font-serif);
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      padding: 0.5rem 0 0.4rem;
+      color: var(--black);
     }}
-    .section-nav a:hover {{ color: #ccc; text-decoration: none; border-bottom: 1px solid #ccc; }}
+    .masthead-bottom {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.4rem 0;
+      border-top: 1px solid var(--rule-light);
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }}
+    .masthead-rule {{
+      border: none;
+      border-top: 4px double var(--rule);
+      margin: 0;
+    }}
 
     /* ── AUTH BAR ── */
     .auth-bar {{
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.4rem 1.5rem;
-      background: var(--paper-dark);
+      gap: 0.75rem;
+      padding: 0.35rem 1.5rem;
+      background: var(--gray-100);
       border-bottom: 1px solid var(--rule-light);
       font-family: var(--font-sans);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
     }}
     #auth-status {{ color: var(--ink-light); }}
     #sign-in-btn, #sign-out-btn {{
-      background: var(--ink);
-      color: var(--paper);
+      background: var(--black);
+      color: var(--white);
       border: none;
-      padding: 0.25rem 0.75rem;
+      padding: 0.25rem 0.8rem;
       font-family: var(--font-sans);
-      font-size: 0.72rem;
-      cursor: pointer;
+      font-size: 0.68rem;
       letter-spacing: 0.05em;
+      cursor: pointer;
+      text-transform: uppercase;
     }}
-    #sign-in-btn:hover, #sign-out-btn:hover {{ background: var(--accent); }}
+    #sign-in-btn:hover, #sign-out-btn:hover {{ background: var(--ink-mid); }}
 
-    /* ── MAIN LAYOUT ── */
+    /* ── SECTION NAV ── */
+    .section-nav {{
+      background: var(--black);
+      padding: 0 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+    }}
+    .section-nav a {{
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.55rem 1rem;
+      border-right: 1px solid #333;
+      display: block;
+    }}
+    .section-nav a:first-child {{ border-left: 1px solid #333; }}
+    .section-nav a:hover {{ background: #222; text-decoration: none; }}
+
+    /* ── MAIN ── */
     main {{
-      max-width: 1200px;
+      max-width: 1260px;
       margin: 0 auto;
-      padding: 1.5rem 1rem;
+      padding: 0 1.5rem 3rem;
     }}
 
     /* ── TOPIC SECTIONS ── */
     .topic-section {{
-      margin-bottom: 2.5rem;
-      padding-bottom: 2rem;
+      padding: 1.75rem 0 1.5rem;
       border-bottom: 3px double var(--rule);
     }}
     .topic-section:last-child {{ border-bottom: none; }}
 
+    .topic-header-row {{
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }}
+    .topic-header-row::before,
+    .topic-header-row::after {{
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }}
     .topic-header {{
       font-family: var(--font-sans);
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--paper);
-      background: var(--ink);
-      padding: 0.35rem 0.75rem;
-      margin-bottom: 1.25rem;
-      display: inline-block;
+      color: var(--black);
+      white-space: nowrap;
+      padding: 0 0.5rem;
     }}
 
-    /* ── STORIES GRID ── */
+    /* ── STORIES GRID — newspaper layout ── */
     .stories-grid {{
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 0;
+      border-top: 2px solid var(--rule);
+      border-left: 1px solid var(--rule-light);
     }}
 
-    /* ── STORY CARD ── */
+    /* featured card: spans 5 cols, full height of first row */
+    .story-card.featured {{
+      grid-column: span 5;
+      grid-row: span 2;
+      border-right: 1px solid var(--rule-light);
+      border-bottom: 1px solid var(--rule-light);
+      padding: 1.25rem 1.25rem 1rem;
+    }}
+    .story-card.featured .story-title {{
+      font-size: 1.5rem;
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }}
+    .story-card.featured .story-desc {{
+      font-size: 0.9rem;
+      line-height: 1.6;
+      -webkit-line-clamp: 6;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }}
+
+    /* secondary cards: span 3-4 cols */
+    .story-card:not(.featured):nth-child(2),
+    .story-card:not(.featured):nth-child(3) {{
+      grid-column: span 4;
+    }}
+    .story-card:not(.featured):nth-child(4),
+    .story-card:not(.featured):nth-child(5) {{
+      grid-column: span 3;
+    }}
+    .story-card:not(.featured):nth-child(n+6) {{
+      grid-column: span 4;
+    }}
+
+    /* base card */
     .story-card {{
-      background: var(--paper);
-      border: 1px solid var(--rule-light);
-      border-top: 3px solid var(--ink);
-      padding: 1rem;
+      padding: 1rem 1rem 0.85rem;
+      border-right: 1px solid var(--rule-light);
+      border-bottom: 1px solid var(--rule-light);
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.4rem;
+      background: var(--white);
     }}
+    .story-card:hover {{ background: var(--gray-100); }}
+
     .story-title {{
       font-family: var(--font-serif);
-      font-size: 1.0rem;
+      font-size: 0.95rem;
       font-weight: 700;
       line-height: 1.3;
+      color: var(--black);
     }}
+    .story-title a:hover {{ text-decoration: underline; }}
+
     .story-desc {{
-      font-size: 0.85rem;
-      color: var(--ink-light);
+      font-size: 0.8rem;
+      color: var(--ink-mid);
       line-height: 1.5;
       flex: 1;
+      -webkit-line-clamp: 3;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }}
+
     .story-meta {{
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-top: 1px solid var(--rule-light);
-      padding-top: 0.5rem;
+      padding-top: 0.45rem;
       margin-top: auto;
     }}
     .source-label {{
       font-family: var(--font-sans);
-      font-size: 0.68rem;
+      font-size: 0.62rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--ink-light);
     }}
 
     /* ── VOTE BUTTONS ── */
-    .vote-buttons {{ display: flex; gap: 0.25rem; }}
+    .vote-buttons {{ display: flex; gap: 2px; }}
     .vote-btn {{
-      background: none;
-      border: 1px solid var(--rule-light);
+      background: var(--gray-200);
+      border: none;
       color: var(--ink-light);
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       cursor: pointer;
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.15s;
+      transition: background 0.1s;
     }}
-    .vote-btn:hover {{ background: var(--ink); color: var(--paper); border-color: var(--ink); }}
-    .vote-btn.voted-up {{ background: #2d6a2d; color: white; border-color: #2d6a2d; }}
-    .vote-btn.voted-down {{ background: var(--accent); color: white; border-color: var(--accent); }}
+    .vote-btn:hover {{ background: var(--gray-800); color: var(--white); }}
+    .vote-btn.voted-up {{ background: #1a5c1a; color: white; }}
+    .vote-btn.voted-down {{ background: var(--black); color: white; }}
 
     /* ── FOOTER ── */
     footer {{
       text-align: center;
       font-family: var(--font-sans);
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
       color: var(--ink-light);
       padding: 2rem 1rem;
       border-top: 1px solid var(--rule-light);
@@ -554,25 +550,44 @@ def generate_html(stories_by_topic: dict[str, list[dict]]) -> str:
       position: fixed;
       bottom: 1.5rem;
       right: 1.5rem;
-      background: var(--ink);
-      color: var(--paper);
+      background: var(--black);
+      color: var(--white);
       font-family: var(--font-sans);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       padding: 0.6rem 1.2rem;
       opacity: 0;
       transition: opacity 0.3s;
       pointer-events: none;
+      letter-spacing: 0.05em;
     }}
     #toast.show {{ opacity: 1; }}
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {{
+      .story-card.featured,
+      .story-card:not(.featured):nth-child(n) {{
+        grid-column: span 12;
+      }}
+      .masthead-title {{ font-size: 3rem; }}
+      .section-nav {{ overflow-x: auto; flex-wrap: nowrap; }}
+    }}
   </style>
 </head>
 <body>
 
   <!-- MASTHEAD -->
   <header class="masthead">
-    <p class="masthead-tagline">Your daily curated briefing</p>
+    <div class="masthead-top">
+      <span>Est. 2026</span>
+      <span>{date_str}</span>
+      <span>Your Daily Briefing</span>
+    </div>
     <h1 class="masthead-title">The Lede</h1>
-    <p class="masthead-date">{date_str}</p>
+    <div class="masthead-bottom">
+      <span>Civic Tech &bull; Housing &bull; Nonprofits &bull; AI &bull; Penguins</span>
+      <span id="auth-status-top"></span>
+    </div>
+    <hr class="masthead-rule" />
   </header>
 
   <!-- AUTH BAR -->
@@ -587,21 +602,19 @@ def generate_html(stories_by_topic: dict[str, list[dict]]) -> str:
     {nav_links}
   </nav>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <main>
     {sections}
   </main>
 
   <footer>
-    The Lede &mdash; Generated {date_str} &mdash; Powered by NewsAPI &amp; RSS
+    The Lede &mdash; {date_str} &mdash; Powered by NewsAPI &amp; RSS
   </footer>
 
   <div id="toast"></div>
 
-  <!-- SUPABASE JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // ── CONFIG ──
     const SUPABASE_URL = '__SUPABASE_URL__';
     const SUPABASE_ANON_KEY = '__SUPABASE_ANON_KEY__';
     const {{ createClient }} = supabase;
@@ -609,11 +622,9 @@ def generate_html(stories_by_topic: dict[str, list[dict]]) -> str:
 
     let currentUser = null;
 
-    // ── AUTH ──
     async function signIn() {{
       await sb.auth.signInWithOAuth({{ provider: 'google' }});
     }}
-
     async function signOut() {{
       await sb.auth.signOut();
       currentUser = null;
@@ -650,45 +661,32 @@ def generate_html(stories_by_topic: dict[str, list[dict]]) -> str:
       }}, {{ onConflict: 'id' }});
     }}
 
-    // ── VOTES ──
     async function loadVotes(userId) {{
       const {{ data }} = await sb.from('votes').select('story_url, vote').eq('user_id', userId);
       if (!data) return;
       data.forEach(row => {{
         const card = document.querySelector(`[data-url="${{row.story_url}}"]`);
         if (!card) return;
-        const up = card.querySelector('.vote-btn.up');
-        const down = card.querySelector('.vote-btn.down');
-        if (row.vote === 1) up.classList.add('voted-up');
-        if (row.vote === -1) down.classList.add('voted-down');
+        if (row.vote === 1) card.querySelector('.vote-btn.up').classList.add('voted-up');
+        if (row.vote === -1) card.querySelector('.vote-btn.down').classList.add('voted-down');
       }});
     }}
 
     async function vote(btn, storyUrl, value) {{
-      if (!currentUser) {{
-        showToast('Sign in to save your votes');
-        return;
-      }}
-
+      if (!currentUser) {{ showToast('Sign in to save your votes'); return; }}
       const card = btn.closest('.story-card');
       const title = card.querySelector('.story-title a')?.textContent ?? '';
-      const topicSection = card.closest('.topic-section');
-      const topicSlug = topicSection?.id ?? '';
-      const sourceDomain = new URL(storyUrl).hostname.replace('www.', '');
-
-      // Toggle logic
+      const topicSlug = card.closest('.topic-section')?.id ?? '';
+      const sourceDomain = (() => {{ try {{ return new URL(storyUrl).hostname.replace('www.',''); }} catch(e) {{ return ''; }} }})();
       const upBtn = card.querySelector('.vote-btn.up');
       const downBtn = card.querySelector('.vote-btn.down');
       const alreadyUp = upBtn.classList.contains('voted-up');
       const alreadyDown = downBtn.classList.contains('voted-down');
-
       let newVote = value;
       if (value === 1 && alreadyUp) newVote = null;
       if (value === -1 && alreadyDown) newVote = null;
-
       upBtn.classList.remove('voted-up');
       downBtn.classList.remove('voted-down');
-
       if (newVote === null) {{
         await sb.from('votes').delete().eq('user_id', currentUser.id).eq('story_url', storyUrl);
         showToast('Vote removed');
@@ -696,44 +694,31 @@ def generate_html(stories_by_topic: dict[str, list[dict]]) -> str:
         if (newVote === 1) upBtn.classList.add('voted-up');
         if (newVote === -1) downBtn.classList.add('voted-down');
         await sb.from('votes').upsert({{
-          user_id: currentUser.id,
-          story_url: storyUrl,
-          story_title: title,
-          topic_slug: topicSlug,
-          source_domain: sourceDomain,
-          vote: newVote,
+          user_id: currentUser.id, story_url: storyUrl, story_title: title,
+          topic_slug: topicSlug, source_domain: sourceDomain, vote: newVote,
         }}, {{ onConflict: 'user_id,story_url' }});
-        showToast(newVote === 1 ? 'Upvoted — this source gets a boost tomorrow' : 'Downvoted — this source gets suppressed tomorrow');
+        showToast(newVote === 1 ? 'Upvoted' : 'Downvoted');
       }}
-
       await updateSourceWeight(currentUser.id, sourceDomain);
     }}
 
     async function updateSourceWeight(userId, domain) {{
-      const {{ data }} = await sb.from('votes')
-        .select('vote')
-        .eq('user_id', userId)
-        .eq('source_domain', domain);
-      if (!data || data.length === 0) return;
+      const {{ data }} = await sb.from('votes').select('vote').eq('user_id', userId).eq('source_domain', domain);
+      if (!data || !data.length) return;
       const ups = data.filter(r => r.vote === 1).length;
-      const total = data.length;
-      const weight = parseFloat((0.1 + (ups / total) * 1.9).toFixed(3));
+      const weight = parseFloat((0.1 + (ups / data.length) * 1.9).toFixed(3));
       await sb.from('source_weights').upsert({{
-        user_id: userId,
-        source_domain: domain,
-        weight,
+        user_id: userId, source_domain: domain, weight,
       }}, {{ onConflict: 'user_id,source_domain' }});
     }}
 
-    // ── TOAST ──
     function showToast(msg) {{
       const t = document.getElementById('toast');
       t.textContent = msg;
       t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2500);
+      setTimeout(() => t.classList.remove('show'), 2200);
     }}
   </script>
-
 </body>
 </html>"""
 
@@ -746,28 +731,21 @@ def main():
     print("=== The Lede: Fetch & Generate ===")
     print(f"Run time: {datetime.now(timezone.utc).isoformat()}")
 
-    # Fetch all stories
     print("\n[1] Fetching stories...")
     raw_stories = fetch_all_stories()
 
-    # For now: generate a single page (Phase 1 — solo/template mode)
-    # When we go multi-user hosted, this becomes per-user generation
-    print("\n[2] Building default page (no user scoring yet)...")
+    print("\n[2] Building page...")
     stories_by_topic = {
         slug: stories[:MAX_STORIES_PER_TOPIC]
         for slug, stories in raw_stories.items()
     }
 
-    # Inject Supabase config into HTML
     print("\n[3] Generating HTML...")
     page_html = generate_html(stories_by_topic)
     page_html = page_html.replace("__SUPABASE_URL__", SUPABASE_URL)
-    # Note: we use the anon key in the HTML (safe for client-side)
-    # The service key never touches the HTML
     anon_key = os.environ.get("SUPABASE_ANON_KEY", "")
     page_html = page_html.replace("__SUPABASE_ANON_KEY__", anon_key)
 
-    # Write output
     output_path = os.path.join(os.path.dirname(__file__), "..", "index.html")
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(page_html)
