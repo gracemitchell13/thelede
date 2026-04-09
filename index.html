@@ -1,666 +1,598 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>The Lede — THURSDAY, APRIL 9, 2026</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --black:     #0a0a0a;
-      --ink:       #1a1a1a;
-      --ink-mid:   #555;
-      --ink-light: #888;
-      --rule:      #1a1a1a;
-      --rule-lt:   #d4d4d4;
-      --bg:        #ffffff;
-      --bg-alt:    #f6f6f6;
-      --serif: 'Georgia','Times New Roman',serif;
-      --sans:  'Franklin Gothic Medium','Arial Narrow',Arial,sans-serif;
-    }
-    body { background: var(--bg); color: var(--ink); font-family: var(--serif); font-size: 16px; line-height: 1.5; }
-    a { color: inherit; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>The Lede — THURSDAY, APRIL 9, 2026</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blk:#0a0a0a;--ink:#1a1a1a;--mid:#555;--lt:#888;
+  --rl:#1a1a1a;--rlt:#d4d4d4;--bg:#fff;--bg2:#f6f6f6;
+  --serif:'Georgia','Times New Roman',serif;
+  --sans:'Franklin Gothic Medium','Arial Narrow',Arial,sans-serif;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:16px;line-height:1.5}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline}
 
-    /* MASTHEAD */
-    .masthead { border-bottom: 4px double var(--rule); padding: 0 2rem; background: var(--bg); }
-    .mast-top {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 0.5rem 0; border-bottom: 1px solid var(--rule-lt);
-      font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--ink-light);
-    }
-    .mast-title {
-      text-align: center; font-family: var(--serif);
-      font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 900;
-      letter-spacing: -0.03em; line-height: 1; padding: 0.4rem 0;
-      color: var(--black);
-    }
-    .mast-bottom {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 0.4rem 0; border-top: 1px solid var(--rule-lt);
-      font-family: var(--sans); font-size: 0.63rem; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--ink-light);
-    }
+/* MASTHEAD */
+.mast{border-bottom:4px double var(--rl);padding:0 2rem;background:var(--bg)}
+.mast-top{display:flex;justify-content:space-between;align-items:center;
+  padding:.5rem 0;border-bottom:1px solid var(--rlt);
+  font-family:var(--sans);font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--lt)}
+.mast-title{text-align:center;font-family:var(--serif);
+  font-size:clamp(3.5rem,10vw,7rem);font-weight:900;
+  letter-spacing:-.03em;line-height:1;padding:.4rem 0;color:var(--blk)}
+.mast-bot{display:flex;justify-content:space-between;align-items:center;
+  padding:.4rem 0;border-top:1px solid var(--rlt);
+  font-family:var(--sans);font-size:.63rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--lt)}
 
-    /* AUTH */
-    .auth-bar {
-      display: flex; justify-content: flex-end; align-items: center; gap: 0.75rem;
-      padding: 0.35rem 2rem; background: var(--bg-alt);
-      border-bottom: 1px solid var(--rule-lt);
-      font-family: var(--sans); font-size: 0.7rem;
-    }
-    #auth-status { color: var(--ink-light); }
-    #sign-in-btn, #sign-out-btn {
-      background: var(--black); color: #fff; border: none;
-      padding: 0.25rem 0.85rem; font-family: var(--sans); font-size: 0.67rem;
-      letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
-    }
-    #sign-in-btn:hover, #sign-out-btn:hover { background: var(--ink-mid); }
+/* AUTH */
+.auth{display:flex;justify-content:flex-end;align-items:center;gap:.75rem;
+  padding:.35rem 2rem;background:var(--bg2);border-bottom:1px solid var(--rlt);
+  font-family:var(--sans);font-size:.7rem}
+#auth-st{color:var(--lt)}
+#si-btn,#so-btn{background:var(--blk);color:#fff;border:none;
+  padding:.25rem .85rem;font-family:var(--sans);font-size:.67rem;
+  letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+#si-btn:hover,#so-btn:hover{background:var(--mid)}
 
-    /* NAV */
-    .section-nav {
-      background: var(--black); display: flex; flex-wrap: wrap;
-      padding: 0 2rem;
-    }
-    .section-nav a {
-      color: #fff; font-family: var(--sans); font-size: 0.67rem;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 0.55rem 1rem; border-right: 1px solid #2a2a2a; display: block;
-    }
-    .section-nav a:first-child { border-left: 1px solid #2a2a2a; }
-    .section-nav a:hover { background: #1e1e1e; text-decoration: none; }
+/* NAV */
+.nav{background:var(--blk);display:flex;flex-wrap:wrap;padding:0 2rem}
+.nav a{color:#fff;font-family:var(--sans);font-size:.67rem;letter-spacing:.12em;
+  text-transform:uppercase;padding:.55rem 1rem;
+  border-right:1px solid #2a2a2a;display:block}
+.nav a:first-child{border-left:1px solid #2a2a2a}
+.nav a:hover{background:#1e1e1e;text-decoration:none}
 
-    /* MAIN */
-    main { max-width: 1280px; margin: 0 auto; padding: 0 2rem 3rem; }
+/* MAIN */
+main{max-width:1280px;margin:0 auto;padding:0 2rem 3rem}
 
-    /* SECTION */
-    .topic-section { padding: 1.75rem 0 0; border-bottom: 3px double var(--rule); margin-bottom: 0; }
-    .topic-section:last-child { border-bottom: none; }
+/* SECTIONS */
+.sec{padding:1.75rem 0 0;border-bottom:3px double var(--rl)}
+.sec:last-child{border-bottom:none}
+.sec-rule{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem}
+.sec-rule::before,.sec-rule::after{content:'';flex:1;height:1px;background:var(--rl)}
+.sec-label{font-family:var(--sans);font-size:.68rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
 
-    .section-rule {
-      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;
-    }
-    .section-rule::before, .section-rule::after {
-      content: ''; flex: 1; height: 1px; background: var(--rule);
-    }
-    .section-label {
-      font-family: var(--sans); font-size: 0.68rem; font-weight: 700;
-      letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap;
-    }
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:2px solid var(--rl);border-left:1px solid var(--rlt);
+  margin-bottom:1.75rem}
 
-    /* TOPIC GRID — flat 4-column newspaper grid */
-    .topic-grid {
-      display: grid;
-      grid-template-columns: 3fr 2fr 2fr 2fr;
-      grid-template-rows: auto auto auto;
-      border-top: 2px solid var(--rule);
-      border-left: 1px solid var(--rule-lt);
-      margin-bottom: 1.75rem;
-    }
+/* CARDS */
+.card{padding:1rem 1.1rem .9rem;border-right:1px solid var(--rlt);
+  border-bottom:1px solid var(--rlt);display:flex;flex-direction:column;
+  gap:.45rem;background:var(--bg);transition:background .1s}
+.card:hover{background:var(--bg2)}
 
-    /* CARDS */
-    .story-card {
-      padding: 1rem 1.1rem 0.9rem;
-      border-right: 1px solid var(--rule-lt);
-      border-bottom: 1px solid var(--rule-lt);
-      display: flex; flex-direction: column; gap: 0.45rem;
-      background: var(--bg);
-      transition: background 0.1s;
-    }
-    .story-card:hover { background: var(--bg-alt); }
+.sz-lg .hed{font-size:1.5rem;line-height:1.2;font-weight:800}
+.sz-lg .desc{font-size:.88rem;line-height:1.6;-webkit-line-clamp:6}
+.sz-lg{padding:1.25rem 1.35rem 1rem}
 
-    /* sizes */
-    .size-lg .story-title { font-size: 1.55rem; line-height: 1.2; font-weight: 800; }
-    .size-lg .story-desc  { font-size: 0.88rem; line-height: 1.7; flex: 1; -webkit-line-clamp: unset; display: block; overflow: visible; }
+.sz-md .hed{font-size:1.05rem;line-height:1.25;font-weight:700}
+.sz-md .desc{-webkit-line-clamp:4}
 
-    .size-md .story-title { font-size: 1.05rem; line-height: 1.25; font-weight: 700; }
-    .size-md .story-desc  { font-size: 0.8rem; }
+.sz-sm .hed{font-size:.9rem;line-height:1.3;font-weight:700}
+.sz-sm .desc{-webkit-line-clamp:2}
 
-    .size-sm .story-title { font-size: 0.9rem; line-height: 1.3; font-weight: 700; }
-    .size-sm .story-desc  { display: none; }
+.hed{font-family:var(--serif);color:var(--blk)}
+.desc{color:var(--mid);font-size:.82rem;line-height:1.5;
+  overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;flex:1}
 
-    .story-title { font-family: var(--serif); color: var(--black); }
-    .story-desc  { color: var(--ink-mid); font-size: 0.82rem; line-height: 1.5;
-                    overflow: hidden; display: -webkit-box;
-                    -webkit-line-clamp: 4; -webkit-box-orient: vertical; flex: 1; }
+.meta{display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--rlt);padding-top:.45rem;margin-top:auto}
+.src{font-family:var(--sans);font-size:.6rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--lt)}
+.votes{display:flex;gap:2px}
+.vb{background:var(--bg2);border:none;color:var(--lt);
+  width:24px;height:24px;cursor:pointer;font-size:.58rem;
+  display:flex;align-items:center;justify-content:center}
+.vb:hover{background:var(--blk);color:#fff}
+.vb.voted-up{background:#1a5c1a;color:#fff}
+.vb.voted-dn{background:var(--blk);color:#fff}
 
-    .story-meta {
-      display: flex; justify-content: space-between; align-items: center;
-      border-top: 1px solid var(--rule-lt); padding-top: 0.45rem; margin-top: auto;
-    }
-    .source-label {
-      font-family: var(--sans); font-size: 0.6rem; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--ink-light);
-    }
-    .vote-buttons { display: flex; gap: 2px; }
-    .vote-btn {
-      background: var(--bg-alt); border: none; color: var(--ink-light);
-      width: 24px; height: 24px; cursor: pointer; font-size: 0.58rem;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .vote-btn:hover { background: var(--black); color: #fff; }
-    .vote-btn.voted-up { background: #1a5c1a; color: #fff; }
-    .vote-btn.voted-down { background: var(--black); color: #fff; }
+/* FOOTER */
+footer{text-align:center;font-family:var(--sans);font-size:.63rem;
+  letter-spacing:.12em;color:var(--lt);padding:2rem 1rem;
+  border-top:1px solid var(--rlt);text-transform:uppercase}
 
-    /* FOOTER */
-    footer {
-      text-align: center; font-family: var(--sans); font-size: 0.63rem;
-      letter-spacing: 0.12em; color: var(--ink-light); padding: 2rem 1rem;
-      border-top: 1px solid var(--rule-lt); text-transform: uppercase;
-    }
+/* TOAST */
+#toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--blk);
+  color:#fff;font-family:var(--sans);font-size:.75rem;
+  padding:.55rem 1.1rem;opacity:0;transition:opacity .25s;
+  pointer-events:none;letter-spacing:.05em}
+#toast.show{opacity:1}
 
-    /* TOAST */
-    #toast {
-      position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--black);
-      color: #fff; font-family: var(--sans); font-size: 0.75rem;
-      padding: 0.55rem 1.1rem; opacity: 0; transition: opacity 0.25s;
-      pointer-events: none; letter-spacing: 0.05em;
-    }
-    #toast.show { opacity: 1; }
-
-    @media (max-width: 700px) {
-      .topic-grid { grid-template-columns: 1fr; }
-      .col-stack { grid-template-rows: auto; }
-      .section-nav { overflow-x: auto; flex-wrap: nowrap; padding: 0; }
-      .masthead { padding: 0 1rem; }
-      main { padding: 0 1rem 2rem; }
-    }
-  </style>
+@media(max-width:700px){
+  .grid{grid-template-columns:1fr}
+  .card{grid-column:1!important}
+  .nav{overflow-x:auto;flex-wrap:nowrap;padding:0}
+  .mast{padding:0 1rem}
+  main{padding:0 1rem 2rem}
+}
+</style>
 </head>
 <body>
-
-<header class="masthead">
+<header class="mast">
   <div class="mast-top">
-    <span>Est. 2026</span>
-    <span>THURSDAY, APRIL 9, 2026</span>
-    <span>Your Daily Briefing</span>
+    <span>Est. 2026</span><span>THURSDAY, APRIL 9, 2026</span><span>Your Daily Briefing</span>
   </div>
   <h1 class="mast-title">The Lede</h1>
-  <div class="mast-bottom">
+  <div class="mast-bot">
     <span>Civic Tech &bull; Housing &bull; Nonprofits &bull; AI &bull; Penguins</span>
-    <span>gracemitchell13.github.io/thelede</span>
+    <span>readthelede.com</span>
   </div>
 </header>
 
-<div class="auth-bar">
-  <span id="auth-status">Not signed in — votes won't be saved</span>
-  <button id="sign-in-btn" onclick="signIn()">Sign In with Google</button>
-  <button id="sign-out-btn" style="display:none" onclick="signOut()">Sign Out</button>
+<div class="auth">
+  <span id="auth-st">Not signed in — votes won't be saved</span>
+  <button id="si-btn" onclick="signIn()">Sign In with Google</button>
+  <button id="so-btn" style="display:none" onclick="signOut()">Sign Out</button>
 </div>
 
-<nav class="section-nav"><a href="#civic-tech">Civic Tech & GovTech</a>
+<nav class="nav"><a href="#civic-tech">Civic Tech & GovTech</a>
 <a href="#housing">Housing Policy</a>
 <a href="#nonprofit">Nonprofit & Grants</a>
 <a href="#ai-tech">AI & Tech</a>
 <a href="#general">General News</a></nav>
-
-<main><section class="topic-section" id="civic-tech">
-    <div class="section-rule"><span class="section-label">Civic Tech & GovTech</span></div>
-    <div class="topic-grid"><article class="story-card size-lg" style="grid-column:1/4;" data-url="https://www.nextgov.com/artificial-intelligence/2026/04/gsa-require-agencies-pay-usai-after-launching-it-free-service/412678/">
-      <h3 class="story-title"><a href="https://www.nextgov.com/artificial-intelligence/2026/04/gsa-require-agencies-pay-usai-after-launching-it-free-service/412678/" target="_blank" rel="noopener">GSA to require agencies to pay for USAi after launching it as a free service</a></h3>
-      <p class="story-desc">The platform was billed as a way to accelerate AI adoption across the government when GSA launched it last year.</p>
-      <div class="story-meta">
-        <span class="source-label">Nextgov</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.nextgov.com/artificial-intelligence/2026/04/gsa-require-agencies-pay-usai-after-launching-it-free-service/412678/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.nextgov.com/artificial-intelligence/2026/04/gsa-require-agencies-pay-usai-after-launching-it-free-service/412678/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-md" style="grid-column:4/5;" data-url="https://statescoop.com/illinois-unveils-journey-to-success-prison-tablet-education-program/">
-      <h3 class="story-title"><a href="https://statescoop.com/illinois-unveils-journey-to-success-prison-tablet-education-program/" target="_blank" rel="noopener">Illinois unveils ‘Journey to Success’ prison tablet education program</a></h3>
-      <p class="story-desc">Inmates in Illinois correction facilities will have access to a new, curated collection of digital education and skills content on their tablets.</p>
-      <div class="story-meta">
-        <span class="source-label">StateScoop</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://statescoop.com/illinois-unveils-journey-to-success-prison-tablet-education-program/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://statescoop.com/illinois-unveils-journey-to-success-prison-tablet-education-program/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:1/2;" data-url="https://statescoop.com/nascio-2026-strategic-plan/">
-      <h3 class="story-title"><a href="https://statescoop.com/nascio-2026-strategic-plan/" target="_blank" rel="noopener">State CIO group reaffirms members are drivers of innovation</a></h3>
-      <p class="story-desc">The National Association of State Chief Information Officers renewed its strategic plan, adjusting course for the next two years of advocacy and support for states&#x27; top technology officials.</p>
-      <div class="story-meta">
-        <span class="source-label">StateScoop</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://statescoop.com/nascio-2026-strategic-plan/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://statescoop.com/nascio-2026-strategic-plan/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-md" style="grid-column:2/4;" data-url="https://statescoop.com/san-jose-california-ai-coalition-independent-nonprofit/">
-      <h3 class="story-title"><a href="https://statescoop.com/san-jose-california-ai-coalition-independent-nonprofit/" target="_blank" rel="noopener">San Jose, California, city leaders vote to make AI coalition an independent nonprofit</a></h3>
-      <p class="story-desc">City officials in San Jose, California, have approved an updated AI policy framework for the city. They also agreed that the GovAI Coalition should become a nonprofit.</p>
-      <div class="story-meta">
-        <span class="source-label">StateScoop</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://statescoop.com/san-jose-california-ai-coalition-independent-nonprofit/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://statescoop.com/san-jose-california-ai-coalition-independent-nonprofit/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:4/5;" data-url="https://statescoop.com/nascio-privacy-report-state-government-2026/">
-      <h3 class="story-title"><a href="https://statescoop.com/nascio-privacy-report-state-government-2026/" target="_blank" rel="noopener">More states are taking privacy seriously, but their work isn’t done</a></h3>
-      <p class="story-desc">A report from the National Association of State Chief Information Officers shows that while more states are formalizing privacy practices, implementation can be uneven.</p>
-      <div class="story-meta">
-        <span class="source-label">StateScoop</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://statescoop.com/nascio-privacy-report-state-government-2026/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://statescoop.com/nascio-privacy-report-state-government-2026/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:1/3;" data-url="https://statescoop.com/minnesota-winona-county-cyberattack-emergency-order/">
-      <h3 class="story-title"><a href="https://statescoop.com/minnesota-winona-county-cyberattack-emergency-order/" target="_blank" rel="noopener">Minnesota governor orders emergency support for cyberattack disrupting county’s ‘critical systems’</a></h3>
-      <p class="story-desc">“Swift coordination between state and local experts matters in these moments,&quot; Tim Walz, Minnesota&#x27;s governor, said after a disruptive cyberattack in Winona County.</p>
-      <div class="story-meta">
-        <span class="source-label">StateScoop</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://statescoop.com/minnesota-winona-county-cyberattack-emergency-order/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://statescoop.com/minnesota-winona-county-cyberattack-emergency-order/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:3/5;" data-url="https://statescoop.com/utah-aspen-institute-ai-framework/">
-      <h3 class="story-title"><a href="https://statescoop.com/utah-aspen-institute-ai-framework/" target="_blank" rel="noopener">Should states treat AI incidents like aviation accidents, and investigate?</a></h3>
-      <p class="story-desc">A new policy framework from the Aspen Institute would establish clear processes for states to follow when AI produces unwanted or dangerous results.</p>
-      <div class="story-meta">
-        <span class="source-label">StateScoop</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://statescoop.com/utah-aspen-institute-ai-framework/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://statescoop.com/utah-aspen-institute-ai-framework/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article></div>
-  </section>
-<section class="topic-section" id="housing">
-    <div class="section-rule"><span class="section-label">Housing Policy</span></div>
-    <div class="topic-grid"><article class="story-card size-md" style="grid-column:1/3;" data-url="https://shelterforce.org/2026/04/08/property-taxes-arent-the-cause-of-our-housing-crisis-theyre-a-solution-to-it/">
-      <h3 class="story-title"><a href="https://shelterforce.org/2026/04/08/property-taxes-arent-the-cause-of-our-housing-crisis-theyre-a-solution-to-it/" target="_blank" rel="noopener">Property Taxes Aren’t the Cause of Our Housing Crisis, They’re a Solution to It</a></h3>
-      <p class="story-desc">Taxing land and buildings at different rates can discourage land speculation and encourage housing development.
+<main><section class="sec" id="civic-tech">
+  <div class="sec-rule"><span class="sec-label">Civic Tech & GovTech</span></div>
+  <div class="grid"><article class="card sz-lg" style="grid-column:1/4" data-url="https://www.nextgov.com/artificial-intelligence/2026/04/gsa-require-agencies-pay-usai-after-launching-it-free-service/412678/">
+  <h3 class="hed"><a href="https://www.nextgov.com/artificial-intelligence/2026/04/gsa-require-agencies-pay-usai-after-launching-it-free-service/412678/" target="_blank" rel="noopener">GSA to require agencies to pay for USAi after launching it as a free service</a></h3>
+  <p class="desc">The platform was billed as a way to accelerate AI adoption across the government when GSA launched it last year.</p>
+  <div class="meta">
+    <span class="src">Nextgov</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://www.nextgov.com/artificial-intelligence/2026/04/gsa-require-agencies-pay-usai-after-launching-it-free-service/412678/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://www.nextgov.com/artificial-intelligence/2026/04/gsa-require-agencies-pay-usai-after-launching-it-free-service/412678/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-md" style="grid-column:4/5" data-url="https://statescoop.com/illinois-unveils-journey-to-success-prison-tablet-education-program/">
+  <h3 class="hed"><a href="https://statescoop.com/illinois-unveils-journey-to-success-prison-tablet-education-program/" target="_blank" rel="noopener">Illinois unveils ‘Journey to Success’ prison tablet education program</a></h3>
+  <p class="desc">Inmates in Illinois correction facilities will have access to a new, curated collection of digital education and skills content on their tablets.</p>
+  <div class="meta">
+    <span class="src">StateScoop</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://statescoop.com/illinois-unveils-journey-to-success-prison-tablet-education-program/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://statescoop.com/illinois-unveils-journey-to-success-prison-tablet-education-program/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:1/2" data-url="https://statescoop.com/nascio-2026-strategic-plan/">
+  <h3 class="hed"><a href="https://statescoop.com/nascio-2026-strategic-plan/" target="_blank" rel="noopener">State CIO group reaffirms members are drivers of innovation</a></h3>
+  <p class="desc">The National Association of State Chief Information Officers renewed its strategic plan, adjusting course for the next two years of advocacy and support for states&#x27; top technology officials.</p>
+  <div class="meta">
+    <span class="src">StateScoop</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://statescoop.com/nascio-2026-strategic-plan/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://statescoop.com/nascio-2026-strategic-plan/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-md" style="grid-column:2/4" data-url="https://statescoop.com/san-jose-california-ai-coalition-independent-nonprofit/">
+  <h3 class="hed"><a href="https://statescoop.com/san-jose-california-ai-coalition-independent-nonprofit/" target="_blank" rel="noopener">San Jose, California, city leaders vote to make AI coalition an independent nonprofit</a></h3>
+  <p class="desc">City officials in San Jose, California, have approved an updated AI policy framework for the city. They also agreed that the GovAI Coalition should become a nonprofit.</p>
+  <div class="meta">
+    <span class="src">StateScoop</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://statescoop.com/san-jose-california-ai-coalition-independent-nonprofit/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://statescoop.com/san-jose-california-ai-coalition-independent-nonprofit/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:4/5" data-url="https://statescoop.com/nascio-privacy-report-state-government-2026/">
+  <h3 class="hed"><a href="https://statescoop.com/nascio-privacy-report-state-government-2026/" target="_blank" rel="noopener">More states are taking privacy seriously, but their work isn’t done</a></h3>
+  <p class="desc">A report from the National Association of State Chief Information Officers shows that while more states are formalizing privacy practices, implementation can be uneven.</p>
+  <div class="meta">
+    <span class="src">StateScoop</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://statescoop.com/nascio-privacy-report-state-government-2026/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://statescoop.com/nascio-privacy-report-state-government-2026/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:1/3" data-url="https://statescoop.com/minnesota-winona-county-cyberattack-emergency-order/">
+  <h3 class="hed"><a href="https://statescoop.com/minnesota-winona-county-cyberattack-emergency-order/" target="_blank" rel="noopener">Minnesota governor orders emergency support for cyberattack disrupting county’s ‘critical systems’</a></h3>
+  <p class="desc">“Swift coordination between state and local experts matters in these moments,&quot; Tim Walz, Minnesota&#x27;s governor, said after a disruptive cyberattack in Winona County.</p>
+  <div class="meta">
+    <span class="src">StateScoop</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://statescoop.com/minnesota-winona-county-cyberattack-emergency-order/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://statescoop.com/minnesota-winona-county-cyberattack-emergency-order/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:3/5" data-url="https://statescoop.com/utah-aspen-institute-ai-framework/">
+  <h3 class="hed"><a href="https://statescoop.com/utah-aspen-institute-ai-framework/" target="_blank" rel="noopener">Should states treat AI incidents like aviation accidents, and investigate?</a></h3>
+  <p class="desc">A new policy framework from the Aspen Institute would establish clear processes for states to follow when AI produces unwanted or dangerous results.</p>
+  <div class="meta">
+    <span class="src">StateScoop</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://statescoop.com/utah-aspen-institute-ai-framework/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://statescoop.com/utah-aspen-institute-ai-framework/',-1)">▼</button>
+    </span>
+  </div>
+</article></div>
+</section>
+<section class="sec" id="housing">
+  <div class="sec-rule"><span class="sec-label">Housing Policy</span></div>
+  <div class="grid"><article class="card sz-md" style="grid-column:1/3" data-url="https://shelterforce.org/2026/04/08/property-taxes-arent-the-cause-of-our-housing-crisis-theyre-a-solution-to-it/">
+  <h3 class="hed"><a href="https://shelterforce.org/2026/04/08/property-taxes-arent-the-cause-of-our-housing-crisis-theyre-a-solution-to-it/" target="_blank" rel="noopener">Property Taxes Aren’t the Cause of Our Housing Crisis, They’re a Solution to It</a></h3>
+  <p class="desc">Taxing land and buildings at different rates can discourage land speculation and encourage housing development.
 The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re a Solution to It appeared first on Shelterforce.</p>
-      <div class="story-meta">
-        <span class="source-label">Shelterforce</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://shelterforce.org/2026/04/08/property-taxes-arent-the-cause-of-our-housing-crisis-theyre-a-solution-to-it/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://shelterforce.org/2026/04/08/property-taxes-arent-the-cause-of-our-housing-crisis-theyre-a-solution-to-it/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-md" style="grid-column:3/5;" data-url="https://shelterforce.org/2026/04/07/free-land-retail-rents-and-other-ways-cities-are-cutting-reliance-on-federal-housing-funds/">
-      <h3 class="story-title"><a href="https://shelterforce.org/2026/04/07/free-land-retail-rents-and-other-ways-cities-are-cutting-reliance-on-federal-housing-funds/" target="_blank" rel="noopener">Free Land, Retail Rents, and Other Ways Cities Are Cutting Reliance on Federal Housing Funds</a></h3>
-      <p class="story-desc">Though the federal role will always be necessary, local governments, and developers themselves, are looking for ways to develop affordable housing with less federal subsidy. Here are some of the approaches they are trying. 
-The post Free Land, Retail Rents, and Other Ways Cities Are Cutting Reliance…</p>
-      <div class="story-meta">
-        <span class="source-label">Shelterforce</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://shelterforce.org/2026/04/07/free-land-retail-rents-and-other-ways-cities-are-cutting-reliance-on-federal-housing-funds/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://shelterforce.org/2026/04/07/free-land-retail-rents-and-other-ways-cities-are-cutting-reliance-on-federal-housing-funds/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:1/2;" data-url="https://shelterforce.org/2026/04/06/acting-locally-states-counties-and-cities-on-the-front-lines/">
-      <h3 class="story-title"><a href="https://shelterforce.org/2026/04/06/acting-locally-states-counties-and-cities-on-the-front-lines/" target="_blank" rel="noopener">Acting Locally: States, Counties, and Cities on the Front Lines</a></h3>
-      <p class="story-desc">Even in challenging times, there are many actions that state and local governments can take to improve housing access and look out for their residents.
+  <div class="meta">
+    <span class="src">Shelterforce</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://shelterforce.org/2026/04/08/property-taxes-arent-the-cause-of-our-housing-crisis-theyre-a-solution-to-it/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://shelterforce.org/2026/04/08/property-taxes-arent-the-cause-of-our-housing-crisis-theyre-a-solution-to-it/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-md" style="grid-column:3/5" data-url="https://shelterforce.org/2026/04/07/free-land-retail-rents-and-other-ways-cities-are-cutting-reliance-on-federal-housing-funds/">
+  <h3 class="hed"><a href="https://shelterforce.org/2026/04/07/free-land-retail-rents-and-other-ways-cities-are-cutting-reliance-on-federal-housing-funds/" target="_blank" rel="noopener">Free Land, Retail Rents, and Other Ways Cities Are Cutting Reliance on Federal Housing Funds</a></h3>
+  <p class="desc">Though the federal role will always be necessary, local governments, and developers themselves, are looking for ways to develop affordable housing with less federal subsidy. Here are some of the approaches they are trying. 
+The post Free Land, Retail Rents, and Other Ways Cities …</p>
+  <div class="meta">
+    <span class="src">Shelterforce</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://shelterforce.org/2026/04/07/free-land-retail-rents-and-other-ways-cities-are-cutting-reliance-on-federal-housing-funds/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://shelterforce.org/2026/04/07/free-land-retail-rents-and-other-ways-cities-are-cutting-reliance-on-federal-housing-funds/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:1/2" data-url="https://shelterforce.org/2026/04/06/acting-locally-states-counties-and-cities-on-the-front-lines/">
+  <h3 class="hed"><a href="https://shelterforce.org/2026/04/06/acting-locally-states-counties-and-cities-on-the-front-lines/" target="_blank" rel="noopener">Acting Locally: States, Counties, and Cities on the Front Lines</a></h3>
+  <p class="desc">Even in challenging times, there are many actions that state and local governments can take to improve housing access and look out for their residents.
 The post Acting Locally: States, Counties, and Cities on the Front Lines appeared first on Shelterforce.</p>
-      <div class="story-meta">
-        <span class="source-label">Shelterforce</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://shelterforce.org/2026/04/06/acting-locally-states-counties-and-cities-on-the-front-lines/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://shelterforce.org/2026/04/06/acting-locally-states-counties-and-cities-on-the-front-lines/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-lg" style="grid-column:2/5;" data-url="https://shelterforce.org/2026/04/02/will-tucson-take-back-its-power-literally/">
-      <h3 class="story-title"><a href="https://shelterforce.org/2026/04/02/will-tucson-take-back-its-power-literally/" target="_blank" rel="noopener">Will Tucson Take Back Its Power—Literally?</a></h3>
-      <p class="story-desc">My experience with a utility shutoff led me to look more closely at who provides my city’s power. It turns out there&#x27;s a push for the city to buy out the investor-owned utility and create a public one.
-The post Will Tucson Take Back Its Power—Literally? appeared first on Shelterforce.</p>
-      <div class="story-meta">
-        <span class="source-label">Shelterforce</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://shelterforce.org/2026/04/02/will-tucson-take-back-its-power-literally/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://shelterforce.org/2026/04/02/will-tucson-take-back-its-power-literally/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:1/2;" data-url="https://shelterforce.org/2026/04/01/nycs-new-housing-approval-process-faces-first-tests/">
-      <h3 class="story-title"><a href="https://shelterforce.org/2026/04/01/nycs-new-housing-approval-process-faces-first-tests/" target="_blank" rel="noopener">NYC’s New Housing Approval Process Faces First Tests</a></h3>
-      <p class="story-desc">Voters said yes to speeding up housing approvals. Now the city is putting that plan into action. While there&#x27;s excitement among affordable housing developers, some housing advocates worry the new process may quiet community voices.
-The post NYC’s New Housing Approval Process Faces First Tests a…</p>
-      <div class="story-meta">
-        <span class="source-label">Shelterforce</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://shelterforce.org/2026/04/01/nycs-new-housing-approval-process-faces-first-tests/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://shelterforce.org/2026/04/01/nycs-new-housing-approval-process-faces-first-tests/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:2/4;" data-url="https://shelterforce.org/2026/04/01/federal-housing-legislation-attracts-broad-support-but-faces-obstacles/">
-      <h3 class="story-title"><a href="https://shelterforce.org/2026/04/01/federal-housing-legislation-attracts-broad-support-but-faces-obstacles/" target="_blank" rel="noopener">The Federal Housing Bill: ‘A Bunch of Tweaks, But Good Ones’</a></h3>
-      <p class="story-desc">Two bills passed with rare 80-percent-plus majorities in the Senate and House appear to be headed to a joint conference committee. The outcome could be a broad update to federal housing and community development rules—or it all might fall apart.
-The post The Federal Housing Bill: ‘A Bunch of Tweaks,…</p>
-      <div class="story-meta">
-        <span class="source-label">Shelterforce</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://shelterforce.org/2026/04/01/federal-housing-legislation-attracts-broad-support-but-faces-obstacles/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://shelterforce.org/2026/04/01/federal-housing-legislation-attracts-broad-support-but-faces-obstacles/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:4/5;" data-url="https://shelterforce.org/2026/03/31/were-making-housing-harder-to-preserve-than-it-should-be/">
-      <h3 class="story-title"><a href="https://shelterforce.org/2026/03/31/were-making-housing-harder-to-preserve-than-it-should-be/" target="_blank" rel="noopener">We’re Making Housing Harder to Preserve Than It Should Be</a></h3>
-      <p class="story-desc">To maintain older housing stock, aligning programs to address building deterioration before it is severe offers big payoffs, preserving both homes and housing affordability.​​
-The post We&amp;#8217;re Making Housing Harder to Preserve Than It Should Be appeared first on Shelterforce.</p>
-      <div class="story-meta">
-        <span class="source-label">Shelterforce</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://shelterforce.org/2026/03/31/were-making-housing-harder-to-preserve-than-it-should-be/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://shelterforce.org/2026/03/31/were-making-housing-harder-to-preserve-than-it-should-be/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article></div>
-  </section>
-<section class="topic-section" id="nonprofit">
-    <div class="section-rule"><span class="section-label">Nonprofit & Grants</span></div>
-    <div class="topic-grid"><article class="story-card size-sm" style="grid-column:1/2;" data-url="https://nonprofitquarterly.org/speaking-up-almost-cost-me-my-job-but-we-built-power-anyway/">
-      <h3 class="story-title"><a href="https://nonprofitquarterly.org/speaking-up-almost-cost-me-my-job-but-we-built-power-anyway/" target="_blank" rel="noopener">Speaking Up Almost Cost Me My Job, but We Built Power Anyway</a></h3>
-      <p class="story-desc">Justice, even at nonprofits, isn’t given. It’s built, slowly, imperfectly, by people who never planned to become organizers, but who refuse to stay small.</p>
-      <div class="story-meta">
-        <span class="source-label">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://nonprofitquarterly.org/speaking-up-almost-cost-me-my-job-but-we-built-power-anyway/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://nonprofitquarterly.org/speaking-up-almost-cost-me-my-job-but-we-built-power-anyway/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:2/3;" data-url="https://nonprofitquarterly.org/pepper-spray-and-the-courage-to-stay/">
-      <h3 class="story-title"><a href="https://nonprofitquarterly.org/pepper-spray-and-the-courage-to-stay/" target="_blank" rel="noopener">Pepper Spray and the Courage to Stay</a></h3>
-      <p class="story-desc">Movements are often sparked by the fire within, but they endure through ecosystems and community networks that make staying possible. Those networks need to be fully resourced for the long haul.</p>
-      <div class="story-meta">
-        <span class="source-label">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://nonprofitquarterly.org/pepper-spray-and-the-courage-to-stay/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://nonprofitquarterly.org/pepper-spray-and-the-courage-to-stay/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-md" style="grid-column:3/5;" data-url="https://nonprofitquarterly.org/after-the-breaking-a-black-feminist-response-to-retrenchment/">
-      <h3 class="story-title"><a href="https://nonprofitquarterly.org/after-the-breaking-a-black-feminist-response-to-retrenchment/" target="_blank" rel="noopener">After the Breaking: A Black Feminist Response to Retrenchment</a></h3>
-      <p class="story-desc">Leaders of a growing network of global funders and advisors share perspectives on philanthropy’s retrenchment and the work underway to build new pathways to resource Black feminist and social justice movements.</p>
-      <div class="story-meta">
-        <span class="source-label">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://nonprofitquarterly.org/after-the-breaking-a-black-feminist-response-to-retrenchment/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://nonprofitquarterly.org/after-the-breaking-a-black-feminist-response-to-retrenchment/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-lg" style="grid-column:1/4;" data-url="https://nonprofitquarterly.org/democracy-needs-you-5-steps-nonprofits-can-take-to-support-free-and-fair-elections/">
-      <h3 class="story-title"><a href="https://nonprofitquarterly.org/democracy-needs-you-5-steps-nonprofits-can-take-to-support-free-and-fair-elections/" target="_blank" rel="noopener">Democracy Needs You: 5 Steps Nonprofits Can Take to Support Free and Fair Elections</a></h3>
-      <p class="story-desc">Nonprofits may not see promoting voting as essential to their mission, but right now, there may be no more important civic duty.</p>
-      <div class="story-meta">
-        <span class="source-label">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://nonprofitquarterly.org/democracy-needs-you-5-steps-nonprofits-can-take-to-support-free-and-fair-elections/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://nonprofitquarterly.org/democracy-needs-you-5-steps-nonprofits-can-take-to-support-free-and-fair-elections/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:4/5;" data-url="https://nonprofitquarterly.org/supreme-court-says-colorado-cant-ban-conversion-therapy-for-lgbtq-youth/">
-      <h3 class="story-title"><a href="https://nonprofitquarterly.org/supreme-court-says-colorado-cant-ban-conversion-therapy-for-lgbtq-youth/" target="_blank" rel="noopener">Supreme Court Says Colorado Can’t Ban Conversion Therapy for LGBTQ+ Youth</a></h3>
-      <p class="story-desc">The case was brought by a Christian counselor who argued that Colorado’s ban violated her free speech rights.</p>
-      <div class="story-meta">
-        <span class="source-label">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://nonprofitquarterly.org/supreme-court-says-colorado-cant-ban-conversion-therapy-for-lgbtq-youth/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://nonprofitquarterly.org/supreme-court-says-colorado-cant-ban-conversion-therapy-for-lgbtq-youth/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:1/3;" data-url="https://nonprofitquarterly.org/finally-free-leonard-peltier-offers-intergenerational-wisdom-for-resistance/">
-      <h3 class="story-title"><a href="https://nonprofitquarterly.org/finally-free-leonard-peltier-offers-intergenerational-wisdom-for-resistance/" target="_blank" rel="noopener">Finally Free, Leonard Peltier Offers Intergenerational Wisdom for Resistance</a></h3>
-      <p class="story-desc">Indigenous leader, activist, and revolutionary Leonard Peltier was illegally convicted and imprisoned for 49 years and two months. On January 20, 2025, shortly before leaving office, President Biden commuted his sentence, allowing many of those who fought for his freedom to rejoice—and hear him spea…</p>
-      <div class="story-meta">
-        <span class="source-label">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://nonprofitquarterly.org/finally-free-leonard-peltier-offers-intergenerational-wisdom-for-resistance/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://nonprofitquarterly.org/finally-free-leonard-peltier-offers-intergenerational-wisdom-for-resistance/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:3/4;" data-url="https://nonprofitquarterly.org/philanthropys-drag-coefficient-when-process-costs-more-than-failure/">
-      <h3 class="story-title"><a href="https://nonprofitquarterly.org/philanthropys-drag-coefficient-when-process-costs-more-than-failure/" target="_blank" rel="noopener">Philanthropy’s Drag Coefficient: When Process Costs More Than Failure</a></h3>
-      <p class="story-desc">To approve and administer funding, the philanthropic sector relies on bureaucratic processes that introduce drag into the system, ultimately hindering organizations from getting important work done.</p>
-      <div class="story-meta">
-        <span class="source-label">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://nonprofitquarterly.org/philanthropys-drag-coefficient-when-process-costs-more-than-failure/',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://nonprofitquarterly.org/philanthropys-drag-coefficient-when-process-costs-more-than-failure/',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article></div>
-  </section>
-<section class="topic-section" id="ai-tech">
-    <div class="section-rule"><span class="section-label">AI & Tech</span></div>
-    <div class="topic-grid"><article class="story-card size-lg" style="grid-column:1/5;" data-url="https://www.theverge.com/entertainment/905862/the-miniature-wife-was-an-exercise-in-visual-trickery">
-      <h3 class="story-title"><a href="https://www.theverge.com/entertainment/905862/the-miniature-wife-was-an-exercise-in-visual-trickery" target="_blank" rel="noopener">The Miniature Wife was an exercise in visual trickery</a></h3>
-      <p class="story-desc">In Manuel Gonzales&#x27; 2013 short story &quot;The Miniature Wife,&quot; a woman starts to become a different kind of person after her husband accidentally shrinks her down to the size of a coffee mug. Because of her new stature, the woman is more physically vulnerable, an…</p>
-      <div class="story-meta">
-        <span class="source-label">The Verge</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.theverge.com/entertainment/905862/the-miniature-wife-was-an-exercise-in-visual-trickery',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.theverge.com/entertainment/905862/the-miniature-wife-was-an-exercise-in-visual-trickery',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-md" style="grid-column:1/3;" data-url="https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs">
-      <h3 class="story-title"><a href="https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs" target="_blank" rel="noopener">Unionized ProPublica staff are on strike over AI, layoffs, and wages</a></h3>
-      <p class="story-desc">Unionized staff at ProPublica, one of the country&#x27;s leading nonprofit newsrooms, are walking off the job for 24 hours beginning Wednesday and asking the public to honor a digital picket line. The roughly 150 members of the ProPublica Guild are in the midst of…</p>
-      <div class="story-meta">
-        <span class="source-label">The Verge</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:3/4;" data-url="https://www.theverge.com/podcast/909042/ai-monetization-cliff-anthropic-openai-profitable-ai-existential-moment">
-      <h3 class="story-title"><a href="https://www.theverge.com/podcast/909042/ai-monetization-cliff-anthropic-openai-profitable-ai-existential-moment" target="_blank" rel="noopener">The AI industry’s race for profits is now existential</a></h3>
-      <p class="story-desc">Today on Decoder, let’s talk about the looming AI monetization cliff, and whether some of the biggest companies in the space can become real, profitable businesses before they careen right off it. My guest today is Hayden Field, who’s our senior AI reporter here at The Verge. She’s been keeping clos…</p>
-      <div class="story-meta">
-        <span class="source-label">AI | The Verge</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.theverge.com/podcast/909042/ai-monetization-cliff-anthropic-openai-profitable-ai-existential-moment',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.theverge.com/podcast/909042/ai-monetization-cliff-anthropic-openai-profitable-ai-existential-moment',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:4/5;" data-url="https://www.theverge.com/ai-artificial-intelligence/909104/youtube-shorts-make-ai-avatar">
-      <h3 class="story-title"><a href="https://www.theverge.com/ai-artificial-intelligence/909104/youtube-shorts-make-ai-avatar" target="_blank" rel="noopener">Google makes it easy to deepfake yourself</a></h3>
-      <p class="story-desc">YouTube Shorts is rolling out a new AI-powered feature giving creators an easy way to realistically clone themselves on camera. The launch, hinted at earlier this year, reflects the platform&#x27;s fraught relationship with AI-generated content, adding more generative features while struggling to co…</p>
-      <div class="story-meta">
-        <span class="source-label">AI | The Verge</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.theverge.com/ai-artificial-intelligence/909104/youtube-shorts-make-ai-avatar',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.theverge.com/ai-artificial-intelligence/909104/youtube-shorts-make-ai-avatar',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:1/2;" data-url="https://www.theverge.com/tech/909031/google-gemini-notebooks-notebooklm">
-      <h3 class="story-title"><a href="https://www.theverge.com/tech/909031/google-gemini-notebooks-notebooklm" target="_blank" rel="noopener">Gemini gets notebooks to help you organize projects</a></h3>
-      <p class="story-desc">Google&#x27;s Gemini is getting a feature called &quot;notebooks&quot; to help you organize things about certain topics in a single place while using the AI chatbot, the company announced on Wednesday. You can pull in things like files, past conversations, and custom instructions into notebooks that…</p>
-      <div class="story-meta">
-        <span class="source-label">AI | The Verge</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.theverge.com/tech/909031/google-gemini-notebooks-notebooklm',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.theverge.com/tech/909031/google-gemini-notebooks-notebooklm',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-md" style="grid-column:2/4;" data-url="https://www.theverge.com/column/908880/openai-made-economic-proposals-heres-what-dc-thinks-of-them">
-      <h3 class="story-title"><a href="https://www.theverge.com/column/908880/openai-made-economic-proposals-heres-what-dc-thinks-of-them" target="_blank" rel="noopener">OpenAI made economic proposals — here’s what DC thinks of them</a></h3>
-      <p class="story-desc">Happy ceasefire day and welcome to Regulator, a newsletter for Verge subscribers about Big Tech&#x27;s rocky journey through the world of politics. If you&#x27;re not a subscriber yet, you can do so here, but my only request is that you sign up before Donald Trump decides to revisit his previous thr…</p>
-      <div class="story-meta">
-        <span class="source-label">AI | The Verge</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.theverge.com/column/908880/openai-made-economic-proposals-heres-what-dc-thinks-of-them',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.theverge.com/column/908880/openai-made-economic-proposals-heres-what-dc-thinks-of-them',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:4/5;" data-url="https://www.theverge.com/tech/908769/meta-muse-spark-ai-model-launch-rollout">
-      <h3 class="story-title"><a href="https://www.theverge.com/tech/908769/meta-muse-spark-ai-model-launch-rollout" target="_blank" rel="noopener">Meta is reentering the AI race with a new model called Muse Spark</a></h3>
-      <p class="story-desc">Meta Superintelligence Labs is launching its first model since Mark Zuckerberg spent billions overhauling the company&#x27;s AI efforts. Called Muse Spark, the model now powers the Meta AI app and the Meta AI website in the US, per the company&#x27;s announcement. In the coming weeks, Meta says, it …</p>
-      <div class="story-meta">
-        <span class="source-label">AI | The Verge</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.theverge.com/tech/908769/meta-muse-spark-ai-model-launch-rollout',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.theverge.com/tech/908769/meta-muse-spark-ai-model-launch-rollout',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article></div>
-  </section>
-<section class="topic-section" id="general">
-    <div class="section-rule"><span class="section-label">General News</span></div>
-    <div class="topic-grid"><article class="story-card size-md" style="grid-column:1/3;" data-url="https://www.bbc.com/news/articles/cre13qn9z7do?at_medium=RSS&amp;at_campaign=rss">
-      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/cre13qn9z7do?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">UK says Russia ran submarine operation over cables and pipelines</a></h3>
-      <p class="story-desc">Defence Secretary John Healey says there is &quot;no evidence&quot; of any damage to UK infrastructure in the Atlantic.</p>
-      <div class="story-meta">
-        <span class="source-label">BBC News</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.bbc.com/news/articles/cre13qn9z7do?at_medium=RSS&amp;at_campaign=rss',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.bbc.com/news/articles/cre13qn9z7do?at_medium=RSS&amp;at_campaign=rss',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:3/4;" data-url="https://www.bbc.com/news/articles/cq593g970z7o?at_medium=RSS&amp;at_campaign=rss">
-      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/cq593g970z7o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">22,000 students told to pay back &#x27;mis-sold&#x27; maintenance loans</a></h3>
-      <p class="story-desc">Those affected have been told their courses were never eligible for maintenance or childcare loans</p>
-      <div class="story-meta">
-        <span class="source-label">BBC News</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.bbc.com/news/articles/cq593g970z7o?at_medium=RSS&amp;at_campaign=rss',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.bbc.com/news/articles/cq593g970z7o?at_medium=RSS&amp;at_campaign=rss',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:4/5;" data-url="https://www.bbc.com/news/articles/cgmenyllyz7o?at_medium=RSS&amp;at_campaign=rss">
-      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/cgmenyllyz7o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Four people die trying to board boat in Channel crossing attempt</a></h3>
-      <p class="story-desc">Authorities say 37 people are being treated in hospital, but around 30 others continued their journeys to the UK.</p>
-      <div class="story-meta">
-        <span class="source-label">BBC News</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.bbc.com/news/articles/cgmenyllyz7o?at_medium=RSS&amp;at_campaign=rss',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.bbc.com/news/articles/cgmenyllyz7o?at_medium=RSS&amp;at_campaign=rss',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:1/2;" data-url="https://www.bbc.com/news/articles/cj6098jngryo?at_medium=RSS&amp;at_campaign=rss">
-      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/cj6098jngryo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Pub thief jailed for stealing handbag with £2m Fabergé egg inside</a></h3>
-      <p class="story-desc">An &quot;opportunistic&quot; thief is jailed for stealing a handbag from a pub that happened to contain a £2.2m Fabergé egg.</p>
-      <div class="story-meta">
-        <span class="source-label">BBC News</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.bbc.com/news/articles/cj6098jngryo?at_medium=RSS&amp;at_campaign=rss',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.bbc.com/news/articles/cj6098jngryo?at_medium=RSS&amp;at_campaign=rss',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-lg" style="grid-column:2/4;" data-url="https://www.bbc.com/news/articles/ckgelr2pk0lo?at_medium=RSS&amp;at_campaign=rss">
-      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/ckgelr2pk0lo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Best-selling The Housemaid author Freida McFadden reveals true identity</a></h3>
-      <p class="story-desc">One of the biggest mysteries in publishing is solved, as The Housemaid writer reveals her real name.</p>
-      <div class="story-meta">
-        <span class="source-label">BBC News</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.bbc.com/news/articles/ckgelr2pk0lo?at_medium=RSS&amp;at_campaign=rss',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.bbc.com/news/articles/ckgelr2pk0lo?at_medium=RSS&amp;at_campaign=rss',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-sm" style="grid-column:4/5;" data-url="https://www.bbc.com/news/articles/c625l7qen3jo?at_medium=RSS&amp;at_campaign=rss">
-      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/c625l7qen3jo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Hundreds of dogs found crammed in living room &#x27;doing really well&#x27;, says RSPCA</a></h3>
-      <p class="story-desc">The charity says many of the animals found at the home in January were in a poor condition with &quot;matted and crusted coats&quot; that required treatment.</p>
-      <div class="story-meta">
-        <span class="source-label">BBC News</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.bbc.com/news/articles/c625l7qen3jo?at_medium=RSS&amp;at_campaign=rss',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.bbc.com/news/articles/c625l7qen3jo?at_medium=RSS&amp;at_campaign=rss',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article><article class="story-card size-md" style="grid-column:1/4;" data-url="https://www.bbc.com/news/articles/c7471n0lm2vo?at_medium=RSS&amp;at_campaign=rss">
-      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/c7471n0lm2vo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Jo Malone hopes &#x27;sense will prevail&#x27; in lawsuit over use of her name</a></h3>
-      <p class="story-desc">The British perfume designer and Zara are being sued by Estée Lauder over a collaboration.</p>
-      <div class="story-meta">
-        <span class="source-label">BBC News</span>
-        <span class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this,'https://www.bbc.com/news/articles/c7471n0lm2vo?at_medium=RSS&amp;at_campaign=rss',1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this,'https://www.bbc.com/news/articles/c7471n0lm2vo?at_medium=RSS&amp;at_campaign=rss',-1)" title="Downvote">▼</button>
-        </span>
-      </div>
-    </article></div>
-  </section></main>
-
+  <div class="meta">
+    <span class="src">Shelterforce</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://shelterforce.org/2026/04/06/acting-locally-states-counties-and-cities-on-the-front-lines/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://shelterforce.org/2026/04/06/acting-locally-states-counties-and-cities-on-the-front-lines/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-lg" style="grid-column:2/5" data-url="https://shelterforce.org/2026/04/02/will-tucson-take-back-its-power-literally/">
+  <h3 class="hed"><a href="https://shelterforce.org/2026/04/02/will-tucson-take-back-its-power-literally/" target="_blank" rel="noopener">Will Tucson Take Back Its Power—Literally?</a></h3>
+  <p class="desc">My experience with a utility shutoff led me to look more closely at who provides my city’s power. It turns out there&#x27;s a push for the city to buy out the investor-owned utility and create a public one.
+The post Will Tucson Take Back Its Power—Literally? appeared first on She…</p>
+  <div class="meta">
+    <span class="src">Shelterforce</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://shelterforce.org/2026/04/02/will-tucson-take-back-its-power-literally/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://shelterforce.org/2026/04/02/will-tucson-take-back-its-power-literally/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:1/2" data-url="https://shelterforce.org/2026/04/01/nycs-new-housing-approval-process-faces-first-tests/">
+  <h3 class="hed"><a href="https://shelterforce.org/2026/04/01/nycs-new-housing-approval-process-faces-first-tests/" target="_blank" rel="noopener">NYC’s New Housing Approval Process Faces First Tests</a></h3>
+  <p class="desc">Voters said yes to speeding up housing approvals. Now the city is putting that plan into action. While there&#x27;s excitement among affordable housing developers, some housing advocates worry the new process may quiet community voices.
+The post NYC’s New Housing Approval Process…</p>
+  <div class="meta">
+    <span class="src">Shelterforce</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://shelterforce.org/2026/04/01/nycs-new-housing-approval-process-faces-first-tests/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://shelterforce.org/2026/04/01/nycs-new-housing-approval-process-faces-first-tests/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:2/4" data-url="https://shelterforce.org/2026/04/01/federal-housing-legislation-attracts-broad-support-but-faces-obstacles/">
+  <h3 class="hed"><a href="https://shelterforce.org/2026/04/01/federal-housing-legislation-attracts-broad-support-but-faces-obstacles/" target="_blank" rel="noopener">The Federal Housing Bill: ‘A Bunch of Tweaks, But Good Ones’</a></h3>
+  <p class="desc">Two bills passed with rare 80-percent-plus majorities in the Senate and House appear to be headed to a joint conference committee. The outcome could be a broad update to federal housing and community development rules—or it all might fall apart.
+The post The Federal Housing Bill:…</p>
+  <div class="meta">
+    <span class="src">Shelterforce</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://shelterforce.org/2026/04/01/federal-housing-legislation-attracts-broad-support-but-faces-obstacles/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://shelterforce.org/2026/04/01/federal-housing-legislation-attracts-broad-support-but-faces-obstacles/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:4/5" data-url="https://shelterforce.org/2026/03/31/were-making-housing-harder-to-preserve-than-it-should-be/">
+  <h3 class="hed"><a href="https://shelterforce.org/2026/03/31/were-making-housing-harder-to-preserve-than-it-should-be/" target="_blank" rel="noopener">We’re Making Housing Harder to Preserve Than It Should Be</a></h3>
+  <p class="desc">To maintain older housing stock, aligning programs to address building deterioration before it is severe offers big payoffs, preserving both homes and housing affordability.​​
+The post We&amp;#8217;re Making Housing Harder to Preserve Than It Should Be appeared first on Shelterfo…</p>
+  <div class="meta">
+    <span class="src">Shelterforce</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://shelterforce.org/2026/03/31/were-making-housing-harder-to-preserve-than-it-should-be/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://shelterforce.org/2026/03/31/were-making-housing-harder-to-preserve-than-it-should-be/',-1)">▼</button>
+    </span>
+  </div>
+</article></div>
+</section>
+<section class="sec" id="nonprofit">
+  <div class="sec-rule"><span class="sec-label">Nonprofit & Grants</span></div>
+  <div class="grid"><article class="card sz-sm" style="grid-column:1/2" data-url="https://nonprofitquarterly.org/speaking-up-almost-cost-me-my-job-but-we-built-power-anyway/">
+  <h3 class="hed"><a href="https://nonprofitquarterly.org/speaking-up-almost-cost-me-my-job-but-we-built-power-anyway/" target="_blank" rel="noopener">Speaking Up Almost Cost Me My Job, but We Built Power Anyway</a></h3>
+  <p class="desc">Justice, even at nonprofits, isn’t given. It’s built, slowly, imperfectly, by people who never planned to become organizers, but who refuse to stay small.</p>
+  <div class="meta">
+    <span class="src">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://nonprofitquarterly.org/speaking-up-almost-cost-me-my-job-but-we-built-power-anyway/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://nonprofitquarterly.org/speaking-up-almost-cost-me-my-job-but-we-built-power-anyway/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:2/3" data-url="https://nonprofitquarterly.org/pepper-spray-and-the-courage-to-stay/">
+  <h3 class="hed"><a href="https://nonprofitquarterly.org/pepper-spray-and-the-courage-to-stay/" target="_blank" rel="noopener">Pepper Spray and the Courage to Stay</a></h3>
+  <p class="desc">Movements are often sparked by the fire within, but they endure through ecosystems and community networks that make staying possible. Those networks need to be fully resourced for the long haul.</p>
+  <div class="meta">
+    <span class="src">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://nonprofitquarterly.org/pepper-spray-and-the-courage-to-stay/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://nonprofitquarterly.org/pepper-spray-and-the-courage-to-stay/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-md" style="grid-column:3/5" data-url="https://nonprofitquarterly.org/after-the-breaking-a-black-feminist-response-to-retrenchment/">
+  <h3 class="hed"><a href="https://nonprofitquarterly.org/after-the-breaking-a-black-feminist-response-to-retrenchment/" target="_blank" rel="noopener">After the Breaking: A Black Feminist Response to Retrenchment</a></h3>
+  <p class="desc">Leaders of a growing network of global funders and advisors share perspectives on philanthropy’s retrenchment and the work underway to build new pathways to resource Black feminist and social justice movements.</p>
+  <div class="meta">
+    <span class="src">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://nonprofitquarterly.org/after-the-breaking-a-black-feminist-response-to-retrenchment/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://nonprofitquarterly.org/after-the-breaking-a-black-feminist-response-to-retrenchment/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-lg" style="grid-column:1/4" data-url="https://nonprofitquarterly.org/democracy-needs-you-5-steps-nonprofits-can-take-to-support-free-and-fair-elections/">
+  <h3 class="hed"><a href="https://nonprofitquarterly.org/democracy-needs-you-5-steps-nonprofits-can-take-to-support-free-and-fair-elections/" target="_blank" rel="noopener">Democracy Needs You: 5 Steps Nonprofits Can Take to Support Free and Fair Elections</a></h3>
+  <p class="desc">Nonprofits may not see promoting voting as essential to their mission, but right now, there may be no more important civic duty.</p>
+  <div class="meta">
+    <span class="src">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://nonprofitquarterly.org/democracy-needs-you-5-steps-nonprofits-can-take-to-support-free-and-fair-elections/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://nonprofitquarterly.org/democracy-needs-you-5-steps-nonprofits-can-take-to-support-free-and-fair-elections/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:4/5" data-url="https://nonprofitquarterly.org/supreme-court-says-colorado-cant-ban-conversion-therapy-for-lgbtq-youth/">
+  <h3 class="hed"><a href="https://nonprofitquarterly.org/supreme-court-says-colorado-cant-ban-conversion-therapy-for-lgbtq-youth/" target="_blank" rel="noopener">Supreme Court Says Colorado Can’t Ban Conversion Therapy for LGBTQ+ Youth</a></h3>
+  <p class="desc">The case was brought by a Christian counselor who argued that Colorado’s ban violated her free speech rights.</p>
+  <div class="meta">
+    <span class="src">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://nonprofitquarterly.org/supreme-court-says-colorado-cant-ban-conversion-therapy-for-lgbtq-youth/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://nonprofitquarterly.org/supreme-court-says-colorado-cant-ban-conversion-therapy-for-lgbtq-youth/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:1/3" data-url="https://nonprofitquarterly.org/finally-free-leonard-peltier-offers-intergenerational-wisdom-for-resistance/">
+  <h3 class="hed"><a href="https://nonprofitquarterly.org/finally-free-leonard-peltier-offers-intergenerational-wisdom-for-resistance/" target="_blank" rel="noopener">Finally Free, Leonard Peltier Offers Intergenerational Wisdom for Resistance</a></h3>
+  <p class="desc">Indigenous leader, activist, and revolutionary Leonard Peltier was illegally convicted and imprisoned for 49 years and two months. On January 20, 2025, shortly before leaving office, President Biden commuted his sentence, allowing many of those who fought for his freedom to rejoi…</p>
+  <div class="meta">
+    <span class="src">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://nonprofitquarterly.org/finally-free-leonard-peltier-offers-intergenerational-wisdom-for-resistance/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://nonprofitquarterly.org/finally-free-leonard-peltier-offers-intergenerational-wisdom-for-resistance/',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:3/5" data-url="https://nonprofitquarterly.org/philanthropys-drag-coefficient-when-process-costs-more-than-failure/">
+  <h3 class="hed"><a href="https://nonprofitquarterly.org/philanthropys-drag-coefficient-when-process-costs-more-than-failure/" target="_blank" rel="noopener">Philanthropy’s Drag Coefficient: When Process Costs More Than Failure</a></h3>
+  <p class="desc">To approve and administer funding, the philanthropic sector relies on bureaucratic processes that introduce drag into the system, ultimately hindering organizations from getting important work done.</p>
+  <div class="meta">
+    <span class="src">Nonprofit Quarterly | Civic News. Empowering Nonprofits. Advancing Justice.</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://nonprofitquarterly.org/philanthropys-drag-coefficient-when-process-costs-more-than-failure/',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://nonprofitquarterly.org/philanthropys-drag-coefficient-when-process-costs-more-than-failure/',-1)">▼</button>
+    </span>
+  </div>
+</article></div>
+</section>
+<section class="sec" id="ai-tech">
+  <div class="sec-rule"><span class="sec-label">AI & Tech</span></div>
+  <div class="grid"><article class="card sz-lg" style="grid-column:1/5" data-url="https://www.theverge.com/entertainment/905862/the-miniature-wife-was-an-exercise-in-visual-trickery">
+  <h3 class="hed"><a href="https://www.theverge.com/entertainment/905862/the-miniature-wife-was-an-exercise-in-visual-trickery" target="_blank" rel="noopener">The Miniature Wife was an exercise in visual trickery</a></h3>
+  <p class="desc">In Manuel Gonzales&#x27; 2013 short story &quot;The Miniature Wife,&quot; a woman starts to become a different kind of person after her husband accidentally shrinks her down to the size of a coffee mug. Because of her new stature, the woman is more physically vulnerable, an…</p>
+  <div class="meta">
+    <span class="src">The Verge</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://www.theverge.com/entertainment/905862/the-miniature-wife-was-an-exercise-in-visual-trickery',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://www.theverge.com/entertainment/905862/the-miniature-wife-was-an-exercise-in-visual-trickery',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-md" style="grid-column:1/3" data-url="https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs">
+  <h3 class="hed"><a href="https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs" target="_blank" rel="noopener">Unionized ProPublica staff are on strike over AI, layoffs, and wages</a></h3>
+  <p class="desc">Unionized staff at ProPublica, one of the country&#x27;s leading nonprofit newsrooms, are walking off the job for 24 hours beginning Wednesday and asking the public to honor a digital picket line. The roughly 150 members of the ProPublica Guild are in the midst of…</p>
+  <div class="meta">
+    <span class="src">The Verge</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://www.theverge.com/news/908401/propublica-union-strike-negotiations-ai-layoffs',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:3/4" data-url="https://www.theverge.com/podcast/909042/ai-monetization-cliff-anthropic-openai-profitable-ai-existential-moment">
+  <h3 class="hed"><a href="https://www.theverge.com/podcast/909042/ai-monetization-cliff-anthropic-openai-profitable-ai-existential-moment" target="_blank" rel="noopener">The AI industry’s race for profits is now existential</a></h3>
+  <p class="desc">Today on Decoder, let’s talk about the looming AI monetization cliff, and whether some of the biggest companies in the space can become real, profitable businesses before they careen right off it. My guest today is Hayden Field, who’s our senior AI reporter here at The Verge. She…</p>
+  <div class="meta">
+    <span class="src">AI | The Verge</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://www.theverge.com/podcast/909042/ai-monetization-cliff-anthropic-openai-profitable-ai-existential-moment',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://www.theverge.com/podcast/909042/ai-monetization-cliff-anthropic-openai-profitable-ai-existential-moment',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:4/5" data-url="https://www.theverge.com/ai-artificial-intelligence/909104/youtube-shorts-make-ai-avatar">
+  <h3 class="hed"><a href="https://www.theverge.com/ai-artificial-intelligence/909104/youtube-shorts-make-ai-avatar" target="_blank" rel="noopener">Google makes it easy to deepfake yourself</a></h3>
+  <p class="desc">YouTube Shorts is rolling out a new AI-powered feature giving creators an easy way to realistically clone themselves on camera. The launch, hinted at earlier this year, reflects the platform&#x27;s fraught relationship with AI-generated content, adding more generative features wh…</p>
+  <div class="meta">
+    <span class="src">AI | The Verge</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://www.theverge.com/ai-artificial-intelligence/909104/youtube-shorts-make-ai-avatar',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://www.theverge.com/ai-artificial-intelligence/909104/youtube-shorts-make-ai-avatar',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:1/2" data-url="https://www.theverge.com/tech/909031/google-gemini-notebooks-notebooklm">
+  <h3 class="hed"><a href="https://www.theverge.com/tech/909031/google-gemini-notebooks-notebooklm" target="_blank" rel="noopener">Gemini gets notebooks to help you organize projects</a></h3>
+  <p class="desc">Google&#x27;s Gemini is getting a feature called &quot;notebooks&quot; to help you organize things about certain topics in a single place while using the AI chatbot, the company announced on Wednesday. You can pull in things like files, past conversations, and custom instructions…</p>
+  <div class="meta">
+    <span class="src">AI | The Verge</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://www.theverge.com/tech/909031/google-gemini-notebooks-notebooklm',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://www.theverge.com/tech/909031/google-gemini-notebooks-notebooklm',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-md" style="grid-column:2/4" data-url="https://www.theverge.com/column/908880/openai-made-economic-proposals-heres-what-dc-thinks-of-them">
+  <h3 class="hed"><a href="https://www.theverge.com/column/908880/openai-made-economic-proposals-heres-what-dc-thinks-of-them" target="_blank" rel="noopener">OpenAI made economic proposals — here’s what DC thinks of them</a></h3>
+  <p class="desc">Happy ceasefire day and welcome to Regulator, a newsletter for Verge subscribers about Big Tech&#x27;s rocky journey through the world of politics. If you&#x27;re not a subscriber yet, you can do so here, but my only request is that you sign up before Donald Trump decides to revi…</p>
+  <div class="meta">
+    <span class="src">AI | The Verge</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://www.theverge.com/column/908880/openai-made-economic-proposals-heres-what-dc-thinks-of-them',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://www.theverge.com/column/908880/openai-made-economic-proposals-heres-what-dc-thinks-of-them',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:4/5" data-url="https://www.theverge.com/tech/908769/meta-muse-spark-ai-model-launch-rollout">
+  <h3 class="hed"><a href="https://www.theverge.com/tech/908769/meta-muse-spark-ai-model-launch-rollout" target="_blank" rel="noopener">Meta is reentering the AI race with a new model called Muse Spark</a></h3>
+  <p class="desc">Meta Superintelligence Labs is launching its first model since Mark Zuckerberg spent billions overhauling the company&#x27;s AI efforts. Called Muse Spark, the model now powers the Meta AI app and the Meta AI website in the US, per the company&#x27;s announcement. In the coming w…</p>
+  <div class="meta">
+    <span class="src">AI | The Verge</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://www.theverge.com/tech/908769/meta-muse-spark-ai-model-launch-rollout',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://www.theverge.com/tech/908769/meta-muse-spark-ai-model-launch-rollout',-1)">▼</button>
+    </span>
+  </div>
+</article></div>
+</section>
+<section class="sec" id="general">
+  <div class="sec-rule"><span class="sec-label">General News</span></div>
+  <div class="grid"><article class="card sz-md" style="grid-column:1/3" data-url="https://www.bbc.com/news/articles/cre13qn9z7do?at_medium=RSS&amp;at_campaign=rss">
+  <h3 class="hed"><a href="https://www.bbc.com/news/articles/cre13qn9z7do?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">UK says Russia ran submarine operation over cables and pipelines</a></h3>
+  <p class="desc">Defence Secretary John Healey says there is &quot;no evidence&quot; of any damage to UK infrastructure in the Atlantic.</p>
+  <div class="meta">
+    <span class="src">BBC News</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://www.bbc.com/news/articles/cre13qn9z7do?at_medium=RSS&amp;at_campaign=rss',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://www.bbc.com/news/articles/cre13qn9z7do?at_medium=RSS&amp;at_campaign=rss',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:3/4" data-url="https://www.bbc.com/news/articles/cq593g970z7o?at_medium=RSS&amp;at_campaign=rss">
+  <h3 class="hed"><a href="https://www.bbc.com/news/articles/cq593g970z7o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">22,000 students told to pay back &#x27;mis-sold&#x27; maintenance loans</a></h3>
+  <p class="desc">Those affected have been told their courses were never eligible for maintenance or childcare loans</p>
+  <div class="meta">
+    <span class="src">BBC News</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://www.bbc.com/news/articles/cq593g970z7o?at_medium=RSS&amp;at_campaign=rss',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://www.bbc.com/news/articles/cq593g970z7o?at_medium=RSS&amp;at_campaign=rss',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:4/5" data-url="https://www.bbc.com/news/articles/cgmenyllyz7o?at_medium=RSS&amp;at_campaign=rss">
+  <h3 class="hed"><a href="https://www.bbc.com/news/articles/cgmenyllyz7o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Four people die trying to board boat in Channel crossing attempt</a></h3>
+  <p class="desc">Authorities say 37 people are being treated in hospital, but around 30 others continued their journeys to the UK.</p>
+  <div class="meta">
+    <span class="src">BBC News</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://www.bbc.com/news/articles/cgmenyllyz7o?at_medium=RSS&amp;at_campaign=rss',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://www.bbc.com/news/articles/cgmenyllyz7o?at_medium=RSS&amp;at_campaign=rss',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:1/2" data-url="https://www.bbc.com/news/articles/cj6098jngryo?at_medium=RSS&amp;at_campaign=rss">
+  <h3 class="hed"><a href="https://www.bbc.com/news/articles/cj6098jngryo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Pub thief jailed for stealing handbag with £2m Fabergé egg inside</a></h3>
+  <p class="desc">An &quot;opportunistic&quot; thief is jailed for stealing a handbag from a pub that happened to contain a £2.2m Fabergé egg.</p>
+  <div class="meta">
+    <span class="src">BBC News</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://www.bbc.com/news/articles/cj6098jngryo?at_medium=RSS&amp;at_campaign=rss',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://www.bbc.com/news/articles/cj6098jngryo?at_medium=RSS&amp;at_campaign=rss',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-lg" style="grid-column:2/4" data-url="https://www.bbc.com/news/articles/ckgelr2pk0lo?at_medium=RSS&amp;at_campaign=rss">
+  <h3 class="hed"><a href="https://www.bbc.com/news/articles/ckgelr2pk0lo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Best-selling The Housemaid author Freida McFadden reveals true identity</a></h3>
+  <p class="desc">One of the biggest mysteries in publishing is solved, as The Housemaid writer reveals her real name.</p>
+  <div class="meta">
+    <span class="src">BBC News</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://www.bbc.com/news/articles/ckgelr2pk0lo?at_medium=RSS&amp;at_campaign=rss',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://www.bbc.com/news/articles/ckgelr2pk0lo?at_medium=RSS&amp;at_campaign=rss',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-sm" style="grid-column:4/5" data-url="https://www.bbc.com/news/articles/c625l7qen3jo?at_medium=RSS&amp;at_campaign=rss">
+  <h3 class="hed"><a href="https://www.bbc.com/news/articles/c625l7qen3jo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Hundreds of dogs found crammed in living room &#x27;doing really well&#x27;, says RSPCA</a></h3>
+  <p class="desc">The charity says many of the animals found at the home in January were in a poor condition with &quot;matted and crusted coats&quot; that required treatment.</p>
+  <div class="meta">
+    <span class="src">BBC News</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://www.bbc.com/news/articles/c625l7qen3jo?at_medium=RSS&amp;at_campaign=rss',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://www.bbc.com/news/articles/c625l7qen3jo?at_medium=RSS&amp;at_campaign=rss',-1)">▼</button>
+    </span>
+  </div>
+</article><article class="card sz-md" style="grid-column:1/4" data-url="https://www.bbc.com/news/articles/c7471n0lm2vo?at_medium=RSS&amp;at_campaign=rss">
+  <h3 class="hed"><a href="https://www.bbc.com/news/articles/c7471n0lm2vo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Jo Malone hopes &#x27;sense will prevail&#x27; in lawsuit over use of her name</a></h3>
+  <p class="desc">The British perfume designer and Zara are being sued by Estée Lauder over a collaboration.</p>
+  <div class="meta">
+    <span class="src">BBC News</span>
+    <span class="votes">
+      <button class="vb up" onclick="vote(this,'https://www.bbc.com/news/articles/c7471n0lm2vo?at_medium=RSS&amp;at_campaign=rss',1)">▲</button>
+      <button class="vb dn" onclick="vote(this,'https://www.bbc.com/news/articles/c7471n0lm2vo?at_medium=RSS&amp;at_campaign=rss',-1)">▼</button>
+    </span>
+  </div>
+</article></div>
+</section></main>
 <footer>The Lede &mdash; THURSDAY, APRIL 9, 2026 &mdash; Powered by NewsAPI &amp; RSS</footer>
 <div id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const SUPABASE_URL = 'https://tgdzivpyudduwktcmiqb.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRnZHppdnB5dWRkdXdrdGNtaXFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2ODgyNDQsImV4cCI6MjA5MTI2NDI0NH0.8GLZo0tp665Tm6dAsdEv54Hf_U5eWV9E-NAItdBk0bA';
-  const { createClient } = supabase;
-  const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  let currentUser = null;
+const SUPABASE_URL='https://tgdzivpyudduwktcmiqb.supabase.co';
+const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRnZHppdnB5dWRkdXdrdGNtaXFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2ODgyNDQsImV4cCI6MjA5MTI2NDI0NH0.8GLZo0tp665Tm6dAsdEv54Hf_U5eWV9E-NAItdBk0bA';
+const {createClient}=supabase;
+const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+let user=null;
 
-  async function signIn() { await sb.auth.signInWithOAuth({ provider: 'google' }); }
-  async function signOut() { await sb.auth.signOut(); currentUser = null; updateAuthUI(null); }
+async function signIn(){await sb.auth.signInWithOAuth({provider:'google'});}
+async function signOut(){await sb.auth.signOut();user=null;updateUI(null);}
 
-  function updateAuthUI(user) {
-    const st = document.getElementById('auth-status');
-    const si = document.getElementById('sign-in-btn');
-    const so = document.getElementById('sign-out-btn');
-    if (user) {
-      st.textContent = user.email; si.style.display = 'none'; so.style.display = 'inline-block';
-      loadVotes(user.id);
-    } else {
-      st.textContent = "Not signed in — votes won't be saved";
-      si.style.display = 'inline-block'; so.style.display = 'none';
-    }
-  }
+function updateUI(u){
+  const st=document.getElementById('auth-st');
+  const si=document.getElementById('si-btn');
+  const so=document.getElementById('so-btn');
+  if(u){st.textContent=u.email;si.style.display='none';so.style.display='inline-block';loadVotes(u.id);}
+  else{st.textContent="Not signed in — votes won't be saved";si.style.display='inline-block';so.style.display='none';}
+}
 
-  sb.auth.onAuthStateChange(async (event, session) => {
-    currentUser = session?.user ?? null;
-    updateAuthUI(currentUser);
-    if (currentUser) {
-      await sb.from('users').upsert({
-        id: currentUser.id, email: currentUser.email,
-        display_name: currentUser.user_metadata?.full_name ?? null,
-      }, { onConflict: 'id' });
-    }
+sb.auth.onAuthStateChange(async(ev,session)=>{
+  user=session?.user??null; updateUI(user);
+  if(user) await sb.from('users').upsert({id:user.id,email:user.email,
+    display_name:user.user_metadata?.full_name??null},{onConflict:'id'});
+});
+
+async function loadVotes(uid){
+  const {data}=await sb.from('votes').select('story_url,vote').eq('user_id',uid);
+  if(!data)return;
+  data.forEach(r=>{
+    const c=document.querySelector(`[data-url="${r.story_url}"]`);
+    if(!c)return;
+    if(r.vote===1)c.querySelector('.vb.up').classList.add('voted-up');
+    if(r.vote===-1)c.querySelector('.vb.dn').classList.add('voted-dn');
   });
+}
 
-  async function loadVotes(userId) {
-    const { data } = await sb.from('votes').select('story_url,vote').eq('user_id', userId);
-    if (!data) return;
-    data.forEach(row => {
-      const card = document.querySelector(`[data-url="${row.story_url}"]`);
-      if (!card) return;
-      if (row.vote === 1) card.querySelector('.vote-btn.up').classList.add('voted-up');
-      if (row.vote === -1) card.querySelector('.vote-btn.down').classList.add('voted-down');
-    });
+async function vote(btn,url,val){
+  if(!user){toast('Sign in to save votes');return;}
+  const c=btn.closest('.card');
+  const title=c.querySelector('.hed a')?.textContent??'';
+  const topic=c.closest('.sec')?.id??'';
+  const domain=(()=>{try{return new URL(url).hostname.replace('www.','');}catch(e){return'';}} )();
+  const up=c.querySelector('.vb.up');
+  const dn=c.querySelector('.vb.dn');
+  const wasUp=up.classList.contains('voted-up');
+  const wasDn=dn.classList.contains('voted-dn');
+  let v=val;
+  if(val===1&&wasUp)v=null;
+  if(val===-1&&wasDn)v=null;
+  up.classList.remove('voted-up');dn.classList.remove('voted-dn');
+  if(v===null){
+    await sb.from('votes').delete().eq('user_id',user.id).eq('story_url',url);
+    toast('Vote removed');
+  }else{
+    if(v===1)up.classList.add('voted-up');
+    if(v===-1)dn.classList.add('voted-dn');
+    await sb.from('votes').upsert({user_id:user.id,story_url:url,story_title:title,
+      topic_slug:topic,source_domain:domain,vote:v},{onConflict:'user_id,story_url'});
+    toast(v===1?'Upvoted':'Downvoted');
   }
+  const {data}=await sb.from('votes').select('vote').eq('user_id',user.id).eq('source_domain',domain);
+  if(data?.length){
+    const w=parseFloat((0.1+(data.filter(r=>r.vote===1).length/data.length)*1.9).toFixed(3));
+    await sb.from('source_weights').upsert({user_id:user.id,source_domain:domain,weight:w},
+      {onConflict:'user_id,source_domain'});
+  }
+}
 
-  async function vote(btn, storyUrl, value) {
-    if (!currentUser) { showToast('Sign in to save votes'); return; }
-    const card = btn.closest('.story-card');
-    const title = card.querySelector('.story-title a')?.textContent ?? '';
-    const topicSlug = card.closest('.topic-section')?.id ?? '';
-    const domain = (() => { try { return new URL(storyUrl).hostname.replace('www.',''); } catch(e) { return ''; } })();
-    const up = card.querySelector('.vote-btn.up');
-    const dn = card.querySelector('.vote-btn.down');
-    const wasUp = up.classList.contains('voted-up');
-    const wasDn = dn.classList.contains('voted-down');
-    let newVote = value;
-    if (value === 1 && wasUp) newVote = null;
-    if (value === -1 && wasDn) newVote = null;
-    up.classList.remove('voted-up'); dn.classList.remove('voted-down');
-    if (newVote === null) {
-      await sb.from('votes').delete().eq('user_id', currentUser.id).eq('story_url', storyUrl);
-      showToast('Vote removed');
-    } else {
-      if (newVote === 1) up.classList.add('voted-up');
-      if (newVote === -1) dn.classList.add('voted-down');
-      await sb.from('votes').upsert({
-        user_id: currentUser.id, story_url: storyUrl, story_title: title,
-        topic_slug: topicSlug, source_domain: domain, vote: newVote,
-      }, { onConflict: 'user_id,story_url' });
-      showToast(newVote === 1 ? 'Upvoted' : 'Downvoted');
-    }
-    const { data } = await sb.from('votes').select('vote').eq('user_id', currentUser.id).eq('source_domain', domain);
-    if (data?.length) {
-      const ups = data.filter(r => r.vote === 1).length;
-      const w = parseFloat((0.1 + (ups/data.length)*1.9).toFixed(3));
-      await sb.from('source_weights').upsert({ user_id: currentUser.id, source_domain: domain, weight: w }, { onConflict: 'user_id,source_domain' });
-    }
-  }
-
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg; t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2200);
-  }
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
 </script>
 </body>
 </html>
