@@ -1,4 +1,4 @@
-"""
+       """
 The Lede — fetch_and_generate.py v3
 """
 
@@ -456,7 +456,7 @@ def generate_html(stories_by_topic: dict) -> str:
     .size-md .story-desc  {{ font-size: 0.8rem; }}
 
     .size-sm .story-title {{ font-size: 0.9rem; line-height: 1.3; font-weight: 700; }}
-    .size-sm .story-desc  {{ display: none; }}
+    .size-sm .story-desc  {{ -webkit-line-clamp: 2; }}
 
     .story-title {{ font-family: var(--serif); color: var(--black); }}
     .story-desc  {{ color: var(--ink-mid); font-size: 0.82rem; line-height: 1.5;
