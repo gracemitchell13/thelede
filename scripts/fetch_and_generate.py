@@ -1,5 +1,5 @@
 """
-The Lede — fetch_and_generate.py
+The Lede — fetch_and_generate.py v6 — Magazine layout
 """
 
 import os
@@ -19,8 +19,6 @@ MAX_STORIES = 7
 LOOKBACK_HOURS = 48
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
-
-# ── TOPICS ────────────────────────────────────────────────────────────────────
 
 TOPICS = {
     "civic-tech": {
@@ -66,43 +64,6 @@ TOPICS = {
                     "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"],
     },
 }
-
-# Per-topic grid layouts — width-only (no row-spanning), 4 columns
-# Each tuple: (size_class, grid-column value)
-LAYOUTS = {
-    "civic-tech": [   # Row1: 3+1  | Row2: 1+2+1 | Row3: 2+2
-        ("lg", "1/4"), ("md", "4/5"),
-        ("sm", "1/2"), ("md", "2/4"), ("sm", "4/5"),
-        ("sm", "1/3"), ("sm", "3/5"),
-    ],
-    "housing": [      # Row1: 2+2  | Row2: 1+3   | Row3: 1+1+2
-        ("md", "1/3"), ("md", "3/5"),
-        ("sm", "1/2"), ("lg", "2/5"),
-        ("sm", "1/2"), ("sm", "2/4"), ("sm", "4/5"),
-    ],
-    "nonprofit": [    # Row1: 1+1+2 | Row2: 3+1  | Row3: 2+1+1
-        ("sm", "1/2"), ("sm", "2/3"), ("md", "3/5"),
-        ("lg", "1/4"), ("sm", "4/5"),
-        ("sm", "1/3"), ("sm", "3/5"),
-    ],
-    "ai-tech": [      # Row1: 4 banner | Row2: 2+1+1 | Row3: 1+2+1
-        ("lg", "1/5"),
-        ("md", "1/3"), ("sm", "3/4"), ("sm", "4/5"),
-        ("sm", "1/2"), ("md", "2/4"), ("sm", "4/5"),
-    ],
-    "penguins": [     # Row1: 1+3   | Row2: 2+2   | Row3: 1+1+2
-        ("sm", "1/2"), ("lg", "2/5"),
-        ("md", "1/3"), ("md", "3/5"),
-        ("sm", "1/2"), ("sm", "2/3"), ("sm", "3/5"),
-    ],
-    "general": [      # Row1: 2+1+1 | Row2: 1+2+1 | Row3: 3+1
-        ("md", "1/3"), ("sm", "3/4"), ("sm", "4/5"),
-        ("sm", "1/2"), ("lg", "2/4"), ("sm", "4/5"),
-        ("md", "1/4"), ("sm", "4/5"),
-    ],
-}
-
-# ── FETCH ─────────────────────────────────────────────────────────────────────
 
 def get_domain(url):
     try: return urlparse(url).netloc.replace("www.", "")
@@ -155,42 +116,59 @@ def fetch_all():
         print(f"  [{slug}] {len(all_stories[slug])} stories")
     return all_stories
 
-# ── HTML ──────────────────────────────────────────────────────────────────────
-
 def fmt_date():
     return datetime.now(timezone.utc).strftime("%A, %B %-d, %Y").upper()
 
-def card(story, size, col):
-    t  = html_lib.escape(story.get("title",""))
-    u  = html_lib.escape(story.get("url",""))
-    d  = html_lib.escape(story.get("description",""))[:280]
-    sl = html_lib.escape(story.get("source_label", story.get("source_domain","")))
-    du = html_lib.escape(story.get("url",""))
-    desc_html = f'<p class="desc">{d}{"…" if len(d)==280 else ""}</p>' if d else ""
-    clamp = "2" if size == "sm" else ("5" if size == "md" else "8")
-    return f'''<article class="card sz-{size}" style="grid-column:{col}" data-url="{du}">
-  <h3 class="hed"><a href="{u}" target="_blank" rel="noopener">{t}</a></h3>
-  {desc_html}
-  <div class="meta">
-    <span class="src">{sl}</span>
-    <span class="votes">
-      <button class="vb up" onclick="vote(this,'{du}',1)">▲</button>
-      <button class="vb dn" onclick="vote(this,'{du}',-1)">▼</button>
-    </span>
-  </div>
-</article>'''
-
 def section(slug, stories):
     if not stories: return ""
-    label = TOPICS[slug]["label"]
-    layout = LAYOUTS.get(slug, LAYOUTS["civic-tech"])
-    cards_html = ""
-    for i, s in enumerate(stories):
-        sz, col = layout[i] if i < len(layout) else ("sm","auto")
-        cards_html += card(s, sz, col)
-    return f'''<section class="sec" id="{slug}">
+    label = html_lib.escape(TOPICS[slug]["label"])
+    hero = stories[0]
+    rest = stories[1:]
+
+    h_title = html_lib.escape(hero.get("title",""))
+    h_url   = html_lib.escape(hero.get("url",""))
+    h_desc  = html_lib.escape(hero.get("description",""))[:320]
+    h_src   = html_lib.escape(hero.get("source_label", hero.get("source_domain","")))
+    h_du    = html_lib.escape(hero.get("url",""))
+    h_desc_str = f'<p class="hero-desc">{h_desc}{"…" if len(h_desc)==320 else ""}</p>' if h_desc else ""
+
+    secondary = ""
+    for i, s in enumerate(rest):
+        t   = html_lib.escape(s.get("title",""))
+        u   = html_lib.escape(s.get("url",""))
+        src = html_lib.escape(s.get("source_label", s.get("source_domain","")))
+        du  = html_lib.escape(s.get("url",""))
+        num = str(i + 2).zfill(2)
+        secondary += f'''<article class="sec-item" data-url="{du}">
+          <div class="sec-num">{num}</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="{u}" target="_blank" rel="noopener">{t}</a></h3>
+            <div class="sec-meta">
+              <span class="src">{src}</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'{du}',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'{du}',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article>'''
+
+    return f'''<section class="topic-sec" id="{slug}">
   <div class="sec-rule"><span class="sec-label">{label}</span></div>
-  <div class="grid">{cards_html}</div>
+  <article class="hero" data-url="{h_du}">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="{h_url}" target="_blank" rel="noopener">{h_title}</a></h2>
+      {h_desc_str}
+      <div class="hero-meta">
+        <span class="src">{h_src}</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'{h_du}',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'{h_du}',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid">{secondary}</div>
 </section>'''
 
 def page(stories_by_topic):
@@ -208,7 +186,7 @@ def page(stories_by_topic):
 *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0}}
 :root{{
   --blk:#0a0a0a;--ink:#1a1a1a;--mid:#555;--lt:#888;
-  --rl:#1a1a1a;--rlt:#d4d4d4;--bg:#fff;--bg2:#f6f6f6;
+  --rl:#1a1a1a;--rlt:#d0d0d0;--bg:#fff;--bg2:#f6f6f6;
   --serif:'Georgia','Times New Roman',serif;
   --sans:'Franklin Gothic Medium','Arial Narrow',Arial,sans-serif;
 }}
@@ -216,21 +194,17 @@ body{{background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:1
 a{{color:inherit;text-decoration:none}}
 a:hover{{text-decoration:underline}}
 
-/* MASTHEAD */
-.mast{{border-bottom:4px double var(--rl);padding:0 2rem;background:var(--bg)}}
-.mast-top{{display:flex;justify-content:space-between;align-items:center;
-  padding:.5rem 0;border-bottom:1px solid var(--rlt);
-  font-family:var(--sans);font-size:.65rem;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--lt)}}
+.mast{{border-bottom:4px double var(--rl);padding:0 2rem}}
+.mast-top{{display:flex;justify-content:space-between;padding:.5rem 0;
+  border-bottom:1px solid var(--rlt);font-family:var(--sans);font-size:.65rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--lt)}}
 .mast-title{{text-align:center;font-family:var(--serif);
   font-size:clamp(3.5rem,10vw,7rem);font-weight:900;
   letter-spacing:-.03em;line-height:1;padding:.4rem 0;color:var(--blk)}}
-.mast-bot{{display:flex;justify-content:space-between;align-items:center;
-  padding:.4rem 0;border-top:1px solid var(--rlt);
-  font-family:var(--sans);font-size:.63rem;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--lt)}}
+.mast-bot{{display:flex;justify-content:space-between;padding:.4rem 0;
+  border-top:1px solid var(--rlt);font-family:var(--sans);font-size:.63rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--lt)}}
 
-/* AUTH */
 .auth{{display:flex;justify-content:flex-end;align-items:center;gap:.75rem;
   padding:.35rem 2rem;background:var(--bg2);border-bottom:1px solid var(--rlt);
   font-family:var(--sans);font-size:.7rem}}
@@ -240,7 +214,6 @@ a:hover{{text-decoration:underline}}
   letter-spacing:.06em;text-transform:uppercase;cursor:pointer}}
 #si-btn:hover,#so-btn:hover{{background:var(--mid)}}
 
-/* NAV */
 .nav{{background:var(--blk);display:flex;flex-wrap:wrap;padding:0 2rem}}
 .nav a{{color:#fff;font-family:var(--sans);font-size:.67rem;letter-spacing:.12em;
   text-transform:uppercase;padding:.55rem 1rem;
@@ -248,44 +221,41 @@ a:hover{{text-decoration:underline}}
 .nav a:first-child{{border-left:1px solid #2a2a2a}}
 .nav a:hover{{background:#1e1e1e;text-decoration:none}}
 
-/* MAIN */
-main{{max-width:1280px;margin:0 auto;padding:0 2rem 3rem}}
+main{{max-width:1100px;margin:0 auto;padding:0 2rem 3rem}}
 
-/* SECTIONS */
-.sec{{padding:1.75rem 0 0;border-bottom:3px double var(--rl)}}
-.sec:last-child{{border-bottom:none}}
-.sec-rule{{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem}}
+.topic-sec{{padding:2rem 0 0;border-bottom:3px double var(--rl)}}
+.topic-sec:last-child{{border-bottom:none}}
+
+.sec-rule{{display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem}}
 .sec-rule::before,.sec-rule::after{{content:'';flex:1;height:1px;background:var(--rl)}}
 .sec-label{{font-family:var(--sans);font-size:.68rem;font-weight:700;
   letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}}
 
-/* GRID */
-.grid{{display:grid;grid-template-columns:repeat(4,1fr);
-  border-top:2px solid var(--rl);border-left:1px solid var(--rlt);
-  margin-bottom:1.75rem}}
+/* HERO */
+.hero{{border-top:2px solid var(--blk);border-bottom:1px solid var(--rlt);
+  padding:1.5rem 0 1.25rem;margin-bottom:0}}
+.hero-hed{{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.1rem);
+  font-weight:800;line-height:1.15;color:var(--blk);margin-bottom:.6rem}}
+.hero-desc{{font-size:.95rem;color:var(--mid);line-height:1.65;
+  max-width:72ch;margin-bottom:.75rem}}
+.hero-meta{{display:flex;justify-content:space-between;align-items:center;
+  padding-top:.6rem;border-top:1px solid var(--rlt)}}
 
-/* CARDS */
-.card{{padding:1rem 1.1rem .9rem;border-right:1px solid var(--rlt);
-  border-bottom:1px solid var(--rlt);display:flex;flex-direction:column;
-  gap:.45rem;background:var(--bg);transition:background .1s}}
-.card:hover{{background:var(--bg2)}}
+/* SECONDARY GRID */
+.sec-grid{{display:grid;grid-template-columns:repeat(3,1fr);
+  border-left:1px solid var(--rlt);margin-bottom:2rem}}
+.sec-item{{display:flex;gap:.75rem;padding:1rem;
+  border-right:1px solid var(--rlt);border-bottom:1px solid var(--rlt)}}
+.sec-item:nth-child(3n+1){{border-left:none}}
+.sec-num{{font-family:var(--sans);font-size:1.6rem;font-weight:700;
+  color:var(--rlt);line-height:1;min-width:2rem;padding-top:.1rem}}
+.sec-body{{display:flex;flex-direction:column;gap:.35rem;flex:1}}
+.sec-hed{{font-family:var(--serif);font-size:.95rem;font-weight:700;
+  line-height:1.3;color:var(--blk)}}
+.sec-meta{{display:flex;justify-content:space-between;align-items:center;
+  margin-top:auto;padding-top:.35rem;border-top:1px solid var(--rlt)}}
 
-.sz-lg .hed{{font-size:1.5rem;line-height:1.2;font-weight:800}}
-.sz-lg .desc{{font-size:.88rem;line-height:1.6;-webkit-line-clamp:6}}
-.sz-lg{{padding:1.25rem 1.35rem 1rem}}
-
-.sz-md .hed{{font-size:1.05rem;line-height:1.25;font-weight:700}}
-.sz-md .desc{{-webkit-line-clamp:4}}
-
-.sz-sm .hed{{font-size:.9rem;line-height:1.3;font-weight:700}}
-.sz-sm .desc{{-webkit-line-clamp:2}}
-
-.hed{{font-family:var(--serif);color:var(--blk)}}
-.desc{{color:var(--mid);font-size:.82rem;line-height:1.5;
-  overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;flex:1}}
-
-.meta{{display:flex;justify-content:space-between;align-items:center;
-  border-top:1px solid var(--rlt);padding-top:.45rem;margin-top:auto}}
+/* SHARED */
 .src{{font-family:var(--sans);font-size:.6rem;letter-spacing:.1em;
   text-transform:uppercase;color:var(--lt)}}
 .votes{{display:flex;gap:2px}}
@@ -296,12 +266,10 @@ main{{max-width:1280px;margin:0 auto;padding:0 2rem 3rem}}
 .vb.voted-up{{background:#1a5c1a;color:#fff}}
 .vb.voted-dn{{background:var(--blk);color:#fff}}
 
-/* FOOTER */
 footer{{text-align:center;font-family:var(--sans);font-size:.63rem;
   letter-spacing:.12em;color:var(--lt);padding:2rem 1rem;
   border-top:1px solid var(--rlt);text-transform:uppercase}}
 
-/* TOAST */
 #toast{{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--blk);
   color:#fff;font-family:var(--sans);font-size:.75rem;
   padding:.55rem 1.1rem;opacity:0;transition:opacity .25s;
@@ -309,10 +277,9 @@ footer{{text-align:center;font-family:var(--sans);font-size:.63rem;
 #toast.show{{opacity:1}}
 
 @media(max-width:700px){{
-  .grid{{grid-template-columns:1fr}}
-  .card{{grid-column:1!important}}
+  .sec-grid{{grid-template-columns:1fr}}
   .nav{{overflow-x:auto;flex-wrap:nowrap;padding:0}}
-  .mast{{padding:0 1rem}}
+  .mast,.auth{{padding-left:1rem;padding-right:1rem}}
   main{{padding:0 1rem 2rem}}
 }}
 </style>
@@ -328,13 +295,11 @@ footer{{text-align:center;font-family:var(--sans);font-size:.63rem;
     <span>readthelede.com</span>
   </div>
 </header>
-
 <div class="auth">
   <span id="auth-st">Not signed in — votes won't be saved</span>
   <button id="si-btn" onclick="signIn()">Sign In with Google</button>
   <button id="so-btn" style="display:none" onclick="signOut()">Sign Out</button>
 </div>
-
 <nav class="nav">{nav}</nav>
 <main>{secs}</main>
 <footer>The Lede &mdash; {date} &mdash; Powered by NewsAPI &amp; RSS</footer>
@@ -360,7 +325,7 @@ function updateUI(u){{
 }}
 
 sb.auth.onAuthStateChange(async(ev,session)=>{{
-  user=session?.user??null; updateUI(user);
+  user=session?.user??null;updateUI(user);
   if(user) await sb.from('users').upsert({{id:user.id,email:user.email,
     display_name:user.user_metadata?.full_name??null}},{{onConflict:'id'}});
 }});
@@ -378,9 +343,9 @@ async function loadVotes(uid){{
 
 async function vote(btn,url,val){{
   if(!user){{toast('Sign in to save votes');return;}}
-  const c=btn.closest('.card');
-  const title=c.querySelector('.hed a')?.textContent??'';
-  const topic=c.closest('.sec')?.id??'';
+  const c=btn.closest('[data-url]');
+  const title=c.querySelector('h2,h3')?.textContent??'';
+  const topic=c.closest('.topic-sec')?.id??'';
   const domain=(()=>{{try{{return new URL(url).hostname.replace('www.','');}}catch(e){{return'';}}}} )();
   const up=c.querySelector('.vb.up');
   const dn=c.querySelector('.vb.dn');
@@ -417,10 +382,8 @@ function toast(msg){{
 </body>
 </html>'''
 
-# ── MAIN ──────────────────────────────────────────────────────────────────────
-
 def main():
-    print("=== The Lede ===")
+    print("=== The Lede v6 ===")
     print(f"Run: {datetime.now(timezone.utc).isoformat()}")
     print("\n[1] Fetching...")
     stories = fetch_all()
