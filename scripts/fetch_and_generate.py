@@ -246,15 +246,71 @@ def topic_section_html(slug: str, stories: list) -> str:
     #  Row 3,   Col 1-2 : Story 4 (sm) — wider small
     #  Row 3,   Col 3   : Story 5 (sm)
     #  Row 3,   Col 4   : Story 6 (sm)
-    SLOTS = [
+    # Each topic gets a distinct grid layout
+    LAYOUT_A = [  # big left feature, two stacked right, row of 4 smalls
         ("lg", "grid-column:1/3; grid-row:1/3;"),
         ("md", "grid-column:3/4; grid-row:1/2;"),
         ("md", "grid-column:4/5; grid-row:1/2;"),
         ("md", "grid-column:3/5; grid-row:2/3;"),
-        ("sm", "grid-column:1/3; grid-row:3/4;"),
+        ("sm", "grid-column:1/2; grid-row:3/4;"),
+        ("sm", "grid-column:2/3; grid-row:3/4;"),
+        ("sm", "grid-column:3/5; grid-row:3/4;"),
+    ]
+    LAYOUT_B = [  # three equal top, big feature bottom-left, two smalls bottom-right
+        ("md", "grid-column:1/2; grid-row:1/2;"),
+        ("md", "grid-column:2/4; grid-row:1/2;"),
+        ("md", "grid-column:4/5; grid-row:1/2;"),
+        ("lg", "grid-column:1/3; grid-row:2/4;"),
+        ("sm", "grid-column:3/5; grid-row:2/3;"),
         ("sm", "grid-column:3/4; grid-row:3/4;"),
         ("sm", "grid-column:4/5; grid-row:3/4;"),
     ]
+    LAYOUT_C = [  # big right feature, two stacked left, row of smalls
+        ("md", "grid-column:1/2; grid-row:1/2;"),
+        ("md", "grid-column:1/2; grid-row:2/3;"),
+        ("lg", "grid-column:2/5; grid-row:1/3;"),
+        ("sm", "grid-column:1/2; grid-row:3/4;"),
+        ("sm", "grid-column:2/3; grid-row:3/4;"),
+        ("sm", "grid-column:3/4; grid-row:3/4;"),
+        ("sm", "grid-column:4/5; grid-row:3/4;"),
+    ]
+    LAYOUT_D = [  # wide feature top, three smalls below
+        ("lg", "grid-column:1/4; grid-row:1/2;"),
+        ("md", "grid-column:4/5; grid-row:1/2;"),
+        ("sm", "grid-column:1/2; grid-row:2/3;"),
+        ("sm", "grid-column:2/3; grid-row:2/3;"),
+        ("sm", "grid-column:3/4; grid-row:2/3;"),
+        ("sm", "grid-column:4/5; grid-row:2/3;"),
+        ("sm", "grid-column:1/3; grid-row:3/4;"),
+    ]
+    LAYOUT_E = [  # banner top feature, two med, two sm
+        ("lg", "grid-column:1/5; grid-row:1/2;"),
+        ("md", "grid-column:1/3; grid-row:2/3;"),
+        ("md", "grid-column:3/5; grid-row:2/3;"),
+        ("sm", "grid-column:1/2; grid-row:3/4;"),
+        ("sm", "grid-column:2/3; grid-row:3/4;"),
+        ("sm", "grid-column:3/4; grid-row:3/4;"),
+        ("sm", "grid-column:4/5; grid-row:3/4;"),
+    ]
+    LAYOUT_F = [  # two med top-left, big top-right, smalls below
+        ("md", "grid-column:1/2; grid-row:1/2;"),
+        ("md", "grid-column:2/3; grid-row:1/2;"),
+        ("lg", "grid-column:3/5; grid-row:1/3;"),
+        ("sm", "grid-column:1/2; grid-row:2/3;"),
+        ("sm", "grid-column:2/3; grid-row:2/3;"),
+        ("sm", "grid-column:1/3; grid-row:3/4;"),
+        ("sm", "grid-column:3/5; grid-row:3/4;"),
+    ]
+
+    TOPIC_LAYOUTS = {
+        "civic-tech": LAYOUT_A,
+        "housing":    LAYOUT_B,
+        "nonprofit":  LAYOUT_C,
+        "ai-tech":    LAYOUT_D,
+        "penguins":   LAYOUT_E,
+        "general":    LAYOUT_F,
+    }
+    SLOTS = TOPIC_LAYOUTS.get(slug, LAYOUT_A)
 
     cards = ""
     for i, story in enumerate(stories[:7]):
@@ -393,7 +449,7 @@ def generate_html(stories_by_topic: dict) -> str:
 
     /* sizes */
     .size-lg .story-title {{ font-size: 1.55rem; line-height: 1.2; font-weight: 800; }}
-    .size-lg .story-desc  {{ font-size: 0.88rem; line-height: 1.6; }}
+    .size-lg .story-desc  {{ font-size: 0.88rem; line-height: 1.7; flex: 1; -webkit-line-clamp: unset; display: block; overflow: visible; }}
 
     .size-md .story-title {{ font-size: 1.05rem; line-height: 1.25; font-weight: 700; }}
     .size-md .story-desc  {{ font-size: 0.8rem; }}
