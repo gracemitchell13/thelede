@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>The Lede — Settings</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blk:#0a0a0a;--ink:#1a1a1a;--mid:#555;--lt:#888;
+  --rl:#1a1a1a;--rlt:#d0d0d0;--bg:#fff;--bg2:#f6f6f6;--bg3:#efefef;
+  --accent:#1a4fa0;
+  --serif:'Georgia','Times New Roman',serif;
+  --sans:'Franklin Gothic Medium','Arial Narrow',Arial,sans-serif;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+.mast{border-bottom:4px double var(--rl);padding:0 2rem;background:var(--bg)}
+.mast-top{display:flex;justify-content:space-between;padding:.5rem 0;
+  border-bottom:1px solid var(--rlt);font-size:.65rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--lt)}
+.mast-title{text-align:center;font-family:var(--serif);
+  font-size:clamp(2.5rem,6vw,4rem);font-weight:900;
+  letter-spacing:-.03em;line-height:1;padding:.35rem 0;color:var(--blk)}
+.mast-bot{display:flex;justify-content:space-between;padding:.4rem 0;
+  border-top:1px solid var(--rlt);font-size:.63rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--lt)}
+
+.nav{background:var(--blk);display:flex;padding:0 2rem}
+.nav a{color:#fff;font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.55rem 1rem;border-right:1px solid #2a2a2a;display:block}
+.nav a:first-child{border-left:1px solid #2a2a2a}
+.nav a:hover{background:#1e1e1e;text-decoration:none}
+.nav a.active{background:#1e1e1e}
+
+main{max-width:900px;margin:0 auto;padding:2rem}
+
+/* AUTH GATE */
+#auth-gate{text-align:center;padding:4rem 2rem}
+#auth-gate h2{font-family:var(--serif);font-size:1.5rem;margin-bottom:.75rem}
+#auth-gate p{color:var(--mid);margin-bottom:1.5rem;font-size:.9rem}
+
+/* SETTINGS SECTIONS */
+.settings-header{display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:2px solid var(--blk)}
+.settings-header h1{font-family:var(--serif);font-size:1.6rem;font-weight:800}
+.settings-header span{font-size:.75rem;color:var(--lt);letter-spacing:.08em;text-transform:uppercase}
+
+.section-block{margin-bottom:2.5rem}
+.section-block h2{font-size:.72rem;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--lt);margin-bottom:1rem;
+  padding-bottom:.5rem;border-bottom:1px solid var(--rlt)}
+
+/* TOPIC CARDS */
+.topic-list{display:flex;flex-direction:column;gap:.5rem}
+.topic-card{background:var(--bg);border:1px solid var(--rlt);
+  display:flex;align-items:center;gap:1rem;padding:.75rem 1rem;
+  cursor:default}
+.topic-card.inactive{opacity:.5}
+.topic-drag{color:var(--rlt);cursor:grab;font-size:1rem;user-select:none;padding:0 .25rem}
+.topic-drag:active{cursor:grabbing}
+.topic-info{flex:1}
+.topic-name{font-weight:700;font-size:.95rem;color:var(--blk)}
+.topic-meta{font-size:.72rem;color:var(--lt);margin-top:.1rem}
+.topic-actions{display:flex;align-items:center;gap:.5rem}
+
+/* TOGGLE */
+.toggle{position:relative;width:40px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:var(--rlt);cursor:pointer;transition:.2s}
+.toggle-slider::before{content:'';position:absolute;height:16px;width:16px;
+  left:3px;bottom:3px;background:#fff;transition:.2s}
+.toggle input:checked + .toggle-slider{background:var(--accent)}
+.toggle input:checked + .toggle-slider::before{transform:translateX(18px)}
+
+/* SOURCE LIST */
+.source-list{display:flex;flex-direction:column;gap:.35rem;margin-top:.5rem}
+.source-row{display:flex;align-items:center;gap:.75rem;padding:.5rem .75rem;
+  background:var(--bg2);border:1px solid var(--rlt)}
+.source-row.inactive{opacity:.45}
+.source-info{flex:1}
+.source-name{font-size:.85rem;font-weight:700;color:var(--blk)}
+.source-domain{font-size:.7rem;color:var(--lt)}
+.source-type{font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--bg);background:var(--lt);padding:1px 6px;border-radius:2px}
+
+/* BUTTONS */
+.btn{display:inline-block;padding:.4rem 1rem;font-size:.72rem;letter-spacing:.08em;
+  text-transform:uppercase;cursor:pointer;border:1px solid var(--blk);
+  background:var(--blk);color:#fff;font-family:var(--sans)}
+.btn:hover{background:var(--mid);border-color:var(--mid)}
+.btn.ghost{background:transparent;color:var(--blk)}
+.btn.ghost:hover{background:var(--bg2)}
+.btn.danger{background:#8b1a1a;border-color:#8b1a1a}
+.btn.small{padding:.25rem .65rem;font-size:.65rem}
+.btn.accent{background:var(--accent);border-color:var(--accent)}
+
+/* ADD FORM */
+.add-form{display:none;margin-top:.75rem;padding:1rem;
+  background:var(--bg2);border:1px solid var(--rlt);gap:.75rem;flex-direction:column}
+.add-form.open{display:flex}
+.form-row{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.form-row input,.form-row select{flex:1;padding:.4rem .6rem;
+  border:1px solid var(--rlt);font-family:var(--sans);font-size:.85rem;
+  background:var(--bg);color:var(--ink);min-width:150px}
+.form-label{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--lt);margin-bottom:.25rem;display:block}
+
+/* SAVE BAR */
+#save-bar{position:fixed;bottom:0;left:0;right:0;background:var(--blk);
+  color:#fff;display:none;align-items:center;justify-content:space-between;
+  padding:.75rem 2rem;font-size:.8rem;letter-spacing:.05em;z-index:100}
+#save-bar.visible{display:flex}
+
+/* TOAST */
+#toast{position:fixed;bottom:4rem;right:1.5rem;background:var(--accent);
+  color:#fff;font-size:.75rem;padding:.55rem 1.1rem;opacity:0;
+  transition:opacity .25s;pointer-events:none;letter-spacing:.05em}
+#toast.show{opacity:1}
+
+footer{text-align:center;font-size:.63rem;letter-spacing:.12em;
+  color:var(--lt);padding:2rem 1rem;border-top:1px solid var(--rlt);
+  text-transform:uppercase;margin-top:2rem}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="mast-top">
+    <span>Est. 2026</span><span>Settings</span><span>readthelede.com</span>
+  </div>
+  <h1 class="mast-title">The Lede</h1>
+  <div class="mast-bot">
+    <span>Civic Tech &bull; Housing &bull; Nonprofits &bull; AI &bull; Penguins</span>
+    <span id="user-email"></span>
+  </div>
+</header>
+
+<nav class="nav">
+  <a href="index.html">Today's Lede</a>
+  <a href="settings.html" class="active">Settings</a>
+</nav>
+
+<main>
+  <!-- AUTH GATE -->
+  <div id="auth-gate">
+    <h2>Sign in to manage your settings</h2>
+    <p>Your topic and source preferences are saved to your account.</p>
+    <button class="btn accent" onclick="signIn()">Sign In with Google</button>
+  </div>
+
+  <!-- SETTINGS (shown when signed in) -->
+  <div id="settings-ui" style="display:none">
+    <div class="settings-header">
+      <h1>Your Settings</h1>
+      <span id="last-saved"></span>
+    </div>
+
+    <!-- TOPICS -->
+    <div class="section-block">
+      <h2>Topics — drag to reorder, toggle to show/hide</h2>
+      <div class="topic-list" id="topic-list"></div>
+      <div style="margin-top:.75rem">
+        <button class="btn ghost small" onclick="toggleAddTopic()">+ Add custom topic</button>
+      </div>
+      <div class="add-form" id="add-topic-form">
+        <span class="form-label">New topic</span>
+        <div class="form-row">
+          <input type="text" id="new-topic-label" placeholder="Topic name (e.g. Climate Policy)"/>
+          <input type="text" id="new-topic-keywords" placeholder="Keywords (e.g. climate change, carbon tax)"/>
+          <button class="btn small" onclick="addTopic()">Add</button>
+          <button class="btn ghost small" onclick="toggleAddTopic()">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOURCES -->
+    <div class="section-block">
+      <h2>Sources — toggle to include/exclude per topic</h2>
+      <div id="source-list"></div>
+      <div style="margin-top:.75rem">
+        <button class="btn ghost small" onclick="toggleAddSource()">+ Add custom source</button>
+      </div>
+      <div class="add-form" id="add-source-form">
+        <span class="form-label">Add a source</span>
+        <div class="form-row">
+          <select id="new-source-topic">
+            <option value="">Select topic...</option>
+          </select>
+          <input type="text" id="new-source-label" placeholder="Source name (e.g. Politico)"/>
+          <input type="text" id="new-source-feed" placeholder="RSS feed URL or domain"/>
+          <button class="btn small" onclick="addSource()">Add</button>
+          <button class="btn ghost small" onclick="toggleAddSource()">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:.75rem;margin-top:1rem">
+      <button class="btn accent" onclick="saveAll()">Save Changes</button>
+      <button class="btn ghost" onclick="signOut()">Sign Out</button>
+    </div>
+  </div>
+</main>
+
+<div id="save-bar" class="visible" style="display:none">
+  <span>You have unsaved changes</span>
+  <button class="btn small" onclick="saveAll()">Save Now</button>
+</div>
+
+<div id="toast"></div>
+<footer>The Lede &mdash; Settings &mdash; readthelede.com</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = '__SUPABASE_URL__';
+const SUPABASE_ANON_KEY = '__SUPABASE_ANON_KEY__';
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let user = null;
+let topics = [];
+let sources = [];
+let dirty = false;
+
+// Default topics seeded from the script config
+const DEFAULT_TOPICS = [
+  { slug: 'civic-tech',  label: 'Civic Tech & GovTech',  sort_order: 0, active: true },
+  { slug: 'housing',     label: 'Housing Policy',          sort_order: 1, active: true },
+  { slug: 'nonprofit',   label: 'Nonprofit & Grants',      sort_order: 2, active: true },
+  { slug: 'ai-tech',     label: 'AI & Tech',               sort_order: 3, active: true },
+  { slug: 'penguins',    label: 'Pittsburgh Penguins',      sort_order: 4, active: true },
+  { slug: 'general',     label: 'General News',            sort_order: 5, active: true },
+];
+
+const DEFAULT_SOURCES = [
+  { topic_slug:'civic-tech',  domain:'statescoop.com',          label:'StateScoop',         feed_url:'https://statescoop.com/feed/',                                     active:true },
+  { topic_slug:'civic-tech',  domain:'govtech.com',             label:'GovTech',            feed_url:'https://www.govtech.com/rss.xml',                                  active:true },
+  { topic_slug:'civic-tech',  domain:'nextgov.com',             label:'Nextgov',            feed_url:'https://www.nextgov.com/rss/all/',                                 active:true },
+  { topic_slug:'civic-tech',  domain:'route-fifty.com',         label:'Route Fifty',        feed_url:'https://www.route-fifty.com/rss.xml',                              active:true },
+  { topic_slug:'civic-tech',  domain:'fcw.com',                 label:'FCW',                feed_url:'https://fcw.com/rss-feeds/all.aspx',                               active:true },
+  { topic_slug:'housing',     domain:'shelterforce.org',        label:'Shelterforce',       feed_url:'https://shelterforce.org/feed/',                                   active:true },
+  { topic_slug:'housing',     domain:'housingwire.com',         label:'HousingWire',        feed_url:'https://www.housingwire.com/feed/',                                active:true },
+  { topic_slug:'housing',     domain:'strongtowns.org',         label:'Strong Towns',       feed_url:'https://www.strongtowns.org/feed/',                                active:true },
+  { topic_slug:'housing',     domain:'nlihc.org',               label:'NLIHC',              feed_url:'https://nlihc.org/feed',                                           active:true },
+  { topic_slug:'nonprofit',   domain:'nonprofitquarterly.org',  label:'Nonprofit Quarterly',feed_url:'https://nonprofitquarterly.org/feed/',                             active:true },
+  { topic_slug:'nonprofit',   domain:'candid.org',              label:'Candid',             feed_url:'https://blog.candid.org/feed/',                                    active:true },
+  { topic_slug:'nonprofit',   domain:'ssir.org',                label:'SSIR',               feed_url:'https://ssir.org/site/rss',                                        active:true },
+  { topic_slug:'nonprofit',   domain:'insidephilanthropy.com',  label:'Inside Philanthropy',feed_url:'https://www.insidephilanthropy.com/home?format=rss',               active:true },
+  { topic_slug:'ai-tech',     domain:'theverge.com',            label:'The Verge',          feed_url:'https://www.theverge.com/rss/ai-artificial-intelligence/index.xml',active:true },
+  { topic_slug:'ai-tech',     domain:'technologyreview.com',    label:'MIT Tech Review',    feed_url:'https://www.technologyreview.com/feed/',                           active:true },
+  { topic_slug:'ai-tech',     domain:'venturebeat.com',         label:'VentureBeat',        feed_url:'https://venturebeat.com/category/ai/feed/',                        active:true },
+  { topic_slug:'ai-tech',     domain:'wired.com',               label:'Wired',              feed_url:'https://www.wired.com/feed/category/artificial-intelligence/latest/rss', active:true },
+  { topic_slug:'penguins',    domain:'pensburgh.com',           label:'PensBurgh',          feed_url:'https://www.pensburgh.com/rss/current',                            active:true },
+  { topic_slug:'penguins',    domain:'nhl.com',                 label:'NHL.com',            feed_url:'https://www.nhl.com/rss/news.xml',                                 active:true },
+  { topic_slug:'penguins',    domain:'sportsnet.ca',            label:'Sportsnet',          feed_url:'https://www.sportsnet.ca/feed/',                                   active:true },
+  { topic_slug:'general',     domain:'bbc.co.uk',               label:'BBC News',           feed_url:'https://feeds.bbci.co.uk/news/rss.xml',                            active:true },
+  { topic_slug:'general',     domain:'nytimes.com',             label:'New York Times',     feed_url:'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',         active:true },
+  { topic_slug:'general',     domain:'npr.org',                 label:'NPR',                feed_url:'https://feeds.npr.org/1001/rss.xml',                               active:true },
+  { topic_slug:'general',     domain:'theguardian.com',         label:'The Guardian',       feed_url:'https://www.theguardian.com/world/rss',                            active:true },
+  { topic_slug:'general',     domain:'apnews.com',              label:'AP News',            feed_url:'https://apnews.com/rss',                                           active:true },
+];
+
+// ── AUTH ───────────────────────────────────────────────────────────────────
+
+async function signIn() { await sb.auth.signInWithOAuth({ provider: 'google' }); }
+async function signOut() { await sb.auth.signOut(); user = null; showGate(); }
+
+sb.auth.onAuthStateChange(async (event, session) => {
+  user = session?.user ?? null;
+  if (user) {
+    document.getElementById('user-email').textContent = user.email;
+    await ensureUser();
+    await loadSettings();
+    showSettings();
+  } else {
+    showGate();
+  }
+});
+
+function showGate() {
+  document.getElementById('auth-gate').style.display = 'block';
+  document.getElementById('settings-ui').style.display = 'none';
+}
+function showSettings() {
+  document.getElementById('auth-gate').style.display = 'none';
+  document.getElementById('settings-ui').style.display = 'block';
+}
+
+async function ensureUser() {
+  await sb.from('users').upsert({
+    id: user.id, email: user.email,
+    display_name: user.user_metadata?.full_name ?? null,
+  }, { onConflict: 'id' });
+}
+
+// ── LOAD ───────────────────────────────────────────────────────────────────
+
+async function loadSettings() {
+  const [{ data: dbTopics }, { data: dbSources }] = await Promise.all([
+    sb.from('user_topics').select('*').eq('user_id', user.id).order('sort_order'),
+    sb.from('user_sources').select('*').eq('user_id', user.id),
+  ]);
+
+  // Seed defaults if first time
+  if (!dbTopics || dbTopics.length === 0) {
+    await seedDefaults();
+    return loadSettings();
+  }
+
+  topics = dbTopics;
+  sources = dbSources || [];
+  renderTopics();
+  renderSources();
+}
+
+async function seedDefaults() {
+  const topicRows = DEFAULT_TOPICS.map(t => ({ ...t, user_id: user.id }));
+  const sourceRows = DEFAULT_SOURCES.map(s => ({ ...s, user_id: user.id }));
+  await sb.from('user_topics').upsert(topicRows, { onConflict: 'user_id,slug' });
+  await sb.from('user_sources').upsert(sourceRows, { onConflict: 'user_id,topic_slug,domain' });
+}
+
+// ── RENDER ─────────────────────────────────────────────────────────────────
+
+function renderTopics() {
+  const list = document.getElementById('topic-list');
+  list.innerHTML = '';
+  topics.forEach((t, i) => {
+    const card = document.createElement('div');
+    card.className = 'topic-card' + (t.active ? '' : ' inactive');
+    card.draggable = true;
+    card.dataset.index = i;
+    card.innerHTML = `
+      <span class="topic-drag">⠿</span>
+      <div class="topic-info">
+        <div class="topic-name">${t.label}</div>
+        <div class="topic-meta">${sources.filter(s => s.topic_slug === t.slug && s.active).length} active sources</div>
+      </div>
+      <div class="topic-actions">
+        <label class="toggle">
+          <input type="checkbox" ${t.active ? 'checked' : ''} onchange="toggleTopic(${i}, this.checked)"/>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>`;
+    addDragHandlers(card, i);
+    list.appendChild(card);
+  });
+}
+
+function renderSources() {
+  const container = document.getElementById('source-list');
+  container.innerHTML = '';
+  const select = document.getElementById('new-source-topic');
+  select.innerHTML = '<option value="">Select topic...</option>';
+
+  topics.forEach(t => {
+    const topicSources = sources.filter(s => s.topic_slug === t.slug);
+    const block = document.createElement('div');
+    block.style.cssText = 'margin-bottom:1.5rem';
+    block.innerHTML = `<div style="font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);margin-bottom:.5rem;padding-bottom:.35rem;border-bottom:1px solid var(--rlt)">${t.label}</div>`;
+
+    const sourceList = document.createElement('div');
+    sourceList.className = 'source-list';
+    topicSources.forEach((s, si) => {
+      const globalIndex = sources.indexOf(s);
+      const row = document.createElement('div');
+      row.className = 'source-row' + (s.active ? '' : ' inactive');
+      row.innerHTML = `
+        <div class="source-info">
+          <div class="source-name">${s.label || s.domain}</div>
+          <div class="source-domain">${s.domain || s.feed_url}</div>
+        </div>
+        <span class="source-type">${s.feed_url ? 'RSS' : 'domain'}</span>
+        <label class="toggle">
+          <input type="checkbox" ${s.active ? 'checked' : ''} onchange="toggleSource(${globalIndex}, this.checked)"/>
+          <span class="toggle-slider"></span>
+        </label>`;
+      sourceList.appendChild(row);
+    });
+    block.appendChild(sourceList);
+    container.appendChild(block);
+
+    const opt = document.createElement('option');
+    opt.value = t.slug; opt.textContent = t.label;
+    select.appendChild(opt);
+  });
+}
+
+// ── DRAG & DROP ────────────────────────────────────────────────────────────
+
+let dragIndex = null;
+
+function addDragHandlers(el, index) {
+  el.addEventListener('dragstart', () => { dragIndex = index; el.style.opacity = '.4'; });
+  el.addEventListener('dragend', () => { el.style.opacity = '1'; });
+  el.addEventListener('dragover', e => { e.preventDefault(); el.style.borderTop = '2px solid var(--accent)'; });
+  el.addEventListener('dragleave', () => { el.style.borderTop = ''; });
+  el.addEventListener('drop', e => {
+    e.preventDefault(); el.style.borderTop = '';
+    if (dragIndex === null || dragIndex === index) return;
+    const moved = topics.splice(dragIndex, 1)[0];
+    topics.splice(index, 0, moved);
+    topics.forEach((t, i) => t.sort_order = i);
+    dragIndex = null;
+    markDirty();
+    renderTopics();
+    renderSources();
+  });
+}
+
+// ── MUTATIONS ──────────────────────────────────────────────────────────────
+
+function toggleTopic(i, active) {
+  topics[i].active = active;
+  markDirty();
+  renderTopics();
+}
+
+function toggleSource(i, active) {
+  sources[i].active = active;
+  markDirty();
+  renderSources();
+}
+
+function toggleAddTopic() {
+  const f = document.getElementById('add-topic-form');
+  f.classList.toggle('open');
+}
+
+function toggleAddSource() {
+  const f = document.getElementById('add-source-form');
+  f.classList.toggle('open');
+}
+
+function addTopic() {
+  const label = document.getElementById('new-topic-label').value.trim();
+  const keywords = document.getElementById('new-topic-keywords').value.trim();
+  if (!label) { toast('Enter a topic name'); return; }
+  const slug = label.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  topics.push({ user_id: user.id, slug, label, active: true,
+    sort_order: topics.length, queries: keywords ? [keywords] : [] });
+  document.getElementById('new-topic-label').value = '';
+  document.getElementById('new-topic-keywords').value = '';
+  toggleAddTopic();
+  markDirty();
+  renderTopics();
+  renderSources();
+}
+
+function addSource() {
+  const topic_slug = document.getElementById('new-source-topic').value;
+  const label = document.getElementById('new-source-label').value.trim();
+  const feed = document.getElementById('new-source-feed').value.trim();
+  if (!topic_slug || !label || !feed) { toast('Fill in all fields'); return; }
+  let domain = feed;
+  try { domain = new URL(feed.startsWith('http') ? feed : 'https://'+feed).hostname.replace('www.',''); } catch(e) {}
+  sources.push({ user_id: user.id, topic_slug, label, domain, feed_url: feed.startsWith('http') ? feed : null, active: true });
+  document.getElementById('new-source-label').value = '';
+  document.getElementById('new-source-feed').value = '';
+  toggleAddSource();
+  markDirty();
+  renderSources();
+}
+
+// ── SAVE ───────────────────────────────────────────────────────────────────
+
+function markDirty() {
+  dirty = true;
+  document.getElementById('save-bar').style.display = 'flex';
+}
+
+async function saveAll() {
+  const topicRows = topics.map(t => ({ ...t, user_id: user.id }));
+  const sourceRows = sources.map(s => ({ ...s, user_id: user.id }));
+
+  await Promise.all([
+    sb.from('user_topics').upsert(topicRows, { onConflict: 'user_id,slug' }),
+    sb.from('user_sources').upsert(sourceRows, { onConflict: 'user_id,topic_slug,domain' }),
+  ]);
+
+  dirty = false;
+  document.getElementById('save-bar').style.display = 'none';
+  const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  document.getElementById('last-saved').textContent = `Saved at ${now}`;
+  toast('Settings saved — changes apply at next daily run');
+}
+
+// ── TOAST ──────────────────────────────────────────────────────────────────
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+window.addEventListener('beforeunload', e => {
+  if (dirty) { e.preventDefault(); e.returnValue = ''; }
+});
+</script>
+</body>
+</html>
