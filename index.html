@@ -5,212 +5,282 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Lede — THURSDAY, APRIL 9, 2026</title>
   <style>
-    /* ── RESET ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ── TOKENS ── */
     :root {
+      --black:      #0a0a0a;
       --ink:        #1a1a1a;
-      --ink-light:  #444;
+      --ink-mid:    #444;
+      --ink-light:  #777;
       --rule:       #1a1a1a;
-      --rule-light: #ccc;
-      --paper:      #f5f0e8;
-      --paper-dark: #ede8de;
-      --accent:     #8b0000;
+      --rule-light: #d0d0d0;
+      --gray-100:   #f7f7f7;
+      --gray-200:   #eeeeee;
+      --gray-800:   #222222;
+      --white:      #ffffff;
       --font-serif: 'Georgia', 'Times New Roman', serif;
       --font-sans:  'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-      --font-mono:  'Courier New', monospace;
     }
 
-    /* ── BASE ── */
     body {
-      background: var(--paper);
+      background: var(--white);
       color: var(--ink);
       font-family: var(--font-serif);
       font-size: 16px;
       line-height: 1.5;
     }
 
-    a { color: var(--ink); text-decoration: none; }
-    a:hover { color: var(--accent); text-decoration: underline; }
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
     /* ── MASTHEAD ── */
     .masthead {
-      text-align: center;
-      border-bottom: 4px double var(--rule);
-      padding: 1.5rem 1rem 1rem;
-      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 1.5rem;
+      background: var(--white);
     }
-    .masthead-tagline {
-      font-family: var(--font-sans);
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink-light);
-      margin-bottom: 0.25rem;
-    }
-    .masthead-title {
-      font-family: var(--font-serif);
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      line-height: 1;
-      color: var(--ink);
-    }
-    .masthead-date {
-      font-family: var(--font-sans);
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--ink-light);
-      margin-top: 0.4rem;
-      padding-top: 0.4rem;
-      border-top: 1px solid var(--rule-light);
-    }
-
-    /* ── SECTION NAV ── */
-    .section-nav {
+    .masthead-top {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0 1rem;
-      padding: 0.5rem 1rem;
-      background: var(--ink);
-      color: #f5f0e8;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--rule-light);
       font-family: var(--font-sans);
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
+      color: var(--ink-light);
     }
-    .section-nav a {
-      color: #f5f0e8;
-      padding: 0.2rem 0;
+    .masthead-title {
+      text-align: center;
+      font-family: var(--font-serif);
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      padding: 0.5rem 0 0.4rem;
+      color: var(--black);
     }
-    .section-nav a:hover { color: #ccc; text-decoration: none; border-bottom: 1px solid #ccc; }
+    .masthead-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.4rem 0;
+      border-top: 1px solid var(--rule-light);
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+    .masthead-rule {
+      border: none;
+      border-top: 4px double var(--rule);
+      margin: 0;
+    }
 
     /* ── AUTH BAR ── */
     .auth-bar {
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.4rem 1.5rem;
-      background: var(--paper-dark);
+      gap: 0.75rem;
+      padding: 0.35rem 1.5rem;
+      background: var(--gray-100);
       border-bottom: 1px solid var(--rule-light);
       font-family: var(--font-sans);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
     }
     #auth-status { color: var(--ink-light); }
     #sign-in-btn, #sign-out-btn {
-      background: var(--ink);
-      color: var(--paper);
+      background: var(--black);
+      color: var(--white);
       border: none;
-      padding: 0.25rem 0.75rem;
+      padding: 0.25rem 0.8rem;
       font-family: var(--font-sans);
-      font-size: 0.72rem;
-      cursor: pointer;
+      font-size: 0.68rem;
       letter-spacing: 0.05em;
+      cursor: pointer;
+      text-transform: uppercase;
     }
-    #sign-in-btn:hover, #sign-out-btn:hover { background: var(--accent); }
+    #sign-in-btn:hover, #sign-out-btn:hover { background: var(--ink-mid); }
 
-    /* ── MAIN LAYOUT ── */
+    /* ── SECTION NAV ── */
+    .section-nav {
+      background: var(--black);
+      padding: 0 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .section-nav a {
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.55rem 1rem;
+      border-right: 1px solid #333;
+      display: block;
+    }
+    .section-nav a:first-child { border-left: 1px solid #333; }
+    .section-nav a:hover { background: #222; text-decoration: none; }
+
+    /* ── MAIN ── */
     main {
-      max-width: 1200px;
+      max-width: 1260px;
       margin: 0 auto;
-      padding: 1.5rem 1rem;
+      padding: 0 1.5rem 3rem;
     }
 
     /* ── TOPIC SECTIONS ── */
     .topic-section {
-      margin-bottom: 2.5rem;
-      padding-bottom: 2rem;
+      padding: 1.75rem 0 1.5rem;
       border-bottom: 3px double var(--rule);
     }
     .topic-section:last-child { border-bottom: none; }
 
+    .topic-header-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .topic-header-row::before,
+    .topic-header-row::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
     .topic-header {
       font-family: var(--font-sans);
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--paper);
-      background: var(--ink);
-      padding: 0.35rem 0.75rem;
-      margin-bottom: 1.25rem;
-      display: inline-block;
+      color: var(--black);
+      white-space: nowrap;
+      padding: 0 0.5rem;
     }
 
-    /* ── STORIES GRID ── */
+    /* ── STORIES GRID — newspaper layout ── */
     .stories-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 0;
+      border-top: 2px solid var(--rule);
+      border-left: 1px solid var(--rule-light);
     }
 
-    /* ── STORY CARD ── */
+    /* featured card: spans 5 cols, full height of first row */
+    .story-card.featured {
+      grid-column: span 5;
+      grid-row: span 2;
+      border-right: 1px solid var(--rule-light);
+      border-bottom: 1px solid var(--rule-light);
+      padding: 1.25rem 1.25rem 1rem;
+    }
+    .story-card.featured .story-title {
+      font-size: 1.5rem;
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+    .story-card.featured .story-desc {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      -webkit-line-clamp: 6;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* secondary cards: span 3-4 cols */
+    .story-card:not(.featured):nth-child(2),
+    .story-card:not(.featured):nth-child(3) {
+      grid-column: span 4;
+    }
+    .story-card:not(.featured):nth-child(4),
+    .story-card:not(.featured):nth-child(5) {
+      grid-column: span 3;
+    }
+    .story-card:not(.featured):nth-child(n+6) {
+      grid-column: span 4;
+    }
+
+    /* base card */
     .story-card {
-      background: var(--paper);
-      border: 1px solid var(--rule-light);
-      border-top: 3px solid var(--ink);
-      padding: 1rem;
+      padding: 1rem 1rem 0.85rem;
+      border-right: 1px solid var(--rule-light);
+      border-bottom: 1px solid var(--rule-light);
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.4rem;
+      background: var(--white);
     }
+    .story-card:hover { background: var(--gray-100); }
+
     .story-title {
       font-family: var(--font-serif);
-      font-size: 1.0rem;
+      font-size: 0.95rem;
       font-weight: 700;
       line-height: 1.3;
+      color: var(--black);
     }
+    .story-title a:hover { text-decoration: underline; }
+
     .story-desc {
-      font-size: 0.85rem;
-      color: var(--ink-light);
+      font-size: 0.8rem;
+      color: var(--ink-mid);
       line-height: 1.5;
       flex: 1;
+      -webkit-line-clamp: 3;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
+
     .story-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-top: 1px solid var(--rule-light);
-      padding-top: 0.5rem;
+      padding-top: 0.45rem;
       margin-top: auto;
     }
     .source-label {
       font-family: var(--font-sans);
-      font-size: 0.68rem;
+      font-size: 0.62rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--ink-light);
     }
 
     /* ── VOTE BUTTONS ── */
-    .vote-buttons { display: flex; gap: 0.25rem; }
+    .vote-buttons { display: flex; gap: 2px; }
     .vote-btn {
-      background: none;
-      border: 1px solid var(--rule-light);
+      background: var(--gray-200);
+      border: none;
       color: var(--ink-light);
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       cursor: pointer;
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.15s;
+      transition: background 0.1s;
     }
-    .vote-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-    .vote-btn.voted-up { background: #2d6a2d; color: white; border-color: #2d6a2d; }
-    .vote-btn.voted-down { background: var(--accent); color: white; border-color: var(--accent); }
+    .vote-btn:hover { background: var(--gray-800); color: var(--white); }
+    .vote-btn.voted-up { background: #1a5c1a; color: white; }
+    .vote-btn.voted-down { background: var(--black); color: white; }
 
     /* ── FOOTER ── */
     footer {
       text-align: center;
       font-family: var(--font-sans);
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
       color: var(--ink-light);
       padding: 2rem 1rem;
       border-top: 1px solid var(--rule-light);
@@ -222,25 +292,44 @@
       position: fixed;
       bottom: 1.5rem;
       right: 1.5rem;
-      background: var(--ink);
-      color: var(--paper);
+      background: var(--black);
+      color: var(--white);
       font-family: var(--font-sans);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       padding: 0.6rem 1.2rem;
       opacity: 0;
       transition: opacity 0.3s;
       pointer-events: none;
+      letter-spacing: 0.05em;
     }
     #toast.show { opacity: 1; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .story-card.featured,
+      .story-card:not(.featured):nth-child(n) {
+        grid-column: span 12;
+      }
+      .masthead-title { font-size: 3rem; }
+      .section-nav { overflow-x: auto; flex-wrap: nowrap; }
+    }
   </style>
 </head>
 <body>
 
   <!-- MASTHEAD -->
   <header class="masthead">
-    <p class="masthead-tagline">Your daily curated briefing</p>
+    <div class="masthead-top">
+      <span>Est. 2026</span>
+      <span>THURSDAY, APRIL 9, 2026</span>
+      <span>Your Daily Briefing</span>
+    </div>
     <h1 class="masthead-title">The Lede</h1>
-    <p class="masthead-date">THURSDAY, APRIL 9, 2026</p>
+    <div class="masthead-bottom">
+      <span>Civic Tech &bull; Housing &bull; Nonprofits &bull; AI &bull; Penguins</span>
+      <span id="auth-status-top"></span>
+    </div>
+    <hr class="masthead-rule" />
   </header>
 
   <!-- AUTH BAR -->
@@ -252,109 +341,108 @@
 
   <!-- SECTION NAV -->
   <nav class="section-nav" aria-label="Sections">
-    <a href="#civic-tech">Civic Tech & GovTech</a> | <a href="#housing">Housing Policy</a> | <a href="#nonprofit">Nonprofit & Grants</a> | <a href="#ai-tech">AI & Tech</a> | <a href="#penguins">Pittsburgh Penguins</a> | <a href="#general">General News</a>
+    <a href="#civic-tech">Civic Tech & GovTech</a>
+<a href="#housing">Housing Policy</a>
+<a href="#nonprofit">Nonprofit & Grants</a>
+<a href="#ai-tech">AI & Tech</a>
+<a href="#penguins">Pittsburgh Penguins</a>
+<a href="#general">General News</a>
   </nav>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <main>
     
   <section class="topic-section" id="civic-tech">
-    <h2 class="topic-header">🏛️ Civic Tech & GovTech</h2>
+    <div class="topic-header-row">
+      <h2 class="topic-header">Civic Tech & GovTech</h2>
+    </div>
     <div class="stories-grid">
       
-    <article class="story-card" data-url="https://www.mediaite.com/premium/one-sheet-trump-threatens-to-jail-the-press-iran-war-narrative-war-and-politico-playbook-retooling/">
-      <h3 class="story-title"><a href="https://www.mediaite.com/premium/one-sheet-trump-threatens-to-jail-the-press-iran-war-narrative-war-and-politico-playbook-retooling/" target="_blank" rel="noopener">ONE SHEET: Trump Threatens to Jail the Press, Iran War Narrative War, and Politico Playbook Retooling</a></h3>
-      <p class="story-desc">The Big Picture It’s deadline day for Iran, and the newsletter class is doing what it does best: watching the watchers who watch President Donald Trump who held an 83-minute press conference Monday th…</p>
+    <article class="story-card featured" data-url="https://www.cbssports.com/betting/news/bettors-backing-michigan-on-2027-ncaa-title-futures-little-north-carolina-love-for-new-coach-mike-malone/">
+      <h3 class="story-title"><a href="https://www.cbssports.com/betting/news/bettors-backing-michigan-on-2027-ncaa-title-futures-little-north-carolina-love-for-new-coach-mike-malone/" target="_blank" rel="noopener">Bettors backing Michigan on 2027 NCAA title futures, little North Carolina love for new coach Mike Malone</a></h3>
+      <p class="story-desc">CBS Sports and SportsLine college basketball expert Matt Severance looks at early 2027 NCAA championship futures</p>
       <div class="story-meta">
-        <span class="source-label">Mediaite</span>
+        <span class="source-label">CBS Sports</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.mediaite.com/premium/one-sheet-trump-threatens-to-jail-the-press-iran-war-narrative-war-and-politico-playbook-retooling/', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.mediaite.com/premium/one-sheet-trump-threatens-to-jail-the-press-iran-war-narrative-war-and-politico-playbook-retooling/', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.cbssports.com/betting/news/bettors-backing-michigan-on-2027-ncaa-title-futures-little-north-carolina-love-for-new-coach-mike-malone/', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.cbssports.com/betting/news/bettors-backing-michigan-on-2027-ncaa-title-futures-little-north-carolina-love-for-new-coach-mike-malone/', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.autosport.com/national/news/trucks-and-tcr-uk-star-as-brands-hatch-centenary-season-begins/10811222/">
-      <h3 class="story-title"><a href="https://www.autosport.com/national/news/trucks-and-tcr-uk-star-as-brands-hatch-centenary-season-begins/10811222/" target="_blank" rel="noopener">Trucks and TCR UK star as Brands Hatch centenary season begins</a></h3>
-      <p class="story-desc">The combination of heavyweight trucks and high-tech TCR saloons drew a good Easter crowd to Brands Hatch for a 19-race programme and the opening of the 2026 car-racing season in the circuit’s centenar…</p>
+    <article class="story-card" data-url="https://www.animenewsnetwork.com/site-news/2026-04-08/yoshiki-returns-to-l.a-for-two-live-concerts-july-16-17-at-disney-concert-hall/.236219">
+      <h3 class="story-title"><a href="https://www.animenewsnetwork.com/site-news/2026-04-08/yoshiki-returns-to-l.a-for-two-live-concerts-july-16-17-at-disney-concert-hall/.236219" target="_blank" rel="noopener">YOSHIKI (Attack on Titan) returns to L.A. for two LIVE concerts July 16-17 at Disney Concert Hall!</a></h3>
+      <p class="story-desc">YOSHIKI returns to Los Angeles for &quot;Classical 2026&quot; July 16–17. Tickets go on Sale August 10, but use our exclusive code to get your tickets now!</p>
       <div class="story-meta">
-        <span class="source-label">autosport.com</span>
+        <span class="source-label">Anime News Network</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.autosport.com/national/news/trucks-and-tcr-uk-star-as-brands-hatch-centenary-season-begins/10811222/', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.autosport.com/national/news/trucks-and-tcr-uk-star-as-brands-hatch-centenary-season-begins/10811222/', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.animenewsnetwork.com/site-news/2026-04-08/yoshiki-returns-to-l.a-for-two-live-concerts-july-16-17-at-disney-concert-hall/.236219', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.animenewsnetwork.com/site-news/2026-04-08/yoshiki-returns-to-l.a-for-two-live-concerts-july-16-17-at-disney-concert-hall/.236219', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.globenewswire.com/news-release/2026/04/07/3269263/0/en/Introducing-Seven-Falls-Hold-Co-A-New-Era-for-Mission-Driven-Software-Impact.html">
-      <h3 class="story-title"><a href="https://www.globenewswire.com/news-release/2026/04/07/3269263/0/en/Introducing-Seven-Falls-Hold-Co-A-New-Era-for-Mission-Driven-Software-Impact.html" target="_blank" rel="noopener">Introducing Seven Falls Hold Co.: A New Era for Mission-Driven Software Impact</a></h3>
-      <p class="story-desc">Rise8 founder announces the launch of Seven Falls Hold Co. to help founders grow and scale mission-driven govtech services and product companies....</p>
+    <article class="story-card" data-url="https://tim.blog/2026/04/08/michelle-khare-challenge-accepted-transcript/">
+      <h3 class="story-title"><a href="https://tim.blog/2026/04/08/michelle-khare-challenge-accepted-transcript/" target="_blank" rel="noopener">The Tim Ferriss Show Transcripts: Daredevil Michelle Khare — How to Become a YouTube Superstar, Open Impossible Doors (FBI, Secret Service, etc.), Craft Jedi-Level Cold Emails, and Use Fear-Setting to Change Your Life (#860)</a></h3>
+      <p class="story-desc">Please enjoy this transcript of my interview with daredevil Michelle Khare. Michelle lives life to the extreme in Challenge Accepted, amassing more than 6 million followers and more than 1 billion views. Michelle hopes to prove that with enough dedication and…</p>
+      <div class="story-meta">
+        <span class="source-label">Tim.blog</span>
+        <div class="vote-buttons">
+          <button class="vote-btn up" onclick="vote(this, 'https://tim.blog/2026/04/08/michelle-khare-challenge-accepted-transcript/', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://tim.blog/2026/04/08/michelle-khare-challenge-accepted-transcript/', -1)" title="Downvote">▼</button>
+        </div>
+      </div>
+    </article>
+    <article class="story-card" data-url="https://newatlas.com/holiday-destinations/shenzhen-window-of-the-world/">
+      <h3 class="story-title"><a href="https://newatlas.com/holiday-destinations/shenzhen-window-of-the-world/" target="_blank" rel="noopener">In China’s &#x27;Silicon Valley,&#x27; US landmarks stand in a strange world frozen in time</a></h3>
+      <p class="story-desc">Mount Rushmore may have its home in South Dakota, but it’s also in Shenzhen, China. Here, the four presidents stare out over a section of a 118-acre (48-hectare) theme park, where iconic structures from across the world sit alongside each other, frozen in tim…</p>
+      <div class="story-meta">
+        <span class="source-label">New Atlas</span>
+        <div class="vote-buttons">
+          <button class="vote-btn up" onclick="vote(this, 'https://newatlas.com/holiday-destinations/shenzhen-window-of-the-world/', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://newatlas.com/holiday-destinations/shenzhen-window-of-the-world/', -1)" title="Downvote">▼</button>
+        </div>
+      </div>
+    </article>
+    <article class="story-card" data-url="https://www.globenewswire.com/news-release/2026/04/08/3269778/0/en/Real-Money-Poker-Sites-2026-BC-Poker-Gives-5-Free-No-Deposit-Bonus-With-No-Cashout-Cap-Soft-Games-and-Instant-Crypto-Withdrawals.html">
+      <h3 class="story-title"><a href="https://www.globenewswire.com/news-release/2026/04/08/3269778/0/en/Real-Money-Poker-Sites-2026-BC-Poker-Gives-5-Free-No-Deposit-Bonus-With-No-Cashout-Cap-Soft-Games-and-Instant-Crypto-Withdrawals.html" target="_blank" rel="noopener">Real Money Poker Sites 2026: BC Poker Gives $5 Free No Deposit Bonus With No Cashout Cap, Soft Games, and Instant Crypto Withdrawals</a></h3>
+      <p class="story-desc">Chicago, IL, April 07, 2026 (GLOBE NEWSWIRE) -- BC Poker is offering new players $5 free to play real money poker with no deposit required, no cashout cap on winnings, and instant cryptocurrency withdrawals. A second $5 bonus is added when players download th…</p>
       <div class="story-meta">
         <span class="source-label">GlobeNewswire</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.globenewswire.com/news-release/2026/04/07/3269263/0/en/Introducing-Seven-Falls-Hold-Co-A-New-Era-for-Mission-Driven-Software-Impact.html', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.globenewswire.com/news-release/2026/04/07/3269263/0/en/Introducing-Seven-Falls-Hold-Co-A-New-Era-for-Mission-Driven-Software-Impact.html', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.globenewswire.com/news-release/2026/04/08/3269778/0/en/Real-Money-Poker-Sites-2026-BC-Poker-Gives-5-Free-No-Deposit-Bonus-With-No-Cashout-Cap-Soft-Games-and-Instant-Crypto-Withdrawals.html', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.globenewswire.com/news-release/2026/04/08/3269778/0/en/Real-Money-Poker-Sites-2026-BC-Poker-Gives-5-Free-No-Deposit-Bonus-With-No-Cashout-Cap-Soft-Games-and-Instant-Crypto-Withdrawals.html', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://economictimes.indiatimes.com/tech/startups/kreditbee-secures-280-million-funding-joins-unicorn-club-with-1-5-billion-valuation/articleshow/130091265.cms">
-      <h3 class="story-title"><a href="https://economictimes.indiatimes.com/tech/startups/kreditbee-secures-280-million-funding-joins-unicorn-club-with-1-5-billion-valuation/articleshow/130091265.cms" target="_blank" rel="noopener">Kreditbee secures $280 million funding, joins unicorn club with $1.5 billion valuation</a></h3>
-      <p class="story-desc">Digital lending firm Kreditbee has raised $280 million, becoming a unicorn with a $1.5 billion valuation. This funding marks their last private round before a planned public listing. The company is aw…</p>
+    <article class="story-card" data-url="https://www.nature.com/articles/s41586-026-10349-2">
+      <h3 class="story-title"><a href="https://www.nature.com/articles/s41586-026-10349-2" target="_blank" rel="noopener">The importance of competition and facilitation for global tree diversity</a></h3>
+      <p class="story-desc">Across 17 forest plots (2.7 million trees, 5,400 species), competition dominated overall, but facilitation was relatively stronger near the equator and declined towards higher latitudes, partly linked to temperature, legumes, mycorrhizal associations&amp;nbsp;and…</p>
       <div class="story-meta">
-        <span class="source-label">The Times of India</span>
+        <span class="source-label">Nature.com</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://economictimes.indiatimes.com/tech/startups/kreditbee-secures-280-million-funding-joins-unicorn-club-with-1-5-billion-valuation/articleshow/130091265.cms', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://economictimes.indiatimes.com/tech/startups/kreditbee-secures-280-million-funding-joins-unicorn-club-with-1-5-billion-valuation/articleshow/130091265.cms', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.nature.com/articles/s41586-026-10349-2', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.nature.com/articles/s41586-026-10349-2', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://economictimes.indiatimes.com/tech/funding/kreditbee-secures-280-million-funding-joins-unicorn-club-with-1-5-billion-valuation/articleshow/130091264.cms">
-      <h3 class="story-title"><a href="https://economictimes.indiatimes.com/tech/funding/kreditbee-secures-280-million-funding-joins-unicorn-club-with-1-5-billion-valuation/articleshow/130091264.cms" target="_blank" rel="noopener">Digital lender Kreditbee in unicorn club with $280 million at $1.5 billion valuation</a></h3>
-      <p class="story-desc">Digital lending firm Kreditbee has raised $280 million, becoming a unicorn with a $1.5 billion valuation. This funding marks their last private round before a planned public listing. The company is aw…</p>
+    <article class="story-card" data-url="https://www.nature.com/articles/s41586-026-10330-z">
+      <h3 class="story-title"><a href="https://www.nature.com/articles/s41586-026-10330-z" target="_blank" rel="noopener">Genetic predictors of GLP1 receptor agonist weight loss and side effects</a></h3>
+      <p class="story-desc">Identification of genetic variants associated with the efficacy and side effects of GLP1 medications could underpin development of precision medicine approaches in the treatment of obesity.</p>
       <div class="story-meta">
-        <span class="source-label">The Times of India</span>
+        <span class="source-label">Nature.com</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://economictimes.indiatimes.com/tech/funding/kreditbee-secures-280-million-funding-joins-unicorn-club-with-1-5-billion-valuation/articleshow/130091264.cms', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://economictimes.indiatimes.com/tech/funding/kreditbee-secures-280-million-funding-joins-unicorn-club-with-1-5-billion-valuation/articleshow/130091264.cms', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.nature.com/articles/s41586-026-10330-z', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.nature.com/articles/s41586-026-10330-z', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://legalinsurrection.com/2026/04/fbi-warns-of-iran-affiliated-hackers-targeting-u-s-critical-infrastructure/">
-      <h3 class="story-title"><a href="https://legalinsurrection.com/2026/04/fbi-warns-of-iran-affiliated-hackers-targeting-u-s-critical-infrastructure/" target="_blank" rel="noopener">FBI Warns of Iran-Affiliated Hackers Targeting U.S. Critical Infrastructure</a></h3>
-      <p class="story-desc">&quot;These attacks have led to diminished PLC functionality, manipulation of display data and, in some cases, operational disruption and financial loss.&quot;
-The post FBI Warns of Iran-Affiliated Ha…</p>
+    <article class="story-card" data-url="https://www.animenewsnetwork.com/news/2026-04-07/shuten-order-physical-switch-switch-2-editions-delayed-in-n-america/.236204">
+      <h3 class="story-title"><a href="https://www.animenewsnetwork.com/news/2026-04-07/shuten-order-physical-switch-switch-2-editions-delayed-in-n-america/.236204" target="_blank" rel="noopener">Shuten Order Physical Switch, Switch 2 Editions Delayed in N. America</a></h3>
+      <p class="story-desc">Physical releases delayed from April 23 to April 30</p>
       <div class="story-meta">
-        <span class="source-label">Legalinsurrection.com</span>
+        <span class="source-label">Anime News Network</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://legalinsurrection.com/2026/04/fbi-warns-of-iran-affiliated-hackers-targeting-u-s-critical-infrastructure/', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://legalinsurrection.com/2026/04/fbi-warns-of-iran-affiliated-hackers-targeting-u-s-critical-infrastructure/', -1)" title="Downvote">▼</button>
-        </div>
-      </div>
-    </article>
-
-    <article class="story-card" data-url="https://www.globenewswire.com/news-release/2026/04/07/3269732/0/en/Global-Anesthesia-and-Respiratory-Devices-Market-Size-Share-Worth-USD-100-5-Billion-by-2035-at-a-5-8-CAGR-Healthcare-Foresights-Analysis-Outlook-Leaders-Report-Trends-Forecast-Segm.html">
-      <h3 class="story-title"><a href="https://www.globenewswire.com/news-release/2026/04/07/3269732/0/en/Global-Anesthesia-and-Respiratory-Devices-Market-Size-Share-Worth-USD-100-5-Billion-by-2035-at-a-5-8-CAGR-Healthcare-Foresights-Analysis-Outlook-Leaders-Report-Trends-Forecast-Segm.html" target="_blank" rel="noopener">Global Anesthesia and Respiratory Devices Market Size/Share Worth USD 100.5 Billion by 2035 at a 5.8% CAGR: Healthcare Foresights (Analysis, Outlook, Leaders, Report, Trends, Forecast, Segmentation, Growth Rate, SWOT Analysis)</a></h3>
-      <p class="story-desc">[220+ Pages Latest Report] According to a market research study published by Healthcare Foresights, the demand analysis of Global Anesthesia and Respiratory Devices Market size &amp; share revenue was…</p>
-      <div class="story-meta">
-        <span class="source-label">GlobeNewswire</span>
-        <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.globenewswire.com/news-release/2026/04/07/3269732/0/en/Global-Anesthesia-and-Respiratory-Devices-Market-Size-Share-Worth-USD-100-5-Billion-by-2035-at-a-5-8-CAGR-Healthcare-Foresights-Analysis-Outlook-Leaders-Report-Trends-Forecast-Segm.html', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.globenewswire.com/news-release/2026/04/07/3269732/0/en/Global-Anesthesia-and-Respiratory-Devices-Market-Size-Share-Worth-USD-100-5-Billion-by-2035-at-a-5-8-CAGR-Healthcare-Foresights-Analysis-Outlook-Leaders-Report-Trends-Forecast-Segm.html', -1)" title="Downvote">▼</button>
-        </div>
-      </div>
-    </article>
-
-    <article class="story-card" data-url="https://www.globenewswire.com/news-release/2026/04/07/3269706/0/en/Trident-Announces-Plan-to-Implement-ADS-Ratio-Change.html">
-      <h3 class="story-title"><a href="https://www.globenewswire.com/news-release/2026/04/07/3269706/0/en/Trident-Announces-Plan-to-Implement-ADS-Ratio-Change.html" target="_blank" rel="noopener">Trident Announces Plan to Implement ADS Ratio Change</a></h3>
-      <p class="story-desc">SINGAPORE, April 07, 2026 (GLOBE NEWSWIRE) -- Trident Digital Tech Holdings Ltd (“Trident” or the “Company,” NASDAQ: TDTH), a leading catalyst for digital transformation in technology optimization ser…</p>
-      <div class="story-meta">
-        <span class="source-label">GlobeNewswire</span>
-        <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.globenewswire.com/news-release/2026/04/07/3269706/0/en/Trident-Announces-Plan-to-Implement-ADS-Ratio-Change.html', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.globenewswire.com/news-release/2026/04/07/3269706/0/en/Trident-Announces-Plan-to-Implement-ADS-Ratio-Change.html', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.animenewsnetwork.com/news/2026-04-07/shuten-order-physical-switch-switch-2-editions-delayed-in-n-america/.236204', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.animenewsnetwork.com/news/2026-04-07/shuten-order-physical-switch-switch-2-editions-delayed-in-n-america/.236204', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
@@ -362,9 +450,45 @@ The post FBI Warns of Iran-Affiliated Ha…</p>
   </section>
 
   <section class="topic-section" id="housing">
-    <h2 class="topic-header">🏘️ Housing Policy</h2>
+    <div class="topic-header-row">
+      <h2 class="topic-header">Housing Policy</h2>
+    </div>
     <div class="stories-grid">
       
+    <article class="story-card featured" data-url="https://newrepublic.com/article/208756/trump-2027-budget-hurts-working-class">
+      <h3 class="story-title"><a href="https://newrepublic.com/article/208756/trump-2027-budget-hurts-working-class" target="_blank" rel="noopener">Five Ways Trump’s Proposed Budget Hurts the
+Working Class</a></h3>
+      <p class="story-desc">President Donald Trump’s 2027 budget proposal, sent to Congress on Friday, doubles down on MAGA pet projects while taking a sledgehammer to a number of programs that help the working class. Among the casualties could be new moms trying to buy food and familie…</p>
+      <div class="story-meta">
+        <span class="source-label">The New Republic</span>
+        <div class="vote-buttons">
+          <button class="vote-btn up" onclick="vote(this, 'https://newrepublic.com/article/208756/trump-2027-budget-hurts-working-class', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://newrepublic.com/article/208756/trump-2027-budget-hurts-working-class', -1)" title="Downvote">▼</button>
+        </div>
+      </div>
+    </article>
+    <article class="story-card" data-url="https://www.insurancejournal.com/news/east/2026/04/08/864903.htm">
+      <h3 class="story-title"><a href="https://www.insurancejournal.com/news/east/2026/04/08/864903.htm" target="_blank" rel="noopener">NYC Mayor Mamdani Wants to Crack Down on ‘Bad Landlords.’ First He Has to Find Them</a></h3>
+      <p class="story-desc">On a recent weeknight, three tenants of an aging Bronx building were trading apartment horror stories inside a packed ballroom lined with city bureaucrats. The occasion was the third in a series of “rental rip-off hearings,” a new forum launched …</p>
+      <div class="story-meta">
+        <span class="source-label">Insurance Journal</span>
+        <div class="vote-buttons">
+          <button class="vote-btn up" onclick="vote(this, 'https://www.insurancejournal.com/news/east/2026/04/08/864903.htm', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.insurancejournal.com/news/east/2026/04/08/864903.htm', -1)" title="Downvote">▼</button>
+        </div>
+      </div>
+    </article>
+    <article class="story-card" data-url="https://www.denverpost.com/2026/04/07/lakewood-density-rezoning-special-election/">
+      <h3 class="story-title"><a href="https://www.denverpost.com/2026/04/07/lakewood-density-rezoning-special-election/" target="_blank" rel="noopener">Lakewood voters reverse city’s rezoning effort in special election on housing density</a></h3>
+      <p class="story-desc">The special election vote strikes a blow against those who have been pushing for more density in Lakewood in the hopes of increasing housing supply, lowering home prices.</p>
+      <div class="story-meta">
+        <span class="source-label">The Denver Post</span>
+        <div class="vote-buttons">
+          <button class="vote-btn up" onclick="vote(this, 'https://www.denverpost.com/2026/04/07/lakewood-density-rezoning-special-election/', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.denverpost.com/2026/04/07/lakewood-density-rezoning-special-election/', -1)" title="Downvote">▼</button>
+        </div>
+      </div>
+    </article>
     <article class="story-card" data-url="https://www.mercurynews.com/2026/04/07/eric-swalwell-ice-record-governor-race/">
       <h3 class="story-title"><a href="https://www.mercurynews.com/2026/04/07/eric-swalwell-ice-record-governor-race/" target="_blank" rel="noopener">Eric Swalwell’s past support for ICE, sheriff endorsement resurface in California governor race</a></h3>
       <p class="story-desc">Rep. Eric Swalwell’s anti-ICE campaign for governor clashes with his past support for the agency and his endorsement of a sheriff who closely worked with it.</p>
@@ -376,10 +500,9 @@ The post FBI Warns of Iran-Affiliated Ha…</p>
         </div>
       </div>
     </article>
-
     <article class="story-card" data-url="https://www.cbc.ca/news/canada/calgary/blanket-rezoning-hearing-closes-9.7155045">
       <h3 class="story-title"><a href="https://www.cbc.ca/news/canada/calgary/blanket-rezoning-hearing-closes-9.7155045" target="_blank" rel="noopener">Weeks-long public hearing on repealing blanket rezoning ends</a></h3>
-      <p class="story-desc">Kicking off on March 23, Calgary city council&#x27;s marathon public hearing has come to a close after 411 public presenters shared their thoughts on the controversial housing policy. Now debate, and …</p>
+      <p class="story-desc">Kicking off on March 23, Calgary city council&#x27;s marathon public hearing has come to a close after 411 public presenters shared their thoughts on the controversial housing policy. Now debate, and possibly a vote, are expected as early as Wednesday.</p>
       <div class="story-meta">
         <span class="source-label">CBC News</span>
         <div class="vote-buttons">
@@ -388,7 +511,6 @@ The post FBI Warns of Iran-Affiliated Ha…</p>
         </div>
       </div>
     </article>
-
     <article class="story-card" data-url="https://dailycaller.com/2026/04/07/zohran-mamdani-racial-equality-plan-harmeet-dhillon/">
       <h3 class="story-title"><a href="https://dailycaller.com/2026/04/07/zohran-mamdani-racial-equality-plan-harmeet-dhillon/" target="_blank" rel="noopener">Mamdani To Prioritize City Resources For ‘Black And Brown’ People</a></h3>
       <p class="story-desc">&#x27;Sounds fishy/illegal&#x27;</p>
@@ -400,11 +522,10 @@ The post FBI Warns of Iran-Affiliated Ha…</p>
         </div>
       </div>
     </article>
-
     <article class="story-card" data-url="https://www.globalresearch.ca/america-last-war-abroad-tyranny-at-home-and-the-theft-of-a-nation/5921552">
       <h3 class="story-title"><a href="https://www.globalresearch.ca/america-last-war-abroad-tyranny-at-home-and-the-theft-of-a-nation/5921552" target="_blank" rel="noopener">America Last: War Abroad, Tyranny at Home—And the Theft of a Nation</a></h3>
       <p class="story-desc">Every war waged in the name of “security” is paid for by Americans who go without—without affordable healthcare, without stable housing, without a government that prioritizes their well-being.
-The pos…</p>
+The post America Last: War Abroad, Tyranny at Home—And the Theft o…</p>
       <div class="story-meta">
         <span class="source-label">Globalresearch.ca</span>
         <div class="vote-buttons">
@@ -413,10 +534,9 @@ The pos…</p>
         </div>
       </div>
     </article>
-
     <article class="story-card" data-url="https://www.globenewswire.com/news-release/2026/04/07/3269544/0/en/MHM-Invests-237-5-Million-to-Create-a-Healthier-Future-Across-South-Texas.html">
       <h3 class="story-title"><a href="https://www.globenewswire.com/news-release/2026/04/07/3269544/0/en/MHM-Invests-237-5-Million-to-Create-a-Healthier-Future-Across-South-Texas.html" target="_blank" rel="noopener">MHM Invests $237.5 Million to Create a Healthier Future Across South Texas</a></h3>
-      <p class="story-desc">Funding elevates care access, strengthens communities, and helps more people reach their full potential for health and life. Funding elevates care access, strengthens communities, and helps more peopl…</p>
+      <p class="story-desc">Funding elevates care access, strengthens communities, and helps more people reach their full potential for health and life. Funding elevates care access, strengthens communities, and helps more people reach their full potential for health and life.</p>
       <div class="story-meta">
         <span class="source-label">GlobeNewswire</span>
         <div class="vote-buttons">
@@ -425,74 +545,16 @@ The pos…</p>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.realtor.com/news/real-estate-news/housing-crisis-solution-manufactured-homes/?cid=eml__1946:66e221571a4446d4e6969d41:rm202604071030_Marketing_Consumer_Daily_EditorialRSSDynamic">
-      <h3 class="story-title"><a href="https://www.realtor.com/news/real-estate-news/housing-crisis-solution-manufactured-homes/?cid=eml__1946:66e221571a4446d4e6969d41:rm202604071030_Marketing_Consumer_Daily_EditorialRSSDynamic" target="_blank" rel="noopener">The solution to America’s ongoing housing crisis starts with construction</a></h3>
-      <p class="story-desc">The US is short 4.03 million homes.</p>
-      <div class="story-meta">
-        <span class="source-label">Realtor.com News</span>
-        <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.realtor.com/news/real-estate-news/housing-crisis-solution-manufactured-homes/?cid=eml__1946:66e221571a4446d4e6969d41:rm202604071030_Marketing_Consumer_Daily_EditorialRSSDynamic', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.realtor.com/news/real-estate-news/housing-crisis-solution-manufactured-homes/?cid=eml__1946:66e221571a4446d4e6969d41:rm202604071030_Marketing_Consumer_Daily_EditorialRSSDynamic', -1)" title="Downvote">▼</button>
-        </div>
-      </div>
-    </article>
-
-    <article class="story-card" data-url="https://www.wbur.org/news/2026/04/01/joseph-henry-boston-mayors-office-arts-culture">
-      <h3 class="story-title"><a href="https://www.wbur.org/news/2026/04/01/joseph-henry-boston-mayors-office-arts-culture" target="_blank" rel="noopener">The City Of Boston Gets A New Arts Chief</a></h3>
-      <p class="story-desc">After a year-long search, Joseph Henry, a native Londoner, has been selected to lead the Mayor’s Office of Arts and Culture. He plans to bring his planning and development experience to the role. “Acc…</p>
-      <div class="story-meta">
-        <span class="source-label">WBUR</span>
-        <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.wbur.org/news/2026/04/01/joseph-henry-boston-mayors-office-arts-culture', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.wbur.org/news/2026/04/01/joseph-henry-boston-mayors-office-arts-culture', -1)" title="Downvote">▼</button>
-        </div>
-      </div>
-    </article>
-
-    <article class="story-card" data-url="https://economictimes.indiatimes.com/news/india/centre-eases-tod-norms-mandates-65-pc-affordable-housing-along-metro-corridors/articleshow/130091409.cms">
-      <h3 class="story-title"><a href="https://economictimes.indiatimes.com/news/india/centre-eases-tod-norms-mandates-65-pc-affordable-housing-along-metro-corridors/articleshow/130091409.cms" target="_blank" rel="noopener">Centre eases TOD norms, mandates 65 pc affordable housing along metro corridors</a></h3>
-      <p class="story-desc">Under the fresh norms, earlier existing land use restrictions have been removed, the minimum plot size requirement to avail the scheme has been reduced, 65 per cent of the total floor area ratio (FAR)…</p>
-      <div class="story-meta">
-        <span class="source-label">The Times of India</span>
-        <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://economictimes.indiatimes.com/news/india/centre-eases-tod-norms-mandates-65-pc-affordable-housing-along-metro-corridors/articleshow/130091409.cms', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://economictimes.indiatimes.com/news/india/centre-eases-tod-norms-mandates-65-pc-affordable-housing-along-metro-corridors/articleshow/130091409.cms', -1)" title="Downvote">▼</button>
-        </div>
-      </div>
-    </article>
     </div>
   </section>
 
   <section class="topic-section" id="nonprofit">
-    <h2 class="topic-header">🤝 Nonprofit & Grants</h2>
+    <div class="topic-header-row">
+      <h2 class="topic-header">Nonprofit & Grants</h2>
+    </div>
     <div class="stories-grid">
       
-    <article class="story-card" data-url="https://nypost.com/2026/04/07/business/13-shots-pumped-into-indianapolis-officials-front-door-raises-fears-over-violent-data-center-opposition-deeply-unsettling/">
-      <h3 class="story-title"><a href="https://nypost.com/2026/04/07/business/13-shots-pumped-into-indianapolis-officials-front-door-raises-fears-over-violent-data-center-opposition-deeply-unsettling/" target="_blank" rel="noopener">13 shots pumped into Indianapolis official’s front door raises fears over violent data center opposition: ‘Deeply unsettling’</a></h3>
-      <p class="story-desc">An Indianapolis city councilor’s home was shot up a few hours after Easter Sunday with a note left on the doorstep: “NO DATA CENTERS.” Ron Gibson– who is serving his third term on the Indianapolis Cit…</p>
-      <div class="story-meta">
-        <span class="source-label">New York Post</span>
-        <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://nypost.com/2026/04/07/business/13-shots-pumped-into-indianapolis-officials-front-door-raises-fears-over-violent-data-center-opposition-deeply-unsettling/', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://nypost.com/2026/04/07/business/13-shots-pumped-into-indianapolis-officials-front-door-raises-fears-over-violent-data-center-opposition-deeply-unsettling/', -1)" title="Downvote">▼</button>
-        </div>
-      </div>
-    </article>
-
-    <article class="story-card" data-url="https://www.globenewswire.com/news-release/2026/04/07/3269596/0/en/Delivering-Good-Named-to-Fast-Company-s-Annual-List-of-the-World-s-Most-Innovative-Companies-of-2026.html">
-      <h3 class="story-title"><a href="https://www.globenewswire.com/news-release/2026/04/07/3269596/0/en/Delivering-Good-Named-to-Fast-Company-s-Annual-List-of-the-World-s-Most-Innovative-Companies-of-2026.html" target="_blank" rel="noopener">Delivering Good Named to Fast Company’s Annual List of the World’s Most Innovative Companies of 2026</a></h3>
-      <p class="story-desc">Delivering Good joins the ranks of Google, Nvidia, Adidas, Walmart, and more Delivering Good joins the ranks of Google, Nvidia, Adidas, Walmart, and more</p>
-      <div class="story-meta">
-        <span class="source-label">GlobeNewswire</span>
-        <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.globenewswire.com/news-release/2026/04/07/3269596/0/en/Delivering-Good-Named-to-Fast-Company-s-Annual-List-of-the-World-s-Most-Innovative-Companies-of-2026.html', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.globenewswire.com/news-release/2026/04/07/3269596/0/en/Delivering-Good-Named-to-Fast-Company-s-Annual-List-of-the-World-s-Most-Innovative-Companies-of-2026.html', -1)" title="Downvote">▼</button>
-        </div>
-      </div>
-    </article>
-
-    <article class="story-card" data-url="https://abcnews.com/Business/wireStory/black-led-nonprofits-lasting-funding-boosts-promised-after-131797904">
+    <article class="story-card featured" data-url="https://abcnews.com/Business/wireStory/black-led-nonprofits-lasting-funding-boosts-promised-after-131797904">
       <h3 class="story-title"><a href="https://abcnews.com/Business/wireStory/black-led-nonprofits-lasting-funding-boosts-promised-after-131797904" target="_blank" rel="noopener">Black-led nonprofits didn&#x27;t see the lasting funding boosts promised after 2020&#x27;s racial reckoning</a></h3>
       <p class="story-desc">New research reveals that financial gains for many Black-led nonprofits after George Floyd’s murder were short-lived</p>
       <div class="story-meta">
@@ -503,10 +565,9 @@ The pos…</p>
         </div>
       </div>
     </article>
-
     <article class="story-card" data-url="http://commercialobserver.com/2026/04/new-york-nonprofit-housing-maintenance-city-response/">
       <h3 class="story-title"><a href="http://commercialobserver.com/2026/04/new-york-nonprofit-housing-maintenance-city-response/" target="_blank" rel="noopener">New York’s Nonprofit Housing Confronts Maintenance Crisis Amid Slow City Response</a></h3>
-      <p class="story-desc">he nonprofit group Asian Americans for Equality (AAFE) has rehabilitated or preserved more than 1,400 residential units throughout New York City over the past 30 years or so. Thomas Yu, the organizati…</p>
+      <p class="story-desc">he nonprofit group Asian Americans for Equality (AAFE) has rehabilitated or preserved more than 1,400 residential units throughout New York City over the past 30 years or so. Thomas Yu, the organization’s executive director, recalls how deeply the odds seemed…</p>
       <div class="story-meta">
         <span class="source-label">Commercial Observer</span>
         <div class="vote-buttons">
@@ -515,60 +576,69 @@ The pos…</p>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.thenation.com/article/environment/just-transition-away-fossil-fuels-conference/">
-      <h3 class="story-title"><a href="https://www.thenation.com/article/environment/just-transition-away-fossil-fuels-conference/" target="_blank" rel="noopener">A Surprise Win for Climate Survival?</a></h3>
-      <p class="story-desc">Mark Hertsgaard, Kyle Pope
-
-
-
-The creation of a new economic superpower could spark a global retreat from fossil fuels.
-
-
-
-
-The post A Surprise Win for Climate Survival? appeared first on The Nation…</p>
+    <article class="story-card" data-url="https://news.yale.edu/2026/04/07/yionoulis-named-next-dean-david-geffen-school-drama-yale">
+      <h3 class="story-title"><a href="https://news.yale.edu/2026/04/07/yionoulis-named-next-dean-david-geffen-school-drama-yale" target="_blank" rel="noopener">Yionoulis named next dean of David Geffen School of Drama at Yale</a></h3>
+      <p class="story-desc">Evan Yionoulis, an Obie award-winning director now at Julliard, starts her new role this&amp;nbsp;summer.</p>
       <div class="story-meta">
-        <span class="source-label">Thenation.com</span>
+        <span class="source-label">Yale.edu</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.thenation.com/article/environment/just-transition-away-fossil-fuels-conference/', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.thenation.com/article/environment/just-transition-away-fossil-fuels-conference/', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://news.yale.edu/2026/04/07/yionoulis-named-next-dean-david-geffen-school-drama-yale', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://news.yale.edu/2026/04/07/yionoulis-named-next-dean-david-geffen-school-drama-yale', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.nature.com/articles/d41586-026-00224-5">
-      <h3 class="story-title"><a href="https://www.nature.com/articles/d41586-026-00224-5" target="_blank" rel="noopener">When career anxiety becomes gameplay: lessons from China’s ‘young-faculty simulator’</a></h3>
-      <p class="story-desc">A popular online game simulates life as an academic — and throws the challenges of being an early-career researcher into sharp relief.</p>
+    <article class="story-card" data-url="https://www.philanthropy.com/news/news-beasley2026fellows-0408/">
+      <h3 class="story-title"><a href="https://www.philanthropy.com/news/news-beasley2026fellows-0408/" target="_blank" rel="noopener">Announcing the 2026 Philanthropy &amp; Nonprofit Accountability Fellows</a></h3>
+      <p class="story-desc">Four news outlets will receive yearlong training to help them uncover how nonprofits and philanthropy are shaping solutions to today’s most urgent local challenges.</p>
       <div class="story-meta">
-        <span class="source-label">Nature.com</span>
+        <span class="source-label">Chronicle of Philanthropy</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.nature.com/articles/d41586-026-00224-5', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.nature.com/articles/d41586-026-00224-5', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.philanthropy.com/news/news-beasley2026fellows-0408/', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.philanthropy.com/news/news-beasley2026fellows-0408/', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://projectvrm.org/2026/04/07/shooting-for-the-world/">
-      <h3 class="story-title"><a href="https://projectvrm.org/2026/04/07/shooting-for-the-world/" target="_blank" rel="noopener">Shooting for the World</a></h3>
-      <p class="story-desc">There is no organisation on Earth with a more audacious purpose than the one in the slogan here: This isn’t shooting for the Moon. It’s shooting for the whole world of business. What Customer Commons …</p>
+    <article class="story-card" data-url="https://www.philanthropy.com/news/how-to-harness-ai/">
+      <h3 class="story-title"><a href="https://www.philanthropy.com/news/how-to-harness-ai/" target="_blank" rel="noopener">How to Harness AI</a></h3>
+      <p class="story-desc">The technology is bringing big change to all corners of the nonprofit world–learn how fundraisers, grant makers and leaders are using the it to help them better meet their missions and fuel their organizations.</p>
       <div class="story-meta">
-        <span class="source-label">Projectvrm.org</span>
+        <span class="source-label">Chronicle of Philanthropy</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://projectvrm.org/2026/04/07/shooting-for-the-world/', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://projectvrm.org/2026/04/07/shooting-for-the-world/', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.philanthropy.com/news/how-to-harness-ai/', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.philanthropy.com/news/how-to-harness-ai/', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.kqed.org/news/12078868/as-legal-aid-groups-face-budget-cuts-san-francisco-awards-1-group-millions">
-      <h3 class="story-title"><a href="https://www.kqed.org/news/12078868/as-legal-aid-groups-face-budget-cuts-san-francisco-awards-1-group-millions" target="_blank" rel="noopener">As Legal Aid Groups Face Budget Cuts, San Francisco Awards 1 Group Millions</a></h3>
-      <p class="story-desc">One city department is cutting millions of dollars in funding for civil legal services while another is awarding a multimillion-dollar grant to a single nonprofit.</p>
+    <article class="story-card" data-url="https://www.philanthropy.com/opinion/commons-gaspar-storytelling-0426/">
+      <h3 class="story-title"><a href="https://www.philanthropy.com/opinion/commons-gaspar-storytelling-0426/" target="_blank" rel="noopener">Nonprofits Sit on a Gold Mine of Stories. It’s Time to Use Them.</a></h3>
+      <p class="story-desc">Storytelling can reveal behavioral patterns and systemic failures that quantitative metrics often miss. I speak from experience. Telling my story helped me win freedom.</p>
       <div class="story-meta">
-        <span class="source-label">KQED</span>
+        <span class="source-label">Chronicle of Philanthropy</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.kqed.org/news/12078868/as-legal-aid-groups-face-budget-cuts-san-francisco-awards-1-group-millions', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.kqed.org/news/12078868/as-legal-aid-groups-face-budget-cuts-san-francisco-awards-1-group-millions', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.philanthropy.com/opinion/commons-gaspar-storytelling-0426/', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.philanthropy.com/opinion/commons-gaspar-storytelling-0426/', -1)" title="Downvote">▼</button>
+        </div>
+      </div>
+    </article>
+    <article class="story-card" data-url="https://www.philanthropy.com/news/mayo-clinic-lands-75-million-to-automate-its-supply-chain-logistics/">
+      <h3 class="story-title"><a href="https://www.philanthropy.com/news/mayo-clinic-lands-75-million-to-automate-its-supply-chain-logistics/" target="_blank" rel="noopener">Mayo Clinic Lands $75 Million to Automate Its Supply Chain Logistics</a></h3>
+      <p class="story-desc">The donation from Thomas and Elizabeth Grainger is aimed at providing a more efficient way to get supplies to those caring for patients.</p>
+      <div class="story-meta">
+        <span class="source-label">Chronicle of Philanthropy</span>
+        <div class="vote-buttons">
+          <button class="vote-btn up" onclick="vote(this, 'https://www.philanthropy.com/news/mayo-clinic-lands-75-million-to-automate-its-supply-chain-logistics/', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.philanthropy.com/news/mayo-clinic-lands-75-million-to-automate-its-supply-chain-logistics/', -1)" title="Downvote">▼</button>
+        </div>
+      </div>
+    </article>
+    <article class="story-card" data-url="https://www.philanthropy.com/news/can-ai-make-grant-seeking-easier-and-grant-making-more-refined/">
+      <h3 class="story-title"><a href="https://www.philanthropy.com/news/can-ai-make-grant-seeking-easier-and-grant-making-more-refined/" target="_blank" rel="noopener">Can AI Make Grant Seeking Easier and Grant Making More Refined?</a></h3>
+      <p class="story-desc">Some experts think AI could upend the entire process, resulting in a more automated system to bring nonprofits and foundations together.</p>
+      <div class="story-meta">
+        <span class="source-label">Chronicle of Philanthropy</span>
+        <div class="vote-buttons">
+          <button class="vote-btn up" onclick="vote(this, 'https://www.philanthropy.com/news/can-ai-make-grant-seeking-easier-and-grant-making-more-refined/', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.philanthropy.com/news/can-ai-make-grant-seeking-easier-and-grant-making-more-refined/', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
@@ -576,101 +646,105 @@ The post A Surprise Win for Climate Survival? appeared first on The Nation…</p
   </section>
 
   <section class="topic-section" id="ai-tech">
-    <h2 class="topic-header">🤖 AI & Tech</h2>
+    <div class="topic-header-row">
+      <h2 class="topic-header">AI & Tech</h2>
+    </div>
     <div class="stories-grid">
       
-    <article class="story-card" data-url="https://www.kqed.org/news/12078982/google-updates-suicide-self-harm-safeguards-in-gemini-as-ai-lawsuits-mount">
-      <h3 class="story-title"><a href="https://www.kqed.org/news/12078982/google-updates-suicide-self-harm-safeguards-in-gemini-as-ai-lawsuits-mount" target="_blank" rel="noopener">Google Updates Suicide, Self-Harm Safeguards in Gemini as AI Lawsuits Mount</a></h3>
-      <p class="story-desc">The updated mental health support features arrive on the tails of lawsuits alleging that Alphabet’s Google, as well as rivals like OpenAI, design chatbots that lead users to self-harm.</p>
+    <article class="story-card featured" data-url="https://www.thenation.com/article/society/ro-khanna-ai-democracy-blueprint/">
+      <h3 class="story-title"><a href="https://www.thenation.com/article/society/ro-khanna-ai-democracy-blueprint/" target="_blank" rel="noopener">AI for the People</a></h3>
+      <p class="story-desc">Rep. Ro Khanna
+
+
+
+A manifesto for an AI revolution that works for the many, not just the billionaires.
+
+
+
+
+The post AI for the People appeared first on The Nation.</p>
       <div class="story-meta">
-        <span class="source-label">KQED</span>
+        <span class="source-label">Thenation.com</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.kqed.org/news/12078982/google-updates-suicide-self-harm-safeguards-in-gemini-as-ai-lawsuits-mount', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.kqed.org/news/12078982/google-updates-suicide-self-harm-safeguards-in-gemini-as-ai-lawsuits-mount', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.thenation.com/article/society/ro-khanna-ai-democracy-blueprint/', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.thenation.com/article/society/ro-khanna-ai-democracy-blueprint/', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.pymnts.com/artificial-intelligence-2/2026/legion-health-ai-cleared-to-provide-faster-refills-for-utah-patients/">
-      <h3 class="story-title"><a href="https://www.pymnts.com/artificial-intelligence-2/2026/legion-health-ai-cleared-to-provide-faster-refills-for-utah-patients/" target="_blank" rel="noopener">Legion Health AI Cleared to Provide Faster Refills for Utah Patients</a></h3>
-      <p class="story-desc">Utah regulators have cleared Y Combinator-backed Legion Health to let its artificial intelligence (AI) renew certain psychiatric prescriptions without a doctor signing off each time, The Verge reporte…</p>
+    <article class="story-card" data-url="https://www.techtarget.com/searchdatamanagement/feature/Data-governance-for-AI-requires-a-cross-functional-approach">
+      <h3 class="story-title"><a href="https://www.techtarget.com/searchdatamanagement/feature/Data-governance-for-AI-requires-a-cross-functional-approach" target="_blank" rel="noopener">Data governance for AI requires a cross-functional approach</a></h3>
+      <p class="story-desc">AI systems create risks that span data, security and model integrity. A cross-functional governance model distributes ownership without creating silos.</p>
       <div class="story-meta">
-        <span class="source-label">pymnts.com</span>
+        <span class="source-label">Techtarget.com</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.pymnts.com/artificial-intelligence-2/2026/legion-health-ai-cleared-to-provide-faster-refills-for-utah-patients/', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.pymnts.com/artificial-intelligence-2/2026/legion-health-ai-cleared-to-provide-faster-refills-for-utah-patients/', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.techtarget.com/searchdatamanagement/feature/Data-governance-for-AI-requires-a-cross-functional-approach', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.techtarget.com/searchdatamanagement/feature/Data-governance-for-AI-requires-a-cross-functional-approach', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.rt.com/news/637640-persian-armageddon-iran-war/">
-      <h3 class="story-title"><a href="https://www.rt.com/news/637640-persian-armageddon-iran-war/" target="_blank" rel="noopener">Prof. Schlevogt’s Compass No. 51: Persian Armageddon, rewired – Seven repercussions of the Iran war</a></h3>
-      <p class="story-desc">The US and Israel are waging a war of choice with global consequences: eroding norms, imperial decline, and a world tilting toward disorder. Read Full Article at RT.com</p>
+    <article class="story-card" data-url="https://siliconangle.com/2026/04/07/anthropics-dispute-us-government-exposes-deeper-rifts-ai-governance-risk-control/">
+      <h3 class="story-title"><a href="https://siliconangle.com/2026/04/07/anthropics-dispute-us-government-exposes-deeper-rifts-ai-governance-risk-control/" target="_blank" rel="noopener">Anthropic’s dispute with US government exposes deeper rifts over AI governance, risk and control</a></h3>
+      <p class="story-desc">The escalating dispute between Anthropic PBC and the U.S. Department of Defense is exposing a fundamental tension in the artificial intelligence market: who ultimately controls how powerful AI systems are used. What began as a contracting and policy disagreem…</p>
       <div class="story-meta">
-        <span class="source-label">RT</span>
+        <span class="source-label">SiliconANGLE News</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.rt.com/news/637640-persian-armageddon-iran-war/', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.rt.com/news/637640-persian-armageddon-iran-war/', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://siliconangle.com/2026/04/07/anthropics-dispute-us-government-exposes-deeper-rifts-ai-governance-risk-control/', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://siliconangle.com/2026/04/07/anthropics-dispute-us-government-exposes-deeper-rifts-ai-governance-risk-control/', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.nextgov.com/artificial-intelligence/2026/04/vas-fy27-budget-proposal-seeks-funding-additional-ai-adoption/412687/">
-      <h3 class="story-title"><a href="https://www.nextgov.com/artificial-intelligence/2026/04/vas-fy27-budget-proposal-seeks-funding-additional-ai-adoption/412687/" target="_blank" rel="noopener">VA’s FY27 budget proposal seeks funding for additional AI adoption</a></h3>
-      <p class="story-desc">VA’s decision intelligence and automation activities would see a 10.9% increase over FY26 enacted levels, with the growth “driven primarily by the AI Infrastructure solution.”</p>
+    <article class="story-card" data-url="http://nymag.com/intelligencer/article/why-did-openai-buy-a-podcast.html">
+      <h3 class="story-title"><a href="http://nymag.com/intelligencer/article/why-did-openai-buy-a-podcast.html" target="_blank" rel="noopener">AI’s ‘Big Tobacco’ Moment Is Coming</a></h3>
+      <p class="story-desc">After social-media companies’ ‘big tobacco’ moment, AI firms like OpenAI and Anthropic are worrying, and preparing, for their own version of tech backlash.</p>
       <div class="story-meta">
-        <span class="source-label">Nextgov</span>
+        <span class="source-label">New York Magazine</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.nextgov.com/artificial-intelligence/2026/04/vas-fy27-budget-proposal-seeks-funding-additional-ai-adoption/412687/', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.nextgov.com/artificial-intelligence/2026/04/vas-fy27-budget-proposal-seeks-funding-additional-ai-adoption/412687/', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'http://nymag.com/intelligencer/article/why-did-openai-buy-a-podcast.html', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'http://nymag.com/intelligencer/article/why-did-openai-buy-a-podcast.html', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.princeton.edu/events/2026/electroshocking-past-art-history-and-political-project-non-generative-ai">
-      <h3 class="story-title"><a href="https://www.princeton.edu/events/2026/electroshocking-past-art-history-and-political-project-non-generative-ai" target="_blank" rel="noopener">Electroshocking the Past: Art History and the Political Project of Non-Generative AI</a></h3>
-      <p class="story-desc">This talk presents material from Sonja Drimmer&#x27;s current project, &quot;Extracting the Past: How AI Is Stealing History to Rob Our Future.&quot; Broadly, the book offers an account of the artific…</p>
+    <article class="story-card" data-url="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0346531">
+      <h3 class="story-title"><a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0346531" target="_blank" rel="noopener">Rejection or support? research on labor participation strategy of older adults based on three-party evolutionary game</a></h3>
+      <p class="story-desc">To address the demographic challenges posed by accelerated aging and shrinking labor force, it is crucial to develop human resources and encourage labor participation among older adults to achieve active aging. This study constructs a three-party evolutionary…</p>
       <div class="story-meta">
-        <span class="source-label">Princeton University</span>
+        <span class="source-label">Plos.org</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.princeton.edu/events/2026/electroshocking-past-art-history-and-political-project-non-generative-ai', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.princeton.edu/events/2026/electroshocking-past-art-history-and-political-project-non-generative-ai', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0346531', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0346531', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.techradar.com/pro/floating-data-centers-cruise-a-bit-closer-after-a-major-show-of-support-from-japanese-giant-hitachi">
-      <h3 class="story-title"><a href="https://www.techradar.com/pro/floating-data-centers-cruise-a-bit-closer-after-a-major-show-of-support-from-japanese-giant-hitachi" target="_blank" rel="noopener">Floating data centers cruise a bit closer after a major show of support from Japanese giant Hitachi</a></h3>
-      <p class="story-desc">Japan is advancing floating data center plans using converted ships, with Hitachi support, to address land shortages and growing AI infrastructure demand.</p>
+    <article class="story-card" data-url="https://www.orfonline.org/expert-speak/standing-with-science-in-a-staff-scarce-health-system-the-promise-of-ai">
+      <h3 class="story-title"><a href="https://www.orfonline.org/expert-speak/standing-with-science-in-a-staff-scarce-health-system-the-promise-of-ai" target="_blank" rel="noopener">Standing With Science in a Staff-Scarce Health System: The Promise of AI</a></h3>
+      <p class="story-desc">The Strategy for Artificial Intelligence in Healthcare for India (SAHI) tries to bring discipline to health AI adoption, shifting the focus from pilots to how tools are evaluated, monitored, and held accountable in real-world care</p>
       <div class="story-meta">
-        <span class="source-label">TechRadar</span>
+        <span class="source-label">Observer Research Foundation</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.techradar.com/pro/floating-data-centers-cruise-a-bit-closer-after-a-major-show-of-support-from-japanese-giant-hitachi', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.techradar.com/pro/floating-data-centers-cruise-a-bit-closer-after-a-major-show-of-support-from-japanese-giant-hitachi', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.orfonline.org/expert-speak/standing-with-science-in-a-staff-scarce-health-system-the-promise-of-ai', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.orfonline.org/expert-speak/standing-with-science-in-a-staff-scarce-health-system-the-promise-of-ai', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.antiwar.com/blog/2026/04/07/iran-us-adopts-israels-gaza-beirut-obliteration-doctrine/">
-      <h3 class="story-title"><a href="https://www.antiwar.com/blog/2026/04/07/iran-us-adopts-israels-gaza-beirut-obliteration-doctrine/" target="_blank" rel="noopener">Iran: US Adopts Israel’s Gaza/Beirut Obliteration Doctrine</a></h3>
-      <p class="story-desc">In late March, President Trump threatened to “obliterate Iran’s energy grid,” if a ceasefire was not reached. In his public post, Truth Social, he listed explicit targets, such as power plants, oil fa…</p>
+    <article class="story-card" data-url="https://www.infosecurity-magazine.com/news/anthropic-launch-project-glasswing/">
+      <h3 class="story-title"><a href="https://www.infosecurity-magazine.com/news/anthropic-launch-project-glasswing/" target="_blank" rel="noopener">Anthropic Launches Project Glasswing to Use AI to Find and Fix Critical Software Vulnerabilities</a></h3>
+      <p class="story-desc">Anthropic launches Project Glasswing, using its Claude Mythos Preview AI to autonomously identify and fix undiscovered vulnerabilities in critical software</p>
       <div class="story-meta">
-        <span class="source-label">Antiwar.com</span>
+        <span class="source-label">Infosecurity Magazine</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.antiwar.com/blog/2026/04/07/iran-us-adopts-israels-gaza-beirut-obliteration-doctrine/', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.antiwar.com/blog/2026/04/07/iran-us-adopts-israels-gaza-beirut-obliteration-doctrine/', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.infosecurity-magazine.com/news/anthropic-launch-project-glasswing/', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.infosecurity-magazine.com/news/anthropic-launch-project-glasswing/', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.politico.eu/article/europe-needs-to-control-ai-if-only-for-defense-mistral-ceo-arthur-mensch-says/">
-      <h3 class="story-title"><a href="https://www.politico.eu/article/europe-needs-to-control-ai-if-only-for-defense-mistral-ceo-arthur-mensch-says/" target="_blank" rel="noopener">Europe needs to control AI for defense, top industry exec says</a></h3>
-      <p class="story-desc">‘If you don&#x27;t have artificial intelligence in your systems, you actually don&#x27;t have an army,’ says Mistral CEO Arthur Mensch.</p>
+    <article class="story-card" data-url="https://www.cjr.org/the-interview/jeremy-caplan-human-value-artificial-intelligence-wonder-tools.php">
+      <h3 class="story-title"><a href="https://www.cjr.org/the-interview/jeremy-caplan-human-value-artificial-intelligence-wonder-tools.php" target="_blank" rel="noopener">‘We Have to Identify Where We Are Adding Human Value’</a></h3>
+      <p class="story-desc">Jeremy Caplan, a journalism teacher and newsletter author, on the potential of AI and its limits.</p>
       <div class="story-meta">
-        <span class="source-label">POLITICO.eu</span>
+        <span class="source-label">Columbia Journalism Review</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.politico.eu/article/europe-needs-to-control-ai-if-only-for-defense-mistral-ceo-arthur-mensch-says/', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.politico.eu/article/europe-needs-to-control-ai-if-only-for-defense-mistral-ceo-arthur-mensch-says/', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.cjr.org/the-interview/jeremy-caplan-human-value-artificial-intelligence-wonder-tools.php', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.cjr.org/the-interview/jeremy-caplan-human-value-artificial-intelligence-wonder-tools.php', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
@@ -678,45 +752,55 @@ The post A Surprise Win for Climate Survival? appeared first on The Nation…</p
   </section>
 
   <section class="topic-section" id="penguins">
-    <h2 class="topic-header">🐧 Pittsburgh Penguins</h2>
+    <div class="topic-header-row">
+      <h2 class="topic-header">Pittsburgh Penguins</h2>
+    </div>
     <div class="stories-grid">
       
-    <article class="story-card" data-url="https://www.cbssports.com/nhl/news/nhl-power-ratings-avalanche-attempt-to-hold-off-hurricanes-as-they-enter-week-25-of-the-2025-26-season/">
-      <h3 class="story-title"><a href="https://www.cbssports.com/nhl/news/nhl-power-ratings-avalanche-attempt-to-hold-off-hurricanes-as-they-enter-week-25-of-the-2025-26-season/" target="_blank" rel="noopener">NHL power ratings: Avalanche attempt to hold off Hurricanes as they enter Week 25 of the 2025-26 season</a></h3>
-      <p class="story-desc">SportsLine NHL analyst Scott Erskine breaks down his top 10 teams ahead of Week 25 of the 2025-26 season</p>
+    <article class="story-card featured" data-url="https://sportsnaut.com/nhl/new-jersey-devils/devils-news-5-reasons-tom-fitzgerald-fired-nico-hischier-noncommittal/">
+      <h3 class="story-title"><a href="https://sportsnaut.com/nhl/new-jersey-devils/devils-news-5-reasons-tom-fitzgerald-fired-nico-hischier-noncommittal/" target="_blank" rel="noopener">Nichols’ Notes: Fitzgerald’s Downfall; Devils React; Hischier Noncommittal</a></h3>
+      <p class="story-desc">Yesterday was a dark day for the New Jersey Devils. After the players hit the ice for the first time […]</p>
       <div class="story-meta">
-        <span class="source-label">CBS Sports</span>
+        <span class="source-label">Sportsnaut</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.cbssports.com/nhl/news/nhl-power-ratings-avalanche-attempt-to-hold-off-hurricanes-as-they-enter-week-25-of-the-2025-26-season/', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.cbssports.com/nhl/news/nhl-power-ratings-avalanche-attempt-to-hold-off-hurricanes-as-they-enter-week-25-of-the-2025-26-season/', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://sportsnaut.com/nhl/new-jersey-devils/devils-news-5-reasons-tom-fitzgerald-fired-nico-hischier-noncommittal/', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://sportsnaut.com/nhl/new-jersey-devils/devils-news-5-reasons-tom-fitzgerald-fired-nico-hischier-noncommittal/', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://thehockeynews.com/nhl/new-york-rangers/latest-news/golden-knights-and-islanders-coaching-changes-do-not-surprise-mike-sullivan">
-      <h3 class="story-title"><a href="https://thehockeynews.com/nhl/new-york-rangers/latest-news/golden-knights-and-islanders-coaching-changes-do-not-surprise-mike-sullivan" target="_blank" rel="noopener">Golden Knights And Islanders&#x27; Coaching Changes Do Not Surprise Mike Sullivan</a></h3>
-      <p class="story-desc">The NHL world has been rocked by the two recent coaching changes.</p>
+    <article class="story-card" data-url="https://www.flohockey.tv/articles/15764087-ahl-power-rankings-grand-rapids-providence-still-chasing-history?utm_medium=rss">
+      <h3 class="story-title"><a href="https://www.flohockey.tv/articles/15764087-ahl-power-rankings-grand-rapids-providence-still-chasing-history?utm_medium=rss" target="_blank" rel="noopener">AHL Power Rankings: Grand Rapids, Providence Still Chasing History</a></h3>
+      <p class="story-desc">Patrick Williams delivers the FloHockey AHL Power Rankings each week throughout the regular season. For 33 years, it has been the Binghamton Rangers who have held one of the AHL’s most prestigious marks. Binghamton finished with a league-record .775 point per…</p>
+      <div class="story-meta">
+        <span class="source-label">Flohockey.tv</span>
+        <div class="vote-buttons">
+          <button class="vote-btn up" onclick="vote(this, 'https://www.flohockey.tv/articles/15764087-ahl-power-rankings-grand-rapids-providence-still-chasing-history?utm_medium=rss', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.flohockey.tv/articles/15764087-ahl-power-rankings-grand-rapids-providence-still-chasing-history?utm_medium=rss', -1)" title="Downvote">▼</button>
+        </div>
+      </div>
+    </article>
+    <article class="story-card" data-url="https://thehockeynews.com/nhl/florida-panthers/latest-news/dmitry-kulikov-will-miss-remainder-of-season-after-breaking-finger-during-panthers-loss-in-montreal">
+      <h3 class="story-title"><a href="https://thehockeynews.com/nhl/florida-panthers/latest-news/dmitry-kulikov-will-miss-remainder-of-season-after-breaking-finger-during-panthers-loss-in-montreal" target="_blank" rel="noopener">Dmitry Kulikov Will Miss Remainder Of Season After Breaking Finger During Panthers Loss In Montreal</a></h3>
+      <p class="story-desc">A broken finger will sideline Dmitry Kulikov for the rest of the season, marking his third major injury.</p>
       <div class="story-meta">
         <span class="source-label">The Hockey News</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://thehockeynews.com/nhl/new-york-rangers/latest-news/golden-knights-and-islanders-coaching-changes-do-not-surprise-mike-sullivan', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://thehockeynews.com/nhl/new-york-rangers/latest-news/golden-knights-and-islanders-coaching-changes-do-not-surprise-mike-sullivan', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://thehockeynews.com/nhl/florida-panthers/latest-news/dmitry-kulikov-will-miss-remainder-of-season-after-breaking-finger-during-panthers-loss-in-montreal', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://thehockeynews.com/nhl/florida-panthers/latest-news/dmitry-kulikov-will-miss-remainder-of-season-after-breaking-finger-during-panthers-loss-in-montreal', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.canescountry.com/carolina-hurricanes-game-day-previews/53300/carolina-hurricanes-host-boston-bruins-preview-game-thread-how-to-watch">
-      <h3 class="story-title"><a href="https://www.canescountry.com/carolina-hurricanes-game-day-previews/53300/carolina-hurricanes-host-boston-bruins-preview-game-thread-how-to-watch" target="_blank" rel="noopener">Carolina Hurricanes host Boston Bruins—Preview, Game Thread, How to Watch</a></h3>
-      <p class="story-desc">It’s been a long road, but for the last time in the regular season the Carolina Hurricanes will take the ice in the Lenovo Center. They’ll do so—again stop me if you heard this before—with a chance to…</p>
+    <article class="story-card" data-url="https://www.allaboutthejersey.com/devils-game-recaps/68528/new-jersey-devils-fall-5-1-in-first-game-after-firing-tom-fitzgerald">
+      <h3 class="story-title"><a href="https://www.allaboutthejersey.com/devils-game-recaps/68528/new-jersey-devils-fall-5-1-in-first-game-after-firing-tom-fitzgerald" target="_blank" rel="noopener">New Jersey Devils Fall 5-1 In First Game After Firing Tom Fitzgerald</a></h3>
+      <p class="story-desc">The Devils lost, and they have now officially been eliminated from postseason contention</p>
       <div class="story-meta">
-        <span class="source-label">Canes Country</span>
+        <span class="source-label">All About The Jersey</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.canescountry.com/carolina-hurricanes-game-day-previews/53300/carolina-hurricanes-host-boston-bruins-preview-game-thread-how-to-watch', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.canescountry.com/carolina-hurricanes-game-day-previews/53300/carolina-hurricanes-host-boston-bruins-preview-game-thread-how-to-watch', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.allaboutthejersey.com/devils-game-recaps/68528/new-jersey-devils-fall-5-1-in-first-game-after-firing-tom-fitzgerald', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.allaboutthejersey.com/devils-game-recaps/68528/new-jersey-devils-fall-5-1-in-first-game-after-firing-tom-fitzgerald', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
     <article class="story-card" data-url="https://thehockeynews.com/nhl/florida-panthers/game-day/panthers-road-trip-continues-with-matchup-against-playoff-bound-montreal">
       <h3 class="story-title"><a href="https://thehockeynews.com/nhl/florida-panthers/game-day/panthers-road-trip-continues-with-matchup-against-playoff-bound-montreal" target="_blank" rel="noopener">Panthers Road Trip Continues With Matchup Against Playoff-Bound Montreal</a></h3>
       <p class="story-desc">Panthers battle playoff-bound Montreal with crucial draft pick positioning on the line as injuries have shaped Florida&#x27;s path to a potential top-10 selection...</p>
@@ -728,22 +812,9 @@ The post A Surprise Win for Climate Survival? appeared first on The Nation…</p
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.sportingnews.com/us/nhl/pittsburgh-penguins/news/sidney-crosby-retirement-future-penguins-projected-former-nhl-goalie/6ed7a35020bf80423a2b471e">
-      <h3 class="story-title"><a href="https://www.sportingnews.com/us/nhl/pittsburgh-penguins/news/sidney-crosby-retirement-future-penguins-projected-former-nhl-goalie/6ed7a35020bf80423a2b471e" target="_blank" rel="noopener">Sidney Crosby&#x27;s retirement, future with Penguins projected by former NHL goalie</a></h3>
-      <p class="story-desc">Sid the Kid is still hanging in there.</p>
-      <div class="story-meta">
-        <span class="source-label">Sporting News</span>
-        <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.sportingnews.com/us/nhl/pittsburgh-penguins/news/sidney-crosby-retirement-future-penguins-projected-former-nhl-goalie/6ed7a35020bf80423a2b471e', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.sportingnews.com/us/nhl/pittsburgh-penguins/news/sidney-crosby-retirement-future-penguins-projected-former-nhl-goalie/6ed7a35020bf80423a2b471e', -1)" title="Downvote">▼</button>
-        </div>
-      </div>
-    </article>
-
     <article class="story-card" data-url="https://www.pensburgh.com/news/75197/stuart-skinner-injury-sergei-murashov-recalled-penguins-goalies">
       <h3 class="story-title"><a href="https://www.pensburgh.com/news/75197/stuart-skinner-injury-sergei-murashov-recalled-penguins-goalies" target="_blank" rel="noopener">Could an errant puck change the goaltending future for Sergei Murashov and the Penguins?</a></h3>
-      <p class="story-desc">Stuart Skinner was sitting on the bench, serving as the back for Saturday’s game against the Panthers when a puck left the playing area and struck him in the face. It caused damage near his left eye t…</p>
+      <p class="story-desc">Stuart Skinner was sitting on the bench, serving as the back for Saturday’s game against the Panthers when a puck left the playing area and struck him in the face. It caused damage near his left eye to the point where he couldn’t play as scheduled on Sunday a…</p>
       <div class="story-meta">
         <span class="source-label">PensBurgh</span>
         <div class="vote-buttons">
@@ -752,7 +823,6 @@ The post A Surprise Win for Climate Survival? appeared first on The Nation…</p
         </div>
       </div>
     </article>
-
     <article class="story-card" data-url="https://thehockeynews.com/nhl/montreal-canadiens/game-day/canadiens-take-on-the-defending-champions-one-last-time">
       <h3 class="story-title"><a href="https://thehockeynews.com/nhl/montreal-canadiens/game-day/canadiens-take-on-the-defending-champions-one-last-time" target="_blank" rel="noopener">Canadiens Take On The Defending Champions One Last Time</a></h3>
       <p class="story-desc">The Montreal Canadiens will attempt to sweep their season series against the defending Stanley Cup Champions, the Florida Panthers, at the Bell Centre on Tuesday night.</p>
@@ -764,85 +834,26 @@ The post A Surprise Win for Climate Survival? appeared first on The Nation…</p
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://sportsnaut.com/nhl/new-jersey-devils/devils-news-fire-tom-fitzgerald-sheldon-keefe-security/">
-      <h3 class="story-title"><a href="https://sportsnaut.com/nhl/new-jersey-devils/devils-news-fire-tom-fitzgerald-sheldon-keefe-security/" target="_blank" rel="noopener">Nichols’ Notes: Devils New Direction, Head Coach Safe?</a></h3>
-      <p class="story-desc">The New Jersey Devils are heading in a new direction. They’ll have a new head of the table, although, we […]</p>
-      <div class="story-meta">
-        <span class="source-label">Sportsnaut</span>
-        <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://sportsnaut.com/nhl/new-jersey-devils/devils-news-fire-tom-fitzgerald-sheldon-keefe-security/', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://sportsnaut.com/nhl/new-jersey-devils/devils-news-fire-tom-fitzgerald-sheldon-keefe-security/', -1)" title="Downvote">▼</button>
-        </div>
-      </div>
-    </article>
     </div>
   </section>
 
   <section class="topic-section" id="general">
-    <h2 class="topic-header">📰 General News</h2>
+    <div class="topic-header-row">
+      <h2 class="topic-header">General News</h2>
+    </div>
     <div class="stories-grid">
       
-    <article class="story-card" data-url="https://www.bbc.com/news/articles/c62l597wl0yo?at_medium=RSS&amp;at_campaign=rss">
-      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/c62l597wl0yo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Jeremy Bowen: Ceasefire means respite for civilians, but it might not last long</a></h3>
-      <p class="story-desc">Whether or not a lasting peace deal can be reached, the war and its consequences are reshaping the Middle East, writes international editor Jeremy Bowen.</p>
+    <article class="story-card featured" data-url="https://www.bbc.com/news/videos/cly9z7xp10wo?at_medium=RSS&amp;at_campaign=rss">
+      <h3 class="story-title"><a href="https://www.bbc.com/news/videos/cly9z7xp10wo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">BBC at the site of Israeli air strikes in Beirut</a></h3>
+      <p class="story-desc">At least 182 people were killed and 890 others wounded, according to the Lebanese health ministry.</p>
       <div class="story-meta">
         <span class="source-label">BBC News</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.bbc.com/news/articles/c62l597wl0yo?at_medium=RSS&amp;at_campaign=rss', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.bbc.com/news/articles/c62l597wl0yo?at_medium=RSS&amp;at_campaign=rss', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.bbc.com/news/videos/cly9z7xp10wo?at_medium=RSS&amp;at_campaign=rss', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.bbc.com/news/videos/cly9z7xp10wo?at_medium=RSS&amp;at_campaign=rss', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.bbc.com/news/articles/c0j6d538l6qo?at_medium=RSS&amp;at_campaign=rss">
-      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/c0j6d538l6qo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">At least 182 killed across Lebanon in large wave of Israeli strikes</a></h3>
-      <p class="story-desc">Attacks hit the southern suburbs of Beirut, southern Lebanon and the eastern Bekaa Valley, hours after a US-Iran ceasefire was announced.</p>
-      <div class="story-meta">
-        <span class="source-label">BBC News</span>
-        <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.bbc.com/news/articles/c0j6d538l6qo?at_medium=RSS&amp;at_campaign=rss', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.bbc.com/news/articles/c0j6d538l6qo?at_medium=RSS&amp;at_campaign=rss', -1)" title="Downvote">▼</button>
-        </div>
-      </div>
-    </article>
-
-    <article class="story-card" data-url="https://www.bbc.com/news/articles/cvgkv9y97n0o?at_medium=RSS&amp;at_campaign=rss">
-      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/cvgkv9y97n0o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Negotiators face huge task to close gaps in rival Iran peace proposals</a></h3>
-      <p class="story-desc">A US 15-point plan and an Iranian 10-point variant are oceans apart, writes the BBC&#x27;s diplomatic correspondent.</p>
-      <div class="story-meta">
-        <span class="source-label">BBC News</span>
-        <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.bbc.com/news/articles/cvgkv9y97n0o?at_medium=RSS&amp;at_campaign=rss', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.bbc.com/news/articles/cvgkv9y97n0o?at_medium=RSS&amp;at_campaign=rss', -1)" title="Downvote">▼</button>
-        </div>
-      </div>
-    </article>
-
-    <article class="story-card" data-url="https://www.bbc.com/news/articles/c0q98w57k25o?at_medium=RSS&amp;at_campaign=rss">
-      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/c0q98w57k25o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">&#x27;Even if Iran war ends now, farmers&#x27; costs will have to be passed on&#x27;</a></h3>
-      <p class="story-desc">Despite a ceasefire, the Iran war will continue to affect farmers&#x27; costs and therefore food prices.</p>
-      <div class="story-meta">
-        <span class="source-label">BBC News</span>
-        <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.bbc.com/news/articles/c0q98w57k25o?at_medium=RSS&amp;at_campaign=rss', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.bbc.com/news/articles/c0q98w57k25o?at_medium=RSS&amp;at_campaign=rss', -1)" title="Downvote">▼</button>
-        </div>
-      </div>
-    </article>
-
-    <article class="story-card" data-url="https://www.bbc.com/news/articles/c3w39lg84w2o?at_medium=RSS&amp;at_campaign=rss">
-      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/c3w39lg84w2o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Iran warning adds to shipping uncertainty</a></h3>
-      <p class="story-desc">Only a few vessels have crossed the strait since the US-Iran ceasefire deal, according to BBC Verify analysis.</p>
-      <div class="story-meta">
-        <span class="source-label">BBC News</span>
-        <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.bbc.com/news/articles/c3w39lg84w2o?at_medium=RSS&amp;at_campaign=rss', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.bbc.com/news/articles/c3w39lg84w2o?at_medium=RSS&amp;at_campaign=rss', -1)" title="Downvote">▼</button>
-        </div>
-      </div>
-    </article>
-
     <article class="story-card" data-url="https://www.bbc.com/news/articles/cq593g970z7o?at_medium=RSS&amp;at_campaign=rss">
       <h3 class="story-title"><a href="https://www.bbc.com/news/articles/cq593g970z7o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">22,000 students told to pay back &#x27;mis-sold&#x27; maintenance loans</a></h3>
       <p class="story-desc">Those affected have been told their courses were never eligible for maintenance or childcare loans</p>
@@ -854,27 +865,69 @@ The post A Surprise Win for Climate Survival? appeared first on The Nation…</p
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.bbc.com/news/articles/czx9kvqxeq5o?at_medium=RSS&amp;at_campaign=rss">
-      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/czx9kvqxeq5o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Pioneering wildlife cameraman Doug Allan dies in Nepal</a></h3>
-      <p class="story-desc">The cameraman and photographer won eight Emmy Awards for his work on acclaimed series like Blue Planet alongside Sir David Attenborough.</p>
+    <article class="story-card" data-url="https://www.bbc.com/news/articles/cgmenyllyz7o?at_medium=RSS&amp;at_campaign=rss">
+      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/cgmenyllyz7o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Four people die trying to board boat in Channel crossing attempt</a></h3>
+      <p class="story-desc">Authorities say 37 people are being treated in hospital, but around 30 others continued their journeys to the UK.</p>
       <div class="story-meta">
         <span class="source-label">BBC News</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.bbc.com/news/articles/czx9kvqxeq5o?at_medium=RSS&amp;at_campaign=rss', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.bbc.com/news/articles/czx9kvqxeq5o?at_medium=RSS&amp;at_campaign=rss', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.bbc.com/news/articles/cgmenyllyz7o?at_medium=RSS&amp;at_campaign=rss', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.bbc.com/news/articles/cgmenyllyz7o?at_medium=RSS&amp;at_campaign=rss', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
-
-    <article class="story-card" data-url="https://www.bbc.com/news/articles/cj0ve1006g9o?at_medium=RSS&amp;at_campaign=rss">
-      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/cj0ve1006g9o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Starmer says much work remains to make US-Iran ceasefire hold</a></h3>
-      <p class="story-desc">The prime minister says fully reopening the Strait of Hormuz would help &quot;stabilise&quot; prices in the UK.</p>
+    <article class="story-card" data-url="https://www.bbc.com/news/articles/c625l7qen3jo?at_medium=RSS&amp;at_campaign=rss">
+      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/c625l7qen3jo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Hundreds of dogs found crammed in living room &#x27;doing really well&#x27;, says RSPCA</a></h3>
+      <p class="story-desc">The charity says many of the animals found at the home in January were in a poor condition with &quot;matted and crusted coats&quot; that required treatment.</p>
       <div class="story-meta">
         <span class="source-label">BBC News</span>
         <div class="vote-buttons">
-          <button class="vote-btn up" onclick="vote(this, 'https://www.bbc.com/news/articles/cj0ve1006g9o?at_medium=RSS&amp;at_campaign=rss', 1)" title="Upvote">▲</button>
-          <button class="vote-btn down" onclick="vote(this, 'https://www.bbc.com/news/articles/cj0ve1006g9o?at_medium=RSS&amp;at_campaign=rss', -1)" title="Downvote">▼</button>
+          <button class="vote-btn up" onclick="vote(this, 'https://www.bbc.com/news/articles/c625l7qen3jo?at_medium=RSS&amp;at_campaign=rss', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.bbc.com/news/articles/c625l7qen3jo?at_medium=RSS&amp;at_campaign=rss', -1)" title="Downvote">▼</button>
+        </div>
+      </div>
+    </article>
+    <article class="story-card" data-url="https://www.bbc.com/news/articles/ckgelr2pk0lo?at_medium=RSS&amp;at_campaign=rss">
+      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/ckgelr2pk0lo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Best-selling The Housemaid author Freida McFadden reveals true identity</a></h3>
+      <p class="story-desc">One of the biggest mysteries in publishing is solved, as The Housemaid writer reveals her real name.</p>
+      <div class="story-meta">
+        <span class="source-label">BBC News</span>
+        <div class="vote-buttons">
+          <button class="vote-btn up" onclick="vote(this, 'https://www.bbc.com/news/articles/ckgelr2pk0lo?at_medium=RSS&amp;at_campaign=rss', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.bbc.com/news/articles/ckgelr2pk0lo?at_medium=RSS&amp;at_campaign=rss', -1)" title="Downvote">▼</button>
+        </div>
+      </div>
+    </article>
+    <article class="story-card" data-url="https://www.bbc.com/news/articles/cq6j0rnvlzeo?at_medium=RSS&amp;at_campaign=rss">
+      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/cq6j0rnvlzeo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Petrol and diesel prices rise again as concerns grow over ceasefire</a></h3>
+      <p class="story-desc">Motoring groups have warned drivers not to expect a significant drop in costs soon.</p>
+      <div class="story-meta">
+        <span class="source-label">BBC News</span>
+        <div class="vote-buttons">
+          <button class="vote-btn up" onclick="vote(this, 'https://www.bbc.com/news/articles/cq6j0rnvlzeo?at_medium=RSS&amp;at_campaign=rss', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.bbc.com/news/articles/cq6j0rnvlzeo?at_medium=RSS&amp;at_campaign=rss', -1)" title="Downvote">▼</button>
+        </div>
+      </div>
+    </article>
+    <article class="story-card" data-url="https://www.bbc.com/news/articles/c70dr45dj1lo?at_medium=RSS&amp;at_campaign=rss">
+      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/c70dr45dj1lo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Artemis crew returning to Earth with &#x27;all the good stuff&#x27; from Moon discoveries</a></h3>
+      <p class="story-desc">The four astronauts said they were returning to Earth with &quot;so many more pictures, so many more stories&quot;.</p>
+      <div class="story-meta">
+        <span class="source-label">BBC News</span>
+        <div class="vote-buttons">
+          <button class="vote-btn up" onclick="vote(this, 'https://www.bbc.com/news/articles/c70dr45dj1lo?at_medium=RSS&amp;at_campaign=rss', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.bbc.com/news/articles/c70dr45dj1lo?at_medium=RSS&amp;at_campaign=rss', -1)" title="Downvote">▼</button>
+        </div>
+      </div>
+    </article>
+    <article class="story-card" data-url="https://www.bbc.com/news/articles/cly05k592ryo?at_medium=RSS&amp;at_campaign=rss">
+      <h3 class="story-title"><a href="https://www.bbc.com/news/articles/cly05k592ryo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Spanish police &#x27;dismantle&#x27; Scottish drugs gang as crime boss arrested</a></h3>
+      <p class="story-desc">The Civil Guard said the Lyons&#x27; organisation in Spain has been taken apart, with 14 arrests in four countries and 20 others under investigation.</p>
+      <div class="story-meta">
+        <span class="source-label">BBC News</span>
+        <div class="vote-buttons">
+          <button class="vote-btn up" onclick="vote(this, 'https://www.bbc.com/news/articles/cly05k592ryo?at_medium=RSS&amp;at_campaign=rss', 1)" title="Upvote">▲</button>
+          <button class="vote-btn down" onclick="vote(this, 'https://www.bbc.com/news/articles/cly05k592ryo?at_medium=RSS&amp;at_campaign=rss', -1)" title="Downvote">▼</button>
         </div>
       </div>
     </article>
@@ -883,15 +936,13 @@ The post A Surprise Win for Climate Survival? appeared first on The Nation…</p
   </main>
 
   <footer>
-    The Lede &mdash; Generated THURSDAY, APRIL 9, 2026 &mdash; Powered by NewsAPI &amp; RSS
+    The Lede &mdash; THURSDAY, APRIL 9, 2026 &mdash; Powered by NewsAPI &amp; RSS
   </footer>
 
   <div id="toast"></div>
 
-  <!-- SUPABASE JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // ── CONFIG ──
     const SUPABASE_URL = 'https://tgdzivpyudduwktcmiqb.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRnZHppdnB5dWRkdXdrdGNtaXFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2ODgyNDQsImV4cCI6MjA5MTI2NDI0NH0.8GLZo0tp665Tm6dAsdEv54Hf_U5eWV9E-NAItdBk0bA';
     const { createClient } = supabase;
@@ -899,11 +950,9 @@ The post A Surprise Win for Climate Survival? appeared first on The Nation…</p
 
     let currentUser = null;
 
-    // ── AUTH ──
     async function signIn() {
       await sb.auth.signInWithOAuth({ provider: 'google' });
     }
-
     async function signOut() {
       await sb.auth.signOut();
       currentUser = null;
@@ -940,45 +989,32 @@ The post A Surprise Win for Climate Survival? appeared first on The Nation…</p
       }, { onConflict: 'id' });
     }
 
-    // ── VOTES ──
     async function loadVotes(userId) {
       const { data } = await sb.from('votes').select('story_url, vote').eq('user_id', userId);
       if (!data) return;
       data.forEach(row => {
         const card = document.querySelector(`[data-url="${row.story_url}"]`);
         if (!card) return;
-        const up = card.querySelector('.vote-btn.up');
-        const down = card.querySelector('.vote-btn.down');
-        if (row.vote === 1) up.classList.add('voted-up');
-        if (row.vote === -1) down.classList.add('voted-down');
+        if (row.vote === 1) card.querySelector('.vote-btn.up').classList.add('voted-up');
+        if (row.vote === -1) card.querySelector('.vote-btn.down').classList.add('voted-down');
       });
     }
 
     async function vote(btn, storyUrl, value) {
-      if (!currentUser) {
-        showToast('Sign in to save your votes');
-        return;
-      }
-
+      if (!currentUser) { showToast('Sign in to save your votes'); return; }
       const card = btn.closest('.story-card');
       const title = card.querySelector('.story-title a')?.textContent ?? '';
-      const topicSection = card.closest('.topic-section');
-      const topicSlug = topicSection?.id ?? '';
-      const sourceDomain = new URL(storyUrl).hostname.replace('www.', '');
-
-      // Toggle logic
+      const topicSlug = card.closest('.topic-section')?.id ?? '';
+      const sourceDomain = (() => { try { return new URL(storyUrl).hostname.replace('www.',''); } catch(e) { return ''; } })();
       const upBtn = card.querySelector('.vote-btn.up');
       const downBtn = card.querySelector('.vote-btn.down');
       const alreadyUp = upBtn.classList.contains('voted-up');
       const alreadyDown = downBtn.classList.contains('voted-down');
-
       let newVote = value;
       if (value === 1 && alreadyUp) newVote = null;
       if (value === -1 && alreadyDown) newVote = null;
-
       upBtn.classList.remove('voted-up');
       downBtn.classList.remove('voted-down');
-
       if (newVote === null) {
         await sb.from('votes').delete().eq('user_id', currentUser.id).eq('story_url', storyUrl);
         showToast('Vote removed');
@@ -986,43 +1022,30 @@ The post A Surprise Win for Climate Survival? appeared first on The Nation…</p
         if (newVote === 1) upBtn.classList.add('voted-up');
         if (newVote === -1) downBtn.classList.add('voted-down');
         await sb.from('votes').upsert({
-          user_id: currentUser.id,
-          story_url: storyUrl,
-          story_title: title,
-          topic_slug: topicSlug,
-          source_domain: sourceDomain,
-          vote: newVote,
+          user_id: currentUser.id, story_url: storyUrl, story_title: title,
+          topic_slug: topicSlug, source_domain: sourceDomain, vote: newVote,
         }, { onConflict: 'user_id,story_url' });
-        showToast(newVote === 1 ? 'Upvoted — this source gets a boost tomorrow' : 'Downvoted — this source gets suppressed tomorrow');
+        showToast(newVote === 1 ? 'Upvoted' : 'Downvoted');
       }
-
       await updateSourceWeight(currentUser.id, sourceDomain);
     }
 
     async function updateSourceWeight(userId, domain) {
-      const { data } = await sb.from('votes')
-        .select('vote')
-        .eq('user_id', userId)
-        .eq('source_domain', domain);
-      if (!data || data.length === 0) return;
+      const { data } = await sb.from('votes').select('vote').eq('user_id', userId).eq('source_domain', domain);
+      if (!data || !data.length) return;
       const ups = data.filter(r => r.vote === 1).length;
-      const total = data.length;
-      const weight = parseFloat((0.1 + (ups / total) * 1.9).toFixed(3));
+      const weight = parseFloat((0.1 + (ups / data.length) * 1.9).toFixed(3));
       await sb.from('source_weights').upsert({
-        user_id: userId,
-        source_domain: domain,
-        weight,
+        user_id: userId, source_domain: domain, weight,
       }, { onConflict: 'user_id,source_domain' });
     }
 
-    // ── TOAST ──
     function showToast(msg) {
       const t = document.getElementById('toast');
       t.textContent = msg;
       t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2500);
+      setTimeout(() => t.classList.remove('show'), 2200);
     }
   </script>
-
 </body>
 </html>
