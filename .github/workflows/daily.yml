@@ -24,6 +24,18 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Check secrets are set
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ]; then echo "SUPABASE_URL is EMPTY"; else echo "SUPABASE_URL is SET"; fi
+          if [ -z "$SUPABASE_SERVICE_KEY" ]; then echo "SUPABASE_SERVICE_KEY is EMPTY"; else echo "SUPABASE_SERVICE_KEY is SET"; fi
+          if [ -z "$SUPABASE_ANON_KEY" ]; then echo "SUPABASE_ANON_KEY is EMPTY"; else echo "SUPABASE_ANON_KEY is SET"; fi
+          if [ -z "$NEWSAPI_KEY" ]; then echo "NEWSAPI_KEY is EMPTY"; else echo "NEWSAPI_KEY is SET"; fi
+
       - name: Run fetch and generate
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
