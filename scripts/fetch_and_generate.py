@@ -100,20 +100,29 @@ def fetch_rss(url):
     except Exception as e:
         print(f"  RSS error {url}: {e}"); return []
 
+MAX_PER_SOURCE = 2  # max stories from any single domain per section
+
 def fetch_all():
     all_stories, seen = {}, set()
     for slug, topic in TOPICS.items():
         stories = []
+        source_counts = {}
         for q in topic["queries"]:
             for s in fetch_newsapi(q, topic["domains"]):
-                if s["url"] not in seen:
-                    seen.add(s["url"]); s["topic_slug"] = slug; stories.append(s)
+                d = s["source_domain"]
+                if s["url"] not in seen and source_counts.get(d, 0) < MAX_PER_SOURCE:
+                    seen.add(s["url"]); s["topic_slug"] = slug
+                    source_counts[d] = source_counts.get(d, 0) + 1
+                    stories.append(s)
         for feed_url in topic["feeds"]:
             for s in fetch_rss(feed_url):
-                if s["url"] not in seen:
-                    seen.add(s["url"]); s["topic_slug"] = slug; stories.append(s)
+                d = s["source_domain"]
+                if s["url"] not in seen and source_counts.get(d, 0) < MAX_PER_SOURCE:
+                    seen.add(s["url"]); s["topic_slug"] = slug
+                    source_counts[d] = source_counts.get(d, 0) + 1
+                    stories.append(s)
         all_stories[slug] = stories[:MAX_STORIES]
-        print(f"  [{slug}] {len(all_stories[slug])} stories")
+        print(f"  [{slug}] {len(all_stories[slug])} stories from {len(source_counts)} sources")
     return all_stories
 
 def fmt_date():
