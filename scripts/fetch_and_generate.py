@@ -209,11 +209,10 @@ def fetch_all(config):
             d = s["source_domain"] or "unknown"
             buckets.setdefault(d, []).append(s)
 
-        # NewsAPI queries — use active source domains as domain filter
-        domains_str = ",".join(s["domain"] for s in topic["sources"] if s.get("domain"))
+        # NewsAPI queries — no domain filter for broader daily coverage
         for q in topic["queries"]:
             print(f"  NewsAPI [{slug}]: {q[:55]}")
-            for s in fetch_newsapi(q, domains_str):
+            for s in fetch_newsapi(q):
                 add_story(s)
 
         # RSS feeds
