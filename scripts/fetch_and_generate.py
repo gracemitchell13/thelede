@@ -215,7 +215,7 @@ def fetch_all(config):
         # Strict topics use domain filter to avoid noise
         # Broad topics search all of NewsAPI for daily fresh content
         STRICT_SLUGS = {
-            "penguins", "nhl", "nba", "nfl", "mlb", "soccer",
+            "penguins", "nhl", "nba", "nfl", "mlb", "soccer", "college-sports",
             "college-sports", "sports-business",
             "criminal-justice", "immigration", "disability-policy",
             "local-news", "podcasting", "newsletter-industry",
@@ -236,16 +236,21 @@ def fetch_all(config):
                     add_story(s)
 
         # Round-robin across source buckets
+        # Sports topics: max 1 per source to force variety
+        SPORTS_SLUGS = {"penguins","nhl","nba","nfl","mlb","soccer","college-sports","sports-business"}
+        max_per_src = 1 if slug in SPORTS_SLUGS else MAX_STORIES
         stories = []
         bucket_lists = list(buckets.values())
         positions = [0] * len(bucket_lists)
+        src_counts = [0] * len(bucket_lists)
         while len(stories) < MAX_STORIES:
             added = False
             for i, bucket in enumerate(bucket_lists):
                 if len(stories) >= MAX_STORIES: break
-                if positions[i] < len(bucket):
+                if positions[i] < len(bucket) and src_counts[i] < max_per_src:
                     stories.append(bucket[positions[i]])
                     positions[i] += 1
+                    src_counts[i] += 1
                     added = True
             if not added: break
 
@@ -490,13 +495,9 @@ footer{{text-align:center;font-family:var(--sans);font-size:.63rem;
 <body>
 <header class="mast">
   <div class="mast-top">
-    <span>Est. 2026</span><span>{date}</span><span>Your Daily Briefing</span>
+    <span>Est. 2026</span><span>readthelede.com</span><span>{date}</span>
   </div>
   <h1 class="mast-title">The Lede</h1>
-  <div class="mast-bot">
-    <span>readthelede.com</span>
-    <span>Your Daily Briefing</span>
-  </div>
 </header>
 <div class="auth">
   <span id="auth-st">Not signed in — votes won't be saved</span>
