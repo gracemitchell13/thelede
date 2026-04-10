@@ -1060,11 +1060,15 @@ function markDirty(){dirty=true;document.getElementById('save-bar').classList.ad
 async function saveAll(){
   // Only save active topics
   const activeTopics=Object.values(userTopics).filter(t=>t.active);
-  const topicRows=activeTopics.map(t=>{
-    const row={...t,user_id:user.id};
-    if(!row.id)delete row.id;  // let Supabase generate UUID for new topics
-    return row;
-  });
+  const topicRows=activeTopics.map((t,i)=>({
+    ...(t.id?{id:t.id}:{}),  // include id only if it exists
+    user_id:user.id,
+    slug:t.slug,
+    label:t.label,
+    active:true,
+    sort_order:t.sort_order??i,
+    queries:t.queries||[],
+  }));
 
   // Only save sources for active topics
   const activeSlugs=new Set(activeTopics.map(t=>t.slug));
@@ -1077,7 +1081,15 @@ async function saveAll(){
         try{domain=new URL(s.feed_url).hostname.replace('www.','');}catch(e){domain='unknown';}
       }
       if(!domain)domain='unknown';
-      sourceRows.push({...s,domain,topic_slug:slug,user_id:user.id});
+      sourceRows.push({
+        ...(s.id?{id:s.id}:{}),
+        user_id:user.id,
+        topic_slug:slug,
+        domain,
+        label:s.label||'',
+        feed_url:s.feed_url||null,
+        active:s.active!==false,
+      });
     });
   });
 
