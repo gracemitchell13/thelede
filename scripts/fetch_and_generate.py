@@ -368,7 +368,8 @@ a:hover{{text-decoration:underline}}
   padding:.25rem .85rem;font-family:var(--sans);font-size:.67rem;
   letter-spacing:.06em;text-transform:uppercase;cursor:pointer}}
 #si-btn:hover,#so-btn:hover{{background:var(--mid)}}
-.nav{{background:var(--blk);display:flex;flex-wrap:wrap;padding:0 2rem}}
+.nav{{background:var(--blk);display:flex;flex-wrap:nowrap;overflow-x:auto;padding:0 2rem;scrollbar-width:none}}
+.nav::-webkit-scrollbar{{display:none}}
 .nav a{{color:#fff;font-family:var(--sans);font-size:.67rem;letter-spacing:.12em;
   text-transform:uppercase;padding:.55rem 1rem;
   border-right:1px solid #2a2a2a;display:block}}
@@ -382,12 +383,28 @@ main{{max-width:1100px;margin:0 auto;padding:0 2rem 3rem}}
 .sec-rule::before,.sec-rule::after{{content:'';flex:1;height:1px;background:var(--rl)}}
 .sec-label{{font-family:var(--sans);font-size:.68rem;font-weight:700;
   letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}}
-.hero{{border-top:2px solid var(--blk);border-bottom:1px solid var(--rlt);
+.hero{{border-top:3px solid var(--accent,#c0392b);border-bottom:1px solid var(--rlt);
   padding:1.5rem 0 1.25rem;margin-bottom:0}}
+#civic-tech .hero{{border-top-color:#2471a3}}
+#housing-policy .hero{{border-top-color:#8e44ad}}
+#criminal-justice .hero{{border-top-color:#c0392b}}
+#education-policy .hero{{border-top-color:#16a085}}
+#health-policy .hero{{border-top-color:#e67e22}}
+#climate-policy .hero{{border-top-color:#27ae60}}
+#nonprofit .hero{{border-top-color:#f39c12}}
+#ai-tech .hero{{border-top-color:#6c3483}}
+#penguins .hero{{border-top-color:#fcb514}}
+#nhl .hero{{border-top-color:#1a1a2e}}
+#racial-equity .hero{{border-top-color:#e74c3c}}
+#gender-sexuality .hero{{border-top-color:#e91e8c}}
+#politics .hero{{border-top-color:#c0392b}}
+#science .hero{{border-top-color:#16a085}}
+#books .hero{{border-top-color:#784212}}
+#music .hero{{border-top-color:#c0392b}}
 .hero-hed{{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.1rem);
   font-weight:800;line-height:1.15;color:var(--blk);margin-bottom:.6rem}}
 .hero-desc{{font-size:.95rem;color:var(--mid);line-height:1.65;
-  max-width:72ch;margin-bottom:.75rem}}
+  margin-bottom:.75rem}}
 .hero-meta{{display:flex;justify-content:space-between;align-items:center;
   padding-top:.6rem;border-top:1px solid var(--rlt)}}
 .sec-grid{{display:grid;grid-template-columns:repeat(3,1fr);
@@ -395,7 +412,49 @@ main{{max-width:1100px;margin:0 auto;padding:0 2rem 3rem}}
 .sec-item{{display:flex;gap:.75rem;padding:1rem;
   border-right:1px solid var(--rlt);border-bottom:1px solid var(--rlt)}}
 .sec-num{{font-family:var(--sans);font-size:1.6rem;font-weight:700;
-  color:var(--rlt);line-height:1;min-width:2rem;padding-top:.1rem}}
+  color:#c0392b;line-height:1;min-width:2rem;padding-top:.1rem}}
+#civic-tech .sec-num{{color:#2471a3}}
+#housing-policy .sec-num{{color:#8e44ad}}
+#criminal-justice .sec-num{{color:#c0392b}}
+#education-policy .sec-num{{color:#16a085}}
+#health-policy .sec-num{{color:#e67e22}}
+#climate-policy .sec-num{{color:#27ae60}}
+#immigration .sec-num{{color:#d35400}}
+#economic-policy .sec-num{{color:#2980b9}}
+#transportation .sec-num{{color:#7f8c8d}}
+#voting-democracy .sec-num{{color:#8e44ad}}
+#labor .sec-num{{color:#c0392b}}
+#disability-policy .sec-num{{color:#16a085}}
+#racial-equity .sec-num{{color:#e74c3c}}
+#gender-sexuality .sec-num{{color:#e91e8c}}
+#nonprofit .sec-num{{color:#f39c12}}
+#community-development .sec-num{{color:#27ae60}}
+#social-enterprise .sec-num{{color:#2ecc71}}
+#international-development .sec-num{{color:#3498db}}
+#ai-tech .sec-num{{color:#6c3483}}
+#cybersecurity .sec-num{{color:#c0392b}}
+#tech-policy .sec-num{{color:#2471a3}}
+#startups .sec-num{{color:#f39c12}}
+#healthtech .sec-num{{color:#16a085}}
+#local-news .sec-num{{color:#2c3e50}}
+#penguins .sec-num{{color:#fcb514}}
+#nhl .sec-num{{color:#1a1a2e}}
+#nba .sec-num{{color:#c9082a}}
+#nfl .sec-num{{color:#013369}}
+#mlb .sec-num{{color:#002d72}}
+#soccer .sec-num{{color:#228b22}}
+#us-news .sec-num{{color:#2c3e50}}
+#world-news .sec-num{{color:#2471a3}}
+#science .sec-num{{color:#16a085}}
+#business .sec-num{{color:#1a5276}}
+#politics .sec-num{{color:#c0392b}}
+#health-wellness .sec-num{{color:#e67e22}}
+#space .sec-num{{color:#6c3483}}
+#books .sec-num{{color:#784212}}
+#film-tv .sec-num{{color:#1a252f}}
+#music .sec-num{{color:#c0392b}}
+#food-culture .sec-num{{color:#ca6f1e}}
+#travel .sec-num{{color:#148f77}}
 .sec-body{{display:flex;flex-direction:column;gap:.35rem;flex:1}}
 .sec-hed{{font-family:var(--serif);font-size:.95rem;font-weight:700;
   line-height:1.3;color:var(--blk)}}
@@ -436,7 +495,7 @@ footer{{text-align:center;font-family:var(--sans);font-size:.63rem;
   <h1 class="mast-title">The Lede</h1>
   <div class="mast-bot">
     <span>readthelede.com</span>
-    <span id="mast-user"></span>
+    <span>Your Daily Briefing</span>
   </div>
 </header>
 <div class="auth">
@@ -459,14 +518,13 @@ const {{createClient}}=supabase;
 const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 let user=null;
 async function signIn(){{await sb.auth.signInWithOAuth({{provider:'google',
-  options:{{redirectTo:window.location.origin+'/settings.html'}}}});}}
+  options:{{redirectTo:'https://gracemitchell13.github.io/thelede/settings.html'}}}});}}
 async function signOut(){{await sb.auth.signOut();user=null;updateUI(null);}}
 function updateUI(u){{
   const st=document.getElementById('auth-st');
   const si=document.getElementById('si-btn');
   const so=document.getElementById('so-btn');
-  const mu=document.getElementById('mast-user');
-  if(u){{st.textContent=u.email;mu.textContent=u.email;
+  if(u){{st.textContent=u.email;
     si.style.display='none';so.style.display='inline-block';loadVotes(u.id);}}
   else{{st.textContent="Not signed in \u2014 votes won't be saved";mu.textContent='';
     si.style.display='inline-block';so.style.display='none';}}
