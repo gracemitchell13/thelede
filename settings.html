@@ -988,7 +988,10 @@ function addCustomTopic(){
   if(!label){toast('Enter a topic name');return;}
   const slug=label.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
   if(userTopics[slug]){toast('Topic already exists');return;}
-  userTopics[slug]={slug,label,active:true,queries:keywords?[keywords]:[],
+  // Split keywords into OR query for NewsAPI
+  const queryStr=keywords?keywords.split(',').map(k=>k.trim()).filter(Boolean)
+    .map(k=>k.includes(' ')?`"${k}"`:k).join(' OR '):'';
+  userTopics[slug]={slug,label,active:true,queries:queryStr?[queryStr]:[],
     sort_order:Object.keys(userTopics).length,user_id:user.id};
   document.getElementById('custom-label').value='';
   document.getElementById('custom-keywords').value='';
