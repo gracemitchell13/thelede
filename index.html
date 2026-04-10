@@ -33,7 +33,8 @@ a:hover{text-decoration:underline}
   padding:.25rem .85rem;font-family:var(--sans);font-size:.67rem;
   letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
 #si-btn:hover,#so-btn:hover{background:var(--mid)}
-.nav{background:var(--blk);display:flex;flex-wrap:wrap;padding:0 2rem}
+.nav{background:var(--blk);display:flex;flex-wrap:nowrap;overflow-x:auto;padding:0 2rem;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
 .nav a{color:#fff;font-family:var(--sans);font-size:.67rem;letter-spacing:.12em;
   text-transform:uppercase;padding:.55rem 1rem;
   border-right:1px solid #2a2a2a;display:block}
@@ -47,12 +48,28 @@ main{max-width:1100px;margin:0 auto;padding:0 2rem 3rem}
 .sec-rule::before,.sec-rule::after{content:'';flex:1;height:1px;background:var(--rl)}
 .sec-label{font-family:var(--sans);font-size:.68rem;font-weight:700;
   letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
-.hero{border-top:2px solid var(--blk);border-bottom:1px solid var(--rlt);
+.hero{border-top:3px solid var(--accent,#c0392b);border-bottom:1px solid var(--rlt);
   padding:1.5rem 0 1.25rem;margin-bottom:0}
+#civic-tech .hero{border-top-color:#2471a3}
+#housing-policy .hero{border-top-color:#8e44ad}
+#criminal-justice .hero{border-top-color:#c0392b}
+#education-policy .hero{border-top-color:#16a085}
+#health-policy .hero{border-top-color:#e67e22}
+#climate-policy .hero{border-top-color:#27ae60}
+#nonprofit .hero{border-top-color:#f39c12}
+#ai-tech .hero{border-top-color:#6c3483}
+#penguins .hero{border-top-color:#fcb514}
+#nhl .hero{border-top-color:#1a1a2e}
+#racial-equity .hero{border-top-color:#e74c3c}
+#gender-sexuality .hero{border-top-color:#e91e8c}
+#politics .hero{border-top-color:#c0392b}
+#science .hero{border-top-color:#16a085}
+#books .hero{border-top-color:#784212}
+#music .hero{border-top-color:#c0392b}
 .hero-hed{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.1rem);
   font-weight:800;line-height:1.15;color:var(--blk);margin-bottom:.6rem}
 .hero-desc{font-size:.95rem;color:var(--mid);line-height:1.65;
-  max-width:72ch;margin-bottom:.75rem}
+  margin-bottom:.75rem}
 .hero-meta{display:flex;justify-content:space-between;align-items:center;
   padding-top:.6rem;border-top:1px solid var(--rlt)}
 .sec-grid{display:grid;grid-template-columns:repeat(3,1fr);
@@ -60,7 +77,49 @@ main{max-width:1100px;margin:0 auto;padding:0 2rem 3rem}
 .sec-item{display:flex;gap:.75rem;padding:1rem;
   border-right:1px solid var(--rlt);border-bottom:1px solid var(--rlt)}
 .sec-num{font-family:var(--sans);font-size:1.6rem;font-weight:700;
-  color:var(--rlt);line-height:1;min-width:2rem;padding-top:.1rem}
+  color:#c0392b;line-height:1;min-width:2rem;padding-top:.1rem}
+#civic-tech .sec-num{color:#2471a3}
+#housing-policy .sec-num{color:#8e44ad}
+#criminal-justice .sec-num{color:#c0392b}
+#education-policy .sec-num{color:#16a085}
+#health-policy .sec-num{color:#e67e22}
+#climate-policy .sec-num{color:#27ae60}
+#immigration .sec-num{color:#d35400}
+#economic-policy .sec-num{color:#2980b9}
+#transportation .sec-num{color:#7f8c8d}
+#voting-democracy .sec-num{color:#8e44ad}
+#labor .sec-num{color:#c0392b}
+#disability-policy .sec-num{color:#16a085}
+#racial-equity .sec-num{color:#e74c3c}
+#gender-sexuality .sec-num{color:#e91e8c}
+#nonprofit .sec-num{color:#f39c12}
+#community-development .sec-num{color:#27ae60}
+#social-enterprise .sec-num{color:#2ecc71}
+#international-development .sec-num{color:#3498db}
+#ai-tech .sec-num{color:#6c3483}
+#cybersecurity .sec-num{color:#c0392b}
+#tech-policy .sec-num{color:#2471a3}
+#startups .sec-num{color:#f39c12}
+#healthtech .sec-num{color:#16a085}
+#local-news .sec-num{color:#2c3e50}
+#penguins .sec-num{color:#fcb514}
+#nhl .sec-num{color:#1a1a2e}
+#nba .sec-num{color:#c9082a}
+#nfl .sec-num{color:#013369}
+#mlb .sec-num{color:#002d72}
+#soccer .sec-num{color:#228b22}
+#us-news .sec-num{color:#2c3e50}
+#world-news .sec-num{color:#2471a3}
+#science .sec-num{color:#16a085}
+#business .sec-num{color:#1a5276}
+#politics .sec-num{color:#c0392b}
+#health-wellness .sec-num{color:#e67e22}
+#space .sec-num{color:#6c3483}
+#books .sec-num{color:#784212}
+#film-tv .sec-num{color:#1a252f}
+#music .sec-num{color:#c0392b}
+#food-culture .sec-num{color:#ca6f1e}
+#travel .sec-num{color:#148f77}
 .sec-body{display:flex;flex-direction:column;gap:.35rem;flex:1}
 .sec-hed{font-family:var(--serif);font-size:.95rem;font-weight:700;
   line-height:1.3;color:var(--blk)}
@@ -101,7 +160,7 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
   <h1 class="mast-title">The Lede</h1>
   <div class="mast-bot">
     <span>readthelede.com</span>
-    <span id="mast-user"></span>
+    <span>Your Daily Briefing</span>
   </div>
 </header>
 <div class="auth">
@@ -129,21 +188,34 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
 </nav>
 <main><section class="topic-sec" id="penguins">
   <div class="sec-rule"><span class="sec-label">Pittsburgh Penguins</span></div>
-  <article class="hero" data-url="https://www.post-gazette.com/sports/2026-nfl-draft/2026/04/10/nfl-draft-public-safety-pittsburgh/stories/202604100072">
+  <article class="hero" data-url="https://www.post-gazette.com/sports/pirates/2026/04/10/pirates-cubs-mlb-shota-imanaga-bryan-reynolds/stories/202604100057">
     <div class="hero-body">
-      <h2 class="hero-hed"><a href="https://www.post-gazette.com/sports/2026-nfl-draft/2026/04/10/nfl-draft-public-safety-pittsburgh/stories/202604100072" target="_blank" rel="noopener">Officials promise &#x27;significant law enforcement presence&#x27; for the NFL Draft in Pittsburgh</a></h2>
+      <h2 class="hero-hed"><a href="https://www.post-gazette.com/sports/pirates/2026/04/10/pirates-cubs-mlb-shota-imanaga-bryan-reynolds/stories/202604100057" target="_blank" rel="noopener">Pirates earn first shutout win of the season against Cubs, spoil Shota Imanaga&#x27;s no-hit bid</a></h2>
       
       <div class="hero-meta">
         <span class="src">Pittsburgh Post-Gazette</span>
         <span class="votes">
-          <button class="vb up" onclick="vote(this,'https://www.post-gazette.com/sports/2026-nfl-draft/2026/04/10/nfl-draft-public-safety-pittsburgh/stories/202604100072',1)">▲</button>
-          <button class="vb dn" onclick="vote(this,'https://www.post-gazette.com/sports/2026-nfl-draft/2026/04/10/nfl-draft-public-safety-pittsburgh/stories/202604100072',-1)">▼</button>
+          <button class="vb up" onclick="vote(this,'https://www.post-gazette.com/sports/pirates/2026/04/10/pirates-cubs-mlb-shota-imanaga-bryan-reynolds/stories/202604100057',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://www.post-gazette.com/sports/pirates/2026/04/10/pirates-cubs-mlb-shota-imanaga-bryan-reynolds/stories/202604100057',-1)">▼</button>
         </span>
       </div>
     </div>
   </article>
-  <div class="sec-grid"><article class="sec-item" data-url="https://www.post-gazette.com/sports/penguins/2026/04/10/penguins-stanley-cup-playoff-tickets-attendance-ppg-paints-arena/stories/202604100069">
+  <div class="sec-grid"><article class="sec-item" data-url="https://www.post-gazette.com/sports/2026-nfl-draft/2026/04/10/nfl-draft-public-safety-pittsburgh/stories/202604100072">
           <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.post-gazette.com/sports/2026-nfl-draft/2026/04/10/nfl-draft-public-safety-pittsburgh/stories/202604100072" target="_blank" rel="noopener">Officials promise &#x27;significant law enforcement presence&#x27; for the NFL Draft in Pittsburgh</a></h3>
+            
+            <div class="sec-meta">
+              <span class="src">Pittsburgh Post-Gazette</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.post-gazette.com/sports/2026-nfl-draft/2026/04/10/nfl-draft-public-safety-pittsburgh/stories/202604100072',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.post-gazette.com/sports/2026-nfl-draft/2026/04/10/nfl-draft-public-safety-pittsburgh/stories/202604100072',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.post-gazette.com/sports/penguins/2026/04/10/penguins-stanley-cup-playoff-tickets-attendance-ppg-paints-arena/stories/202604100069">
+          <div class="sec-num">03</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://www.post-gazette.com/sports/penguins/2026/04/10/penguins-stanley-cup-playoff-tickets-attendance-ppg-paints-arena/stories/202604100069" target="_blank" rel="noopener">Penguins playoff tickets go on sale as excitement builds inside PPG Paints Arena</a></h3>
             
@@ -156,7 +228,7 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
             </div>
           </div>
         </article><article class="sec-item" data-url="https://www.post-gazette.com/sports/2026-nfl-draft/2026/04/10/steelers-getting-focused-on-defensive-backs-in-the-nfl-draft-with-another-corner/stories/202604100055">
-          <div class="sec-num">03</div>
+          <div class="sec-num">04</div>
           <div class="sec-body">
             <h3 class="sec-hed"><a href="https://www.post-gazette.com/sports/2026-nfl-draft/2026/04/10/steelers-getting-focused-on-defensive-backs-in-the-nfl-draft-with-another-corner/stories/202604100055" target="_blank" rel="noopener">Steelers focused on DBs in the NFL Draft with another cornerback visit Friday</a></h3>
             
@@ -165,19 +237,6 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
               <span class="votes">
                 <button class="vb up" onclick="vote(this,'https://www.post-gazette.com/sports/2026-nfl-draft/2026/04/10/steelers-getting-focused-on-defensive-backs-in-the-nfl-draft-with-another-corner/stories/202604100055',1)">▲</button>
                 <button class="vb dn" onclick="vote(this,'https://www.post-gazette.com/sports/2026-nfl-draft/2026/04/10/steelers-getting-focused-on-defensive-backs-in-the-nfl-draft-with-another-corner/stories/202604100055',-1)">▼</button>
-              </span>
-            </div>
-          </div>
-        </article><article class="sec-item" data-url="https://www.post-gazette.com/sports/mlb/2026/04/10/mason-miller-bethel-park-san-diego-padres-mlb-closer/stories/202604100064">
-          <div class="sec-num">04</div>
-          <div class="sec-body">
-            <h3 class="sec-hed"><a href="https://www.post-gazette.com/sports/mlb/2026/04/10/mason-miller-bethel-park-san-diego-padres-mlb-closer/stories/202604100064" target="_blank" rel="noopener">Bethel Park product Mason Miller approaching historic levels of dominance</a></h3>
-            
-            <div class="sec-meta">
-              <span class="src">Pittsburgh Post-Gazette</span>
-              <span class="votes">
-                <button class="vb up" onclick="vote(this,'https://www.post-gazette.com/sports/mlb/2026/04/10/mason-miller-bethel-park-san-diego-padres-mlb-closer/stories/202604100064',1)">▲</button>
-                <button class="vb dn" onclick="vote(this,'https://www.post-gazette.com/sports/mlb/2026/04/10/mason-miller-bethel-park-san-diego-padres-mlb-closer/stories/202604100064',-1)">▼</button>
               </span>
             </div>
           </div>
@@ -310,42 +369,42 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
       </div>
     </div>
   </article>
-  <div class="sec-grid"><article class="sec-item" data-url="https://www.bbc.com/news/articles/cge0xre3d27o?at_medium=RSS&amp;at_campaign=rss">
+  <div class="sec-grid"><article class="sec-item" data-url="https://www.bbc.com/news/articles/c93en5q2zl3o?at_medium=RSS&amp;at_campaign=rss">
           <div class="sec-num">02</div>
           <div class="sec-body">
-            <h3 class="sec-hed"><a href="https://www.bbc.com/news/articles/cge0xre3d27o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Trump says Iran&#x27;s handling of Strait of Hormuz is &#x27;not the agreement we have&#x27;</a></h3>
-            <p class="sec-desc">The US president accused Iran of &quot;doing a very poor job&quot; with the waterway as Israel and Lebanon to begin peace talks.</p>
+            <h3 class="sec-hed"><a href="https://www.bbc.com/news/articles/c93en5q2zl3o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Lebanon and Israel officials to meet in US on Tuesday</a></h3>
+            <p class="sec-desc">A senior Lebanese official earlier told the BBC that Lebanon would only take part in talks if a ceasefire was in place.</p>
             <div class="sec-meta">
               <span class="src">BBC</span>
               <span class="votes">
-                <button class="vb up" onclick="vote(this,'https://www.bbc.com/news/articles/cge0xre3d27o?at_medium=RSS&amp;at_campaign=rss',1)">▲</button>
-                <button class="vb dn" onclick="vote(this,'https://www.bbc.com/news/articles/cge0xre3d27o?at_medium=RSS&amp;at_campaign=rss',-1)">▼</button>
+                <button class="vb up" onclick="vote(this,'https://www.bbc.com/news/articles/c93en5q2zl3o?at_medium=RSS&amp;at_campaign=rss',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.bbc.com/news/articles/c93en5q2zl3o?at_medium=RSS&amp;at_campaign=rss',-1)">▼</button>
               </span>
             </div>
           </div>
-        </article><article class="sec-item" data-url="https://www.aljazeera.com/news/2026/4/10/democrat-kamala-harris-teases-2028-presidential-bid-following-trump-loss?traffic_source=rss">
+        </article><article class="sec-item" data-url="https://www.aljazeera.com/video/newsfeed/2026/4/10/muslims-hold-first-friday-prayers-at-al-aqsa-mosque-after-reopening?traffic_source=rss">
           <div class="sec-num">03</div>
           <div class="sec-body">
-            <h3 class="sec-hed"><a href="https://www.aljazeera.com/news/2026/4/10/democrat-kamala-harris-teases-2028-presidential-bid-following-trump-loss?traffic_source=rss" target="_blank" rel="noopener">Democrat Kamala Harris teases 2028 presidential bid, following Trump loss</a></h3>
-            <p class="sec-desc">Formerly the vice president under Biden, Harris mused to Al Sharpton that she knows &amp;#039;what it requires&amp;#039; to be president.</p>
+            <h3 class="sec-hed"><a href="https://www.aljazeera.com/video/newsfeed/2026/4/10/muslims-hold-first-friday-prayers-at-al-aqsa-mosque-after-reopening?traffic_source=rss" target="_blank" rel="noopener">Muslims hold first Friday prayers at Al-Aqsa Mosque after reopening</a></h3>
+            <p class="sec-desc">Thousands of Muslims performed Friday prayers at Al-Aqsa Mosque after it reopened following a 40-day closure by Israel.</p>
             <div class="sec-meta">
               <span class="src">Al Jazeera</span>
               <span class="votes">
-                <button class="vb up" onclick="vote(this,'https://www.aljazeera.com/news/2026/4/10/democrat-kamala-harris-teases-2028-presidential-bid-following-trump-loss?traffic_source=rss',1)">▲</button>
-                <button class="vb dn" onclick="vote(this,'https://www.aljazeera.com/news/2026/4/10/democrat-kamala-harris-teases-2028-presidential-bid-following-trump-loss?traffic_source=rss',-1)">▼</button>
+                <button class="vb up" onclick="vote(this,'https://www.aljazeera.com/video/newsfeed/2026/4/10/muslims-hold-first-friday-prayers-at-al-aqsa-mosque-after-reopening?traffic_source=rss',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.aljazeera.com/video/newsfeed/2026/4/10/muslims-hold-first-friday-prayers-at-al-aqsa-mosque-after-reopening?traffic_source=rss',-1)">▼</button>
               </span>
             </div>
           </div>
-        </article><article class="sec-item" data-url="https://foreignpolicy.com/2026/04/10/us-iran-peace-talks-islamabad-vance-ghalibaf-strait-hormuz-israel-lebanon-hezbollah/">
+        </article><article class="sec-item" data-url="https://foreignpolicy.com/2026/04/10/gulf-states-iran-war-united-arab-emirates-saudi-arabia-qatar-strikes-us-israel/">
           <div class="sec-num">04</div>
           <div class="sec-body">
-            <h3 class="sec-hed"><a href="https://foreignpolicy.com/2026/04/10/us-iran-peace-talks-islamabad-vance-ghalibaf-strait-hormuz-israel-lebanon-hezbollah/" target="_blank" rel="noopener">U.S.-Iran Peace Talks May Collapse Before They Even Begin</a></h3>
-            <p class="sec-desc">Tehran is demanding new conditions for dialogue, as Israel continues its strikes on Lebanon.</p>
+            <h3 class="sec-hed"><a href="https://foreignpolicy.com/2026/04/10/gulf-states-iran-war-united-arab-emirates-saudi-arabia-qatar-strikes-us-israel/" target="_blank" rel="noopener">Where Do the Gulf States Go From Here?</a></h3>
+            <p class="sec-desc">The U.S. war with Iran has shattered their economic model.</p>
             <div class="sec-meta">
               <span class="src">Foreign Policy</span>
               <span class="votes">
-                <button class="vb up" onclick="vote(this,'https://foreignpolicy.com/2026/04/10/us-iran-peace-talks-islamabad-vance-ghalibaf-strait-hormuz-israel-lebanon-hezbollah/',1)">▲</button>
-                <button class="vb dn" onclick="vote(this,'https://foreignpolicy.com/2026/04/10/us-iran-peace-talks-islamabad-vance-ghalibaf-strait-hormuz-israel-lebanon-hezbollah/',-1)">▼</button>
+                <button class="vb up" onclick="vote(this,'https://foreignpolicy.com/2026/04/10/gulf-states-iran-war-united-arab-emirates-saudi-arabia-qatar-strikes-us-israel/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://foreignpolicy.com/2026/04/10/gulf-states-iran-war-united-arab-emirates-saudi-arabia-qatar-strikes-us-israel/',-1)">▼</button>
               </span>
             </div>
           </div>
@@ -366,16 +425,16 @@ footer{text-align:center;font-family:var(--sans);font-size:.63rem;
       </div>
     </div>
   </article>
-  <div class="sec-grid"><article class="sec-item" data-url="https://thehill.com/homenews/senate/5826198-trump-administration-arizona-election-probe-kelly-gallego/">
+  <div class="sec-grid"><article class="sec-item" data-url="https://thehill.com/homenews/house/5826326-comer-responds-to-melania-trump-epstein-victims/">
           <div class="sec-num">02</div>
           <div class="sec-body">
-            <h3 class="sec-hed"><a href="https://thehill.com/homenews/senate/5826198-trump-administration-arizona-election-probe-kelly-gallego/" target="_blank" rel="noopener">Gallego, Kelly demand end to Trump administration&#x27;s Arizona 2020 election probe</a></h3>
-            <p class="sec-desc">Arizona Sens. Mark Kelly (D) and Ruben Gallego (D) are demanding that the Trump administration immediately end its investigation into the state’s 2020 election results.  The Democratic lawmakers urged…</p>
+            <h3 class="sec-hed"><a href="https://thehill.com/homenews/house/5826326-comer-responds-to-melania-trump-epstein-victims/" target="_blank" rel="noopener">Comer responds to Melania Trump: &#x27;We will have hearings&#x27; with Epstein victims</a></h3>
+            <p class="sec-desc">House Oversight Committee Chair James Comer (R-Ky.) committed on Friday to holding hearings with victims of convicted sex offender Jeffrey Epstein as part of his committee&#x27;s ongoing probe, a day …</p>
             <div class="sec-meta">
               <span class="src">The Hill</span>
               <span class="votes">
-                <button class="vb up" onclick="vote(this,'https://thehill.com/homenews/senate/5826198-trump-administration-arizona-election-probe-kelly-gallego/',1)">▲</button>
-                <button class="vb dn" onclick="vote(this,'https://thehill.com/homenews/senate/5826198-trump-administration-arizona-election-probe-kelly-gallego/',-1)">▼</button>
+                <button class="vb up" onclick="vote(this,'https://thehill.com/homenews/house/5826326-comer-responds-to-melania-trump-epstein-victims/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://thehill.com/homenews/house/5826326-comer-responds-to-melania-trump-epstein-victims/',-1)">▼</button>
               </span>
             </div>
           </div>
@@ -466,15 +525,15 @@ The post Hello world! appeared first on AV Club.</p>
 </section>
 <section class="topic-sec" id="music">
   <div class="sec-rule"><span class="sec-label">Music</span></div>
-  <article class="hero" data-url="https://www.rollingstone.com/product-recommendations/tickets/where-to-buy-lollapalooza-tickets-2026-chicago-festival-1235544420/">
+  <article class="hero" data-url="https://www.rollingstone.com/product-recommendations/tickets/where-to-buy-acm-awards-tickets-online-2026-1235545017/">
     <div class="hero-body">
-      <h2 class="hero-hed"><a href="https://www.rollingstone.com/product-recommendations/tickets/where-to-buy-lollapalooza-tickets-2026-chicago-festival-1235544420/" target="_blank" rel="noopener">Here’s Where You Can Still Find Lollapalooza Tickets</a></h2>
-      <p class="hero-desc">Single-day tickets for Lollapalooza sold out for all nights but Sunday. Here&#x27;s what to know about the waitlist and resale options</p>
+      <h2 class="hero-hed"><a href="https://www.rollingstone.com/product-recommendations/tickets/where-to-buy-acm-awards-tickets-online-2026-1235545017/" target="_blank" rel="noopener">Where to Buy Tickets to the 2026 ACM Awards</a></h2>
+      <p class="hero-desc">Tickets for the Academy of Country Music Awards, held at the MGM Grand in Las Vegas, are still available ahead of next month&#x27;s ceremony</p>
       <div class="hero-meta">
         <span class="src">Rolling Stone</span>
         <span class="votes">
-          <button class="vb up" onclick="vote(this,'https://www.rollingstone.com/product-recommendations/tickets/where-to-buy-lollapalooza-tickets-2026-chicago-festival-1235544420/',1)">▲</button>
-          <button class="vb dn" onclick="vote(this,'https://www.rollingstone.com/product-recommendations/tickets/where-to-buy-lollapalooza-tickets-2026-chicago-festival-1235544420/',-1)">▼</button>
+          <button class="vb up" onclick="vote(this,'https://www.rollingstone.com/product-recommendations/tickets/where-to-buy-acm-awards-tickets-online-2026-1235545017/',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://www.rollingstone.com/product-recommendations/tickets/where-to-buy-acm-awards-tickets-online-2026-1235545017/',-1)">▼</button>
         </span>
       </div>
     </div>
@@ -592,16 +651,16 @@ The post How Camden County is Using Shared Housing to Tackle Homelessness—With
       </div>
     </div>
   </article>
-  <div class="sec-grid"><article class="sec-item" data-url="https://www.housingwire.com/articles/fbi-cybercrime-losses-real-estate-fraud-hits-275m/">
+  <div class="sec-grid"><article class="sec-item" data-url="https://www.housingwire.com/articles/low-quit-rate-stability-senior-home-equity/">
           <div class="sec-num">02</div>
           <div class="sec-body">
-            <h3 class="sec-hed"><a href="https://www.housingwire.com/articles/fbi-cybercrime-losses-real-estate-fraud-hits-275m/" target="_blank" rel="noopener">FBI: Cybercrime losses topped $20.8B in 2025, real estate fraud hit $275M</a></h3>
-            <p class="sec-desc">Real estate fraud alone accounted for 12,368 complaints, showing a continued and growing threat for housing professionals and clients.</p>
+            <h3 class="sec-hed"><a href="https://www.housingwire.com/articles/low-quit-rate-stability-senior-home-equity/" target="_blank" rel="noopener">As retirement slips further away, workers prioritize stability and senior home equity</a></h3>
+            <p class="sec-desc">Thirty percent of respondents said they’ve stopped looking for new work over the past five years because of job security concerns.</p>
             <div class="sec-meta">
               <span class="src">HousingWire</span>
               <span class="votes">
-                <button class="vb up" onclick="vote(this,'https://www.housingwire.com/articles/fbi-cybercrime-losses-real-estate-fraud-hits-275m/',1)">▲</button>
-                <button class="vb dn" onclick="vote(this,'https://www.housingwire.com/articles/fbi-cybercrime-losses-real-estate-fraud-hits-275m/',-1)">▼</button>
+                <button class="vb up" onclick="vote(this,'https://www.housingwire.com/articles/low-quit-rate-stability-senior-home-equity/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.housingwire.com/articles/low-quit-rate-stability-senior-home-equity/',-1)">▼</button>
               </span>
             </div>
           </div>
@@ -619,16 +678,16 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
               </span>
             </div>
           </div>
-        </article><article class="sec-item" data-url="https://www.housingwire.com/articles/hankyu-hanshin-bridge-tower/">
+        </article><article class="sec-item" data-url="https://www.housingwire.com/articles/fbi-cybercrime-losses-real-estate-fraud-hits-275m/">
           <div class="sec-num">04</div>
           <div class="sec-body">
-            <h3 class="sec-hed"><a href="https://www.housingwire.com/articles/hankyu-hanshin-bridge-tower/" target="_blank" rel="noopener">Texas builder breaks ground on first community with Japanese firm</a></h3>
-            <p class="sec-desc">Hankyu Hanshin and Bridge Tower broke ground on a 97-lot Corinth project as a new JV targets for-sale communities across Texas.</p>
+            <h3 class="sec-hed"><a href="https://www.housingwire.com/articles/fbi-cybercrime-losses-real-estate-fraud-hits-275m/" target="_blank" rel="noopener">FBI: Cybercrime losses topped $20.8B in 2025, real estate fraud hit $275M</a></h3>
+            <p class="sec-desc">Real estate fraud alone accounted for 12,368 complaints, showing a continued and growing threat for housing professionals and clients.</p>
             <div class="sec-meta">
               <span class="src">HousingWire</span>
               <span class="votes">
-                <button class="vb up" onclick="vote(this,'https://www.housingwire.com/articles/hankyu-hanshin-bridge-tower/',1)">▲</button>
-                <button class="vb dn" onclick="vote(this,'https://www.housingwire.com/articles/hankyu-hanshin-bridge-tower/',-1)">▼</button>
+                <button class="vb up" onclick="vote(this,'https://www.housingwire.com/articles/fbi-cybercrime-losses-real-estate-fraud-hits-275m/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.housingwire.com/articles/fbi-cybercrime-losses-real-estate-fraud-hits-275m/',-1)">▼</button>
               </span>
             </div>
           </div>
@@ -916,15 +975,15 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
 </section>
 <section class="topic-sec" id="travel">
   <div class="sec-rule"><span class="sec-label">Travel</span></div>
-  <article class="hero" data-url="https://www.cntraveler.com/story/arcteryx-promo-code">
+  <article class="hero" data-url="https://www.cntraveler.com/story/my-favorite-vacation-rental-a-glass-villa-with-spectacular-views-of-irelands-coast">
     <div class="hero-body">
-      <h2 class="hero-hed"><a href="https://www.cntraveler.com/story/arcteryx-promo-code" target="_blank" rel="noopener">Arc&#x27;teryx Promo Codes and Deals: Save Up to 50%</a></h2>
-      <p class="hero-desc">Gear up for your next expedition with verified Arc&#x27;teryx discounts, outlet savings, and professional member pricing.</p>
+      <h2 class="hero-hed"><a href="https://www.cntraveler.com/story/my-favorite-vacation-rental-a-glass-villa-with-spectacular-views-of-irelands-coast" target="_blank" rel="noopener">My Favorite Vacation Rental: A Glass Villa With Spectacular Views of Ireland&#x27;s Coast</a></h2>
+      <p class="hero-desc">Even on a wintry weekend this seaside bolthole is an impressive find</p>
       <div class="hero-meta">
         <span class="src">Condé Nast Traveler</span>
         <span class="votes">
-          <button class="vb up" onclick="vote(this,'https://www.cntraveler.com/story/arcteryx-promo-code',1)">▲</button>
-          <button class="vb dn" onclick="vote(this,'https://www.cntraveler.com/story/arcteryx-promo-code',-1)">▼</button>
+          <button class="vb up" onclick="vote(this,'https://www.cntraveler.com/story/my-favorite-vacation-rental-a-glass-villa-with-spectacular-views-of-irelands-coast',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://www.cntraveler.com/story/my-favorite-vacation-rental-a-glass-villa-with-spectacular-views-of-irelands-coast',-1)">▼</button>
         </span>
       </div>
     </div>
@@ -942,16 +1001,16 @@ The post Property Taxes Aren’t the Cause of Our Housing Crisis, They’re 
               </span>
             </div>
           </div>
-        </article><article class="sec-item" data-url="https://www.cntraveler.com/story/visiting-the-eu-expect-face-scans-instead-of-passport-stamps">
+        </article><article class="sec-item" data-url="https://www.cntraveler.com/story/arcteryx-promo-code">
           <div class="sec-num">03</div>
           <div class="sec-body">
-            <h3 class="sec-hed"><a href="https://www.cntraveler.com/story/visiting-the-eu-expect-face-scans-instead-of-passport-stamps" target="_blank" rel="noopener">Visiting the EU? Expect Face Scans Instead of Passport Stamps</a></h3>
-            <p class="sec-desc">The EU&#x27;s new Entry/Exit System (EES) officially launched in 29 Schengen area countries on April 10. Here&#x27;s what to know.</p>
+            <h3 class="sec-hed"><a href="https://www.cntraveler.com/story/arcteryx-promo-code" target="_blank" rel="noopener">Arc&#x27;teryx Promo Codes and Deals: Save Up to 50%</a></h3>
+            <p class="sec-desc">Gear up for your next expedition with verified Arc&#x27;teryx discounts, outlet savings, and professional member pricing.</p>
             <div class="sec-meta">
               <span class="src">Condé Nast Traveler</span>
               <span class="votes">
-                <button class="vb up" onclick="vote(this,'https://www.cntraveler.com/story/visiting-the-eu-expect-face-scans-instead-of-passport-stamps',1)">▲</button>
-                <button class="vb dn" onclick="vote(this,'https://www.cntraveler.com/story/visiting-the-eu-expect-face-scans-instead-of-passport-stamps',-1)">▼</button>
+                <button class="vb up" onclick="vote(this,'https://www.cntraveler.com/story/arcteryx-promo-code',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.cntraveler.com/story/arcteryx-promo-code',-1)">▼</button>
               </span>
             </div>
           </div>
@@ -980,14 +1039,13 @@ const {createClient}=supabase;
 const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 let user=null;
 async function signIn(){await sb.auth.signInWithOAuth({provider:'google',
-  options:{redirectTo:window.location.origin+'/settings.html'}});}
+  options:{redirectTo:'https://gracemitchell13.github.io/thelede/settings.html'}});}
 async function signOut(){await sb.auth.signOut();user=null;updateUI(null);}
 function updateUI(u){
   const st=document.getElementById('auth-st');
   const si=document.getElementById('si-btn');
   const so=document.getElementById('so-btn');
-  const mu=document.getElementById('mast-user');
-  if(u){st.textContent=u.email;mu.textContent=u.email;
+  if(u){st.textContent=u.email;
     si.style.display='none';so.style.display='inline-block';loadVotes(u.id);}
   else{st.textContent="Not signed in — votes won't be saved";mu.textContent='';
     si.style.display='inline-block';so.style.display='none';}
