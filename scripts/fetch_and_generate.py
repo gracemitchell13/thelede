@@ -18,7 +18,7 @@ SUPABASE_SERVICE_KEY = os.environ["SUPABASE_SERVICE_KEY"]
 NEWSAPI_KEY = os.environ["NEWSAPI_KEY"]
 NEWSAPI_BASE = "https://newsapi.org/v2/everything"
 MAX_STORIES = 4
-LOOKBACK_HOURS = 48
+LOOKBACK_HOURS = 24
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
 
@@ -209,10 +209,20 @@ def fetch_all(config):
             d = s["source_domain"] or "unknown"
             buckets.setdefault(d, []).append(s)
 
-        # NewsAPI queries — no domain filter for broader daily coverage
+        # Strict topics use domain filter to avoid noise
+        # Broad topics search all of NewsAPI for daily fresh content
+        STRICT_SLUGS = {
+            "penguins", "nhl", "nba", "nfl", "mlb", "soccer",
+            "college-sports", "sports-business",
+            "criminal-justice", "immigration", "disability-policy",
+            "local-news", "podcasting", "newsletter-industry",
+        }
+        domains_str = ",".join(s["domain"] for s in topic["sources"] if s.get("domain"))
+        use_domains = domains_str if slug in STRICT_SLUGS else ""
+
         for q in topic["queries"]:
             print(f"  NewsAPI [{slug}]: {q[:55]}")
-            for s in fetch_newsapi(q):
+            for s in fetch_newsapi(q, use_domains):
                 add_story(s)
 
         # RSS feeds

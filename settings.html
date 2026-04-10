@@ -111,13 +111,21 @@ main{max-width:860px;margin:0 auto;padding:2rem}
 /* YOUR PICKS SUMMARY */
 .picks-summary{margin-top:2rem;padding:1rem;border:1px solid var(--rlt)}
 .picks-title{font-size:.68rem;font-weight:700;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--lt);margin-bottom:.75rem}
-.picks-list{display:flex;flex-wrap:wrap;gap:.4rem}
-.pick-tag{display:flex;align-items:center;gap:.3rem;padding:.25rem .6rem;
-  background:var(--accent);color:#fff;font-size:.72rem;letter-spacing:.05em}
-.pick-tag button{background:none;border:none;color:#fff;cursor:pointer;
-  font-size:.8rem;line-height:1;padding:0;opacity:.7}
-.pick-tag button:hover{opacity:1}
+  text-transform:uppercase;color:var(--lt);margin-bottom:.5rem}
+.picks-subtitle{font-size:.75rem;color:var(--mid);margin-bottom:.75rem}
+.picks-list{display:flex;flex-direction:column;gap:.3rem}
+.pick-tag{display:flex;align-items:center;gap:.6rem;padding:.4rem .75rem;
+  background:var(--bg2);border:1px solid var(--rlt);font-size:.82rem;
+  cursor:grab;user-select:none}
+.pick-tag:active{cursor:grabbing;opacity:.6}
+.pick-tag.drag-over{border-top:2px solid var(--accent)}
+.pick-drag{color:var(--rlt);font-size:.9rem}
+.pick-label{flex:1;font-weight:700;color:var(--blk)}
+.pick-num{font-family:var(--sans);font-size:.65rem;color:var(--lt);
+  min-width:1.5rem}
+.pick-tag button{background:none;border:none;color:var(--lt);cursor:pointer;
+  font-size:.9rem;line-height:1;padding:0}
+.pick-tag button:hover{color:var(--blk)}
 .picks-empty{font-size:.82rem;color:var(--lt);font-style:italic}
 
 /* BUTTONS */
@@ -203,7 +211,8 @@ footer{text-align:center;font-size:.63rem;letter-spacing:.12em;color:var(--lt);
 
     <!-- YOUR PICKS -->
     <div class="picks-summary">
-      <div class="picks-title">Your active topics</div>
+      <div class="picks-title">Your active topics — drag to reorder</div>
+      <p class="picks-subtitle">The order here is the order on your feed.</p>
       <div class="picks-list" id="picks-list"></div>
     </div>
 
@@ -980,16 +989,51 @@ function removeTopic(slug){
 
 function renderPicks(){
   const list=document.getElementById('picks-list');
-  const active=Object.values(userTopics).filter(t=>t.active);
+  const active=Object.values(userTopics)
+    .filter(t=>t.active)
+    .sort((a,b)=>(a.sort_order??99)-(b.sort_order??99));
   if(active.length===0){
     list.innerHTML='<span class="picks-empty">No topics selected yet.</span>';
     return;
   }
-  list.innerHTML=active.map(t=>`
-    <span class="pick-tag">
-      ${t.label}
-      <button onclick="removeTopic('${t.slug}')" title="Remove">×</button>
-    </span>`).join('');
+  list.innerHTML='';
+  let dragSrc=null;
+  active.forEach((t,i)=>{
+    const tag=document.createElement('div');
+    tag.className='pick-tag';
+    tag.draggable=true;
+    tag.dataset.slug=t.slug;
+    tag.innerHTML=`<span class="pick-num">${i+1}</span>
+      <span class="pick-drag">⠿</span>
+      <span class="pick-label">${t.label}</span>
+      <button onclick="removeTopic('${t.slug}')" title="Remove">×</button>`;
+    tag.addEventListener('dragstart',()=>{dragSrc=t.slug;tag.style.opacity='.4';});
+    tag.addEventListener('dragend',()=>{tag.style.opacity='1';
+      document.querySelectorAll('.pick-tag').forEach(el=>el.classList.remove('drag-over'));});
+    tag.addEventListener('dragover',e=>{e.preventDefault();tag.classList.add('drag-over');});
+    tag.addEventListener('dragleave',()=>tag.classList.remove('drag-over'));
+    tag.addEventListener('drop',e=>{
+      e.preventDefault();tag.classList.remove('drag-over');
+      if(!dragSrc||dragSrc===t.slug)return;
+      // Reorder: move dragSrc to position i
+      const srcTopic=userTopics[dragSrc];
+      const dstTopic=userTopics[t.slug];
+      const srcOrder=srcTopic.sort_order??99;
+      const dstOrder=dstTopic.sort_order??99;
+      // Shift everything between
+      Object.values(userTopics).filter(x=>x.active).forEach(x=>{
+        if(srcOrder<dstOrder){
+          if(x.sort_order>srcOrder&&x.sort_order<=dstOrder)x.sort_order--;
+        }else{
+          if(x.sort_order>=dstOrder&&x.sort_order<srcOrder)x.sort_order++;
+        }
+      });
+      srcTopic.sort_order=dstOrder;
+      markDirty();
+      renderPicks();
+    });
+    list.appendChild(tag);
+  });
 }
 
 // ── SAVE ──────────────────────────────────────────────────────────────────
