@@ -238,7 +238,7 @@ def fetch_all(config):
         # Round-robin across source buckets
         # Sports topics: max 1 per source to force variety
         SPORTS_SLUGS = {"penguins","nhl","nba","nfl","mlb","soccer","college-sports","sports-business"}
-        max_per_src = 1 if slug in SPORTS_SLUGS else MAX_STORIES
+        max_per_src = MAX_STORIES if slug == "penguins" else (2 if slug in SPORTS_SLUGS else MAX_STORIES)
         stories = []
         bucket_lists = list(buckets.values())
         positions = [0] * len(bucket_lists)
