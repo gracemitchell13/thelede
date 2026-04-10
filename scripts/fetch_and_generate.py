@@ -513,13 +513,21 @@ footer{{text-align:center;font-family:var(--sans);font-size:.63rem;
 <div id="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+(function(){{
+  var h=window.location.hash;
+  if(h&&h.indexOf('access_token')>=0){{
+    window.location.replace('settings.html'+h);
+  }}
+}})();
+</script>
+<script>
 const SUPABASE_URL='__SUPABASE_URL__';
 const SUPABASE_ANON_KEY='__SUPABASE_ANON_KEY__';
 const {{createClient}}=supabase;
 const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 let user=null;
 async function signIn(){{await sb.auth.signInWithOAuth({{provider:'google',
-  options:{{redirectTo:'https://gracemitchell13.github.io/thelede/settings.html'}}}});}}
+  options:{{redirectTo:'https://readthelede.com/settings.html'}}}});}}
 async function signOut(){{await sb.auth.signOut();user=null;updateUI(null);}}
 function updateUI(u){{
   const st=document.getElementById('auth-st');
