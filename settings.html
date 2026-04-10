@@ -966,8 +966,9 @@ function addCustomTopic(){
   document.getElementById('custom-label').value='';
   document.getElementById('custom-keywords').value='';
   markDirty();
+  renderLibrary();
   renderPicks();
-  toast('Custom topic added');
+  toast('Custom topic added — save to apply');
 }
 
 function removeTopic(slug){
