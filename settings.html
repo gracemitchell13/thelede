@@ -216,12 +216,8 @@ footer{text-align:center;font-size:.63rem;letter-spacing:.12em;color:var(--lt);
 
     <!-- CUSTOM TOPIC -->
     <div class="custom-section">
-      <h3>Can't find your topic? Add a custom one</h3>
-      <div class="custom-row">
-        <input type="text" id="custom-label" placeholder="Topic name (e.g. Urban Agriculture)"/>
-        <input type="text" id="custom-keywords" placeholder="Search keywords (e.g. urban farming, community gardens)"/>
-        <button class="btn small" onclick="addCustomTopic()">Add</button>
-      </div>
+      <h3>Don't see your topic?</h3>
+      <p style="font-size:.82rem;color:var(--mid);margin-top:.35rem">More topics coming soon. In the meantime, use the keyword search above to find related topics.</p>
     </div>
 
     <!-- YOUR PICKS -->
@@ -245,7 +241,7 @@ footer{text-align:center;font-size:.63rem;letter-spacing:.12em;color:var(--lt);
 <div id="toast"></div>
 <footer>The Lede &mdash; Settings &mdash; readthelede.com</footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.26.0/dist/umd/supabase.min.js"></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2.26.0/dist/umd/supabase.js"></script>
 <script>
 const SUPABASE_URL='https://tgdzivpyudduwktcmiqb.supabase.co';
 const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRnZHppdnB5dWRkdXdrdGNtaXFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2ODgyNDQsImV4cCI6MjA5MTI2NDI0NH0.8GLZo0tp665Tm6dAsdEv54Hf_U5eWV9E-NAItdBk0bA';
@@ -271,6 +267,10 @@ const LIBRARY=[
     {label:'Route Fifty',domain:'route-fifty.com',feed:'https://www.route-fifty.com/rss.xml'},
     {label:'FCW',domain:'fcw.com',feed:'https://fcw.com/rss-feeds/all.aspx'},
     {label:'Government Executive',domain:'govexec.com',feed:'https://www.govexec.com/rss/all/'},
+  
+    {label:'Wired Politics',domain:'wired.com',feed:'https://www.wired.com/feed/category/politics/latest/rss'},
+    {label:'Politico Tech',domain:'politico.com',feed:'https://rss.politico.com/technology-news.xml'},
+    {label:'Washington Post Tech',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/business/technology'},
   ]},
   {slug:'housing-policy',category:'Government & Policy',label:'Housing Policy',
    desc:'Affordable housing, zoning, homelessness, and rent policy.',
@@ -281,6 +281,11 @@ const LIBRARY=[
     {label:'Strong Towns',domain:'strongtowns.org',feed:'https://www.strongtowns.org/feed/'},
     {label:'NLIHC',domain:'nlihc.org',feed:'https://nlihc.org/feed'},
     {label:'Next City',domain:'nextcity.org',feed:'https://nextcity.org/feed'},
+  
+    {label:'NYT Real Estate',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/RealEstate.xml'},
+    {label:'The Guardian Housing',domain:'theguardian.com',feed:'https://www.theguardian.com/society/housing/rss'},
+    {label:'Bloomberg CityLab',domain:'bloomberg.com',feed:'https://feeds.bloomberg.com/citylab/news.rss'},
+    {label:'Washington Post Housing',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/realestate'},
   ]},
   {slug:'criminal-justice',category:'Government & Policy',label:'Criminal Justice Reform',
    desc:'Policing, incarceration, court reform, reentry, and justice policy.',
@@ -289,6 +294,10 @@ const LIBRARY=[
     {label:'The Marshall Project',domain:'themarshallproject.org',feed:'https://feeds.themarshallproject.org/marshall-project-all'},
     {label:'Prison Policy Initiative',domain:'prisonpolicy.org',feed:'https://www.prisonpolicy.org/rss.xml'},
     {label:'The Appeal',domain:'theappeal.org',feed:'https://theappeal.org/feed/'},
+  
+    {label:'NYT Crime',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Crime.xml'},
+    {label:'The Guardian US Crime',domain:'theguardian.com',feed:'https://www.theguardian.com/us-news/us-crime/rss'},
+    {label:'Washington Post Criminal Justice',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/national/criminal-justice'},
   ]},
   {slug:'education-policy',category:'Government & Policy',label:'Education Policy',
    desc:'K-12 and higher education policy, funding, equity, and reform.',
@@ -298,6 +307,11 @@ const LIBRARY=[
     {label:'Chalkbeat',domain:'chalkbeat.org',feed:'https://www.chalkbeat.org/arc/outboundfeeds/rss/'},
     {label:'The 74',domain:'the74million.org',feed:'https://www.the74million.org/feed/'},
     {label:'Inside Higher Ed',domain:'insidehighered.com',feed:'https://www.insidehighered.com/rss/all'},
+  
+    {label:'NYT Education',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Education.xml'},
+    {label:'The Guardian Education',domain:'theguardian.com',feed:'https://www.theguardian.com/education/rss'},
+    {label:'Washington Post Education',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/local/education'},
+    {label:'NPR Education',domain:'npr.org',feed:'https://feeds.npr.org/1013/rss.xml'},
   ]},
   {slug:'health-policy',category:'Government & Policy',label:'Health Policy',
    desc:'Healthcare access, Medicaid, public health, and mental health policy.',
@@ -307,6 +321,11 @@ const LIBRARY=[
     {label:'KFF Health News',domain:'kffhealthnews.org',feed:'https://kffhealthnews.org/feed/'},
     {label:'STAT News',domain:'statnews.com',feed:'https://www.statnews.com/feed/'},
     {label:'Modern Healthcare',domain:'modernhealthcare.com',feed:'https://www.modernhealthcare.com/section/rss'},
+  
+    {label:'NYT Health',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Health.xml'},
+    {label:'The Guardian Health',domain:'theguardian.com',feed:'https://www.theguardian.com/society/health/rss'},
+    {label:'Washington Post Health',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/national/health-science'},
+    {label:'NPR Health',domain:'npr.org',feed:'https://feeds.npr.org/1128/rss.xml'},
   ]},
   {slug:'climate-policy',category:'Government & Policy',label:'Climate & Environment',
    desc:'Climate change policy, clean energy, and environmental regulation.',
@@ -317,6 +336,11 @@ const LIBRARY=[
     {label:'Grist',domain:'grist.org',feed:'https://grist.org/feed/'},
     {label:'E&E News',domain:'eenews.net',feed:'https://www.eenews.net/rss/'},
     {label:'Carbon Brief',domain:'carbonbrief.org',feed:'https://www.carbonbrief.org/feed'},
+  
+    {label:'NYT Climate',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Climate.xml'},
+    {label:'The Guardian Environment',domain:'theguardian.com',feed:'https://www.theguardian.com/environment/rss'},
+    {label:'BBC Environment',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/science_and_environment/rss.xml'},
+    {label:'Washington Post Climate',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/national/weather'},
   ]},
   {slug:'immigration',category:'Government & Policy',label:'Immigration Policy',
    desc:'Immigration law, border policy, refugees, and immigrant communities.',
@@ -324,6 +348,26 @@ const LIBRARY=[
    sources:[
     {label:'Immigration Impact',domain:'immigrationimpact.com',feed:'https://immigrationimpact.com/feed/'},
     {label:'Documented',domain:'documented.net',feed:'https://documented.net/feed'},
+  
+    {label:'NYT Immigration',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/World.xml'},
+    {label:'The Guardian Immigration',domain:'theguardian.com',feed:'https://www.theguardian.com/us-news/immigration/rss'},
+    {label:'NPR Immigration',domain:'npr.org',feed:'https://feeds.npr.org/1014/rss.xml'},
+  ]},
+  {slug:'gender-sexuality',category:'Government & Policy',label:'Gender & Sexuality',
+   desc:'Gender equity, LGBTQ+ rights, reproductive rights, and feminist policy.',
+   queries:['"gender equity" OR "LGBTQ" OR "reproductive rights"','"feminist" OR "queer rights" OR "trans rights" OR "gender policy"'],
+   sources:[
+    {label:'GLAAD',domain:'glaad.org',feed:'https://www.glaad.org/feed'},
+    {label:'The 19th',domain:'19thnews.org',feed:'https://19thnews.org/feed/'},
+    {label:'Rewire News',domain:'rewirenewsgroup.com',feed:'https://rewirenewsgroup.com/feed/'},
+    {label:'Ms. Magazine',domain:'msmagazine.com',feed:'https://msmagazine.com/feed/'},
+    {label:'them.',domain:'them.us',feed:'https://www.them.us/feed/rss'},
+    {label:'National Women's Law Center',domain:'nwlc.org',feed:'https://nwlc.org/feed/'},
+  
+    {label:'NYT Gender',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/US.xml'},
+    {label:'The Guardian Gender',domain:'theguardian.com',feed:'https://www.theguardian.com/world/gender/rss'},
+    {label:'NPR Gender',domain:'npr.org',feed:'https://feeds.npr.org/1001/rss.xml'},
+    {label:'Washington Post Gender',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/lifestyle/style'},
   ]},
   {slug:'economic-policy',category:'Government & Policy',label:'Economic Policy',
    desc:'Federal budget, taxes, labor markets, inequality, and fiscal policy.',
@@ -333,6 +377,11 @@ const LIBRARY=[
     {label:'Tax Foundation',domain:'taxfoundation.org',feed:'https://taxfoundation.org/feed/'},
     {label:'Center on Budget',domain:'cbpp.org',feed:'https://www.cbpp.org/rss/research'},
     {label:'Economic Policy Institute',domain:'epi.org',feed:'https://www.epi.org/feed/'},
+  
+    {label:'NYT Economy',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Economy.xml'},
+    {label:'The Guardian Economics',domain:'theguardian.com',feed:'https://www.theguardian.com/business/economics/rss'},
+    {label:'BBC Business',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/business/rss.xml'},
+    {label:'NPR Economy',domain:'npr.org',feed:'https://feeds.npr.org/1017/rss.xml'},
   ]},
   {slug:'transportation',category:'Government & Policy',label:'Transportation & Infrastructure',
    desc:'Transit, roads, broadband, and infrastructure policy.',
@@ -341,6 +390,10 @@ const LIBRARY=[
     {label:'Streetsblog',domain:'streetsblog.net',feed:'https://streetsblog.net/feed/'},
     {label:'Smart Cities Dive',domain:'smartcitiesdive.com',feed:'https://www.smartcitiesdive.com/feeds/news/'},
     {label:'Mass Transit',domain:'masstransitmag.com',feed:'https://www.masstransitmag.com/rss/'},
+  
+    {label:'NYT Transportation',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/US.xml'},
+    {label:'The Guardian Transport',domain:'theguardian.com',feed:'https://www.theguardian.com/uk/transport/rss'},
+    {label:'Washington Post Transportation',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/local/traffic'},
   ]},
   {slug:'voting-democracy',category:'Government & Policy',label:'Voting & Democracy',
    desc:'Elections, voting rights, campaign finance, and democratic institutions.',
@@ -357,6 +410,10 @@ const LIBRARY=[
     {label:'In These Times',domain:'inthesetimes.com',feed:'https://inthesetimes.com/feed'},
     {label:'Labor Notes',domain:'labornotes.org',feed:'https://labornotes.org/feed'},
     {label:'Economic Policy Institute',domain:'epi.org',feed:'https://www.epi.org/feed/'},
+  
+    {label:'NYT Labor',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml'},
+    {label:'The Guardian Labor',domain:'theguardian.com',feed:'https://www.theguardian.com/money/work-and-careers/rss'},
+    {label:'NPR Business',domain:'npr.org',feed:'https://feeds.npr.org/1006/rss.xml'},
   ]},
   {slug:'disability-policy',category:'Government & Policy',label:'Disability Policy',
    desc:'Disability rights, accessibility, benefits, and inclusive policy.',
@@ -376,6 +433,11 @@ const LIBRARY=[
     {label:'The Grio',domain:'thegrio.com',feed:'https://thegrio.com/feed/'},
     {label:'NAACP',domain:'naacp.org',feed:'https://naacp.org/feed/'},
     {label:'Prism',domain:'prismreports.org',feed:'https://prismreports.org/feed/'},
+  
+    {label:'NYT Race',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/US.xml'},
+    {label:'The Guardian Race',domain:'theguardian.com',feed:'https://www.theguardian.com/world/race/rss'},
+    {label:'NPR Race',domain:'npr.org',feed:'https://feeds.npr.org/1001/rss.xml'},
+    {label:'Washington Post Race',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/national/race-and-ethnicity'},
   ]},
 
   // ── NONPROFITS & PHILANTHROPY ─────────────────────────────────────────────
@@ -388,6 +450,10 @@ const LIBRARY=[
     {label:'SSIR',domain:'ssir.org',feed:'https://ssir.org/site/rss'},
     {label:'Inside Philanthropy',domain:'insidephilanthropy.com',feed:'https://www.insidephilanthropy.com/home?format=rss'},
     {label:'Chronicle of Philanthropy',domain:'philanthropy.com',feed:'https://www.philanthropy.com/feed'},
+  
+    {label:'NYT Giving',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/NYRegion.xml'},
+    {label:'The Guardian Charities',domain:'theguardian.com',feed:'https://www.theguardian.com/society/charities/rss'},
+    {label:'NPR Nonprofits',domain:'npr.org',feed:'https://feeds.npr.org/1001/rss.xml'},
   ]},
   {slug:'community-development',category:'Nonprofits & Philanthropy',label:'Community Development',
    desc:'CDFIs, community investment, and neighborhood revitalization.',
@@ -442,6 +508,12 @@ const LIBRARY=[
     {label:'VentureBeat',domain:'venturebeat.com',feed:'https://venturebeat.com/category/ai/feed/'},
     {label:'Wired',domain:'wired.com',feed:'https://www.wired.com/feed/category/artificial-intelligence/latest/rss'},
     {label:'Ars Technica',domain:'arstechnica.com',feed:'https://feeds.arstechnica.com/arstechnica/index'},
+  
+    {label:'NYT Technology',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml'},
+    {label:'BBC Technology',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/technology/rss.xml'},
+    {label:'The Guardian Tech',domain:'theguardian.com',feed:'https://www.theguardian.com/technology/artificialintelligenceai/rss'},
+    {label:'Washington Post Tech',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/business/technology'},
+    {label:'NPR Tech',domain:'npr.org',feed:'https://feeds.npr.org/1019/rss.xml'},
   ]},
   {slug:'cybersecurity',category:'Technology',label:'Cybersecurity',
    desc:'Cyber threats, data breaches, security policy, and digital defense.',
@@ -502,6 +574,10 @@ const LIBRARY=[
     {label:'Poynter',domain:'poynter.org',feed:'https://www.poynter.org/feed/'},
     {label:'Columbia Journalism Review',domain:'cjr.org',feed:'https://www.cjr.org/feed'},
     {label:'Press Gazette',domain:'pressgazette.co.uk',feed:'https://pressgazette.co.uk/feed/'},
+  
+    {label:'NYT Media',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/MediaandAdvertising.xml'},
+    {label:'The Guardian Media',domain:'theguardian.com',feed:'https://www.theguardian.com/media/rss'},
+    {label:'NPR Media',domain:'npr.org',feed:'https://feeds.npr.org/1001/rss.xml'},
   ]},
   {slug:'media-industry',category:'Media & Journalism',label:'Media Industry',
    desc:'Publishing, streaming, media business, and the attention economy.',
@@ -638,6 +714,12 @@ const LIBRARY=[
     {label:'Nature',domain:'nature.com',feed:'https://www.nature.com/nature.rss'},
     {label:'New Scientist',domain:'newscientist.com',feed:'https://www.newscientist.com/feed/home/'},
     {label:'Scientific American',domain:'scientificamerican.com',feed:'https://rss.sciam.com/ScientificAmerican-Global'},
+  
+    {label:'NYT Science',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Science.xml'},
+    {label:'BBC Science',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/science_and_environment/rss.xml'},
+    {label:'The Guardian Science',domain:'theguardian.com',feed:'https://www.theguardian.com/science/rss'},
+    {label:'NPR Science',domain:'npr.org',feed:'https://feeds.npr.org/1007/rss.xml'},
+    {label:'Washington Post Science',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/national/health-science'},
   ]},
   {slug:'business',category:'General News',label:'Business & Finance',
    desc:'Markets, corporate news, personal finance, and the economy.',
@@ -647,6 +729,11 @@ const LIBRARY=[
     {label:'Bloomberg',domain:'bloomberg.com',feed:'https://feeds.bloomberg.com/markets/news.rss'},
     {label:'The Economist',domain:'economist.com',feed:'https://www.economist.com/finance-and-economics/rss.xml'},
     {label:'Wall Street Journal',domain:'wsj.com',feed:'https://feeds.a.dj.com/rss/RSSMarketsMain.xml'},
+  
+    {label:'NYT Business',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml'},
+    {label:'BBC Business',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/business/rss.xml'},
+    {label:'The Guardian Business',domain:'theguardian.com',feed:'https://www.theguardian.com/business/rss'},
+    {label:'NPR Business',domain:'npr.org',feed:'https://feeds.npr.org/1006/rss.xml'},
   ]},
   {slug:'politics',category:'General News',label:'US Politics',
    desc:'Congress, the White House, campaigns, and political analysis.',
@@ -656,6 +743,12 @@ const LIBRARY=[
     {label:'The Hill',domain:'thehill.com',feed:'https://thehill.com/rss/syndicator/19109'},
     {label:'Roll Call',domain:'rollcall.com',feed:'https://rollcall.com/feed/'},
     {label:'Five Thirty Eight',domain:'fivethirtyeight.com',feed:'https://fivethirtyeight.com/features/feed/'},
+  
+    {label:'NYT Politics',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml'},
+    {label:'BBC Politics',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/politics/rss.xml'},
+    {label:'The Guardian US Politics',domain:'theguardian.com',feed:'https://www.theguardian.com/us-news/us-politics/rss'},
+    {label:'NPR Politics',domain:'npr.org',feed:'https://feeds.npr.org/1014/rss.xml'},
+    {label:'Washington Post Politics',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/politics'},
   ]},
   {slug:'international-affairs',category:'General News',label:'International Affairs & Diplomacy',
    desc:'Geopolitics, diplomacy, international security, and foreign relations.',
@@ -684,6 +777,11 @@ const LIBRARY=[
     {label:'Harvard Health',domain:'health.harvard.edu',feed:'https://www.health.harvard.edu/blog/feed'},
     {label:'Verywell Health',domain:'verywellhealth.com',feed:'https://www.verywellhealth.com/rss'},
     {label:'Well+Good',domain:'wellandgood.com',feed:'https://www.wellandgood.com/feed/'},
+  
+    {label:'NYT Well',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Well.xml'},
+    {label:'BBC Health',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/health/rss.xml'},
+    {label:'The Guardian Health',domain:'theguardian.com',feed:'https://www.theguardian.com/society/health/rss'},
+    {label:'Washington Post Health',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/national/health-science'},
   ]},
   {slug:'space',category:'General News',label:'Space & Astronomy',
    desc:'Space exploration, NASA, astronomy, and the commercial space industry.',
@@ -692,6 +790,11 @@ const LIBRARY=[
     {label:'Space.com',domain:'space.com',feed:'https://www.space.com/feeds/all'},
     {label:'NASA',domain:'nasa.gov',feed:'https://www.nasa.gov/rss/dyn/breaking_news.rss'},
     {label:'Spaceflight Now',domain:'spaceflightnow.com',feed:'https://spaceflightnow.com/feed/'},
+  
+    {label:'NYT Science',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Science.xml'},
+    {label:'BBC Science',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/science_and_environment/rss.xml'},
+    {label:'The Guardian Space',domain:'theguardian.com',feed:'https://www.theguardian.com/science/space/rss'},
+    {label:'NPR Science',domain:'npr.org',feed:'https://feeds.npr.org/1007/rss.xml'},
   ]},
   {slug:'food-agriculture',category:'General News',label:'Food & Agriculture',
    desc:'Food policy, agriculture, food systems, restaurants, and culinary culture.',
@@ -700,6 +803,10 @@ const LIBRARY=[
     {label:'Civil Eats',domain:'civileats.com',feed:'https://civileats.com/feed/'},
     {label:'Modern Farmer',domain:'modernfarmer.com',feed:'https://modernfarmer.com/feed/'},
     {label:'Food & Environment Reporting',domain:'thefern.org',feed:'https://thefern.org/feed/'},
+  
+    {label:'NYT Food',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/DiningandWine.xml'},
+    {label:'The Guardian Food',domain:'theguardian.com',feed:'https://www.theguardian.com/environment/food/rss'},
+    {label:'NPR Food',domain:'npr.org',feed:'https://feeds.npr.org/1057/rss.xml'},
   ]},
 
   // ── ARTS & CULTURE ────────────────────────────────────────────────────────
@@ -712,6 +819,11 @@ const LIBRARY=[
     {label:'Publishers Weekly',domain:'publishersweekly.com',feed:'https://www.publishersweekly.com/pw/feeds/latest/index.xml'},
     {label:'Book Riot',domain:'bookriot.com',feed:'https://bookriot.com/feed/'},
     {label:'The New York Review of Books',domain:'nybooks.com',feed:'https://www.nybooks.com/feed/'},
+  
+    {label:'NYT Books',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Books.xml'},
+    {label:'The Guardian Books',domain:'theguardian.com',feed:'https://www.theguardian.com/books/rss'},
+    {label:'NPR Books',domain:'npr.org',feed:'https://feeds.npr.org/1032/rss.xml'},
+    {label:'BBC Culture',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/culture/rss.xml'},
   ]},
   {slug:'film-tv',category:'Arts & Culture',label:'Film & Television',
    desc:'Movie reviews, TV criticism, streaming, and screen culture.',
@@ -721,6 +833,11 @@ const LIBRARY=[
     {label:'IndieWire',domain:'indiewire.com',feed:'https://www.indiewire.com/feed/'},
     {label:'The A.V. Club',domain:'avclub.com',feed:'https://www.avclub.com/feed/rss'},
     {label:'Vulture',domain:'vulture.com',feed:'https://www.vulture.com/feed/all.xml'},
+  
+    {label:'NYT Arts',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Arts.xml'},
+    {label:'The Guardian Film',domain:'theguardian.com',feed:'https://www.theguardian.com/film/rss'},
+    {label:'NPR Arts',domain:'npr.org',feed:'https://feeds.npr.org/1008/rss.xml'},
+    {label:'BBC Culture',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/culture/rss.xml'},
   ]},
   {slug:'music',category:'Arts & Culture',label:'Music',
    desc:'Music reviews, new releases, industry news, and artist profiles.',
@@ -730,6 +847,11 @@ const LIBRARY=[
     {label:'Rolling Stone',domain:'rollingstone.com',feed:'https://www.rollingstone.com/feed/'},
     {label:'NPR Music',domain:'npr.org',feed:'https://feeds.npr.org/1039/rss.xml'},
     {label:'Stereogum',domain:'stereogum.com',feed:'https://www.stereogum.com/feed/'},
+  
+    {label:'NYT Music',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Arts.xml'},
+    {label:'The Guardian Music',domain:'theguardian.com',feed:'https://www.theguardian.com/music/rss'},
+    {label:'NPR Music',domain:'npr.org',feed:'https://feeds.npr.org/1039/rss.xml'},
+    {label:'BBC Music',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/culture/rss.xml'},
   ]},
   {slug:'visual-arts',category:'Arts & Culture',label:'Visual Arts & Design',
    desc:'Contemporary art, museum news, design, photography, and architecture.',
@@ -764,6 +886,11 @@ const LIBRARY=[
     {label:'Eater',domain:'eater.com',feed:'https://www.eater.com/rss/index.xml'},
     {label:'Bon Appétit',domain:'bonappetit.com',feed:'https://www.bonappetit.com/feed/rss'},
     {label:'Food52',domain:'food52.com',feed:'https://food52.com/blog.rss'},
+  
+    {label:'NYT Food',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/DiningandWine.xml'},
+    {label:'The Guardian Food',domain:'theguardian.com',feed:'https://www.theguardian.com/food/rss'},
+    {label:'NPR Food',domain:'npr.org',feed:'https://feeds.npr.org/1057/rss.xml'},
+    {label:'BBC Food',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/food/recipes/rss.xml'},
   ]},
   {slug:'travel',category:'Arts & Culture',label:'Travel',
    desc:'Travel destinations, trip planning, and travel culture.',
@@ -772,6 +899,9 @@ const LIBRARY=[
     {label:'Condé Nast Traveler',domain:'cntraveler.com',feed:'https://www.cntraveler.com/feed/rss'},
     {label:'Atlas Obscura',domain:'atlasobscura.com',feed:'https://www.atlasobscura.com/feeds/latest'},
     {label:'Lonely Planet',domain:'lonelyplanet.com',feed:'https://www.lonelyplanet.com/news.rss'},
+    {label:'NYT Travel',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Travel.xml'},
+    {label:'The Guardian Travel',domain:'theguardian.com',feed:'https://www.theguardian.com/travel/rss'},
+    {label:'BBC Travel',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/travel/rss.xml'},
   ]},
 ];
 

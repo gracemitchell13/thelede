@@ -85,6 +85,9 @@ SOURCE_LABELS = {
     "bonappetit.com":"Bon Appétit","food52.com":"Food52",
     "cntraveler.com":"Condé Nast Traveler","atlasobscura.com":"Atlas Obscura",
     "lonelyplanet.com":"Lonely Planet",
+        "glaad.org":"GLAAD","19thnews.org":"The 19th",
+    "rewirenewsgroup.com":"Rewire News","msmagazine.com":"Ms. Magazine",
+    "them.us":"them.","nwlc.org":"NWLC",
 }
 
 def clean_label(source_label, domain):
