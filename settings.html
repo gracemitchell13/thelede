@@ -1061,13 +1061,26 @@ async function saveAll(){
   const topicRows=Object.values(userTopics).map(t=>({...t,user_id:user.id}));
   const sourceRows=[];
   Object.values(userSources).forEach(byDomain=>{
-    Object.values(byDomain).forEach(s=>sourceRows.push({...s,user_id:user.id}));
+    Object.values(byDomain).forEach(s=>{
+      // Ensure domain is never empty — use feed hostname as fallback
+      let domain=s.domain;
+      if(!domain&&s.feed_url){
+        try{domain=new URL(s.feed_url).hostname.replace('www.','');}catch(e){domain='unknown';}
+      }
+      if(!domain)domain='unknown';
+      sourceRows.push({...s,domain,user_id:user.id});
+    });
   });
 
-  await Promise.all([
-    topicRows.length?sb.from('user_topics').upsert(topicRows,{onConflict:'user_id,slug'}):Promise.resolve(),
-    sourceRows.length?sb.from('user_sources').upsert(sourceRows,{onConflict:'user_id,topic_slug,domain'}):Promise.resolve(),
+  console.log('Saving topics:', topicRows.length, 'sources:', sourceRows.length);
+
+  const [topicResult, sourceResult] = await Promise.all([
+    topicRows.length?sb.from('user_topics').upsert(topicRows,{onConflict:'user_id,slug'}):Promise.resolve({error:null}),
+    sourceRows.length?sb.from('user_sources').upsert(sourceRows,{onConflict:'user_id,topic_slug,domain'}):Promise.resolve({error:null}),
   ]);
+
+  if(topicResult?.error)console.error('Topic save error:', topicResult.error);
+  if(sourceResult?.error)console.error('Source save error:', sourceResult.error);
 
   dirty=false;
   document.getElementById('save-bar').classList.remove('show');
