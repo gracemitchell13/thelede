@@ -1061,7 +1061,7 @@ async function saveAll(){
   // Only save active topics
   const activeTopics=Object.values(userTopics).filter(t=>t.active);
   const topicRows=activeTopics.map((t,i)=>({
-    ...(t.id?{id:t.id}:{}),  // include id only if it exists
+    id:t.id||crypto.randomUUID(),
     user_id:user.id,
     slug:t.slug,
     label:t.label,
@@ -1082,7 +1082,7 @@ async function saveAll(){
       }
       if(!domain)domain='unknown';
       sourceRows.push({
-        ...(s.id?{id:s.id}:{}),
+        id:s.id||crypto.randomUUID(),
         user_id:user.id,
         topic_slug:slug,
         domain,
