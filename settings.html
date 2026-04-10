@@ -127,6 +127,21 @@ main{max-width:860px;margin:0 auto;padding:2rem}
   font-size:.9rem;line-height:1;padding:0}
 .pick-tag button:hover{color:var(--blk)}
 .picks-empty{font-size:.82rem;color:var(--lt);font-style:italic}
+.pick-wrap{display:flex;flex-direction:column;gap:0}
+.pick-edit-btn{font-family:var(--sans);font-size:.65rem;letter-spacing:.06em;
+  background:none;border:1px solid var(--rlt);color:var(--mid);
+  padding:1px 6px;cursor:pointer;margin-right:.25rem}
+.pick-edit-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.pick-source-panel{background:var(--bg2);border:1px solid var(--rlt);
+  border-top:none;padding:.75rem 1rem}
+.pick-src-row{display:flex;align-items:center;gap:.5rem;padding:.3rem 0;
+  border-bottom:1px solid var(--rlt);font-size:.8rem}
+.pick-src-name{font-weight:700;flex:1}
+.pick-src-domain{font-size:.68rem;color:var(--lt)}
+.pick-src-empty{font-size:.78rem;color:var(--lt);font-style:italic;margin-bottom:.5rem}
+.pick-src-add{display:flex;gap:.4rem;margin-top:.6rem;flex-wrap:wrap}
+.pick-src-add input{flex:1;min-width:120px;padding:.3rem .5rem;
+  border:1px solid var(--rlt);font-family:var(--sans);font-size:.78rem;background:var(--bg)}
 
 /* BUTTONS */
 .btn{display:inline-block;padding:.4rem 1rem;font-size:.72rem;letter-spacing:.08em;
@@ -1020,6 +1035,11 @@ function renderPicks(){
   list.innerHTML='';
   let dragSrc=null;
   active.forEach((t,i)=>{
+    const isCustom=!LIBRARY.find(l=>l.slug===t.slug);
+    const topicSources=Object.values(userSources[t.slug]||{});
+    const wrap=document.createElement('div');
+    wrap.className='pick-wrap';
+
     const tag=document.createElement('div');
     tag.className='pick-tag';
     tag.draggable=true;
@@ -1027,7 +1047,9 @@ function renderPicks(){
     tag.innerHTML=`<span class="pick-num">${i+1}</span>
       <span class="pick-drag">⠿</span>
       <span class="pick-label">${t.label}</span>
+      ${isCustom?`<button class="pick-edit-btn" onclick="togglePickSources('${t.slug}')" title="Add sources">+ sources</button>`:''}
       <button onclick="removeTopic('${t.slug}')" title="Remove">×</button>`;
+
     tag.addEventListener('dragstart',()=>{dragSrc=t.slug;tag.style.opacity='.4';});
     tag.addEventListener('dragend',()=>{tag.style.opacity='1';
       document.querySelectorAll('.pick-tag').forEach(el=>el.classList.remove('drag-over'));});
@@ -1036,12 +1058,10 @@ function renderPicks(){
     tag.addEventListener('drop',e=>{
       e.preventDefault();tag.classList.remove('drag-over');
       if(!dragSrc||dragSrc===t.slug)return;
-      // Reorder: move dragSrc to position i
       const srcTopic=userTopics[dragSrc];
       const dstTopic=userTopics[t.slug];
       const srcOrder=srcTopic.sort_order??99;
       const dstOrder=dstTopic.sort_order??99;
-      // Shift everything between
       Object.values(userTopics).filter(x=>x.active).forEach(x=>{
         if(srcOrder<dstOrder){
           if(x.sort_order>srcOrder&&x.sort_order<=dstOrder)x.sort_order--;
@@ -1053,8 +1073,62 @@ function renderPicks(){
       markDirty();
       renderPicks();
     });
-    list.appendChild(tag);
+
+    // Source panel for custom topics
+    const panel=document.createElement('div');
+    panel.className='pick-source-panel';
+    panel.id='psp-'+t.slug;
+    panel.style.display='none';
+
+    const existingSources=topicSources.map(s=>`
+      <div class="pick-src-row">
+        <span class="source-check${s.active!==false?' on':''}" onclick="togglePickSource('${t.slug}','${s.domain}',this)">✓</span>
+        <span class="pick-src-name">${s.label||s.domain}</span>
+        <span class="pick-src-domain">${s.domain}</span>
+      </div>`).join('');
+
+    panel.innerHTML=`
+      ${existingSources||'<p class="pick-src-empty">No sources yet — add one below</p>'}
+      <div class="pick-src-add">
+        <input type="text" placeholder="Source name" id="psl-${t.slug}" />
+        <input type="text" placeholder="RSS feed URL" id="psf-${t.slug}" />
+        <button class="btn small" onclick="addPickSource('${t.slug}')">Add</button>
+      </div>
+      <div class="rss-tip" style="margin-top:.5rem">
+        Try adding <code>/feed</code> or <code>/rss</code> to a site URL.
+        <a href="https://kill-the-newsletter.com" target="_blank">Kill the Newsletter</a> converts email newsletters to RSS.
+      </div>`;
+
+    wrap.appendChild(tag);
+    wrap.appendChild(panel);
+    list.appendChild(wrap);
   });
+}
+
+function togglePickSources(slug){
+  const panel=document.getElementById('psp-'+slug);
+  if(panel)panel.style.display=panel.style.display==='none'?'block':'none';
+}
+
+function togglePickSource(slug,domain,el){
+  if(!userSources[slug])userSources[slug]={};
+  if(userSources[slug][domain])userSources[slug][domain].active=!userSources[slug][domain].active;
+  el.classList.toggle('on',userSources[slug][domain]?.active!==false);
+  markDirty();
+}
+
+function addPickSource(slug){
+  const label=document.getElementById('psl-'+slug).value.trim();
+  const feed=document.getElementById('psf-'+slug).value.trim();
+  if(!label||!feed){toast('Enter a name and RSS URL');return;}
+  let domain=feed;
+  try{domain=new URL(feed.startsWith('http')?feed:'https://'+feed).hostname.replace('www.','');}catch(e){}
+  if(!userSources[slug])userSources[slug]={};
+  userSources[slug][domain]={topic_slug:slug,domain,label,feed_url:feed,active:true,user_id:user.id};
+  markDirty();
+  renderPicks();
+  setTimeout(()=>togglePickSources(slug),50);
+  toast('Source added — save to apply');
 }
 
 // ── SAVE ──────────────────────────────────────────────────────────────────
