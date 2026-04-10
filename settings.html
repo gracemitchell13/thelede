@@ -1060,7 +1060,11 @@ function markDirty(){dirty=true;document.getElementById('save-bar').classList.ad
 async function saveAll(){
   // Only save active topics
   const activeTopics=Object.values(userTopics).filter(t=>t.active);
-  const topicRows=activeTopics.map(t=>({...t,user_id:user.id}));
+  const topicRows=activeTopics.map(t=>{
+    const row={...t,user_id:user.id};
+    if(!row.id)delete row.id;  // let Supabase generate UUID for new topics
+    return row;
+  });
 
   // Only save sources for active topics
   const activeSlugs=new Set(activeTopics.map(t=>t.slug));
