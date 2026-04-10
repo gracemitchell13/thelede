@@ -17,7 +17,7 @@ SUPABASE_URL = os.environ["SUPABASE_URL"]
 SUPABASE_SERVICE_KEY = os.environ["SUPABASE_SERVICE_KEY"]
 NEWSAPI_KEY = os.environ["NEWSAPI_KEY"]
 NEWSAPI_BASE = "https://newsapi.org/v2/everything"
-MAX_STORIES = 7
+MAX_STORIES = 4
 LOOKBACK_HOURS = 48
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
