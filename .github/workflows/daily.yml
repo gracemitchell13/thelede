@@ -2,11 +2,11 @@ name: Daily Lede
 
 on:
   schedule:
-    - cron: '0 11 * * *'  # 6am ET (UTC-5) / 7am EDT (UTC-4) — runs at 11:00 UTC
-  workflow_dispatch:       # allows manual trigger from GitHub Actions tab
+    - cron: '0 11 * * *'
+  workflow_dispatch:
 
 permissions:
-  contents: write          # needed to commit the generated index.html
+  contents: write
 
 jobs:
   build:
@@ -44,10 +44,18 @@ jobs:
           NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
         run: python scripts/fetch_and_generate.py
 
-      - name: Commit and push index.html
+      - name: Inject credentials into settings.html
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          sed -i "s|__SUPABASE_URL__|${SUPABASE_URL}|g" settings.html
+          sed -i "s|__SUPABASE_ANON_KEY__|${SUPABASE_ANON_KEY}|g" settings.html
+
+      - name: Commit and push
         run: |
           git config user.name "The Lede Bot"
           git config user.email "actions@github.com"
-          git add index.html
+          git add index.html settings.html
           git diff --staged --quiet || git commit -m "Daily update: $(date -u '+%Y-%m-%d')"
           git push

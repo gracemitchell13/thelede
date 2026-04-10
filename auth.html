@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+  // After Google OAuth, Supabase redirects here with #access_token in the URL.
+  // We forward the full hash to settings.html so it can pick up the session.
+  if (window.location.hash && window.location.hash.includes('access_token')) {
+    window.location.replace('settings.html' + window.location.hash);
+  } else {
+    window.location.replace('index.html');
+  }
+</script>
+</head>
+<body></body>
+</html>
