@@ -94,6 +94,11 @@ main{max-width:860px;margin:0 auto;padding:2rem}
 .add-source-row{display:flex;gap:.4rem;margin-top:.6rem;flex-wrap:wrap}
 .add-source-row input{flex:1;min-width:120px;padding:.3rem .5rem;
   border:1px solid var(--rlt);font-family:var(--sans);font-size:.78rem;background:var(--bg)}
+.rss-tip{font-size:.72rem;color:var(--mid);line-height:1.6;margin-top:.5rem;
+  padding:.45rem .6rem;background:var(--bg);border:1px solid var(--rlt);
+  border-left:3px solid var(--accent)}
+.rss-tip a{color:var(--accent)}
+.rss-tip code{font-family:monospace;font-size:.68rem;background:var(--bg2);padding:1px 4px}
 
 /* CUSTOM TOPIC */
 .custom-section{margin-top:2rem;padding:1.25rem;background:var(--bg2);border:1px solid var(--rlt)}
@@ -138,6 +143,12 @@ main{max-width:860px;margin:0 auto;padding:2rem}
   transition:opacity .25s;pointer-events:none}
 #toast.show{opacity:1}
 
+.rss-tip{font-size:.72rem;color:var(--mid);line-height:1.6;
+  margin-top:.6rem;padding:.5rem .6rem;background:var(--bg);
+  border:1px solid var(--rlt);border-left:3px solid var(--accent)}
+.rss-tip a{color:var(--accent)}
+.rss-tip code{font-family:monospace;font-size:.7rem;
+  background:var(--bg2);padding:0 3px}
 footer{text-align:center;font-size:.63rem;letter-spacing:.12em;color:var(--lt);
   padding:2rem 1rem 5rem;border-top:1px solid var(--rlt);margin-top:2rem;text-transform:uppercase}
 </style>
@@ -845,6 +856,12 @@ function renderLibrary(){
             <input type="text" placeholder="Source name" id="sl-${t.slug}"/>
             <input type="text" placeholder="RSS feed URL" id="sf-${t.slug}"/>
             <button class="btn small" onclick="addCustomSource('${t.slug}')">Add</button>
+          </div>
+          <div class="rss-tip">
+            <strong>Finding RSS feeds:</strong> Try adding <code>/feed</code> or <code>/rss</code> to any site URL.
+            Paywalled sites (The Athletic, NYT, etc.) sometimes offer subscriber RSS — check your account settings.
+            For email newsletters, try <a href="https://kill-the-newsletter.com" target="_blank">Kill the Newsletter</a>.
+            YouTube: <code>youtube.com/feeds/videos.xml?channel_id=CHANNELID</code>
           </div>
         </div>`;
       list.appendChild(item);
