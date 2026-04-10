@@ -1269,7 +1269,7 @@ const {createClient}=supabase;
 const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 let user=null;
 async function signIn(){await sb.auth.signInWithOAuth({provider:'google',
-  options:{redirectTo:'https://gracemitchell13.github.io/thelede/settings.html'}});}
+  options:{redirectTo:window.location.origin+'/settings.html'}});}
 async function signOut(){await sb.auth.signOut();user=null;updateUI(null);}
 function updateUI(u){
   const st=document.getElementById('auth-st');

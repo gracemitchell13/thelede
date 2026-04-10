@@ -362,7 +362,7 @@ const LIBRARY=[
     {label:'Rewire News',domain:'rewirenewsgroup.com',feed:'https://rewirenewsgroup.com/feed/'},
     {label:'Ms. Magazine',domain:'msmagazine.com',feed:'https://msmagazine.com/feed/'},
     {label:'them.',domain:'them.us',feed:'https://www.them.us/feed/rss'},
-    {label:'National Women's Law Center',domain:'nwlc.org',feed:'https://nwlc.org/feed/'},
+    {label:'National Women\u2019s Law Center',domain:'nwlc.org',feed:'https://nwlc.org/feed/'},
   
     {label:'NYT Gender',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/US.xml'},
     {label:'The Guardian Gender',domain:'theguardian.com',feed:'https://www.theguardian.com/world/gender/rss'},
@@ -910,7 +910,7 @@ const CATEGORIES=['All',...[...new Set(LIBRARY.map(t=>t.category))]];
 // ── AUTH ──────────────────────────────────────────────────────────────────
 async function signIn(){
   await sb.auth.signInWithOAuth({provider:'google',
-    options:{redirectTo:'https://gracemitchell13.github.io/thelede/settings.html'}});
+    options:{redirectTo:window.location.origin+'/settings.html'}});
 }
 async function signOut(){await sb.auth.signOut();user=null;showGate();}
 
@@ -1265,63 +1265,70 @@ function addPickSource(slug){
 function markDirty(){dirty=true;document.getElementById('save-bar').classList.add('show');}
 
 async function saveAll(){
-  // Only save active topics
-  const activeTopics=Object.values(userTopics).filter(t=>t.active);
-  const topicRows=activeTopics.map((t,i)=>({
-    id:t.id||crypto.randomUUID(),
-    user_id:user.id,
-    slug:t.slug,
-    label:t.label,
-    active:true,
-    sort_order:t.sort_order??i,
-    queries:t.queries||[],
-  }));
+  if(!user){toast('Please sign in first');return;}
 
-  // Only save sources for active topics
-  const activeSlugs=new Set(activeTopics.map(t=>t.slug));
-  const sourceRows=[];
-  Object.entries(userSources).forEach(([slug,byDomain])=>{
-    if(!activeSlugs.has(slug))return;
-    Object.values(byDomain).forEach(s=>{
-      let domain=s.domain;
-      if(!domain&&s.feed_url){
-        try{domain=new URL(s.feed_url).hostname.replace('www.','');}catch(e){domain='unknown';}
-      }
-      if(!domain)domain='unknown';
-      sourceRows.push({
-        id:s.id||crypto.randomUUID(),
-        user_id:user.id,
-        topic_slug:slug,
-        domain,
-        label:s.label||'',
-        feed_url:s.feed_url||null,
-        active:s.active!==false,
+  try{
+    // Refresh session before saving
+    const {data:{session},error:sessErr}=await sb.auth.getSession();
+    if(sessErr||!session){toast('Session expired — please sign in again');showGate();return;}
+
+    // Only save active topics
+    const activeTopics=Object.values(userTopics).filter(t=>t.active);
+    const topicRows=activeTopics.map((t,i)=>{
+      const row={user_id:user.id,slug:t.slug,label:t.label,active:true,
+        sort_order:t.sort_order??i,queries:t.queries||[]};
+      if(t.id)row.id=t.id;
+      return row;
+    });
+
+    // Only save sources for active topics
+    const activeSlugs=new Set(activeTopics.map(t=>t.slug));
+    const sourceRows=[];
+    Object.entries(userSources).forEach(([slug,byDomain])=>{
+      if(!activeSlugs.has(slug))return;
+      Object.values(byDomain).forEach(s=>{
+        let domain=s.domain;
+        if(!domain&&s.feed_url){
+          try{domain=new URL(s.feed_url).hostname.replace('www.','');}catch(e){domain='unknown';}
+        }
+        if(!domain)domain='unknown';
+        const row={user_id:user.id,topic_slug:slug,domain,
+          label:s.label||'',feed_url:s.feed_url||null,active:s.active!==false};
+        if(s.id)row.id=s.id;
+        sourceRows.push(row);
       });
     });
-  });
 
-  console.log('Saving active topics:', topicRows.length, 'sources:', sourceRows.length);
+    console.log('Saving active topics:', topicRows.length, 'sources:', sourceRows.length);
 
-  // Delete old inactive topics and their sources first
-  const inactiveSlugs=Object.values(userTopics).filter(t=>!t.active).map(t=>t.slug);
-  if(inactiveSlugs.length){
-    await sb.from('user_topics').delete().eq('user_id',user.id).in('slug',inactiveSlugs);
-    await sb.from('user_sources').delete().eq('user_id',user.id).in('topic_slug',inactiveSlugs);
+    // Delete old inactive topics and their sources first
+    const inactiveSlugs=Object.values(userTopics).filter(t=>!t.active).map(t=>t.slug);
+    if(inactiveSlugs.length){
+      await sb.from('user_topics').delete().eq('user_id',user.id).in('slug',inactiveSlugs);
+      await sb.from('user_sources').delete().eq('user_id',user.id).in('topic_slug',inactiveSlugs);
+    }
+
+    const [topicResult, sourceResult] = await Promise.all([
+      topicRows.length?sb.from('user_topics').upsert(topicRows,{onConflict:'user_id,slug'}):Promise.resolve({error:null}),
+      sourceRows.length?sb.from('user_sources').upsert(sourceRows,{onConflict:'user_id,topic_slug,domain'}):Promise.resolve({error:null}),
+    ]);
+
+    if(topicResult?.error||sourceResult?.error){
+      console.error('Topic save error:', topicResult?.error);
+      console.error('Source save error:', sourceResult?.error);
+      toast('Save failed — check console for details');
+      return;
+    }
+
+    dirty=false;
+    document.getElementById('save-bar').classList.remove('show');
+    const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('last-saved').textContent=`Saved ${now}`;
+    toast('Saved — changes apply at next morning run');
+  }catch(err){
+    console.error('Save error:', err);
+    toast('Save failed — '+err.message);
   }
-
-  const [topicResult, sourceResult] = await Promise.all([
-    topicRows.length?sb.from('user_topics').upsert(topicRows,{onConflict:'user_id,slug'}):Promise.resolve({error:null}),
-    sourceRows.length?sb.from('user_sources').upsert(sourceRows,{onConflict:'user_id,topic_slug,domain'}):Promise.resolve({error:null}),
-  ]);
-
-  if(topicResult?.error)console.error('Topic save error:', topicResult.error);
-  if(sourceResult?.error)console.error('Source save error:', sourceResult.error);
-
-  dirty=false;
-  document.getElementById('save-bar').classList.remove('show');
-  const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('last-saved').textContent=`Saved ${now}`;
-  toast('Saved — changes apply at next morning run');
 }
 
 function toast(msg){
