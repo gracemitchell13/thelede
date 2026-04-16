@@ -919,7 +919,7 @@ const CATEGORIES=['All',...[...new Set(LIBRARY.map(t=>t.category))]];
 // ── AUTH ──────────────────────────────────────────────────────────────────
 async function signIn(){
   await sb.auth.signInWithOAuth({provider:'google',
-    options:{redirectTo:'https://readthelede.com/settings.html'}});
+    options:{redirectTo: 'https://readthelede.com/auth/callback'
 }
 async function signOut(){await sb.auth.signOut();user=null;showGate();}
 
