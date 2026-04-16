@@ -42,19 +42,16 @@ main{max-width:860px;margin:0 auto;padding:2rem}
 .page-header span{font-size:.72rem;color:var(--lt);letter-spacing:.08em;text-transform:uppercase}
 .page-intro{font-size:.85rem;color:var(--mid);margin-bottom:2rem;line-height:1.6}
 
-/* CATEGORY TABS */
 .cat-tabs{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.5rem}
 .cat-tab{padding:.3rem .75rem;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
   cursor:pointer;border:1px solid var(--rlt);background:var(--bg);color:var(--mid)}
 .cat-tab:hover{background:var(--bg2)}
 .cat-tab.active{background:var(--blk);color:#fff;border-color:var(--blk)}
 
-/* TOPIC LIST */
 .section-head{font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
   color:var(--lt);margin:1.5rem 0 .6rem;padding-bottom:.4rem;border-bottom:1px solid var(--rlt)}
 
 .topic-list{display:flex;flex-direction:column;gap:0;border:1px solid var(--rlt);border-bottom:none}
-
 .topic-item{border-bottom:1px solid var(--rlt)}
 .topic-row{display:flex;align-items:flex-start;gap:.75rem;padding:.9rem 1rem;
   cursor:pointer;background:var(--bg)}
@@ -70,11 +67,9 @@ main{max-width:860px;margin:0 auto;padding:2rem}
 .topic-name{font-size:.95rem;font-weight:700;color:var(--blk);line-height:1.3}
 .topic-desc{font-size:.78rem;color:var(--mid);margin-top:.15rem;line-height:1.4}
 .topic-meta{font-size:.68rem;color:var(--lt);margin-top:.2rem}
-
 .topic-expand{font-size:.7rem;color:var(--lt);padding-top:2px;flex-shrink:0;cursor:pointer}
 .topic-expand:hover{color:var(--accent)}
 
-/* SOURCES PANEL */
 .sources-panel{display:none;background:var(--accent2);border-top:1px solid var(--rlt);
   padding:.75rem 1rem .75rem 3.25rem}
 .sources-panel.open{display:block}
@@ -100,15 +95,10 @@ main{max-width:860px;margin:0 auto;padding:2rem}
 .rss-tip a{color:var(--accent)}
 .rss-tip code{font-family:monospace;font-size:.68rem;background:var(--bg2);padding:1px 4px}
 
-/* CUSTOM TOPIC */
 .custom-section{margin-top:2rem;padding:1.25rem;background:var(--bg2);border:1px solid var(--rlt)}
 .custom-section h3{font-size:.72rem;font-weight:700;letter-spacing:.15em;
   text-transform:uppercase;color:var(--lt);margin-bottom:.75rem}
-.custom-row{display:flex;gap:.5rem;flex-wrap:wrap}
-.custom-row input{flex:1;min-width:140px;padding:.4rem .65rem;
-  border:1px solid var(--rlt);font-family:var(--sans);font-size:.85rem;background:var(--bg)}
 
-/* YOUR PICKS SUMMARY */
 .picks-summary{margin-top:2rem;padding:1rem;border:1px solid var(--rlt)}
 .picks-title{font-size:.68rem;font-weight:700;letter-spacing:.18em;
   text-transform:uppercase;color:var(--lt);margin-bottom:.5rem}
@@ -121,10 +111,8 @@ main{max-width:860px;margin:0 auto;padding:2rem}
 .pick-tag.drag-over{border-top:2px solid var(--accent)}
 .pick-drag{color:var(--rlt);font-size:.9rem}
 .pick-label{flex:1;font-weight:700;color:var(--blk)}
-.pick-num{font-family:var(--sans);font-size:.65rem;color:var(--lt);
-  min-width:1.5rem}
-.pick-tag button{background:none;border:none;color:var(--lt);cursor:pointer;
-  font-size:.9rem;line-height:1;padding:0}
+.pick-num{font-family:var(--sans);font-size:.65rem;color:var(--lt);min-width:1.5rem}
+.pick-tag button{background:none;border:none;color:var(--lt);cursor:pointer;font-size:.9rem;line-height:1;padding:0}
 .pick-tag button:hover{color:var(--blk)}
 .picks-empty{font-size:.82rem;color:var(--lt);font-style:italic}
 .pick-wrap{display:flex;flex-direction:column;gap:0}
@@ -143,7 +131,6 @@ main{max-width:860px;margin:0 auto;padding:2rem}
 .pick-src-add input{flex:1;min-width:120px;padding:.3rem .5rem;
   border:1px solid var(--rlt);font-family:var(--sans);font-size:.78rem;background:var(--bg)}
 
-/* BUTTONS */
 .btn{display:inline-block;padding:.4rem 1rem;font-size:.72rem;letter-spacing:.08em;
   text-transform:uppercase;cursor:pointer;border:1px solid var(--blk);
   background:var(--blk);color:#fff;font-family:var(--sans)}
@@ -166,12 +153,6 @@ main{max-width:860px;margin:0 auto;padding:2rem}
   transition:opacity .25s;pointer-events:none}
 #toast.show{opacity:1}
 
-.rss-tip{font-size:.72rem;color:var(--mid);line-height:1.6;
-  margin-top:.6rem;padding:.5rem .6rem;background:var(--bg);
-  border:1px solid var(--rlt);border-left:3px solid var(--accent)}
-.rss-tip a{color:var(--accent)}
-.rss-tip code{font-family:monospace;font-size:.7rem;
-  background:var(--bg2);padding:0 3px}
 footer{text-align:center;font-size:.63rem;letter-spacing:.12em;color:var(--lt);
   padding:2rem 1rem 5rem;border-top:1px solid var(--rlt);margin-top:2rem;text-transform:uppercase}
 </style>
@@ -208,19 +189,14 @@ footer{text-align:center;font-size:.63rem;letter-spacing:.12em;color:var(--lt);
     </div>
     <p class="page-intro">Choose topics to follow and which sources to include for each. Changes take effect at the next morning run (~6am ET).</p>
 
-    <!-- CATEGORY TABS -->
     <div class="cat-tabs" id="cat-tabs"></div>
-
-    <!-- TOPIC LIST -->
     <div id="topic-library"></div>
 
-    <!-- CUSTOM TOPIC -->
     <div class="custom-section">
       <h3>Don't see your topic?</h3>
       <p style="font-size:.82rem;color:var(--mid);margin-top:.35rem">More topics coming soon. In the meantime, use the keyword search above to find related topics.</p>
     </div>
 
-    <!-- YOUR PICKS -->
     <div class="picks-summary">
       <div class="picks-title">Your active topics — drag to reorder</div>
       <p class="picks-subtitle">The order here is the order on your feed.</p>
@@ -243,13 +219,6 @@ footer{text-align:center;font-size:.63rem;letter-spacing:.12em;color:var(--lt);
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.26.0/dist/umd/supabase.min.js"></script>
 <script>
-// Handle auth token if redirected here from OAuth
-if(window.location.hash&&window.location.hash.includes('access_token')){
-  // Already on settings page — Supabase JS will pick up the token automatically
-  history.replaceState(null,'',window.location.pathname);
-}
-</script>
-<script>
 const SUPABASE_URL='https://tgdzivpyudduwktcmiqb.supabase.co';
 const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRnZHppdnB5dWRkdXdrdGNtaXFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2ODgyNDQsImV4cCI6MjA5MTI2NDI0NH0.8GLZo0tp665Tm6dAsdEv54Hf_U5eWV9E-NAItdBk0bA';
 const {createClient}=supabase;
@@ -257,15 +226,11 @@ const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{
   auth:{flowType:'implicit',detectSessionInUrl:true,persistSession:true}
 });
 let user=null, dirty=false;
-
-// User's current selections: { slug -> { active, sources: { domain -> active } } }
 let userTopics={};
 let userSources={};
 let activeCategory='All';
 
-// ── TOPIC LIBRARY (embedded) ──────────────────────────────────────────────
 const LIBRARY=[
-  // ── GOVERNMENT & POLICY ──────────────────────────────────────────────────
   {slug:'civic-tech',category:'Government & Policy',label:'Civic Tech & GovTech',
    desc:'Digital services, government software, smart cities, and public sector technology.',
    queries:['"civic tech" OR "govtech"','"digital government" OR "public sector technology"'],
@@ -276,7 +241,6 @@ const LIBRARY=[
     {label:'Route Fifty',domain:'route-fifty.com',feed:'https://www.route-fifty.com/rss.xml'},
     {label:'FCW',domain:'fcw.com',feed:'https://fcw.com/rss-feeds/all.aspx'},
     {label:'Government Executive',domain:'govexec.com',feed:'https://www.govexec.com/rss/all/'},
-  
     {label:'Wired Politics',domain:'wired.com',feed:'https://www.wired.com/feed/category/politics/latest/rss'},
     {label:'Politico Tech',domain:'politico.com',feed:'https://rss.politico.com/technology-news.xml'},
     {label:'Washington Post Tech',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/business/technology'},
@@ -290,7 +254,6 @@ const LIBRARY=[
     {label:'Strong Towns',domain:'strongtowns.org',feed:'https://www.strongtowns.org/feed/'},
     {label:'NLIHC',domain:'nlihc.org',feed:'https://nlihc.org/feed'},
     {label:'Next City',domain:'nextcity.org',feed:'https://nextcity.org/feed'},
-  
     {label:'NYT Real Estate',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/RealEstate.xml'},
     {label:'The Guardian Housing',domain:'theguardian.com',feed:'https://www.theguardian.com/society/housing/rss'},
     {label:'Bloomberg CityLab',domain:'bloomberg.com',feed:'https://feeds.bloomberg.com/citylab/news.rss'},
@@ -303,7 +266,6 @@ const LIBRARY=[
     {label:'The Marshall Project',domain:'themarshallproject.org',feed:'https://feeds.themarshallproject.org/marshall-project-all'},
     {label:'Prison Policy Initiative',domain:'prisonpolicy.org',feed:'https://www.prisonpolicy.org/rss.xml'},
     {label:'The Appeal',domain:'theappeal.org',feed:'https://theappeal.org/feed/'},
-  
     {label:'NYT Crime',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Crime.xml'},
     {label:'The Guardian US Crime',domain:'theguardian.com',feed:'https://www.theguardian.com/us-news/us-crime/rss'},
     {label:'Washington Post Criminal Justice',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/national/criminal-justice'},
@@ -316,7 +278,6 @@ const LIBRARY=[
     {label:'Chalkbeat',domain:'chalkbeat.org',feed:'https://www.chalkbeat.org/arc/outboundfeeds/rss/'},
     {label:'The 74',domain:'the74million.org',feed:'https://www.the74million.org/feed/'},
     {label:'Inside Higher Ed',domain:'insidehighered.com',feed:'https://www.insidehighered.com/rss/all'},
-  
     {label:'NYT Education',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Education.xml'},
     {label:'The Guardian Education',domain:'theguardian.com',feed:'https://www.theguardian.com/education/rss'},
     {label:'Washington Post Education',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/local/education'},
@@ -330,7 +291,6 @@ const LIBRARY=[
     {label:'KFF Health News',domain:'kffhealthnews.org',feed:'https://kffhealthnews.org/feed/'},
     {label:'STAT News',domain:'statnews.com',feed:'https://www.statnews.com/feed/'},
     {label:'Modern Healthcare',domain:'modernhealthcare.com',feed:'https://www.modernhealthcare.com/section/rss'},
-  
     {label:'NYT Health',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Health.xml'},
     {label:'The Guardian Health',domain:'theguardian.com',feed:'https://www.theguardian.com/society/health/rss'},
     {label:'Washington Post Health',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/national/health-science'},
@@ -345,7 +305,6 @@ const LIBRARY=[
     {label:'Grist',domain:'grist.org',feed:'https://grist.org/feed/'},
     {label:'E&E News',domain:'eenews.net',feed:'https://www.eenews.net/rss/'},
     {label:'Carbon Brief',domain:'carbonbrief.org',feed:'https://www.carbonbrief.org/feed'},
-  
     {label:'NYT Climate',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Climate.xml'},
     {label:'The Guardian Environment',domain:'theguardian.com',feed:'https://www.theguardian.com/environment/rss'},
     {label:'BBC Environment',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/science_and_environment/rss.xml'},
@@ -357,7 +316,6 @@ const LIBRARY=[
    sources:[
     {label:'Immigration Impact',domain:'immigrationimpact.com',feed:'https://immigrationimpact.com/feed/'},
     {label:'Documented',domain:'documented.net',feed:'https://documented.net/feed'},
-  
     {label:'NYT Immigration',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/World.xml'},
     {label:'The Guardian Immigration',domain:'theguardian.com',feed:'https://www.theguardian.com/us-news/immigration/rss'},
     {label:'NPR Immigration',domain:'npr.org',feed:'https://feeds.npr.org/1014/rss.xml'},
@@ -371,8 +329,7 @@ const LIBRARY=[
     {label:'Rewire News',domain:'rewirenewsgroup.com',feed:'https://rewirenewsgroup.com/feed/'},
     {label:'Ms. Magazine',domain:'msmagazine.com',feed:'https://msmagazine.com/feed/'},
     {label:'them.',domain:'them.us',feed:'https://www.them.us/feed/rss'},
-    {label:'National Women\'s Law Center',domain:'nwlc.org',feed:'https://nwlc.org/feed/'},
-  
+    {label:"National Women's Law Center",domain:'nwlc.org',feed:'https://nwlc.org/feed/'},
     {label:'NYT Gender',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/US.xml'},
     {label:'The Guardian Gender',domain:'theguardian.com',feed:'https://www.theguardian.com/world/gender/rss'},
     {label:'NPR Gender',domain:'npr.org',feed:'https://feeds.npr.org/1001/rss.xml'},
@@ -386,7 +343,6 @@ const LIBRARY=[
     {label:'Tax Foundation',domain:'taxfoundation.org',feed:'https://taxfoundation.org/feed/'},
     {label:'Center on Budget',domain:'cbpp.org',feed:'https://www.cbpp.org/rss/research'},
     {label:'Economic Policy Institute',domain:'epi.org',feed:'https://www.epi.org/feed/'},
-  
     {label:'NYT Economy',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Economy.xml'},
     {label:'The Guardian Economics',domain:'theguardian.com',feed:'https://www.theguardian.com/business/economics/rss'},
     {label:'BBC Business',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/business/rss.xml'},
@@ -399,7 +355,6 @@ const LIBRARY=[
     {label:'Streetsblog',domain:'streetsblog.net',feed:'https://streetsblog.net/feed/'},
     {label:'Smart Cities Dive',domain:'smartcitiesdive.com',feed:'https://www.smartcitiesdive.com/feeds/news/'},
     {label:'Mass Transit',domain:'masstransitmag.com',feed:'https://www.masstransitmag.com/rss/'},
-  
     {label:'NYT Transportation',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/US.xml'},
     {label:'The Guardian Transport',domain:'theguardian.com',feed:'https://www.theguardian.com/uk/transport/rss'},
     {label:'Washington Post Transportation',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/local/traffic'},
@@ -419,7 +374,6 @@ const LIBRARY=[
     {label:'In These Times',domain:'inthesetimes.com',feed:'https://inthesetimes.com/feed'},
     {label:'Labor Notes',domain:'labornotes.org',feed:'https://labornotes.org/feed'},
     {label:'Economic Policy Institute',domain:'epi.org',feed:'https://www.epi.org/feed/'},
-  
     {label:'NYT Labor',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml'},
     {label:'The Guardian Labor',domain:'theguardian.com',feed:'https://www.theguardian.com/money/work-and-careers/rss'},
     {label:'NPR Business',domain:'npr.org',feed:'https://feeds.npr.org/1006/rss.xml'},
@@ -442,14 +396,11 @@ const LIBRARY=[
     {label:'The Grio',domain:'thegrio.com',feed:'https://thegrio.com/feed/'},
     {label:'NAACP',domain:'naacp.org',feed:'https://naacp.org/feed/'},
     {label:'Prism',domain:'prismreports.org',feed:'https://prismreports.org/feed/'},
-  
     {label:'NYT Race',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/US.xml'},
     {label:'The Guardian Race',domain:'theguardian.com',feed:'https://www.theguardian.com/world/race/rss'},
     {label:'NPR Race',domain:'npr.org',feed:'https://feeds.npr.org/1001/rss.xml'},
     {label:'Washington Post Race',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/national/race-and-ethnicity'},
   ]},
-
-  // ── NONPROFITS & PHILANTHROPY ─────────────────────────────────────────────
   {slug:'nonprofit',category:'Nonprofits & Philanthropy',label:'Nonprofit & Grants',
    desc:'Nonprofit management, grant funding, and the social sector.',
    queries:['"nonprofit" AND ("grant" OR "funding")','"foundation" AND ("social impact")'],
@@ -459,7 +410,6 @@ const LIBRARY=[
     {label:'SSIR',domain:'ssir.org',feed:'https://ssir.org/site/rss'},
     {label:'Inside Philanthropy',domain:'insidephilanthropy.com',feed:'https://www.insidephilanthropy.com/home?format=rss'},
     {label:'Chronicle of Philanthropy',domain:'philanthropy.com',feed:'https://www.philanthropy.com/feed'},
-  
     {label:'NYT Giving',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/NYRegion.xml'},
     {label:'The Guardian Charities',domain:'theguardian.com',feed:'https://www.theguardian.com/society/charities/rss'},
     {label:'NPR Nonprofits',domain:'npr.org',feed:'https://feeds.npr.org/1001/rss.xml'},
@@ -470,7 +420,6 @@ const LIBRARY=[
    sources:[
     {label:'Shelterforce',domain:'shelterforce.org',feed:'https://shelterforce.org/feed/'},
     {label:'Next City',domain:'nextcity.org',feed:'https://nextcity.org/feed'},
-    {label:'CDFI Fund',domain:'cdfifund.gov',feed:'https://www.cdfifund.gov/news/rss'},
     {label:'Urban Institute',domain:'urban.org',feed:'https://www.urban.org/rss.xml'},
     {label:'Brookings',domain:'brookings.edu',feed:'https://www.brookings.edu/feed/'},
     {label:'Nonprofit Quarterly',domain:'nonprofitquarterly.org',feed:'https://nonprofitquarterly.org/feed/'},
@@ -489,25 +438,20 @@ const LIBRARY=[
    sources:[
     {label:'Devex',domain:'devex.com',feed:'https://www.devex.com/news/rss.xml'},
     {label:'The New Humanitarian',domain:'thenewhumanitarian.org',feed:'https://www.thenewhumanitarian.org/rss.xml'},
-    {label:'Humanosphere',domain:'humanosphere.org',feed:'https://humanosphere.org/feed/'},
   ]},
   {slug:'volunteerism',category:'Nonprofits & Philanthropy',label:'Volunteerism & Civic Engagement',
    desc:'Volunteering, national service, civic participation, and community organizing.',
    queries:['"volunteerism" OR "national service" OR "civic engagement"','"AmeriCorps" OR "community organizing"'],
    sources:[
     {label:'Nonprofit Quarterly',domain:'nonprofitquarterly.org',feed:'https://nonprofitquarterly.org/feed/'},
-    {label:'Corporation for National Service',domain:'americorps.gov',feed:'https://americorps.gov/newsroom/rss'},
   ]},
   {slug:'arts-funding',category:'Nonprofits & Philanthropy',label:'Arts & Culture Funding',
    desc:'Arts grants, NEA funding, arts nonprofits, and cultural philanthropy.',
    queries:['"arts funding" OR "arts grant" OR "NEA"','"cultural philanthropy" OR "arts nonprofit"'],
    sources:[
     {label:'Arts Journal',domain:'artsjournal.com',feed:'https://www.artsjournal.com/feed'},
-    {label:'Createquity',domain:'createquity.com',feed:'https://createquity.com/feed'},
     {label:'Grantmakers in the Arts',domain:'giarts.org',feed:'https://www.giarts.org/rss.xml'},
   ]},
-
-  // ── TECHNOLOGY ────────────────────────────────────────────────────────────
   {slug:'ai-tech',category:'Technology',label:'AI & Machine Learning',
    desc:'Artificial intelligence, large language models, AI policy and ethics.',
    queries:['"artificial intelligence" AND ("policy" OR "regulation")','"large language model" OR "generative AI"'],
@@ -517,7 +461,6 @@ const LIBRARY=[
     {label:'VentureBeat',domain:'venturebeat.com',feed:'https://venturebeat.com/category/ai/feed/'},
     {label:'Wired',domain:'wired.com',feed:'https://www.wired.com/feed/category/artificial-intelligence/latest/rss'},
     {label:'Ars Technica',domain:'arstechnica.com',feed:'https://feeds.arstechnica.com/arstechnica/index'},
-  
     {label:'NYT Technology',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml'},
     {label:'BBC Technology',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/technology/rss.xml'},
     {label:'The Guardian Tech',domain:'theguardian.com',feed:'https://www.theguardian.com/technology/artificialintelligenceai/rss'},
@@ -546,16 +489,7 @@ const LIBRARY=[
    queries:['"startup" AND ("funding" OR "raises" OR "series")','"venture capital" OR "VC funding"'],
    sources:[
     {label:'TechCrunch',domain:'techcrunch.com',feed:'https://techcrunch.com/feed/'},
-    {label:'The Information',domain:'theinformation.com',feed:'https://www.theinformation.com/feed'},
     {label:'Crunchbase News',domain:'news.crunchbase.com',feed:'https://news.crunchbase.com/feed/'},
-  ]},
-  {slug:'open-source',category:'Technology',label:'Open Source & Developer Tools',
-   desc:'Open source projects, developer ecosystems, and software infrastructure.',
-   queries:['"open source" AND ("release" OR "project" OR "community")','"developer tools" OR "software infrastructure"'],
-   sources:[
-    {label:'The Register',domain:'theregister.com',feed:'https://www.theregister.com/headlines.atom'},
-    {label:'Opensource.com',domain:'opensource.com',feed:'https://opensource.com/feed'},
-    {label:'GitHub Blog',domain:'github.blog',feed:'https://github.blog/feed/'},
   ]},
   {slug:'data-privacy',category:'Technology',label:'Data & Privacy',
    desc:'Personal data, surveillance, privacy rights, and digital identity.',
@@ -571,10 +505,7 @@ const LIBRARY=[
    sources:[
     {label:'MedCity News',domain:'medcitynews.com',feed:'https://medcitynews.com/feed/'},
     {label:'STAT News',domain:'statnews.com',feed:'https://www.statnews.com/feed/'},
-    {label:'Health Tech Nerds',domain:'healthtechnerds.com',feed:'https://healthtechnerds.com/feed/'},
   ]},
-
-  // ── MEDIA & JOURNALISM ────────────────────────────────────────────────────
   {slug:'local-news',category:'Media & Journalism',label:'Local News & Journalism',
    desc:'Local journalism, news deserts, press freedom, and media sustainability.',
    queries:['"local news" OR "news desert"','"press freedom" OR "nonprofit news"'],
@@ -582,11 +513,8 @@ const LIBRARY=[
     {label:'Nieman Lab',domain:'niemanlab.org',feed:'https://www.niemanlab.org/feed/'},
     {label:'Poynter',domain:'poynter.org',feed:'https://www.poynter.org/feed/'},
     {label:'Columbia Journalism Review',domain:'cjr.org',feed:'https://www.cjr.org/feed'},
-    {label:'Press Gazette',domain:'pressgazette.co.uk',feed:'https://pressgazette.co.uk/feed/'},
-  
     {label:'NYT Media',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/MediaandAdvertising.xml'},
     {label:'The Guardian Media',domain:'theguardian.com',feed:'https://www.theguardian.com/media/rss'},
-    {label:'NPR Media',domain:'npr.org',feed:'https://feeds.npr.org/1001/rss.xml'},
   ]},
   {slug:'media-industry',category:'Media & Journalism',label:'Media Industry',
    desc:'Publishing, streaming, media business, and the attention economy.',
@@ -595,20 +523,11 @@ const LIBRARY=[
     {label:'Variety',domain:'variety.com',feed:'https://variety.com/feed/'},
     {label:'The Hollywood Reporter',domain:'hollywoodreporter.com',feed:'https://www.hollywoodreporter.com/feed/'},
     {label:'Deadline',domain:'deadline.com',feed:'https://deadline.com/feed/'},
-    {label:'Axios Media Trends',domain:'axios.com',feed:'https://api.axios.com/feed/top/'},
-  ]},
-  {slug:'podcasting',category:'Media & Journalism',label:'Podcasting & Audio',
-   desc:'The podcast industry, audio storytelling, and spoken word media.',
-   queries:['"podcasting" OR "podcast industry" OR "audio journalism"'],
-   sources:[
-    {label:'Podnews',domain:'podnews.net',feed:'https://podnews.net/rss'},
-    {label:'Pacific Content',domain:'pacific-content.com',feed:'https://pacific-content.com/feed/'},
   ]},
   {slug:'disinformation',category:'Media & Journalism',label:'Disinformation & Media Literacy',
    desc:'Misinformation, fact-checking, media literacy, and information warfare.',
    queries:['"misinformation" OR "disinformation" OR "fact check"','"media literacy" OR "information warfare"'],
    sources:[
-    {label:'First Draft',domain:'firstdraftnews.org',feed:'https://firstdraftnews.org/feed/'},
     {label:'Poynter',domain:'poynter.org',feed:'https://www.poynter.org/feed/'},
     {label:'PolitiFact',domain:'politifact.com',feed:'https://www.politifact.com/rss/rulings/'},
   ]},
@@ -619,8 +538,6 @@ const LIBRARY=[
     {label:'Nieman Lab',domain:'niemanlab.org',feed:'https://www.niemanlab.org/feed/'},
     {label:'The Rebooting',domain:'therebooting.com',feed:'https://www.therebooting.com/feed'},
   ]},
-
-  // ── SPORTS ────────────────────────────────────────────────────────────────
   {slug:'penguins',category:'Sports',label:'Pittsburgh Penguins',
    desc:'News, scores, and analysis for the Pittsburgh Penguins.',
    queries:['"Pittsburgh Penguins"'],
@@ -643,16 +560,13 @@ const LIBRARY=[
     {label:'The Hockey News',domain:'thehockeynews.com',feed:'https://www.thehockeynews.com/feed/rss'},
     {label:'Pro Hockey Talk',domain:'prohockeytalk.nbcsports.com',feed:'https://prohockeytalk.nbcsports.com/feed/'},
     {label:'Bleacher Report NHL',domain:'bleacherreport.com',feed:'https://bleacherreport.com/nhl.rss'},
-    {label:'TSN',domain:'tsn.ca',feed:'https://www.tsn.ca/rss/nhl'},
   ]},
   {slug:'nba',category:'Sports',label:'NBA Basketball',
    desc:'NBA news, trades, scores, and analysis.',
    queries:['"NBA" AND ("trade" OR "playoffs" OR "standings")'],
    sources:[
     {label:'ESPN NBA',domain:'espn.com',feed:'https://www.espn.com/espn/rss/nba/news'},
-    {label:'The Athletic',domain:'theathletic.com',feed:'https://theathletic.com/rss/'},
     {label:'Bleacher Report',domain:'bleacherreport.com',feed:'https://bleacherreport.com/nba.rss'},
-    {label:'Basketball Reference',domain:'basketball-reference.com',feed:'https://www.basketball-reference.com/friv/rss.fcgi'},
   ]},
   {slug:'nfl',category:'Sports',label:'NFL Football',
    desc:'NFL news, scores, trades, and analysis.',
@@ -660,7 +574,6 @@ const LIBRARY=[
    sources:[
     {label:'ESPN NFL',domain:'espn.com',feed:'https://www.espn.com/espn/rss/nfl/news'},
     {label:'Pro Football Talk',domain:'profootballtalk.nbcsports.com',feed:'https://profootballtalk.nbcsports.com/feed/'},
-    {label:'The Athletic',domain:'theathletic.com',feed:'https://theathletic.com/rss/'},
   ]},
   {slug:'mlb',category:'Sports',label:'MLB Baseball',
    desc:'Major League Baseball news, scores, trades, and analysis.',
@@ -668,33 +581,28 @@ const LIBRARY=[
    sources:[
     {label:'ESPN MLB',domain:'espn.com',feed:'https://www.espn.com/espn/rss/mlb/news'},
     {label:'Baseball America',domain:'baseballamerica.com',feed:'https://www.baseballamerica.com/feed/'},
-    {label:'The Athletic',domain:'theathletic.com',feed:'https://theathletic.com/rss/'},
   ]},
   {slug:'soccer',category:'Sports',label:'Soccer / Football',
    desc:'MLS, Premier League, Champions League, and international soccer.',
    queries:['"Premier League" OR "Champions League" OR "MLS"','"soccer" AND ("transfer" OR "match" OR "standings")'],
    sources:[
     {label:'The Guardian Football',domain:'theguardian.com',feed:'https://www.theguardian.com/football/rss'},
-    {label:'ESPN FC',domain:'espnfc.com',feed:'https://www.espnfc.com/rss'},
     {label:'MLS Soccer',domain:'mlssoccer.com',feed:'https://www.mlssoccer.com/feed/'},
   ]},
   {slug:'college-sports',category:'Sports',label:'College Sports',
    desc:'NCAA football, basketball, and college athletics.',
-   queries:['"college football" OR "college basketball" OR "NCAA"','"March Madness" OR "bowl game" OR "college athletics"'],
+   queries:['"college football" OR "college basketball" OR "NCAA"'],
    sources:[
     {label:'ESPN College Football',domain:'espn.com',feed:'https://www.espn.com/espn/rss/ncf/news'},
     {label:'247Sports',domain:'247sports.com',feed:'https://247sports.com/rss/'},
-    {label:'The Athletic',domain:'theathletic.com',feed:'https://theathletic.com/rss/'},
   ]},
   {slug:'sports-business',category:'Sports',label:'Sports Business',
    desc:'Sports media rights, team valuations, athlete contracts, and stadium deals.',
-   queries:['"sports business" OR "sports media rights" OR "team valuation"','"athlete contract" OR "sports sponsorship"'],
+   queries:['"sports business" OR "sports media rights" OR "team valuation"'],
    sources:[
     {label:'Sports Business Journal',domain:'sportsbusinessjournal.com',feed:'https://www.sportsbusinessjournal.com/rss'},
     {label:'Front Office Sports',domain:'frontofficesports.com',feed:'https://frontofficesports.com/feed/'},
   ]},
-
-  // ── GENERAL NEWS ──────────────────────────────────────────────────────────
   {slug:'us-news',category:'General News',label:'US National News',
    desc:'Top US news from major national outlets.',
    queries:[],
@@ -723,12 +631,10 @@ const LIBRARY=[
     {label:'Nature',domain:'nature.com',feed:'https://www.nature.com/nature.rss'},
     {label:'New Scientist',domain:'newscientist.com',feed:'https://www.newscientist.com/feed/home/'},
     {label:'Scientific American',domain:'scientificamerican.com',feed:'https://rss.sciam.com/ScientificAmerican-Global'},
-  
     {label:'NYT Science',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Science.xml'},
     {label:'BBC Science',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/science_and_environment/rss.xml'},
     {label:'The Guardian Science',domain:'theguardian.com',feed:'https://www.theguardian.com/science/rss'},
     {label:'NPR Science',domain:'npr.org',feed:'https://feeds.npr.org/1007/rss.xml'},
-    {label:'Washington Post Science',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/national/health-science'},
   ]},
   {slug:'business',category:'General News',label:'Business & Finance',
    desc:'Markets, corporate news, personal finance, and the economy.',
@@ -736,9 +642,7 @@ const LIBRARY=[
    sources:[
     {label:'Financial Times',domain:'ft.com',feed:'https://www.ft.com/rss/home'},
     {label:'Bloomberg',domain:'bloomberg.com',feed:'https://feeds.bloomberg.com/markets/news.rss'},
-    {label:'The Economist',domain:'economist.com',feed:'https://www.economist.com/finance-and-economics/rss.xml'},
     {label:'Wall Street Journal',domain:'wsj.com',feed:'https://feeds.a.dj.com/rss/RSSMarketsMain.xml'},
-  
     {label:'NYT Business',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml'},
     {label:'BBC Business',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/business/rss.xml'},
     {label:'The Guardian Business',domain:'theguardian.com',feed:'https://www.theguardian.com/business/rss'},
@@ -751,10 +655,7 @@ const LIBRARY=[
     {label:'Politico',domain:'politico.com',feed:'https://rss.politico.com/politics-news.xml'},
     {label:'The Hill',domain:'thehill.com',feed:'https://thehill.com/rss/syndicator/19109'},
     {label:'Roll Call',domain:'rollcall.com',feed:'https://rollcall.com/feed/'},
-    {label:'Five Thirty Eight',domain:'fivethirtyeight.com',feed:'https://fivethirtyeight.com/features/feed/'},
-  
     {label:'NYT Politics',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml'},
-    {label:'BBC Politics',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/politics/rss.xml'},
     {label:'The Guardian US Politics',domain:'theguardian.com',feed:'https://www.theguardian.com/us-news/us-politics/rss'},
     {label:'NPR Politics',domain:'npr.org',feed:'https://feeds.npr.org/1014/rss.xml'},
     {label:'Washington Post Politics',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/politics'},
@@ -767,30 +668,16 @@ const LIBRARY=[
     {label:'Foreign Policy',domain:'foreignpolicy.com',feed:'https://foreignpolicy.com/feed/'},
     {label:'The Diplomat',domain:'thediplomat.com',feed:'https://thediplomat.com/feed/'},
   ]},
-  {slug:'environment',category:'General News',label:'Environment & Nature',
-   desc:'Wildlife, conservation, ecosystems, and environmental news.',
-   queries:['"conservation" OR "wildlife" OR "endangered species"','"ecosystem" OR "biodiversity" OR "nature"'],
-   sources:[
-    {label:'Mongabay',domain:'mongabay.com',feed:'https://news.mongabay.com/feed/'},
-    {label:'The Guardian Environment',domain:'theguardian.com',feed:'https://www.theguardian.com/environment/rss'},
-    {label:'Yale Environment 360',domain:'e360.yale.edu',feed:'https://e360.yale.edu/feed.xml'},
-  ]},
   {slug:'health-wellness',category:'General News',label:'Health & Wellness',
    desc:'Personal health, medicine, fitness, mental health, and nutrition.',
    queries:['"health" AND ("study" OR "research" OR "treatment")','"mental health" OR "nutrition" OR "fitness"'],
    sources:[
-    {label:'WebMD',domain:'webmd.com',feed:'https://rss.webmd.com/rss/rss.aspx?RSSSource=RSS_PUBLIC'},
-    {label:'Health.com',domain:'health.com',feed:'https://www.health.com/syndication/rss'},
+    {label:'KFF Health News',domain:'kffhealthnews.org',feed:'https://kffhealthnews.org/feed/'},
     {label:'NPR Health',domain:'npr.org',feed:'https://feeds.npr.org/1128/rss.xml'},
-    {label:'Healthline',domain:'healthline.com',feed:'https://www.healthline.com/rss/health-news'},
     {label:'Harvard Health',domain:'health.harvard.edu',feed:'https://www.health.harvard.edu/blog/feed'},
-    {label:'Verywell Health',domain:'verywellhealth.com',feed:'https://www.verywellhealth.com/rss'},
-    {label:'Well+Good',domain:'wellandgood.com',feed:'https://www.wellandgood.com/feed/'},
-  
     {label:'NYT Well',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Well.xml'},
     {label:'BBC Health',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/health/rss.xml'},
     {label:'The Guardian Health',domain:'theguardian.com',feed:'https://www.theguardian.com/society/health/rss'},
-    {label:'Washington Post Health',domain:'washingtonpost.com',feed:'https://feeds.washingtonpost.com/rss/national/health-science'},
   ]},
   {slug:'space',category:'General News',label:'Space & Astronomy',
    desc:'Space exploration, NASA, astronomy, and the commercial space industry.',
@@ -799,26 +686,18 @@ const LIBRARY=[
     {label:'Space.com',domain:'space.com',feed:'https://www.space.com/feeds/all'},
     {label:'NASA',domain:'nasa.gov',feed:'https://www.nasa.gov/rss/dyn/breaking_news.rss'},
     {label:'Spaceflight Now',domain:'spaceflightnow.com',feed:'https://spaceflightnow.com/feed/'},
-  
     {label:'NYT Science',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Science.xml'},
-    {label:'BBC Science',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/news/science_and_environment/rss.xml'},
     {label:'The Guardian Space',domain:'theguardian.com',feed:'https://www.theguardian.com/science/space/rss'},
-    {label:'NPR Science',domain:'npr.org',feed:'https://feeds.npr.org/1007/rss.xml'},
   ]},
   {slug:'food-agriculture',category:'General News',label:'Food & Agriculture',
-   desc:'Food policy, agriculture, food systems, restaurants, and culinary culture.',
+   desc:'Food policy, agriculture, food systems, and food security.',
    queries:['"food policy" OR "agriculture" OR "food system"','"farm bill" OR "food security" OR "sustainable agriculture"'],
    sources:[
     {label:'Civil Eats',domain:'civileats.com',feed:'https://civileats.com/feed/'},
     {label:'Modern Farmer',domain:'modernfarmer.com',feed:'https://modernfarmer.com/feed/'},
-    {label:'Food & Environment Reporting',domain:'thefern.org',feed:'https://thefern.org/feed/'},
-  
     {label:'NYT Food',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/DiningandWine.xml'},
     {label:'The Guardian Food',domain:'theguardian.com',feed:'https://www.theguardian.com/environment/food/rss'},
-    {label:'NPR Food',domain:'npr.org',feed:'https://feeds.npr.org/1057/rss.xml'},
   ]},
-
-  // ── ARTS & CULTURE ────────────────────────────────────────────────────────
   {slug:'books',category:'Arts & Culture',label:'Books & Literary Fiction',
    desc:'Book reviews, literary fiction, author interviews, and publishing news.',
    queries:['"book review" OR "new novel" OR "literary fiction"'],
@@ -827,12 +706,9 @@ const LIBRARY=[
     {label:'The Millions',domain:'themillions.com',feed:'https://themillions.com/feed'},
     {label:'Publishers Weekly',domain:'publishersweekly.com',feed:'https://www.publishersweekly.com/pw/feeds/latest/index.xml'},
     {label:'Book Riot',domain:'bookriot.com',feed:'https://bookriot.com/feed/'},
-    {label:'The New York Review of Books',domain:'nybooks.com',feed:'https://www.nybooks.com/feed/'},
-  
     {label:'NYT Books',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Books.xml'},
     {label:'The Guardian Books',domain:'theguardian.com',feed:'https://www.theguardian.com/books/rss'},
     {label:'NPR Books',domain:'npr.org',feed:'https://feeds.npr.org/1032/rss.xml'},
-    {label:'BBC Culture',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/culture/rss.xml'},
   ]},
   {slug:'film-tv',category:'Arts & Culture',label:'Film & Television',
    desc:'Movie reviews, TV criticism, streaming, and screen culture.',
@@ -842,11 +718,9 @@ const LIBRARY=[
     {label:'IndieWire',domain:'indiewire.com',feed:'https://www.indiewire.com/feed/'},
     {label:'The A.V. Club',domain:'avclub.com',feed:'https://www.avclub.com/feed/rss'},
     {label:'Vulture',domain:'vulture.com',feed:'https://www.vulture.com/feed/all.xml'},
-  
     {label:'NYT Arts',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Arts.xml'},
     {label:'The Guardian Film',domain:'theguardian.com',feed:'https://www.theguardian.com/film/rss'},
     {label:'NPR Arts',domain:'npr.org',feed:'https://feeds.npr.org/1008/rss.xml'},
-    {label:'BBC Culture',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/culture/rss.xml'},
   ]},
   {slug:'music',category:'Arts & Culture',label:'Music',
    desc:'Music reviews, new releases, industry news, and artist profiles.',
@@ -856,11 +730,8 @@ const LIBRARY=[
     {label:'Rolling Stone',domain:'rollingstone.com',feed:'https://www.rollingstone.com/feed/'},
     {label:'NPR Music',domain:'npr.org',feed:'https://feeds.npr.org/1039/rss.xml'},
     {label:'Stereogum',domain:'stereogum.com',feed:'https://www.stereogum.com/feed/'},
-  
     {label:'NYT Music',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Arts.xml'},
     {label:'The Guardian Music',domain:'theguardian.com',feed:'https://www.theguardian.com/music/rss'},
-    {label:'NPR Music',domain:'npr.org',feed:'https://feeds.npr.org/1039/rss.xml'},
-    {label:'BBC Music',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/culture/rss.xml'},
   ]},
   {slug:'visual-arts',category:'Arts & Culture',label:'Visual Arts & Design',
    desc:'Contemporary art, museum news, design, photography, and architecture.',
@@ -869,14 +740,12 @@ const LIBRARY=[
     {label:'Artforum',domain:'artforum.com',feed:'https://www.artforum.com/rss'},
     {label:'Dezeen',domain:'dezeen.com',feed:'https://feeds.feedburner.com/dezeen'},
     {label:'Hyperallergic',domain:'hyperallergic.com',feed:'https://hyperallergic.com/feed/'},
-    {label:'Artsy',domain:'artsy.net',feed:'https://www.artsy.net/rss/news'},
   ]},
   {slug:'theater-performance',category:'Arts & Culture',label:'Theater & Performance',
    desc:'Broadway, regional theater, dance, opera, and live performance.',
    queries:['"theater" AND ("review" OR "opening" OR "Broadway")','"dance" OR "opera" AND ("review" OR "season")'],
    sources:[
     {label:'American Theatre',domain:'americantheatre.org',feed:'https://www.americantheatre.org/feed/'},
-    {label:'The Stage',domain:'thestage.co.uk',feed:'https://www.thestage.co.uk/feed'},
     {label:'HowlRound',domain:'howlround.com',feed:'https://howlround.com/rss'},
   ]},
   {slug:'games',category:'Arts & Culture',label:'Video Games',
@@ -884,7 +753,6 @@ const LIBRARY=[
    queries:['"video game" AND ("review" OR "release" OR "launch")','"gaming" AND ("industry" OR "esports")'],
    sources:[
     {label:'Kotaku',domain:'kotaku.com',feed:'https://kotaku.com/rss'},
-    {label:'IGN',domain:'ign.com',feed:'https://feeds.feedburner.com/ign/all'},
     {label:'Polygon',domain:'polygon.com',feed:'https://www.polygon.com/rss/index.xml'},
     {label:'Rock Paper Shotgun',domain:'rockpapershotgun.com',feed:'https://www.rockpapershotgun.com/feed/'},
   ]},
@@ -893,24 +761,19 @@ const LIBRARY=[
    queries:['"restaurant review" OR "culinary" OR "food culture"','"chef" AND ("new restaurant" OR "cookbook")'],
    sources:[
     {label:'Eater',domain:'eater.com',feed:'https://www.eater.com/rss/index.xml'},
-    {label:'Bon Appétit',domain:'bonappetit.com',feed:'https://www.bonappetit.com/feed/rss'},
+    {label:'Bon Appetit',domain:'bonappetit.com',feed:'https://www.bonappetit.com/feed/rss'},
     {label:'Food52',domain:'food52.com',feed:'https://food52.com/blog.rss'},
-  
     {label:'NYT Food',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/DiningandWine.xml'},
     {label:'The Guardian Food',domain:'theguardian.com',feed:'https://www.theguardian.com/food/rss'},
-    {label:'NPR Food',domain:'npr.org',feed:'https://feeds.npr.org/1057/rss.xml'},
-    {label:'BBC Food',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/food/recipes/rss.xml'},
   ]},
   {slug:'travel',category:'Arts & Culture',label:'Travel',
    desc:'Travel destinations, trip planning, and travel culture.',
    queries:['"travel" AND ("destination" OR "guide" OR "itinerary")','"tourism" OR "travel trends"'],
    sources:[
-    {label:'Cond\u00e9 Nast Traveler',domain:'cntraveler.com',feed:'https://www.cntraveler.com/feed/rss'},
     {label:'Atlas Obscura',domain:'atlasobscura.com',feed:'https://www.atlasobscura.com/feeds/latest'},
     {label:'Lonely Planet',domain:'lonelyplanet.com',feed:'https://www.lonelyplanet.com/news.rss'},
     {label:'NYT Travel',domain:'nytimes.com',feed:'https://rss.nytimes.com/services/xml/rss/nyt/Travel.xml'},
     {label:'The Guardian Travel',domain:'theguardian.com',feed:'https://www.theguardian.com/travel/rss'},
-    {label:'BBC Travel',domain:'bbc.co.uk',feed:'https://feeds.bbci.co.uk/travel/rss.xml'},
   ]},
 ];
 
@@ -918,8 +781,10 @@ const CATEGORIES=['All',...[...new Set(LIBRARY.map(t=>t.category))]];
 
 // ── AUTH ──────────────────────────────────────────────────────────────────
 async function signIn(){
-  await sb.auth.signInWithOAuth({provider:'google',
-    options:{redirectTo: 'https://readthelede.com/auth/callback'
+  await sb.auth.signInWithOAuth({
+    provider:'google',
+    options:{redirectTo:'https://readthelede.com/auth/callback'}
+  });
 }
 async function signOut(){await sb.auth.signOut();user=null;showGate();}
 
@@ -952,17 +817,13 @@ async function loadSettings(){
     sb.from('user_topics').select('*').eq('user_id',user.id),
     sb.from('user_sources').select('*').eq('user_id',user.id),
   ]);
-
-  // Build lookup maps
   userTopics={};
   userSources={};
-
   (dbTopics||[]).forEach(t=>{userTopics[t.slug]={...t};});
   (dbSources||[]).forEach(s=>{
     if(!userSources[s.topic_slug])userSources[s.topic_slug]={};
     userSources[s.topic_slug][s.domain]=s;
   });
-
   renderCategoryTabs();
   renderLibrary();
   renderPicks();
@@ -984,29 +845,22 @@ function renderCategoryTabs(){
 function renderLibrary(){
   const container=document.getElementById('topic-library');
   container.innerHTML='';
-
   const filtered=activeCategory==='All'?LIBRARY:LIBRARY.filter(t=>t.category===activeCategory);
   const categories=[...new Set(filtered.map(t=>t.category))];
-
   categories.forEach(cat=>{
     const catTopics=filtered.filter(t=>t.category===cat);
     const head=document.createElement('div');
     head.className='section-head';
     head.textContent=cat;
     container.appendChild(head);
-
     const list=document.createElement('div');
     list.className='topic-list';
-
     catTopics.forEach(t=>{
       const isSelected=userTopics[t.slug]?.active===true;
       const item=document.createElement('div');
       item.className='topic-item';
-
-      // Get user's source selections for this topic
       const topicUserSources=userSources[t.slug]||{};
       const sourceCount=Object.values(topicUserSources).filter(s=>s.active).length;
-
       item.innerHTML=`
         <div class="topic-row${isSelected?' selected':''}" onclick="handleTopicRowClick(event,'${t.slug}',this)">
           <div class="topic-check${isSelected?' on':''}" data-slug="${t.slug}">✓</div>
@@ -1022,7 +876,6 @@ function renderLibrary(){
           <div class="source-grid">
             ${t.sources.map(s=>{
               const userSrc=topicUserSources[s.domain];
-              // Default: active if topic is selected and no explicit user pref yet
               const isOn=userSrc?userSrc.active:isSelected;
               return `<div class="source-item" onclick="toggleSource('${t.slug}','${s.domain}','${s.label}','${s.feed}',this)">
                 <div class="source-check${isOn?' on':''}">✓</div>
@@ -1040,49 +893,39 @@ function renderLibrary(){
           </div>
           <div class="rss-tip">
             <strong>Finding RSS feeds:</strong> Try adding <code>/feed</code> or <code>/rss</code> to any site URL.
-            Paywalled sites (The Athletic, NYT, etc.) sometimes offer subscriber RSS — check your account settings.
             For email newsletters, try <a href="https://kill-the-newsletter.com" target="_blank">Kill the Newsletter</a>.
-            YouTube: <code>youtube.com/feeds/videos.xml?channel_id=CHANNELID</code>
           </div>
         </div>`;
       list.appendChild(item);
     });
-
     container.appendChild(list);
   });
 }
 
-function handleTopicRowClick(e, slug, row){
-  // If clicking the expand arrow, just toggle panel
+function handleTopicRowClick(e,slug,row){
   if(e.target.classList.contains('topic-expand')||e.target.closest('.topic-expand')){
-    togglePanel(slug, e.target.closest('.topic-expand'));
-    return;
+    togglePanel(slug,e.target.closest('.topic-expand'));return;
   }
-  // If clicking source check or source item, ignore (handled separately)
-  if(e.target.closest('.source-item')||e.target.closest('.add-source-row')) return;
-  // Otherwise toggle topic
-  toggleTopic(slug, row);
+  if(e.target.closest('.source-item')||e.target.closest('.add-source-row'))return;
+  toggleTopic(slug,row);
 }
 
-function togglePanel(slug, arrow){
+function togglePanel(slug,arrow){
   const panel=document.getElementById('sp-'+slug);
   const isOpen=panel.classList.contains('open');
   panel.classList.toggle('open',!isOpen);
   arrow.textContent=isOpen?'›':'↓';
 }
 
-function toggleTopic(slug, row){
+function toggleTopic(slug,row){
   const check=row.querySelector('.topic-check');
   const wasOn=check.classList.contains('on');
   const nowOn=!wasOn;
-
   if(!userTopics[slug]){
-    // First time selecting — seed all sources as active
     const libTopic=LIBRARY.find(t=>t.slug===slug);
     userTopics[slug]={slug,label:libTopic.label,active:nowOn,
-      sort_order:Object.keys(userTopics).length,
-      queries:libTopic.queries,user_id:user.id};
-    if(nowOn && libTopic){
+      sort_order:Object.keys(userTopics).length,queries:libTopic.queries,user_id:user.id};
+    if(nowOn&&libTopic){
       if(!userSources[slug])userSources[slug]={};
       libTopic.sources.forEach(s=>{
         userSources[slug][s.domain]={topic_slug:slug,domain:s.domain,
@@ -1092,11 +935,8 @@ function toggleTopic(slug, row){
   } else {
     userTopics[slug].active=nowOn;
   }
-
   check.classList.toggle('on',nowOn);
   row.classList.toggle('selected',nowOn);
-
-  // Update source meta line
   const infoEl=row.querySelector('.topic-info');
   const existingMeta=infoEl.querySelector('.topic-meta');
   if(nowOn){
@@ -1108,12 +948,11 @@ function toggleTopic(slug, row){
   } else {
     if(existingMeta)existingMeta.remove();
   }
-
   markDirty();
   renderPicks();
 }
 
-function toggleSource(slug, domain, label, feed, item){
+function toggleSource(slug,domain,label,feed,item){
   if(!userSources[slug])userSources[slug]={};
   const existing=userSources[slug][domain];
   const wasOn=existing?existing.active:true;
@@ -1134,25 +973,6 @@ function addCustomSource(slug){
   markDirty();
   toast('Source added');
   renderLibrary();
-}
-
-function addCustomTopic(){
-  const label=document.getElementById('custom-label').value.trim();
-  const keywords=document.getElementById('custom-keywords').value.trim();
-  if(!label){toast('Enter a topic name');return;}
-  const slug=label.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-  if(userTopics[slug]){toast('Topic already exists');return;}
-  // Split keywords into OR query for NewsAPI
-  const queryStr=keywords?keywords.split(',').map(k=>k.trim()).filter(Boolean)
-    .map(k=>k.includes(' ')?`"${k}"`:k).join(' OR '):'';
-  userTopics[slug]={slug,label,active:true,queries:queryStr?[queryStr]:[],
-    sort_order:Object.keys(userTopics).length,user_id:user.id};
-  document.getElementById('custom-label').value='';
-  document.getElementById('custom-keywords').value='';
-  markDirty();
-  renderLibrary();
-  renderPicks();
-  toast('Custom topic added — save to apply');
 }
 
 function removeTopic(slug){
@@ -1178,7 +998,6 @@ function renderPicks(){
     const topicSources=Object.values(userSources[t.slug]||{});
     const wrap=document.createElement('div');
     wrap.className='pick-wrap';
-
     const tag=document.createElement('div');
     tag.className='pick-tag';
     tag.draggable=true;
@@ -1188,7 +1007,6 @@ function renderPicks(){
       <span class="pick-label">${t.label}</span>
       ${isCustom?`<button class="pick-edit-btn" onclick="togglePickSources('${t.slug}')" title="Add sources">+ sources</button>`:''}
       <button onclick="removeTopic('${t.slug}')" title="Remove">×</button>`;
-
     tag.addEventListener('dragstart',()=>{dragSrc=t.slug;tag.style.opacity='.4';});
     tag.addEventListener('dragend',()=>{tag.style.opacity='1';
       document.querySelectorAll('.pick-tag').forEach(el=>el.classList.remove('drag-over'));});
@@ -1202,42 +1020,34 @@ function renderPicks(){
       const srcOrder=srcTopic.sort_order??99;
       const dstOrder=dstTopic.sort_order??99;
       Object.values(userTopics).filter(x=>x.active).forEach(x=>{
-        if(srcOrder<dstOrder){
-          if(x.sort_order>srcOrder&&x.sort_order<=dstOrder)x.sort_order--;
-        }else{
-          if(x.sort_order>=dstOrder&&x.sort_order<srcOrder)x.sort_order++;
-        }
+        if(srcOrder<dstOrder){if(x.sort_order>srcOrder&&x.sort_order<=dstOrder)x.sort_order--;}
+        else{if(x.sort_order>=dstOrder&&x.sort_order<srcOrder)x.sort_order++;}
       });
       srcTopic.sort_order=dstOrder;
       markDirty();
       renderPicks();
     });
-
-    // Source panel for custom topics
     const panel=document.createElement('div');
     panel.className='pick-source-panel';
     panel.id='psp-'+t.slug;
     panel.style.display='none';
-
     const existingSources=topicSources.map(s=>`
       <div class="pick-src-row">
         <span class="source-check${s.active!==false?' on':''}" onclick="togglePickSource('${t.slug}','${s.domain}',this)">✓</span>
         <span class="pick-src-name">${s.label||s.domain}</span>
         <span class="pick-src-domain">${s.domain}</span>
       </div>`).join('');
-
     panel.innerHTML=`
       ${existingSources||'<p class="pick-src-empty">No sources yet — add one below</p>'}
       <div class="pick-src-add">
-        <input type="text" placeholder="Source name" id="psl-${t.slug}" />
-        <input type="text" placeholder="RSS feed URL" id="psf-${t.slug}" />
+        <input type="text" placeholder="Source name" id="psl-${t.slug}"/>
+        <input type="text" placeholder="RSS feed URL" id="psf-${t.slug}"/>
         <button class="btn small" onclick="addPickSource('${t.slug}')">Add</button>
       </div>
       <div class="rss-tip" style="margin-top:.5rem">
         Try adding <code>/feed</code> or <code>/rss</code> to a site URL.
         <a href="https://kill-the-newsletter.com" target="_blank">Kill the Newsletter</a> converts email newsletters to RSS.
       </div>`;
-
     wrap.appendChild(tag);
     wrap.appendChild(panel);
     list.appendChild(wrap);
@@ -1274,19 +1084,12 @@ function addPickSource(slug){
 function markDirty(){dirty=true;document.getElementById('save-bar').classList.add('show');}
 
 async function saveAll(){
-  // Only save active topics
   const activeTopics=Object.values(userTopics).filter(t=>t.active);
   const topicRows=activeTopics.map((t,i)=>({
     id:t.id||crypto.randomUUID(),
-    user_id:user.id,
-    slug:t.slug,
-    label:t.label,
-    active:true,
-    sort_order:t.sort_order??i,
-    queries:t.queries||[],
+    user_id:user.id,slug:t.slug,label:t.label,active:true,
+    sort_order:t.sort_order??i,queries:t.queries||[],
   }));
-
-  // Only save sources for active topics
   const activeSlugs=new Set(activeTopics.map(t=>t.slug));
   const sourceRows=[];
   Object.entries(userSources).forEach(([slug,byDomain])=>{
@@ -1298,34 +1101,23 @@ async function saveAll(){
       }
       if(!domain)domain='unknown';
       sourceRows.push({
-        id:s.id||crypto.randomUUID(),
-        user_id:user.id,
-        topic_slug:slug,
-        domain,
-        label:s.label||'',
-        feed_url:s.feed_url||null,
-        active:s.active!==false,
+        id:s.id||crypto.randomUUID(),user_id:user.id,topic_slug:slug,
+        domain,label:s.label||'',feed_url:s.feed_url||null,active:s.active!==false,
       });
     });
   });
-
-  console.log('Saving active topics:', topicRows.length, 'sources:', sourceRows.length);
-
-  // Delete old inactive topics and their sources first
+  console.log('Saving active topics:',topicRows.length,'sources:',sourceRows.length);
   const inactiveSlugs=Object.values(userTopics).filter(t=>!t.active).map(t=>t.slug);
   if(inactiveSlugs.length){
     await sb.from('user_topics').delete().eq('user_id',user.id).in('slug',inactiveSlugs);
     await sb.from('user_sources').delete().eq('user_id',user.id).in('topic_slug',inactiveSlugs);
   }
-
-  const [topicResult, sourceResult] = await Promise.all([
+  const [topicResult,sourceResult]=await Promise.all([
     topicRows.length?sb.from('user_topics').upsert(topicRows,{onConflict:'user_id,slug'}):Promise.resolve({error:null}),
     sourceRows.length?sb.from('user_sources').upsert(sourceRows,{onConflict:'user_id,topic_slug,domain'}):Promise.resolve({error:null}),
   ]);
-
-  if(topicResult?.error)console.error('Topic save error:', topicResult.error);
-  if(sourceResult?.error)console.error('Source save error:', sourceResult.error);
-
+  if(topicResult?.error)console.error('Topic save error:',topicResult.error);
+  if(sourceResult?.error)console.error('Source save error:',sourceResult.error);
   dirty=false;
   document.getElementById('save-bar').classList.remove('show');
   const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
