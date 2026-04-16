@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+  // Supabase implicit flow puts tokens in the hash fragment.
+  // Forward everything to settings.html so it can pick up the session.
+  window.location.replace('/settings.html' + window.location.hash);
+</script>
+</head>
+<body></body>
+</html>
