@@ -191,6 +191,12 @@ def load_user_config():
     sources_resp = supabase.table("user_sources").select("*")\
         .eq("user_id", user_id).eq("active", True).execute()
 
+    # Get source weights from votes
+    weights_resp = supabase.table("source_weights").select("source_domain,weight")\
+        .eq("user_id", user_id).execute()
+    source_weights = {r["source_domain"]: r["weight"] for r in (weights_resp.data or [])}
+    print(f"  {len(source_weights)} source weights loaded")
+
     # Group sources by topic_slug
     sources_by_topic = {}
     for s in (sources_resp.data or []):
@@ -219,13 +225,14 @@ def load_user_config():
         })
 
     print(f"  {len(config)} active topics loaded from Supabase")
-    return config
+    return config, source_weights
 
 # ── FETCH ALL STORIES ─────────────────────────────────────────────────────────
 
-def fetch_all(config):
+def fetch_all(config, source_weights=None):
     all_stories = {}
     seen = set()
+    weights = source_weights or {}
 
     for topic in config:
         slug = topic["slug"]
@@ -267,12 +274,14 @@ def fetch_all(config):
                         continue
                     add_story(s)
 
-        # Round-robin across source buckets
+        # Round-robin across source buckets, higher-weighted sources first
         # Sports topics: max 1 per source to force variety
         SPORTS_SLUGS = {"penguins","nhl","nba","nfl","mlb","soccer","college-sports","sports-business"}
         max_per_src = MAX_STORIES if slug == "penguins" else (2 if slug in SPORTS_SLUGS else MAX_STORIES)
         stories = []
-        bucket_lists = list(buckets.values())
+        # Sort buckets: upvoted sources first (default weight 1.0 for unvoted)
+        bucket_lists = sorted(buckets.items(), key=lambda kv: weights.get(kv[0], 1.0), reverse=True)
+        bucket_lists = [v for _, v in bucket_lists]
         positions = [0] * len(bucket_lists)
         src_counts = [0] * len(bucket_lists)
         while len(stories) < MAX_STORIES:
@@ -632,14 +641,14 @@ def main():
     print(f"Run: {datetime.now(timezone.utc).isoformat()}")
 
     print("\n[1] Loading user config from Supabase...")
-    config = load_user_config()
+    config, source_weights = load_user_config()
 
     if not config:
         print("  No config found — nothing to generate")
         return
 
     print(f"\n[2] Fetching stories for {len(config)} topics...")
-    stories_by_topic = fetch_all(config)
+    stories_by_topic = fetch_all(config, source_weights)
 
     print("\n[3] Generating HTML...")
     html = page(config, stories_by_topic)
