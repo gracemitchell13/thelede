@@ -136,6 +136,34 @@ def fetch_rss(feed_url):
     except Exception as e:
         print(f"  RSS error {feed_url}: {e}"); return []
 
+# ── RELEVANCE FILTERING ───────────────────────────────────────────────────────
+
+# These sources publish across many topics — filter their RSS by keyword relevance
+BROAD_DOMAINS = {
+    "nytimes.com","washingtonpost.com","npr.org","bbc.co.uk","bbc.com",
+    "theguardian.com","bloomberg.com","reuters.com","apnews.com",
+    "politico.com","thehill.com","nbcnews.com","abcnews.go.com","abcnews.com",
+    "cnn.com","cbsnews.com","usatoday.com","time.com","newsweek.com",
+    "rollcall.com","axios.com","vox.com","slate.com","theatlantic.com",
+}
+
+def extract_keywords(queries):
+    """Extract meaningful keywords from NewsAPI query strings."""
+    keywords = []
+    for q in (queries or []):
+        clean = re.sub(r'\b(OR|AND|NOT)\b', ' ', q)
+        clean = clean.replace('"','').replace("'",'')
+        words = [w.strip().lower() for w in re.split(r'[\s,()]+', clean) if len(w.strip()) >= 4]
+        keywords.extend(words)
+    return list(set(keywords))
+
+def is_relevant(article, keywords):
+    """Return True if article title/desc contains any keyword, or if no keywords defined."""
+    if not keywords:
+        return True
+    text = (article.get("title","") + " " + article.get("description","")).lower()
+    return any(kw in text for kw in keywords)
+
 # ── LOAD USER CONFIG FROM SUPABASE ────────────────────────────────────────────
 
 def load_user_config():
@@ -228,11 +256,15 @@ def fetch_all(config):
             for s in fetch_newsapi(q, use_domains):
                 add_story(s)
 
-        # RSS feeds
+        # RSS feeds — filter broad sources by keyword relevance
+        keywords = extract_keywords(topic["queries"])
         for src in topic["sources"]:
             if src.get("feed_url"):
                 print(f"  RSS [{slug}]: {src['feed_url'][:60]}")
+                domain = src.get("domain","")
                 for s in fetch_rss(src["feed_url"]):
+                    if domain in BROAD_DOMAINS and not is_relevant(s, keywords):
+                        continue
                     add_story(s)
 
         # Round-robin across source buckets
