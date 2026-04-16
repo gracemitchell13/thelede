@@ -166,21 +166,12 @@ def is_relevant(article, keywords):
 
 # ── LOAD USER CONFIG FROM SUPABASE ────────────────────────────────────────────
 
-def load_user_config():
+def load_user_config(user_id):
     """
-    Returns a list of topic dicts:
-    [{ slug, label, queries, sources: [{domain, feed_url, label}] }]
-    Ordered by sort_order. Only active topics and active sources.
-    Uses the first user found (Phase 1 — single user page).
+    Returns (config, source_weights) for the given user_id.
+    config: [{ slug, label, queries, sources: [{domain, feed_url, label}] }]
     """
-    # Get first user
-    users = supabase.table("users").select("id,email").limit(1).execute()
-    if not users.data:
-        print("  No users found — using empty config")
-        return []
-
-    user_id = users.data[0]["id"]
-    print(f"  Building feed for: {users.data[0]['email']}")
+    print(f"  Loading config for user: {user_id}")
 
     # Get active topics
     topics_resp = supabase.table("user_topics").select("*")\
@@ -225,6 +216,8 @@ def load_user_config():
         })
 
     print(f"  {len(config)} active topics loaded from Supabase")
+    if not config:
+        return [], {}
     return config, source_weights
 
 # ── FETCH ALL STORIES ─────────────────────────────────────────────────────────
@@ -634,32 +627,146 @@ function toast(msg){{
 </body>
 </html>'''
 
+def landing_page(anon_key):
+    """Root index.html — redirects signed-in users to their feed, shows landing for others."""
+    return f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>The Lede</title>
+<style>
+*,*::before,*::after{{box-sizing:border-box;margin:0;padding:0}}
+:root{{--blk:#0a0a0a;--ink:#1a1a1a;--mid:#555;--lt:#888;--rl:#1a1a1a;--rlt:#d0d0d0;
+  --bg:#fff;--bg2:#f6f6f6;
+  --serif:'Georgia','Times New Roman',serif;
+  --sans:'Franklin Gothic Medium','Arial Narrow',Arial,sans-serif;}}
+body{{background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:16px;line-height:1.5}}
+.mast{{border-bottom:4px double var(--rl);padding:0 2rem;text-align:center}}
+.mast-top{{display:flex;justify-content:space-between;padding:.5rem 0;
+  border-bottom:1px solid var(--rlt);font-family:var(--sans);font-size:.65rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--lt)}}
+.mast-title{{font-family:var(--serif);font-size:clamp(3.5rem,10vw,7rem);font-weight:900;
+  letter-spacing:-.03em;line-height:1;padding:.4rem 0;color:var(--blk)}}
+.landing{{max-width:560px;margin:4rem auto;padding:0 2rem;text-align:center}}
+.landing h2{{font-family:var(--serif);font-size:1.5rem;font-weight:800;margin-bottom:.75rem}}
+.landing p{{color:var(--mid);font-size:.95rem;line-height:1.65;margin-bottom:1.5rem}}
+.btn{{display:inline-block;padding:.5rem 1.4rem;font-size:.75rem;letter-spacing:.1em;
+  text-transform:uppercase;cursor:pointer;border:none;font-family:var(--sans);
+  background:var(--blk);color:#fff}}
+.btn:hover{{background:var(--mid)}}
+#loading{{color:var(--lt);font-family:var(--sans);font-size:.8rem;letter-spacing:.08em;
+  text-transform:uppercase}}
+footer{{text-align:center;font-family:var(--sans);font-size:.63rem;letter-spacing:.12em;
+  color:var(--lt);padding:2rem 1rem;border-top:1px solid var(--rlt);
+  position:fixed;bottom:0;width:100%;text-transform:uppercase}}
+</style>
+</head>
+<body>
+<header class="mast">
+  <div class="mast-top">
+    <span>Est. 2026</span><span>readthelede.com</span><span>Your Daily Briefing</span>
+  </div>
+  <h1 class="mast-title">The Lede</h1>
+</header>
+<div class="landing" id="landing" style="display:none">
+  <h2>Your personal daily briefing</h2>
+  <p>Sign in to read your curated feed, or create an account and choose the topics and sources that matter to you.</p>
+  <button class="btn" onclick="signIn()">Sign In with Google</button>
+  <p style="margin-top:1rem;font-size:.82rem">
+    Already have an account? <a href="settings.html" style="color:inherit;text-decoration:underline">Go to Settings</a>
+  </p>
+</div>
+<div class="landing" id="checking">
+  <p id="loading">Loading your feed&hellip;</p>
+</div>
+<div class="landing" id="no-feed" style="display:none">
+  <h2>Welcome to The Lede</h2>
+  <p>Your feed isn't set up yet. Head to Settings to pick your topics and sources — your personalized briefing will be ready the next morning.</p>
+  <a href="settings.html" class="btn">Go to Settings</a>
+</div>
+<footer>The Lede &mdash; readthelede.com</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.26.0/dist/umd/supabase.min.js"></script>
+<script>
+const {{createClient}}=supabase;
+const sb=createClient('{SUPABASE_URL}','{anon_key}');
+async function signIn(){{
+  await sb.auth.signInWithOAuth({{provider:'google',
+    options:{{redirectTo:'https://readthelede.com/auth/callback'}}}});
+}}
+(async()=>{{
+  const {{data:{{session}}}}=await sb.auth.getSession();
+  if(!session){{
+    document.getElementById('checking').style.display='none';
+    document.getElementById('landing').style.display='block';
+    return;
+  }}
+  // Check if their feed page exists
+  const uid=session.user.id;
+  const res=await fetch(`/users/${{uid}}.html`,{{method:'HEAD'}});
+  if(res.ok){{
+    window.location.replace(`/users/${{uid}}.html`);
+  }} else {{
+    document.getElementById('checking').style.display='none';
+    document.getElementById('no-feed').style.display='block';
+  }}
+}})();
+</script>
+</body>
+</html>'''
+
 # ── MAIN ──────────────────────────────────────────────────────────────────────
 
 def main():
     print("=== The Lede ===")
     print(f"Run: {datetime.now(timezone.utc).isoformat()}")
 
-    print("\n[1] Loading user config from Supabase...")
-    config, source_weights = load_user_config()
+    repo_root = os.path.join(os.path.dirname(__file__), "..")
+    users_dir = os.path.join(repo_root, "users")
+    os.makedirs(users_dir, exist_ok=True)
 
-    if not config:
-        print("  No config found — nothing to generate")
+    anon_key = os.environ.get("SUPABASE_ANON_KEY", "")
+
+    # Get all users
+    print("\n[1] Loading users from Supabase...")
+    users_resp = supabase.table("users").select("id,email").execute()
+    if not users_resp.data:
+        print("  No users found — nothing to generate")
         return
+    print(f"  {len(users_resp.data)} user(s) found")
 
-    print(f"\n[2] Fetching stories for {len(config)} topics...")
-    stories_by_topic = fetch_all(config, source_weights)
+    # Generate a feed page for each user
+    for u in users_resp.data:
+        user_id = u["id"]
+        email = u["email"]
+        print(f"\n[2] Building feed for {email}...")
 
-    print("\n[3] Generating HTML...")
-    html = page(config, stories_by_topic)
-    html = html.replace("__SUPABASE_URL__", SUPABASE_URL)
-    html = html.replace("__SUPABASE_ANON_KEY__", os.environ.get("SUPABASE_ANON_KEY",""))
+        config, source_weights = load_user_config(user_id)
+        if not config:
+            print(f"  No topics configured — skipping")
+            continue
 
-    out = os.path.join(os.path.dirname(__file__), "..", "index.html")
+        print(f"  Fetching stories for {len(config)} topics...")
+        stories_by_topic = fetch_all(config, source_weights)
+
+        print(f"  Generating HTML...")
+        html = page(config, stories_by_topic)
+        html = html.replace("__SUPABASE_URL__", SUPABASE_URL)
+        html = html.replace("__SUPABASE_ANON_KEY__", anon_key)
+
+        out = os.path.join(users_dir, f"{user_id}.html")
+        with open(out, "w", encoding="utf-8") as f:
+            f.write(html)
+        print(f"  Written: users/{user_id}.html")
+
+    # Generate root index.html (landing + redirect shell)
+    print("\n[3] Generating index.html (landing page)...")
+    index_html = landing_page(anon_key)
+    out = os.path.join(repo_root, "index.html")
     with open(out, "w", encoding="utf-8") as f:
-        f.write(html)
-    print(f"[4] Written to {out}")
-    print("=== Done ===")
+        f.write(index_html)
+    print("[4] Written: index.html")
+    print("\n=== Done ===")
 
 if __name__ == "__main__":
     main()
