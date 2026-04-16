@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>The Lede — THURSDAY, APRIL 16, 2026</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blk:#0a0a0a;--ink:#1a1a1a;--mid:#555;--lt:#888;
+  --rl:#1a1a1a;--rlt:#d0d0d0;--bg:#fff;--bg2:#f6f6f6;
+  --serif:'Georgia','Times New Roman',serif;
+  --sans:'Franklin Gothic Medium','Arial Narrow',Arial,sans-serif;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:16px;line-height:1.5}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline}
+.mast{border-bottom:4px double var(--rl);padding:0 2rem}
+.mast-top{display:flex;justify-content:space-between;padding:.5rem 0;
+  border-bottom:1px solid var(--rlt);font-family:var(--sans);font-size:.65rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--lt)}
+.mast-title{text-align:center;font-family:var(--serif);
+  font-size:clamp(3.5rem,10vw,7rem);font-weight:900;
+  letter-spacing:-.03em;line-height:1;padding:.4rem 0;color:var(--blk)}
+.mast-bot{display:flex;justify-content:space-between;padding:.4rem 0;
+  border-top:1px solid var(--rlt);font-family:var(--sans);font-size:.63rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--lt)}
+.auth{display:flex;justify-content:flex-end;align-items:center;gap:.75rem;
+  padding:.35rem 2rem;background:var(--bg2);border-bottom:1px solid var(--rlt);
+  font-family:var(--sans);font-size:.7rem}
+#auth-st{color:var(--lt)}
+#si-btn,#so-btn{background:var(--blk);color:#fff;border:none;
+  padding:.25rem .85rem;font-family:var(--sans);font-size:.67rem;
+  letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+#si-btn:hover,#so-btn:hover{background:var(--mid)}
+.nav{background:var(--blk);display:flex;flex-wrap:nowrap;overflow-x:auto;padding:0 2rem;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{color:#fff;font-family:var(--sans);font-size:.67rem;letter-spacing:.12em;
+  text-transform:uppercase;padding:.55rem 1rem;
+  border-right:1px solid #2a2a2a;display:block}
+.nav a:first-child{border-left:1px solid #2a2a2a}
+.nav a:hover{background:#1e1e1e;text-decoration:none}
+.nav-settings{margin-left:auto;border-left:1px solid #2a2a2a!important;border-right:none!important}
+main{max-width:1100px;margin:0 auto;padding:0 2rem 3rem}
+.topic-sec{padding:2rem 0 0;border-bottom:3px double var(--rl)}
+.topic-sec:last-child{border-bottom:none}
+.sec-rule{display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem}
+.sec-rule::before,.sec-rule::after{content:'';flex:1;height:1px;background:var(--rl)}
+.sec-label{font-family:var(--sans);font-size:.68rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
+.hero{border-top:3px solid var(--accent,#c0392b);border-bottom:1px solid var(--rlt);
+  padding:1.5rem 0 1.25rem;margin-bottom:0}
+#civic-tech .hero{border-top-color:#2471a3}
+#housing-policy .hero{border-top-color:#8e44ad}
+#criminal-justice .hero{border-top-color:#c0392b}
+#education-policy .hero{border-top-color:#16a085}
+#health-policy .hero{border-top-color:#e67e22}
+#climate-policy .hero{border-top-color:#27ae60}
+#nonprofit .hero{border-top-color:#f39c12}
+#ai-tech .hero{border-top-color:#6c3483}
+#penguins .hero{border-top-color:#fcb514}
+#nhl .hero{border-top-color:#1a1a2e}
+#racial-equity .hero{border-top-color:#e74c3c}
+#gender-sexuality .hero{border-top-color:#e91e8c}
+#politics .hero{border-top-color:#c0392b}
+#science .hero{border-top-color:#16a085}
+#books .hero{border-top-color:#784212}
+#music .hero{border-top-color:#c0392b}
+.hero-hed{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.1rem);
+  font-weight:800;line-height:1.15;color:var(--blk);margin-bottom:.6rem}
+.hero-desc{font-size:.95rem;color:var(--mid);line-height:1.65;
+  margin-bottom:.75rem}
+.hero-meta{display:flex;justify-content:space-between;align-items:center;
+  padding-top:.6rem;border-top:1px solid var(--rlt)}
+.sec-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  border-left:1px solid var(--rlt);margin-bottom:2rem}
+.sec-item{display:flex;gap:.75rem;padding:1rem;
+  border-right:1px solid var(--rlt);border-bottom:1px solid var(--rlt)}
+.sec-num{font-family:var(--sans);font-size:1.6rem;font-weight:700;
+  color:#c0392b;line-height:1;min-width:2rem;padding-top:.1rem}
+#civic-tech .sec-num{color:#2471a3}
+#housing-policy .sec-num{color:#8e44ad}
+#criminal-justice .sec-num{color:#c0392b}
+#education-policy .sec-num{color:#16a085}
+#health-policy .sec-num{color:#e67e22}
+#climate-policy .sec-num{color:#27ae60}
+#immigration .sec-num{color:#d35400}
+#economic-policy .sec-num{color:#2980b9}
+#transportation .sec-num{color:#7f8c8d}
+#voting-democracy .sec-num{color:#8e44ad}
+#labor .sec-num{color:#c0392b}
+#disability-policy .sec-num{color:#16a085}
+#racial-equity .sec-num{color:#e74c3c}
+#gender-sexuality .sec-num{color:#e91e8c}
+#nonprofit .sec-num{color:#f39c12}
+#community-development .sec-num{color:#27ae60}
+#social-enterprise .sec-num{color:#2ecc71}
+#international-development .sec-num{color:#3498db}
+#ai-tech .sec-num{color:#6c3483}
+#cybersecurity .sec-num{color:#c0392b}
+#tech-policy .sec-num{color:#2471a3}
+#startups .sec-num{color:#f39c12}
+#healthtech .sec-num{color:#16a085}
+#local-news .sec-num{color:#2c3e50}
+#penguins .sec-num{color:#fcb514}
+#nhl .sec-num{color:#1a1a2e}
+#nba .sec-num{color:#c9082a}
+#nfl .sec-num{color:#013369}
+#mlb .sec-num{color:#002d72}
+#soccer .sec-num{color:#228b22}
+#us-news .sec-num{color:#2c3e50}
+#world-news .sec-num{color:#2471a3}
+#science .sec-num{color:#16a085}
+#business .sec-num{color:#1a5276}
+#politics .sec-num{color:#c0392b}
+#health-wellness .sec-num{color:#e67e22}
+#space .sec-num{color:#6c3483}
+#books .sec-num{color:#784212}
+#film-tv .sec-num{color:#1a252f}
+#music .sec-num{color:#c0392b}
+#food-culture .sec-num{color:#ca6f1e}
+#travel .sec-num{color:#148f77}
+.sec-body{display:flex;flex-direction:column;gap:.35rem;flex:1}
+.sec-hed{font-family:var(--serif);font-size:.95rem;font-weight:700;
+  line-height:1.3;color:var(--blk)}
+.sec-desc{font-size:.8rem;color:var(--mid);line-height:1.5;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.sec-meta{display:flex;justify-content:space-between;align-items:center;
+  margin-top:auto;padding-top:.35rem;border-top:1px solid var(--rlt)}
+.src{font-family:var(--sans);font-size:.6rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--lt)}
+.votes{display:flex;gap:2px}
+.vb{background:var(--bg2);border:none;color:var(--lt);
+  width:24px;height:24px;cursor:pointer;font-size:.58rem;
+  display:flex;align-items:center;justify-content:center}
+.vb:hover{background:var(--blk);color:#fff}
+.vb.voted-up{background:#1a5c1a;color:#fff}
+.vb.voted-dn{background:var(--blk);color:#fff}
+footer{text-align:center;font-family:var(--sans);font-size:.63rem;
+  letter-spacing:.12em;color:var(--lt);padding:2rem 1rem;
+  border-top:1px solid var(--rlt);text-transform:uppercase}
+#toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--blk);
+  color:#fff;font-family:var(--sans);font-size:.75rem;
+  padding:.55rem 1.1rem;opacity:0;transition:opacity .25s;
+  pointer-events:none;letter-spacing:.05em}
+#toast.show{opacity:1}
+@media(max-width:700px){
+  .sec-grid{grid-template-columns:1fr}
+  .nav{overflow-x:auto;flex-wrap:nowrap;padding:0}
+  .mast,.auth{padding-left:1rem;padding-right:1rem}
+  main{padding:0 1rem 2rem}
+}
+</style>
+</head>
+<body>
+<header class="mast">
+  <div class="mast-top">
+    <span>Est. 2026</span><span>readthelede.com</span><span>THURSDAY, APRIL 16, 2026</span>
+  </div>
+  <h1 class="mast-title">The Lede</h1>
+</header>
+<div class="auth">
+  <span id="auth-st">Not signed in — votes won't be saved</span>
+  <button id="si-btn" onclick="signIn()">Sign In with Google</button>
+  <button id="so-btn" style="display:none" onclick="signOut()">Sign Out</button>
+</div>
+<nav class="nav">
+  <a href="#penguins">Pittsburgh Penguins</a>
+<a href="#nhl">NHL Hockey</a>
+<a href="#us-news">US National News</a>
+<a href="#world-news">World News</a>
+<a href="#politics">US Politics</a>
+<a href="#film-tv">Film &amp; Television</a>
+<a href="#music">Music</a>
+<a href="#books">Books &amp; Literary Fiction</a>
+<a href="#housing-policy">Housing Policy</a>
+<a href="#health-wellness">Health &amp; Wellness</a>
+<a href="#science">Science &amp; Research</a>
+<a href="#civic-tech">Civic Tech &amp; GovTech</a>
+<a href="#nonprofit">Nonprofit &amp; Grants</a>
+<a href="#food-culture">Food &amp; Dining</a>
+<a href="#travel">Travel</a>
+  <a href="settings.html" class="nav-settings">⚙ Settings</a>
+</nav>
+<main><section class="topic-sec" id="penguins">
+  <div class="sec-rule"><span class="sec-label">Pittsburgh Penguins</span></div>
+  <article class="hero" data-url="https://www.pensburgh.com/general/75560/remembering-some-penguins-vs-flyers-playoff-moments">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="https://www.pensburgh.com/general/75560/remembering-some-penguins-vs-flyers-playoff-moments" target="_blank" rel="noopener">Remembering some Penguins vs. Flyers playoff moments</a></h2>
+      <p class="hero-desc">With the Battle of Pennsylvania poised to resume in the Stanley Cup Playoffs for the first time in nearly a decade, what better time than now to take a trip down memory lane and revisit some of the highs and lows from when the Penguins and Flyers have squared…</p>
+      <div class="hero-meta">
+        <span class="src">PensBurgh</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'https://www.pensburgh.com/general/75560/remembering-some-penguins-vs-flyers-playoff-moments',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://www.pensburgh.com/general/75560/remembering-some-penguins-vs-flyers-playoff-moments',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid"><article class="sec-item" data-url="https://www.post-gazette.com/sports/pirates/2026/04/16/injury-updates-pirates-jared-jones-jared-triolo/stories/202604160081">
+          <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.post-gazette.com/sports/pirates/2026/04/16/injury-updates-pirates-jared-jones-jared-triolo/stories/202604160081" target="_blank" rel="noopener">Injury updates: Pirates RHP Jared Jones returns to PNC Park, throws bullpen</a></h3>
+            
+            <div class="sec-meta">
+              <span class="src">Pittsburgh Post-Gazette</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.post-gazette.com/sports/pirates/2026/04/16/injury-updates-pirates-jared-jones-jared-triolo/stories/202604160081',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.post-gazette.com/sports/pirates/2026/04/16/injury-updates-pirates-jared-jones-jared-triolo/stories/202604160081',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.pensburgh.com/news/75558/pens-points-penguins-flyers-jake-livanavage-nhl-playoffs-ovechkin-capitals">
+          <div class="sec-num">03</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.pensburgh.com/news/75558/pens-points-penguins-flyers-jake-livanavage-nhl-playoffs-ovechkin-capitals" target="_blank" rel="noopener">Pens Points: The second season begins now</a></h3>
+            <p class="sec-desc">Catch up on some of the latest hockey headlines in today’s Pens Points.</p>
+            <div class="sec-meta">
+              <span class="src">PensBurgh</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.pensburgh.com/news/75558/pens-points-penguins-flyers-jake-livanavage-nhl-playoffs-ovechkin-capitals',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.pensburgh.com/news/75558/pens-points-penguins-flyers-jake-livanavage-nhl-playoffs-ovechkin-capitals',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.post-gazette.com/sports/paul-zeise/2026/04/16/steelers-nfl-draft-first-round-pick-pirates-oneil-cruz-pitt-basketball-roster-pe/stories/202604160079">
+          <div class="sec-num">04</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.post-gazette.com/sports/paul-zeise/2026/04/16/steelers-nfl-draft-first-round-pick-pirates-oneil-cruz-pitt-basketball-roster-pe/stories/202604160079" target="_blank" rel="noopener">Paul Zeise&#x27;s mailbag: What position will the Steelers use their first-round pick on?</a></h3>
+            
+            <div class="sec-meta">
+              <span class="src">Pittsburgh Post-Gazette</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.post-gazette.com/sports/paul-zeise/2026/04/16/steelers-nfl-draft-first-round-pick-pirates-oneil-cruz-pitt-basketball-roster-pe/stories/202604160079',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.post-gazette.com/sports/paul-zeise/2026/04/16/steelers-nfl-draft-first-round-pick-pirates-oneil-cruz-pitt-basketball-roster-pe/stories/202604160079',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article></div>
+</section>
+<section class="topic-sec" id="nhl">
+  <div class="sec-rule"><span class="sec-label">NHL Hockey</span></div>
+  <article class="hero" data-url="https://www.espn.com/nhl/story/_/id/48494583/nhl-2026-stanley-cup-playoffs-contenders-fatal-flaws-issues-weaknesses">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="https://www.espn.com/nhl/story/_/id/48494583/nhl-2026-stanley-cup-playoffs-contenders-fatal-flaws-issues-weaknesses" target="_blank" rel="noopener">Stanley Cup contender flaws: Biggest issues for the NHL&#x27;s top playoff teams</a></h2>
+      <p class="hero-desc">No NHL team is perfect, and postseason opponents will be certain to key in on these areas of weakness.</p>
+      <div class="hero-meta">
+        <span class="src">ESPN</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'https://www.espn.com/nhl/story/_/id/48494583/nhl-2026-stanley-cup-playoffs-contenders-fatal-flaws-issues-weaknesses',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://www.espn.com/nhl/story/_/id/48494583/nhl-2026-stanley-cup-playoffs-contenders-fatal-flaws-issues-weaknesses',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid"><article class="sec-item" data-url="https://www.espn.com/nhl/story/_/id/48498254/nhl-playoffs-bracket-standings-2026-wild-card-bracket-games-matchups">
+          <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.espn.com/nhl/story/_/id/48498254/nhl-playoffs-bracket-standings-2026-wild-card-bracket-games-matchups" target="_blank" rel="noopener">NHL playoff watch: What&#x27;s at stake on the season&#x27;s final day</a></h3>
+            <p class="sec-desc">Six games left to finalize playoff seeding and draft lottery order. Here&#x27;s a rundown of what&#x27;s on tap.</p>
+            <div class="sec-meta">
+              <span class="src">ESPN</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.espn.com/nhl/story/_/id/48498254/nhl-playoffs-bracket-standings-2026-wild-card-bracket-games-matchups',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.espn.com/nhl/story/_/id/48498254/nhl-playoffs-bracket-standings-2026-wild-card-bracket-games-matchups',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article></div>
+</section>
+<section class="topic-sec" id="us-news">
+  <div class="sec-rule"><span class="sec-label">US National News</span></div>
+  <article class="hero" data-url="https://www.npr.org/2026/04/16/g-s1-117656/a-complex-set-of-negotiations-to-end-israels-overlapping-wars">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="https://www.npr.org/2026/04/16/g-s1-117656/a-complex-set-of-negotiations-to-end-israels-overlapping-wars" target="_blank" rel="noopener">A complex set of negotiations to end Israel&#x27;s overlapping wars</a></h2>
+      <p class="hero-desc">Israel has agreed to a ceasefire in Lebanon, part of a complex web of Mideast negotiations, from Iran to Gaza.</p>
+      <div class="hero-meta">
+        <span class="src">NPR</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'https://www.npr.org/2026/04/16/g-s1-117656/a-complex-set-of-negotiations-to-end-israels-overlapping-wars',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://www.npr.org/2026/04/16/g-s1-117656/a-complex-set-of-negotiations-to-end-israels-overlapping-wars',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid"><article class="sec-item" data-url="https://www.nytimes.com/2026/04/16/us/politics/trump-economy-iran-war.html">
+          <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.nytimes.com/2026/04/16/us/politics/trump-economy-iran-war.html" target="_blank" rel="noopener">White House Shrugs Off Shaky Economy as War Exceeds Trump’s Timeline</a></h3>
+            <p class="sec-desc">Stocks may be soaring again, but the war in Iran has started to pinch the finances of many Americans.</p>
+            <div class="sec-meta">
+              <span class="src">New York Times</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.nytimes.com/2026/04/16/us/politics/trump-economy-iran-war.html',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.nytimes.com/2026/04/16/us/politics/trump-economy-iran-war.html',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.washingtonpost.com/nation/2026/04/16/young-men-religion-church-poll/">
+          <div class="sec-num">03</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.washingtonpost.com/nation/2026/04/16/young-men-religion-church-poll/" target="_blank" rel="noopener">More young men are attending religious services regularly, poll finds</a></h3>
+            <p class="sec-desc">The Gallup report appears to reflect a trend observed by some religious leaders: Pockets of young Americans, especially men, are joining faith communities.</p>
+            <div class="sec-meta">
+              <span class="src">Washington Post</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.washingtonpost.com/nation/2026/04/16/young-men-religion-church-poll/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.washingtonpost.com/nation/2026/04/16/young-men-religion-church-poll/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.politico.com/news/2026/04/16/democrats-new-affordability-nemesis-fifa-00874896">
+          <div class="sec-num">04</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.politico.com/news/2026/04/16/democrats-new-affordability-nemesis-fifa-00874896" target="_blank" rel="noopener">Democrats’ new affordability nemesis: FIFA</a></h3>
+            <p class="sec-desc">The world soccer organization is joining groceries, utilities and landlords as targets for Democrats talking about the cost of living.</p>
+            <div class="sec-meta">
+              <span class="src">Politico</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.politico.com/news/2026/04/16/democrats-new-affordability-nemesis-fifa-00874896',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.politico.com/news/2026/04/16/democrats-new-affordability-nemesis-fifa-00874896',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article></div>
+</section>
+<section class="topic-sec" id="world-news">
+  <div class="sec-rule"><span class="sec-label">World News</span></div>
+  <article class="hero" data-url="https://www.theguardian.com/world/2026/apr/16/south-africa-julius-malema-jail-term-rifle">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="https://www.theguardian.com/world/2026/apr/16/south-africa-julius-malema-jail-term-rifle" target="_blank" rel="noopener">South African politician Julius Malema given five-year jail term for gun offence</a></h2>
+      <p class="hero-desc">Leader of leftwing Economic Freedom Fighters was convicted last year for firing rifle in the air at 2018 rallyThe South African leftwing politician Julius Malema has been sentenced to five years in prison for firing a rifle in the air at a political rally in 2018.Lawyers for the leader of the Econom</p>
+      <div class="hero-meta">
+        <span class="src">The Guardian</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'https://www.theguardian.com/world/2026/apr/16/south-africa-julius-malema-jail-term-rifle',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://www.theguardian.com/world/2026/apr/16/south-africa-julius-malema-jail-term-rifle',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid"><article class="sec-item" data-url="https://www.bbc.com/news/articles/cvg0z3n5e5jo?at_medium=RSS&amp;at_campaign=rss">
+          <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.bbc.com/news/articles/cvg0z3n5e5jo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">Pope criticises &#x27;tyrants&#x27; who spend billions on wars after Trump spat</a></h3>
+            <p class="sec-desc">The comments follow a high-profile spat with US President Donald Trump, who called the Pope weak on crime.</p>
+            <div class="sec-meta">
+              <span class="src">BBC</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.bbc.com/news/articles/cvg0z3n5e5jo?at_medium=RSS&amp;at_campaign=rss',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.bbc.com/news/articles/cvg0z3n5e5jo?at_medium=RSS&amp;at_campaign=rss',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.aljazeera.com/news/2026/4/16/no-date-set-for-us-iran-talks-as-pakistan-pushes-to-keep-diplomacy-alive?traffic_source=rss">
+          <div class="sec-num">03</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.aljazeera.com/news/2026/4/16/no-date-set-for-us-iran-talks-as-pakistan-pushes-to-keep-diplomacy-alive?traffic_source=rss" target="_blank" rel="noopener">No date set for US-Iran talks, as Pakistan pushes to keep diplomacy alive</a></h3>
+            <p class="sec-desc">Pakistan&amp;#039;s prime minister and army chief are both travelling to key players in the war, attempting to keep talks going.</p>
+            <div class="sec-meta">
+              <span class="src">Al Jazeera</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.aljazeera.com/news/2026/4/16/no-date-set-for-us-iran-talks-as-pakistan-pushes-to-keep-diplomacy-alive?traffic_source=rss',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.aljazeera.com/news/2026/4/16/no-date-set-for-us-iran-talks-as-pakistan-pushes-to-keep-diplomacy-alive?traffic_source=rss',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://foreignpolicy.com/2026/04/16/arctic-council-trump-greenland-denmark/">
+          <div class="sec-num">04</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://foreignpolicy.com/2026/04/16/arctic-council-trump-greenland-denmark/" target="_blank" rel="noopener">Can the Arctic Council Survive?</a></h3>
+            <p class="sec-desc">With the rift over Greenland, the intergovernmental body finds itself in troubled waters again.</p>
+            <div class="sec-meta">
+              <span class="src">Foreign Policy</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://foreignpolicy.com/2026/04/16/arctic-council-trump-greenland-denmark/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://foreignpolicy.com/2026/04/16/arctic-council-trump-greenland-denmark/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article></div>
+</section>
+<section class="topic-sec" id="politics">
+  <div class="sec-rule"><span class="sec-label">US Politics</span></div>
+  <article class="hero" data-url="https://www.rawstory.com/tuberville-midterms-gop/">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="https://www.rawstory.com/tuberville-midterms-gop/" target="_blank" rel="noopener">GOP senator says Republicans don&#x27;t deserve majority: &#x27;Hell, we ain&#x27;t done anything&#x27;</a></h2>
+      <p class="hero-desc">Sen. Tommy Tuberville (R-AL) argued that there was a &quot;good chance&quot; of Republicans losing the midterms because they &quot;ain&#x27;t done nothing&quot; while having control of Congress.&quot;Everything that goes on up here, Benny, is about, oh, we got to get reelected,&quot; Tubervill…</p>
+      <div class="hero-meta">
+        <span class="src">Raw Story</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'https://www.rawstory.com/tuberville-midterms-gop/',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://www.rawstory.com/tuberville-midterms-gop/',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid"><article class="sec-item" data-url="https://legalinsurrection.com/2026/04/centcom-u-s-blockade-fully-implemented-halting-90-of-irans-sea-trade/">
+          <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://legalinsurrection.com/2026/04/centcom-u-s-blockade-fully-implemented-halting-90-of-irans-sea-trade/" target="_blank" rel="noopener">CENTCOM: U.S. Blockade Fully Implemented,’ Halting 90% of Iran’s Sea Trade</a></h3>
+            <p class="sec-desc">CENTCOM Commander Adm. Brad Cooper: “In less than 36 hours since the blockade was implemented, U.S. forces have completely halted economic trade going into and out of Iran by sea.”
+The post CENTCOM: U…</p>
+            <div class="sec-meta">
+              <span class="src">Legalinsurrection.com</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://legalinsurrection.com/2026/04/centcom-u-s-blockade-fully-implemented-halting-90-of-irans-sea-trade/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://legalinsurrection.com/2026/04/centcom-u-s-blockade-fully-implemented-halting-90-of-irans-sea-trade/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.memeorandum.com/260415/p85">
+          <div class="sec-num">03</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.memeorandum.com/260415/p85" target="_blank" rel="noopener">No more US military aid to Israel (Bernie Sanders/The Guardian)</a></h3>
+            <p class="sec-desc">Bernie Sanders / The Guardian:
+No more US military aid to Israel  —  The time is long overdue for members of Congress to listen to the American people and end US military aid to the extremist Netanyah…</p>
+            <div class="sec-meta">
+              <span class="src">Memeorandum.com</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.memeorandum.com/260415/p85',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.memeorandum.com/260415/p85',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.foxnews.com/politics/dozen-state-officials-rally-behind-game-changing-trump-admin-rule-cracking-fraud-essential">
+          <div class="sec-num">04</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.foxnews.com/politics/dozen-state-officials-rally-behind-game-changing-trump-admin-rule-cracking-fraud-essential" target="_blank" rel="noopener">Over a dozen state officials rally behind game-changing Trump admin rule cracking down on fraud: &#x27;Essential&#x27;</a></h3>
+            <p class="sec-desc">Financial officers from 12 states rally behind a Trump administration rule targeting healthcare middlemen to lower costs and root out fraud and waste.</p>
+            <div class="sec-meta">
+              <span class="src">Fox</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.foxnews.com/politics/dozen-state-officials-rally-behind-game-changing-trump-admin-rule-cracking-fraud-essential',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.foxnews.com/politics/dozen-state-officials-rally-behind-game-changing-trump-admin-rule-cracking-fraud-essential',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article></div>
+</section>
+<section class="topic-sec" id="film-tv">
+  <div class="sec-rule"><span class="sec-label">Film &amp; Television</span></div>
+  <article class="hero" data-url="http://www.hollywoodreporter.com/lifestyle/lifestyle-news/absolute-batman-making-lego-video-game-debut-1236564909/">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="http://www.hollywoodreporter.com/lifestyle/lifestyle-news/absolute-batman-making-lego-video-game-debut-1236564909/" target="_blank" rel="noopener">&#x27;Absolute Batman&#x27; Making Lego, Video Game Debut</a></h2>
+      <p class="hero-desc">&#x27;Lego Batman: Legacy of the Dark Knight&#x27; will mark the first time the popular, re-invented version of Bruce Wayne will appear in brick form or in a game.</p>
+      <div class="hero-meta">
+        <span class="src">The Hollywood Reporter</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'http://www.hollywoodreporter.com/lifestyle/lifestyle-news/absolute-batman-making-lego-video-game-debut-1236564909/',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'http://www.hollywoodreporter.com/lifestyle/lifestyle-news/absolute-batman-making-lego-video-game-debut-1236564909/',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid"><article class="sec-item" data-url="https://www.animenewsnetwork.com/press-release/2026-04-15/all-you-need-is-kill-now-on-digital-arriving-on-blu-ray-july-7th-2026/.236415">
+          <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.animenewsnetwork.com/press-release/2026-04-15/all-you-need-is-kill-now-on-digital-arriving-on-blu-ray-july-7th-2026/.236415" target="_blank" rel="noopener">All You Need is Kill Now on Digital, Arriving on Blu-Ray July 7th, 2026</a></h3>
+            <p class="sec-desc">ALL YOU NEED IS KILL NOW ON DIGITAL AND ARRIVING ON BLU-RAY™ JULY 7TH, 2026 Los Angeles, CA – Based on Hiroshi Sakurazaka&#x27;s global best-selling 2004 sci-fi...</p>
+            <div class="sec-meta">
+              <span class="src">Anime Network</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.animenewsnetwork.com/press-release/2026-04-15/all-you-need-is-kill-now-on-digital-arriving-on-blu-ray-july-7th-2026/.236415',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.animenewsnetwork.com/press-release/2026-04-15/all-you-need-is-kill-now-on-digital-arriving-on-blu-ray-july-7th-2026/.236415',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://screenrant.com/lower-east-side-film-festival-official-posters-line-up/">
+          <div class="sec-num">03</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://screenrant.com/lower-east-side-film-festival-official-posters-line-up/" target="_blank" rel="noopener">The Lower East Side Film Festival Unveils Official Posters &amp; Lineup</a></h3>
+            <p class="sec-desc">ScreenRant presents an exclusive first look at the official posters for LESFF, designed by CHAMPIONS, as the festival unveils its full indie lineup.</p>
+            <div class="sec-meta">
+              <span class="src">Screen Rant</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://screenrant.com/lower-east-side-film-festival-official-posters-line-up/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://screenrant.com/lower-east-side-film-festival-official-posters-line-up/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.the-independent.com/arts-entertainment/tv/news/luke-gulbranson-summer-house-congress-minnesota-b2958337.html">
+          <div class="sec-num">04</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.the-independent.com/arts-entertainment/tv/news/luke-gulbranson-summer-house-congress-minnesota-b2958337.html" target="_blank" rel="noopener">Summer House alum announces run for Congress in emotional video</a></h3>
+            <p class="sec-desc">Actor and reality television star said: ‘I’m not here to play politics’</p>
+            <div class="sec-meta">
+              <span class="src">The-independent.com</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.the-independent.com/arts-entertainment/tv/news/luke-gulbranson-summer-house-congress-minnesota-b2958337.html',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.the-independent.com/arts-entertainment/tv/news/luke-gulbranson-summer-house-congress-minnesota-b2958337.html',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article></div>
+</section>
+<section class="topic-sec" id="music">
+  <div class="sec-rule"><span class="sec-label">Music</span></div>
+  <article class="hero" data-url="http://www.hollywoodreporter.com/music/film-tv-music-news/joey-fatone-boy-band-confidential-interview-1236564516/">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="http://www.hollywoodreporter.com/music/film-tv-music-news/joey-fatone-boy-band-confidential-interview-1236564516/" target="_blank" rel="noopener">Joey Fatone Exposes Toxicity of Boy Band Business With New Docuseries</a></h2>
+      <p class="hero-desc">Fatone executive produced the new ID series &#x27;Boy Band Confidential,&#x27; which featured interviews with Lance Bass, AJ McLean, Wanya Morris and Shawn Stockman, among others. &quot;It was very therapeutic for them,&quot; Fatone tells The Hollywood Reporter of the musicians …</p>
+      <div class="hero-meta">
+        <span class="src">The Hollywood Reporter</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'http://www.hollywoodreporter.com/music/film-tv-music-news/joey-fatone-boy-band-confidential-interview-1236564516/',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'http://www.hollywoodreporter.com/music/film-tv-music-news/joey-fatone-boy-band-confidential-interview-1236564516/',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid"><article class="sec-item" data-url="https://insidethemagic.net/2026/04/disney-just-dropped-a-first-look-at-its-new-muppets-coaster-and-fans-are-loving-it-sb1/">
+          <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://insidethemagic.net/2026/04/disney-just-dropped-a-first-look-at-its-new-muppets-coaster-and-fans-are-loving-it-sb1/" target="_blank" rel="noopener">Disney Just Dropped a First Look at Its New Muppets Coaster and Fans Are Loving It</a></h3>
+            <p class="sec-desc">Disney just gave fans a fresh peek at what’s coming next to one of its most iconic thrill rides, and the reaction has been immediate. It’s not a full reveal, not even close—but it’s enough to get peop…</p>
+            <div class="sec-meta">
+              <span class="src">Inside the Magic</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://insidethemagic.net/2026/04/disney-just-dropped-a-first-look-at-its-new-muppets-coaster-and-fans-are-loving-it-sb1/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://insidethemagic.net/2026/04/disney-just-dropped-a-first-look-at-its-new-muppets-coaster-and-fans-are-loving-it-sb1/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://pitchfork.com/news/the-field-announces-first-solo-project-in-eight-years-now-you-exist/">
+          <div class="sec-num">03</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://pitchfork.com/news/the-field-announces-first-solo-project-in-eight-years-now-you-exist/" target="_blank" rel="noopener">The Field Announces First Project in Eight Years</a></h3>
+            <p class="sec-desc">The Swedish producer’s five-track EP Now You Exist lands May 15</p>
+            <div class="sec-meta">
+              <span class="src">Pitchfork</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://pitchfork.com/news/the-field-announces-first-solo-project-in-eight-years-now-you-exist/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://pitchfork.com/news/the-field-announces-first-solo-project-in-eight-years-now-you-exist/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.disneytouristblog.com/disney-world-reveals-electric-mayhem-post-show-new-songs-for-rock-n-roller-coaster-starring-muppets/">
+          <div class="sec-num">04</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.disneytouristblog.com/disney-world-reveals-electric-mayhem-post-show-new-songs-for-rock-n-roller-coaster-starring-muppets/" target="_blank" rel="noopener">Disney World Reveals Electric Mayhem Post Show &amp; New Songs for Rock ‘n’ Roller Coaster Starring Muppets</a></h3>
+            <p class="sec-desc">Walt Disney World has shared a first look at the Electric Mayhem performing in the post show, along with two new songs for Rock ‘n’ Roller Coaster Starring the Muppets! Here’s the latest, including th…</p>
+            <div class="sec-meta">
+              <span class="src">Disneytouristblog.com</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.disneytouristblog.com/disney-world-reveals-electric-mayhem-post-show-new-songs-for-rock-n-roller-coaster-starring-muppets/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.disneytouristblog.com/disney-world-reveals-electric-mayhem-post-show-new-songs-for-rock-n-roller-coaster-starring-muppets/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article></div>
+</section>
+<section class="topic-sec" id="books">
+  <div class="sec-rule"><span class="sec-label">Books &amp; Literary Fiction</span></div>
+  <article class="hero" data-url="https://www.writersdigest.com/allison-winn-scotch-remove-your-ego-from-the-process-entirely#article">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="https://www.writersdigest.com/allison-winn-scotch-remove-your-ego-from-the-process-entirely#article" target="_blank" rel="noopener">Allison Winn Scotch: Remove Your Ego From the Process Entirely</a></h2>
+      <p class="hero-desc">In this interview, author Allison Winn Scotch discusses utilizing writing approaches from different genres for her new novel, The Insomniacs.
+The post Allison Winn Scotch: Remove Your Ego From the Process Entirely appeared first on Writer&#x27;s Digest.</p>
+      <div class="hero-meta">
+        <span class="src">Writersdigest.com</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'https://www.writersdigest.com/allison-winn-scotch-remove-your-ego-from-the-process-entirely#article',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://www.writersdigest.com/allison-winn-scotch-remove-your-ego-from-the-process-entirely#article',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid"><article class="sec-item" data-url="https://lithub.com/andrew-martin-with-mary-gaitskill/">
+          <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://lithub.com/andrew-martin-with-mary-gaitskill/" target="_blank" rel="noopener">Andrew Martin (with Mary Gaitskill)</a></h3>
+            <p class="sec-desc">Welcome to the new season of The Writers Institute, the podcast from the New York State Writers Institute and Lit Hub. This is the first episode of five, and new episodes will come out on Wednesdays. …</p>
+            <div class="sec-meta">
+              <span class="src">Literary Hub</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://lithub.com/andrew-martin-with-mary-gaitskill/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://lithub.com/andrew-martin-with-mary-gaitskill/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.irishtimes.com/culture/books/review/2026/04/11/look-what-you-made-me-do-by-john-lanchester-a-revenge-story-of-millennials-versus-boomers/">
+          <div class="sec-num">03</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.irishtimes.com/culture/books/review/2026/04/11/look-what-you-made-me-do-by-john-lanchester-a-revenge-story-of-millennials-versus-boomers/" target="_blank" rel="noopener">Look What You Made Me Do by John Lanchester: a revenge story of Millennials versus Boomers</a></h3>
+            <p class="sec-desc">Function of this genre is to sublimate what Nietzsche called ressentiment, the rage that arises from a feeling of powerlessness</p>
+            <div class="sec-meta">
+              <span class="src">The Irish Times</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.irishtimes.com/culture/books/review/2026/04/11/look-what-you-made-me-do-by-john-lanchester-a-revenge-story-of-millennials-versus-boomers/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.irishtimes.com/culture/books/review/2026/04/11/look-what-you-made-me-do-by-john-lanchester-a-revenge-story-of-millennials-versus-boomers/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.today.com/popculture/movies/patrick-schwarzenegger-phoebe-dynevor-beach-read-movie-rcna331871">
+          <div class="sec-num">04</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.today.com/popculture/movies/patrick-schwarzenegger-phoebe-dynevor-beach-read-movie-rcna331871" target="_blank" rel="noopener">Patrick Schwarzenegger to Star Alongside Phoebe Dynevor in &#x27;Beach Read&#x27; Adaptation</a></h3>
+            <p class="sec-desc">Patrick Schwarzenegger has been cast as Augustus “Gus” Everett in the movie adaptation of Emily Henry&#x27;s book &quot;Beach Read.&quot;</p>
+            <div class="sec-meta">
+              <span class="src">TODAY</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.today.com/popculture/movies/patrick-schwarzenegger-phoebe-dynevor-beach-read-movie-rcna331871',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.today.com/popculture/movies/patrick-schwarzenegger-phoebe-dynevor-beach-read-movie-rcna331871',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article></div>
+</section>
+<section class="topic-sec" id="housing-policy">
+  <div class="sec-rule"><span class="sec-label">Housing Policy</span></div>
+  <article class="hero" data-url="http://commercialobserver.com/2026/04/new-york-pied-a-terre-tax-effects/">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="http://commercialobserver.com/2026/04/new-york-pied-a-terre-tax-effects/" target="_blank" rel="noopener">New York’s Pied-à-Terre Tax Would Be Economic Self-Sabotage</a></h2>
+      <p class="hero-desc">Every few years, Albany revives an idea that may sound politically attractive but is economically destructive: the pied-à-terre tax.  Gov. Kathy Hochul’s latest proposal would impose an additional annual tax on higher-value second homes in New York City, gene…</p>
+      <div class="hero-meta">
+        <span class="src">Commercial Observer</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'http://commercialobserver.com/2026/04/new-york-pied-a-terre-tax-effects/',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'http://commercialobserver.com/2026/04/new-york-pied-a-terre-tax-effects/',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid"><article class="sec-item" data-url="https://www.edsurge.com/news/2026-04-15-teaching-showed-me-education-isn-t-the-great-equalizer">
+          <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.edsurge.com/news/2026-04-15-teaching-showed-me-education-isn-t-the-great-equalizer" target="_blank" rel="noopener">Teaching Showed Me Education Isn’t the Great Equalizer</a></h3>
+            <p class="sec-desc">What I once believed about schools shifted when I saw how deeply students’ lives outside the classroom shape their opportunities.</p>
+            <div class="sec-meta">
+              <span class="src">EdSurge</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.edsurge.com/news/2026-04-15-teaching-showed-me-education-isn-t-the-great-equalizer',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.edsurge.com/news/2026-04-15-teaching-showed-me-education-isn-t-the-great-equalizer',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.globenewswire.com/news-release/2026/04/15/3274354/0/en/Monarch-Private-Capital-s-Historic-Division-Achieves-Record-Breaking-Year-with-Deal-Closings-Generating-120-Million-in-Tax-Credits-in-2025.html">
+          <div class="sec-num">03</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.globenewswire.com/news-release/2026/04/15/3274354/0/en/Monarch-Private-Capital-s-Historic-Division-Achieves-Record-Breaking-Year-with-Deal-Closings-Generating-120-Million-in-Tax-Credits-in-2025.html" target="_blank" rel="noopener">Monarch Private Capital’s Historic Division Achieves Record-Breaking Year with Deal Closings Generating $120 Million in Tax Credits in 2025</a></h3>
+            <p class="sec-desc">Monarch’s Historic Tax Credit division achieved a record 2025, generating $120M in credits and supporting $500M+ in development nationwide.
+...</p>
+            <div class="sec-meta">
+              <span class="src">GlobeNewswire</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.globenewswire.com/news-release/2026/04/15/3274354/0/en/Monarch-Private-Capital-s-Historic-Division-Achieves-Record-Breaking-Year-with-Deal-Closings-Generating-120-Million-in-Tax-Credits-in-2025.html',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.globenewswire.com/news-release/2026/04/15/3274354/0/en/Monarch-Private-Capital-s-Historic-Division-Achieves-Record-Breaking-Year-with-Deal-Closings-Generating-120-Million-in-Tax-Credits-in-2025.html',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://gothamist.com/news/the-new-yorkers-who-cant-get-housing-vouchers-as-mamdani-fights-program-expansion">
+          <div class="sec-num">04</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://gothamist.com/news/the-new-yorkers-who-cant-get-housing-vouchers-as-mamdani-fights-program-expansion" target="_blank" rel="noopener">The New Yorkers who can&#x27;t get housing vouchers as Mamdani fights program expansion</a></h3>
+            <p class="sec-desc">Ciro Sollazzi, 67, could be among the new beneficiaries for a housing voucher if the city expands the cityFHEPS program.
+ 
+
+The Mamdani administration said a package of laws to expand CityFHEPS is too…</p>
+            <div class="sec-meta">
+              <span class="src">Gothamist</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://gothamist.com/news/the-new-yorkers-who-cant-get-housing-vouchers-as-mamdani-fights-program-expansion',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://gothamist.com/news/the-new-yorkers-who-cant-get-housing-vouchers-as-mamdani-fights-program-expansion',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article></div>
+</section>
+<section class="topic-sec" id="health-wellness">
+  <div class="sec-rule"><span class="sec-label">Health &amp; Wellness</span></div>
+  <article class="hero" data-url="https://www.newstatesman.com/politics/health/2026/04/donna-ockenden-appointed-to-chair-sussex-maternity-inquiry">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="https://www.newstatesman.com/politics/health/2026/04/donna-ockenden-appointed-to-chair-sussex-maternity-inquiry" target="_blank" rel="noopener">Donna Ockenden appointed to chair Sussex maternity inquiry</a></h2>
+      <p class="hero-desc">The Health Secretary has agreed that Donna Ockenden will chair an independent inquiry into maternity failings in Sussex. It comes after lobbying by bereaved families and a joint investigation by the N</p>
+      <div class="hero-meta">
+        <span class="src">New Statesman</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'https://www.newstatesman.com/politics/health/2026/04/donna-ockenden-appointed-to-chair-sussex-maternity-inquiry',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://www.newstatesman.com/politics/health/2026/04/donna-ockenden-appointed-to-chair-sussex-maternity-inquiry',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid"><article class="sec-item" data-url="https://nypost.com/2026/04/15/health/men-with-this-habit-may-double-partners-risk-of-miscarriage/">
+          <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://nypost.com/2026/04/15/health/men-with-this-habit-may-double-partners-risk-of-miscarriage/" target="_blank" rel="noopener">Men may be doubling their partner’s risk of miscarriage with a single controversial habit</a></h3>
+            <p class="sec-desc">The pattern held even after researchers accounted for whether the pregnant woman herself had the habit.</p>
+            <div class="sec-meta">
+              <span class="src">New York Post</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://nypost.com/2026/04/15/health/men-with-this-habit-may-double-partners-risk-of-miscarriage/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://nypost.com/2026/04/15/health/men-with-this-habit-may-double-partners-risk-of-miscarriage/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://dailycaller.com/2026/04/15/noemi-guzman-toddler-walmart-omaha-police-bodycam-video-insanity-not-guilty/">
+          <div class="sec-num">03</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://dailycaller.com/2026/04/15/noemi-guzman-toddler-walmart-omaha-police-bodycam-video-insanity-not-guilty/" target="_blank" rel="noopener">Chilling Photo Shows Moment Before Madwoman Stabs Kidnapped Toddler</a></h3>
+            <p class="sec-desc">Omaha police shot and killed Noemi Guzman, 31, on Tuesday. Guzman allegedly slashed a toddler with a knife after abducting him from a Walmart.</p>
+            <div class="sec-meta">
+              <span class="src">The Daily Caller</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://dailycaller.com/2026/04/15/noemi-guzman-toddler-walmart-omaha-police-bodycam-video-insanity-not-guilty/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://dailycaller.com/2026/04/15/noemi-guzman-toddler-walmart-omaha-police-bodycam-video-insanity-not-guilty/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://blogs.fangraphs.com/davey-lopes-1945-2026-speedster-student-and-mentor/">
+          <div class="sec-num">04</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://blogs.fangraphs.com/davey-lopes-1945-2026-speedster-student-and-mentor/" target="_blank" rel="noopener">Davey Lopes (1945–2026): Speedster, Student, and Mentor</a></h3>
+            <p class="sec-desc">Paying tribute to the four-time All-Star, two-time stolen base leader, renowned first base coach and personal favorite, who died who last week at age 80.</p>
+            <div class="sec-meta">
+              <span class="src">Fangraphs.com</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://blogs.fangraphs.com/davey-lopes-1945-2026-speedster-student-and-mentor/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://blogs.fangraphs.com/davey-lopes-1945-2026-speedster-student-and-mentor/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article></div>
+</section>
+<section class="topic-sec" id="science">
+  <div class="sec-rule"><span class="sec-label">Science &amp; Research</span></div>
+  <article class="hero" data-url="https://abcnews.com/video/132069550/">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="https://abcnews.com/video/132069550/" target="_blank" rel="noopener">WATCH: Trump says in interview he views war with Iran as &#x27;very close to over&#x27;</a></h2>
+      <p class="hero-desc">President Trump said that he viewed the war with Iran as &quot;very close to over&quot; in an interview on Tuesday.</p>
+      <div class="hero-meta">
+        <span class="src">Abcnews.com</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'https://abcnews.com/video/132069550/',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://abcnews.com/video/132069550/',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid"><article class="sec-item" data-url="https://www.universetoday.com/articles/planetary-exploration-with-four-legged-rovers-carrying-only-two-instruments">
+          <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.universetoday.com/articles/planetary-exploration-with-four-legged-rovers-carrying-only-two-instruments" target="_blank" rel="noopener">Planetary Exploration With Four-Legged Rovers Carrying Only Two Instruments</a></h3>
+            <p class="sec-desc">European researchers tested four-legged semi-autonomous rovers that carry only two instruments. These capable and agile robots could be part of the future exploration of Mars and the Moon. Their auton…</p>
+            <div class="sec-meta">
+              <span class="src">Universe Today</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.universetoday.com/articles/planetary-exploration-with-four-legged-rovers-carrying-only-two-instruments',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.universetoday.com/articles/planetary-exploration-with-four-legged-rovers-carrying-only-two-instruments',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://blog.jetbrains.com/research/2026/04/ai-impact-developer-workflows/">
+          <div class="sec-num">03</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://blog.jetbrains.com/research/2026/04/ai-impact-developer-workflows/" target="_blank" rel="noopener">Understanding AI’s Impact on Developer Workflows</a></h3>
+            <p class="sec-desc">AI coding assistants are no longer shiny add‑ons: they are standard parts of our daily workflows. We know developers’ perspectives on them in the short term, and many say they get more done and spend …</p>
+            <div class="sec-meta">
+              <span class="src">Jetbrains.com</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://blog.jetbrains.com/research/2026/04/ai-impact-developer-workflows/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://blog.jetbrains.com/research/2026/04/ai-impact-developer-workflows/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://reason.com/2026/04/15/mamdanis-fix-for-food-deserts-opening-a-30-million-city-owned-grocery-store-near-other-grocery-stores/">
+          <div class="sec-num">04</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://reason.com/2026/04/15/mamdanis-fix-for-food-deserts-opening-a-30-million-city-owned-grocery-store-near-other-grocery-stores/" target="_blank" rel="noopener">Mamdani&#x27;s Fix for Food Deserts: Opening a $30 Million City-Owned Grocery Store Near Other Grocery Stores</a></h3>
+            <p class="sec-desc">Zohran Mamdani aims to lower food prices, but critics question building a taxpayer-funded store where options already exist.</p>
+            <div class="sec-meta">
+              <span class="src">Reason</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://reason.com/2026/04/15/mamdanis-fix-for-food-deserts-opening-a-30-million-city-owned-grocery-store-near-other-grocery-stores/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://reason.com/2026/04/15/mamdanis-fix-for-food-deserts-opening-a-30-million-city-owned-grocery-store-near-other-grocery-stores/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article></div>
+</section>
+<section class="topic-sec" id="civic-tech">
+  <div class="sec-rule"><span class="sec-label">Civic Tech &amp; GovTech</span></div>
+  <article class="hero" data-url="https://punchng.com/fg-spends-n75bn-on-arms-amid-worsening-insecurity/">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="https://punchng.com/fg-spends-n75bn-on-arms-amid-worsening-insecurity/" target="_blank" rel="noopener">FG spends N75bn on arms amid worsening insecurity</a></h2>
+      <p class="hero-desc">Nigeria’s military spending reached N74.96bn from 2023-2025. Analysis reveals peak spending in 2024 by the Ministry of Defence amid security challenges.
+
+Read More: https://punchng.com/fg-spends-n75bn-on-arms-amid-worsening-insecurity/</p>
+      <div class="hero-meta">
+        <span class="src">The Punch</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'https://punchng.com/fg-spends-n75bn-on-arms-amid-worsening-insecurity/',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://punchng.com/fg-spends-n75bn-on-arms-amid-worsening-insecurity/',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid"><article class="sec-item" data-url="https://gds.blog.gov.uk/2026/04/15/gds-local-building-the-foundations-for-digital-collaboration/">
+          <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://gds.blog.gov.uk/2026/04/15/gds-local-building-the-foundations-for-digital-collaboration/" target="_blank" rel="noopener">GDS Local: building the foundations for digital collaboration</a></h3>
+            <p class="sec-desc">GDS Local shares the latest developments on how the initiative is supporting digital transformation in councils.</p>
+            <div class="sec-meta">
+              <span class="src">Blog.gov.uk</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://gds.blog.gov.uk/2026/04/15/gds-local-building-the-foundations-for-digital-collaboration/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://gds.blog.gov.uk/2026/04/15/gds-local-building-the-foundations-for-digital-collaboration/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://en.antaranews.com/news/412401/indonesia-seeks-russias-expertise-to-boost-digital-governance-reform">
+          <div class="sec-num">03</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://en.antaranews.com/news/412401/indonesia-seeks-russias-expertise-to-boost-digital-governance-reform" target="_blank" rel="noopener">Indonesia seeks Russia&#x27;s expertise to boost digital governance reform</a></h3>
+            <p class="sec-desc">Indonesia&amp;rsquo;s Ministry of Administrative and Bureaucratic Reform and Russia have initiated talks to strengthen bilateral cooperation on digital government ...</p>
+            <div class="sec-meta">
+              <span class="src">Antaranews.com</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://en.antaranews.com/news/412401/indonesia-seeks-russias-expertise-to-boost-digital-governance-reform',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://en.antaranews.com/news/412401/indonesia-seeks-russias-expertise-to-boost-digital-governance-reform',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://statescoop.com/pennsylvania-expands-generative-ai-tools-3000-employees/">
+          <div class="sec-num">04</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://statescoop.com/pennsylvania-expands-generative-ai-tools-3000-employees/" target="_blank" rel="noopener">Pennsylvania expanded generative AI to 3,000 employees, with thousands more in training</a></h3>
+            <p class="sec-desc">The Pennsylvania state government has continued to expand its use of generative AI among its workforce, fulfilling a 2023 governor&#x27;s order.</p>
+            <div class="sec-meta">
+              <span class="src">StateScoop</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://statescoop.com/pennsylvania-expands-generative-ai-tools-3000-employees/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://statescoop.com/pennsylvania-expands-generative-ai-tools-3000-employees/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article></div>
+</section>
+<section class="topic-sec" id="nonprofit">
+  <div class="sec-rule"><span class="sec-label">Nonprofit &amp; Grants</span></div>
+  <article class="hero" data-url="https://www.globenewswire.com/news-release/2026/04/15/3274764/0/en/Alliance-for-Decision-Education-Receives-Grant-to-Advance-Decision-Education-in-K-12-Classrooms.html">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="https://www.globenewswire.com/news-release/2026/04/15/3274764/0/en/Alliance-for-Decision-Education-Receives-Grant-to-Advance-Decision-Education-in-K-12-Classrooms.html" target="_blank" rel="noopener">Alliance for Decision Education Receives Grant to Advance Decision Education in K-12 Classrooms</a></h2>
+      <p class="hero-desc">The Alliance has received a grant to support a new initiative to embed decision-making skills into existing curriculum across core subjects....</p>
+      <div class="hero-meta">
+        <span class="src">GlobeNewswire</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'https://www.globenewswire.com/news-release/2026/04/15/3274764/0/en/Alliance-for-Decision-Education-Receives-Grant-to-Advance-Decision-Education-in-K-12-Classrooms.html',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://www.globenewswire.com/news-release/2026/04/15/3274764/0/en/Alliance-for-Decision-Education-Receives-Grant-to-Advance-Decision-Education-in-K-12-Classrooms.html',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid"><article class="sec-item" data-url="https://www.princeton.edu/events/2026/global-health-colloquium-whos-taking-care-children-child-care-health-equity-and">
+          <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.princeton.edu/events/2026/global-health-colloquium-whos-taking-care-children-child-care-health-equity-and" target="_blank" rel="noopener">Global Health Colloquium: &quot;Who&#x27;s Taking Care of the Children? Child Care, Health Equity, and the Workforce We Overlook&quot;</a></h3>
+            <p class="sec-desc">Global Health Colloquium: &quot;Who&#x27;s Taking Care of the Children? Child Care, Health Equity, and the Workforce We Overlook&quot; 
+
+Child care is often treated as a private family concern or an e…</p>
+            <div class="sec-meta">
+              <span class="src">Princeton University</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.princeton.edu/events/2026/global-health-colloquium-whos-taking-care-children-child-care-health-equity-and',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.princeton.edu/events/2026/global-health-colloquium-whos-taking-care-children-child-care-health-equity-and',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://abcnews.com/International/wireStory/us-faces-demand-restore-350m-federal-funding-power-132066618">
+          <div class="sec-num">03</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://abcnews.com/International/wireStory/us-faces-demand-restore-350m-federal-funding-power-132066618" target="_blank" rel="noopener">US faces demand to restore $350M in federal funding to help power Puerto Rico</a></h3>
+            <p class="sec-desc">Nearly 200 organizations are urging the Trump administration and Puerto Rico’s governor to restore $350 million in federal funding that was meant to finance the installation of rooftop solar and batte…</p>
+            <div class="sec-meta">
+              <span class="src">Abcnews.com</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://abcnews.com/International/wireStory/us-faces-demand-restore-350m-federal-funding-power-132066618',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://abcnews.com/International/wireStory/us-faces-demand-restore-350m-federal-funding-power-132066618',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.insurancejournal.com/news/national/2026/04/15/866011.htm">
+          <div class="sec-num">04</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.insurancejournal.com/news/national/2026/04/15/866011.htm" target="_blank" rel="noopener">Weather Prediction Markets Are Booming, but Can They Improve Forecasts?</a></h3>
+            <p class="sec-desc">A few days before Christmas, Howard Qin was scrutinizing weather forecasts on two laptops at home in Shanghai when he noticed prices of contracts for New York City snowfall creeping higher on the pred…</p>
+            <div class="sec-meta">
+              <span class="src">Insurance Journal</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.insurancejournal.com/news/national/2026/04/15/866011.htm',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.insurancejournal.com/news/national/2026/04/15/866011.htm',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article></div>
+</section>
+<section class="topic-sec" id="food-culture">
+  <div class="sec-rule"><span class="sec-label">Food &amp; Dining</span></div>
+  <article class="hero" data-url="https://www.techwyse.com/blog/digital-marketing-101/predictions-for-2026-how-social-search-ai-content-and-user-behaviour-are-reshaping-digital-marketing">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="https://www.techwyse.com/blog/digital-marketing-101/predictions-for-2026-how-social-search-ai-content-and-user-behaviour-are-reshaping-digital-marketing" target="_blank" rel="noopener">Predictions for 2026: How Social Search, AI Content, and User Behaviour Are Reshaping Digital Marketing</a></h2>
+      <p class="hero-desc">Digital marketing never sits still. New platforms pop up and algorithms shift. And the way people search and buy keeps changing. 
+If you&#x27;re leading a brand or running a team, staying ahead isn&#x27;t optional. It&#x27;s how you survive while everything around you move…</p>
+      <div class="hero-meta">
+        <span class="src">Techwyse.com</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'https://www.techwyse.com/blog/digital-marketing-101/predictions-for-2026-how-social-search-ai-content-and-user-behaviour-are-reshaping-digital-marketing',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://www.techwyse.com/blog/digital-marketing-101/predictions-for-2026-how-social-search-ai-content-and-user-behaviour-are-reshaping-digital-marketing',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid"><article class="sec-item" data-url="https://www.indiewire.com/news/festivals/seattle-international-film-festival-siff-2026-lineup-1235189221/">
+          <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.indiewire.com/news/festivals/seattle-international-film-festival-siff-2026-lineup-1235189221/" target="_blank" rel="noopener">Seattle International Film Festival Announces 2026 Lineup with ‘The Invite,’ ‘I Love Boosters,’ and More</a></h3>
+            <p class="sec-desc">The annual film event in Washington returns for its 52nd edition, from May 7 to 17. SIFF programming lineup includes &#x27;The Invite,&#x27; &#x27;Obsession,&#x27; more.</p>
+            <div class="sec-meta">
+              <span class="src">IndieWire</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.indiewire.com/news/festivals/seattle-international-film-festival-siff-2026-lineup-1235189221/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.indiewire.com/news/festivals/seattle-international-film-festival-siff-2026-lineup-1235189221/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.brit.co/mothers-day-brunch-cocktails/">
+          <div class="sec-num">03</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.brit.co/mothers-day-brunch-cocktails/" target="_blank" rel="noopener">These 21 Brunch Cocktails Will Level Up Your Mother’s Day Plans</a></h3>
+            <p class="sec-desc">Nothing beats brunch—especially for a special occasion like Mother’s Day. Letting mom have a few extra hours to luxuriate over bacon and coffee is a treat she’s sure to appreciate. Adding a delicious,…</p>
+            <div class="sec-meta">
+              <span class="src">Brit + Co</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.brit.co/mothers-day-brunch-cocktails/',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.brit.co/mothers-day-brunch-cocktails/',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.shrf.ca/post/2025-26-solutions-results">
+          <div class="sec-num">04</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.shrf.ca/post/2025-26-solutions-results" target="_blank" rel="noopener">$2.7 Million Invested to Advance Health Research Solutions in Saskatchewan</a></h3>
+            <p class="sec-desc">SHRF announces a $2.7 million investment, alongside partners, in 23 research projects by interdisciplinary teams addressing Saskatchewan&#x27;s most urgent health challenges.</p>
+            <div class="sec-meta">
+              <span class="src">Shrf.ca</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.shrf.ca/post/2025-26-solutions-results',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.shrf.ca/post/2025-26-solutions-results',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article></div>
+</section>
+<section class="topic-sec" id="travel">
+  <div class="sec-rule"><span class="sec-label">Travel</span></div>
+  <article class="hero" data-url="https://www.theflightdeal.com/2026/04/15/asiana-san-francisco-phuket-thailand-879-roundtrip-including-all-taxes/">
+    <div class="hero-body">
+      <h2 class="hero-hed"><a href="https://www.theflightdeal.com/2026/04/15/asiana-san-francisco-phuket-thailand-879-roundtrip-including-all-taxes/" target="_blank" rel="noopener">Asiana: San Francisco – Phuket, Thailand. $879. Roundtrip, including all Taxes</a></h2>
+      <p class="hero-desc">A good sale to PhuketSample Travel Date:November 4th - 11thThis is just ONE SAMPLE travel date, for more availability, please follow the &quot;Fare Availability&quot; and &quot;How to Sea</p>
+      <div class="hero-meta">
+        <span class="src">Theflightdeal.com</span>
+        <span class="votes">
+          <button class="vb up" onclick="vote(this,'https://www.theflightdeal.com/2026/04/15/asiana-san-francisco-phuket-thailand-879-roundtrip-including-all-taxes/',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://www.theflightdeal.com/2026/04/15/asiana-san-francisco-phuket-thailand-879-roundtrip-including-all-taxes/',-1)">▼</button>
+        </span>
+      </div>
+    </div>
+  </article>
+  <div class="sec-grid"><article class="sec-item" data-url="https://www.holidaypirates.com/packages/5-all-inclusive-sicily-grand-palladium-sicilia-resort-spa">
+          <div class="sec-num">02</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.holidaypirates.com/packages/5-all-inclusive-sicily-grand-palladium-sicilia-resort-spa" target="_blank" rel="noopener">5⭐️ all-inclusive Sicily holiday set on a private beach ️ </a></h3>
+            <p class="sec-desc">We&#x27;ve spotted a fabulous 5-star all-inclusive holiday to Sicily with direct flights included. Starting from £471 for five nights or £628 for a week. You would be staying at the highly rated Grand…</p>
+            <div class="sec-meta">
+              <span class="src">Holidaypirates.com</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.holidaypirates.com/packages/5-all-inclusive-sicily-grand-palladium-sicilia-resort-spa',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.holidaypirates.com/packages/5-all-inclusive-sicily-grand-palladium-sicilia-resort-spa',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://abcnews.com/US/wireStory/veterans-mark-65th-anniversary-bay-pigs-invasion-new-132068947">
+          <div class="sec-num">03</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://abcnews.com/US/wireStory/veterans-mark-65th-anniversary-bay-pigs-invasion-new-132068947" target="_blank" rel="noopener">Veterans mark the 65th anniversary of the Bay of Pigs Invasion with a new museum in Miami</a></h3>
+            <p class="sec-desc">Manuel Portuondo was a teenager when his family fled Cuba for Miami in 1960</p>
+            <div class="sec-meta">
+              <span class="src">Abcnews.com</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://abcnews.com/US/wireStory/veterans-mark-65th-anniversary-bay-pigs-invasion-new-132068947',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://abcnews.com/US/wireStory/veterans-mark-65th-anniversary-bay-pigs-invasion-new-132068947',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article><article class="sec-item" data-url="https://www.eonline.com/news/1430879/summer-two-piece-outfit-sets-to-pack-for-a-european-vacation">
+          <div class="sec-num">04</div>
+          <div class="sec-body">
+            <h3 class="sec-hed"><a href="https://www.eonline.com/news/1430879/summer-two-piece-outfit-sets-to-pack-for-a-european-vacation" target="_blank" rel="noopener">Going on a Euro Trip? These Breezy Two-Piece Sets Will Be Your BFF</a></h3>
+            <p class="sec-desc">You finally booked your dream European vacation—congrats! Now, it&#x27;s time to decide what outfits you&#x27;re going to pack.
+If you want to keep things easy and effortless, a trusty two-piece set i…</p>
+            <div class="sec-meta">
+              <span class="src">Eonline.com</span>
+              <span class="votes">
+                <button class="vb up" onclick="vote(this,'https://www.eonline.com/news/1430879/summer-two-piece-outfit-sets-to-pack-for-a-european-vacation',1)">▲</button>
+                <button class="vb dn" onclick="vote(this,'https://www.eonline.com/news/1430879/summer-two-piece-outfit-sets-to-pack-for-a-european-vacation',-1)">▼</button>
+              </span>
+            </div>
+          </div>
+        </article></div>
+</section></main>
+<footer>The Lede &mdash; THURSDAY, APRIL 16, 2026 &mdash; readthelede.com</footer>
+<div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  var h=window.location.hash;
+  if(h&&h.indexOf('access_token')>=0){
+    window.location.replace('settings.html'+h);
+  }
+})();
+</script>
+<script>
+const SUPABASE_URL='https://tgdzivpyudduwktcmiqb.supabase.co';
+const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRnZHppdnB5dWRkdXdrdGNtaXFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2ODgyNDQsImV4cCI6MjA5MTI2NDI0NH0.8GLZo0tp665Tm6dAsdEv54Hf_U5eWV9E-NAItdBk0bA';
+const {createClient}=supabase;
+const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+let user=null;
+async function signIn(){await sb.auth.signInWithOAuth({provider:'google',
+  options:{redirectTo:'https://readthelede.com/settings.html'}});}
+async function signOut(){await sb.auth.signOut();user=null;updateUI(null);}
+function updateUI(u){
+  const st=document.getElementById('auth-st');
+  const si=document.getElementById('si-btn');
+  const so=document.getElementById('so-btn');
+  if(u){st.textContent=u.email;
+    si.style.display='none';so.style.display='inline-block';loadVotes(u.id);}
+  else{st.textContent="Not signed in — votes won't be saved";mu.textContent='';
+    si.style.display='inline-block';so.style.display='none';}
+}
+sb.auth.onAuthStateChange(async(ev,session)=>{
+  user=session?.user??null;updateUI(user);
+  if(user)await sb.from('users').upsert({id:user.id,email:user.email,
+    display_name:user.user_metadata?.full_name??null},{onConflict:'id'});
+});
+async function loadVotes(uid){
+  const {data}=await sb.from('votes').select('story_url,vote').eq('user_id',uid);
+  if(!data)return;
+  data.forEach(r=>{
+    const c=document.querySelector(`[data-url="${r.story_url}"]`);
+    if(!c)return;
+    if(r.vote===1)c.querySelector('.vb.up').classList.add('voted-up');
+    if(r.vote===-1)c.querySelector('.vb.dn').classList.add('voted-dn');
+  });
+}
+async function vote(btn,url,val){
+  if(!user){toast('Sign in to save votes');return;}
+  const c=btn.closest('[data-url]');
+  const title=c.querySelector('h2,h3')?.textContent??'';
+  const topic=c.closest('.topic-sec')?.id??'';
+  const domain=(()=>{try{return new URL(url).hostname.replace('www.','');}catch(e){return'';}} )();
+  const up=c.querySelector('.vb.up');
+  const dn=c.querySelector('.vb.dn');
+  const wasUp=up.classList.contains('voted-up');
+  const wasDn=dn.classList.contains('voted-dn');
+  let v=val;
+  if(val===1&&wasUp)v=null;
+  if(val===-1&&wasDn)v=null;
+  up.classList.remove('voted-up');dn.classList.remove('voted-dn');
+  if(v===null){
+    await sb.from('votes').delete().eq('user_id',user.id).eq('story_url',url);
+    toast('Vote removed');
+  }else{
+    if(v===1)up.classList.add('voted-up');
+    if(v===-1)dn.classList.add('voted-dn');
+    await sb.from('votes').upsert({user_id:user.id,story_url:url,story_title:title,
+      topic_slug:topic,source_domain:domain,vote:v},{onConflict:'user_id,story_url'});
+    toast(v===1?'Upvoted':'Downvoted');
+  }
+  const {data}=await sb.from('votes').select('vote').eq('user_id',user.id).eq('source_domain',domain);
+  if(data?.length){
+    const w=parseFloat((0.1+(data.filter(r=>r.vote===1).length/data.length)*1.9).toFixed(3));
+    await sb.from('source_weights').upsert({user_id:user.id,source_domain:domain,weight:w},
+      {onConflict:'user_id,source_domain'});
+  }
+}
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+</script>
+</body>
+</html>
