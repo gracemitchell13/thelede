@@ -2,11 +2,11 @@ name: Daily Lede
 
 on:
   schedule:
-    - cron: '0 11 * * *'
-  workflow_dispatch:
+    - cron: '0 5 * * *'  # 5:00 UTC = 1am ET — runs early to account for GitHub delays
+  workflow_dispatch:       # allows manual trigger from GitHub Actions tab
 
 permissions:
-  contents: write
+  contents: write          # needed to commit the generated index.html
 
 jobs:
   build:
