@@ -562,14 +562,14 @@ const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 let user=null;
 async function signIn(){{await sb.auth.signInWithOAuth({{provider:'google',
   options:{{redirectTo:'https://readthelede.com/settings.html'}}}});}}
-async function signOut(){{await sb.auth.signOut();user=null;updateUI(null);}}
+async function signOut(){{await sb.auth.signOut();window.location.replace('/');}}
 function updateUI(u){{
   const st=document.getElementById('auth-st');
   const si=document.getElementById('si-btn');
   const so=document.getElementById('so-btn');
   if(u){{st.textContent=u.email;
     si.style.display='none';so.style.display='inline-block';loadVotes(u.id);}}
-  else{{st.textContent="Not signed in \u2014 votes won't be saved";mu.textContent='';
+  else{{st.textContent="Not signed in \u2014 votes won't be saved";
     si.style.display='inline-block';so.style.display='none';}}
 }}
 sb.auth.onAuthStateChange(async(ev,session)=>{{
