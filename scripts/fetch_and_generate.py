@@ -545,7 +545,7 @@ footer{{text-align:center;font-family:var(--sans);font-size:.63rem;
 <main>{secs}</main>
 <footer>The Lede &mdash; {date} &mdash; readthelede.com</footer>
 <div id="toast"></div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.26.0/dist/umd/supabase.min.js"></script>
 <script>
 (function(){{
   var h=window.location.hash;
