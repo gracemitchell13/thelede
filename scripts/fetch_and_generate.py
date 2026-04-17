@@ -540,7 +540,7 @@ footer{{text-align:center;font-family:var(--sans);font-size:.63rem;
 </div>
 <nav class="nav">
   {nav}
-  <a href="settings.html" class="nav-settings">⚙ Settings</a>
+  <a href="/settings.html" class="nav-settings">⚙ Settings</a>
 </nav>
 <main>{secs}</main>
 <footer>The Lede &mdash; {date} &mdash; readthelede.com</footer>
@@ -550,7 +550,7 @@ footer{{text-align:center;font-family:var(--sans);font-size:.63rem;
 (function(){{
   var h=window.location.hash;
   if(h&&h.indexOf('access_token')>=0){{
-    window.location.replace('settings.html'+h);
+    window.location.replace('/settings.html'+h);
   }}
 }})();
 </script>
