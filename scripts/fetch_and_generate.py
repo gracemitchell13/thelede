@@ -562,7 +562,7 @@ const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 let user=null;
 async function signIn(){{await sb.auth.signInWithOAuth({{provider:'google',
   options:{{redirectTo:'https://readthelede.com/settings.html'}}}});}}
-async function signOut(){{await sb.auth.signOut();window.location.replace('/');}}
+function signOut(){{localStorage.clear();window.location.href='https://readthelede.com';}}
 function updateUI(u){{
   const st=document.getElementById('auth-st');
   const si=document.getElementById('si-btn');
@@ -695,6 +695,7 @@ async function signIn(){{
     options:{{redirectTo:'https://readthelede.com/auth/callback'}}}});
 }}
 (async()=>{{
+  // Clear any stale session on arrival
   const {{data:{{session}}}}=await sb.auth.getSession();
   if(!session){{
     document.getElementById('checking').style.display='none';
