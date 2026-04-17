@@ -561,7 +561,7 @@ const {{createClient}}=supabase;
 const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 let user=null;
 async function signIn(){{await sb.auth.signInWithOAuth({{provider:'google',
-  options:{{redirectTo:'https://readthelede.com/settings.html'}}}});}}
+  options:{{redirectTo:'https://readthelede.com/auth/callback'}}}});}}
 function signOut(){{localStorage.clear();window.location.href='https://readthelede.com';}}
 function updateUI(u){{
   const st=document.getElementById('auth-st');
