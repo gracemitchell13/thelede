@@ -495,15 +495,15 @@ The post Hello world! appeared first on AV Club.</p>
 </section>
 <section class="topic-sec" id="music">
   <div class="sec-rule"><span class="sec-label">Music</span></div>
-  <article class="hero" data-url="https://www.rollingstone.com/tv-movies/tv-movie-news/alex-cooper-verity-acting-debut-colleen-hoover-1235548616/">
+  <article class="hero" data-url="https://www.rollingstone.com/music/music-news/meghan-trainor-cancels-get-in-girl-tour-1235548771/">
     <div class="hero-body">
-      <h2 class="hero-hed"><a href="https://www.rollingstone.com/tv-movies/tv-movie-news/alex-cooper-verity-acting-debut-colleen-hoover-1235548616/" target="_blank" rel="noopener">Alex Cooper to Make Acting Debut in Colleen Hoover’s ‘Verity’ Adaptation</a></h2>
-      <p class="hero-desc">The Call Your Daddy host will play herself and interview Anne Hathaway&#x27;s character on a fictional episode of her podcast</p>
+      <h2 class="hero-hed"><a href="https://www.rollingstone.com/music/music-news/meghan-trainor-cancels-get-in-girl-tour-1235548771/" target="_blank" rel="noopener">Meghan Trainor Cancels Entire Headlining Tour: ‘The Right Decision for My Family and Me’</a></h2>
+      <p class="hero-desc">The singer was set to embark on her Get In Girl tour in support of her upcoming album Toy With Me</p>
       <div class="hero-meta">
         <span class="src">Rolling Stone</span>
         <span class="votes">
-          <button class="vb up" onclick="vote(this,'https://www.rollingstone.com/tv-movies/tv-movie-news/alex-cooper-verity-acting-debut-colleen-hoover-1235548616/',1)">▲</button>
-          <button class="vb dn" onclick="vote(this,'https://www.rollingstone.com/tv-movies/tv-movie-news/alex-cooper-verity-acting-debut-colleen-hoover-1235548616/',-1)">▼</button>
+          <button class="vb up" onclick="vote(this,'https://www.rollingstone.com/music/music-news/meghan-trainor-cancels-get-in-girl-tour-1235548771/',1)">▲</button>
+          <button class="vb dn" onclick="vote(this,'https://www.rollingstone.com/music/music-news/meghan-trainor-cancels-get-in-girl-tour-1235548771/',-1)">▼</button>
         </span>
       </div>
     </div>
@@ -1018,7 +1018,7 @@ const {createClient}=supabase;
 const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 let user=null;
 async function signIn(){await sb.auth.signInWithOAuth({provider:'google',
-  options:{redirectTo:'https://readthelede.com/settings.html'}});}
+  options:{redirectTo:'https://readthelede.com/auth/callback'}});}
 function signOut(){localStorage.clear();window.location.href='https://readthelede.com';}
 function updateUI(u){
   const st=document.getElementById('auth-st');
