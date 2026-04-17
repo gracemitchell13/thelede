@@ -64,6 +64,7 @@ async function signIn(){
     options:{redirectTo:'https://readthelede.com/auth/callback'}});
 }
 (async()=>{
+  // Clear any stale session on arrival
   const {data:{session}}=await sb.auth.getSession();
   if(!session){
     document.getElementById('checking').style.display='none';
